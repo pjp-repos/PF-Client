@@ -1,0 +1,11 @@
+// Games
+export const SET_PRICES="SET_PRICES";
+export const SET_PRICES_STATUS="SET_PRICES_STATUS";
+export const SET_PRICES_ERROR="SET_PRICES_ERROR";
+export const SET_PRICES_FILTER="SET_PRICES_FILTER";
+export const SET_PRICES_ORDER="SET_PRICES_ORDER";
+
+
+
+
+
