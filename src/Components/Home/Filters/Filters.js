@@ -3,6 +3,8 @@ import { ButtonSearch,ContainerSearch,InputSearch } from "./SearchBar/SearchBarE
 import { ContainerSelects,Select,ContainerSelectTooltip } from "./Selects/SelectElements";
 import { ContainerFilters } from "./ContainerFilters";
 import { Tooltip } from "../../AaaGenerics/Tooltip/Tooltip";
+import {useDispatch} from "react-redux";
+
 
 const initialState = {
   search:"",
@@ -14,16 +16,15 @@ export default function Filters(){
   const [selectState,setSelectState] = React.useState(initialState); 
   const worldMoneys = ["Usd","Eur","Cny","Jpy","Ars","Mxn"];
   const orders = ["Asc Market","Desc Market","A-Z","Z-A","Asc Price","Desc Price"];
+  const dispatch = useDispatch();
 
   const handlerSelects = (e) => {
-    console.log(e.target.value)
     setSelectState({
       ...selectState,
       [e.target.id]:e.target.value
     }
     )
   }
-
   return (
     <ContainerFilters>
        <ContainerSelects>

@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from "axios";
 import Filters from '../Components/Home/Filters/Filters';
 import NavBar from '../Components/Navbar/NavBar';
 import Pagination from '../Components/Home/Pagination/Pagination';
