@@ -3,6 +3,11 @@ export const GET_PRICES="GET_PRICES";
 export const GET_PRICES_STATUS="GET_PRICES_STATUS";
 export const GET_PRICES_ERROR="GET_PRICES_ERROR";
 
+// Solicita la lista de criptos para dropdowns
+export const GET_SYMBOLS="GET_SYMBOLS";
+export const GET_SYMBOLS_STATUS="GET_SYMBOLS_STATUS";
+export const GET_SYMBOLS_ERROR="GET_SYMBOLS_ERROR";
+
 // Filtrados y ordenamientos de la lista de precios de criptos
 export const SET_PRICES_FILTER="SET_PRICES_FILTER";
 export const SET_PRICES_ORDER="SET_PRICES_ORDER";

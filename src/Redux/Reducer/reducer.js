@@ -2,6 +2,9 @@ import {
     GET_PRICES,
     GET_PRICES_STATUS,
     GET_PRICES_ERROR,
+    GET_SYMBOLS,
+    GET_SYMBOLS_STATUS,
+    GET_SYMBOLS_ERROR,
     SET_PRICES_FILTER,
     SET_PRICES_ORDER,
     NEW_ACCOUNT,
@@ -62,6 +65,11 @@ const initialState = {
         error:{name:"",message:""},
         filter:"",
         order:false,
+    },
+    symbols:{
+        data:{},
+        status:0,
+        error:{name:"",message:""},
     },
     newAccount:{
         data:{},
@@ -143,6 +151,33 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 prices:{
                     ...state.prices,
+                    error:action.payload
+                }
+            }
+
+        case GET_SYMBOLS:
+            return {
+                ...state,
+                symbols:{
+                    ...state.symbols,
+                    data:action.payload
+                }
+            }
+
+        case GET_SYMBOLS_STATUS:
+            return {
+                ...state,
+                symbols:{
+                    ...state.symbols,
+                    status:action.payload
+                }
+            }
+
+        case GET_SYMBOLS_ERROR:
+            return {
+                ...state,
+                symbols:{
+                    ...state.symbols,
                     error:action.payload
                 }
             }
@@ -245,6 +280,7 @@ const reducer = (state = initialState, action) => {
                     error:action.payload
                 }
             }
+
         case GET_SUBSCRIPTIONS:
             return {
                 ...state,

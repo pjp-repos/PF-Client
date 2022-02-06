@@ -2,6 +2,10 @@ export const selectGlobalPrices = state=> state.prices.data;
 export const selectGlobalPricesStatus = state=> state.prices.status;
 export const selectGlobalPricesError = state=> state.prices.error;
 
+export const selectSymbols = state=> state.symbols.data;
+export const selectSymbolsStatus = state=> state.symbols.status;
+export const selectSymbolsError = state=> state.symbols.error;
+
 export const selectNewAccount = state=> state.newAccount.data;
 export const selectNewAccountStatus = state=> state.newAccount.status;
 export const selectNewAccountError = state=> state.newAccount.error;
@@ -22,14 +26,14 @@ export const selectSubscription = state=> state.subscription.data;
 export const selectSubscriptionStatus = state=> state.subscription.status;
 export const selectSubscriptionError = state=> state.subscription.error;
 
-export const selectAddSubscription = state=> state.addSubscriptions.data;
-export const selectAddSubscriptionStatus = state=> state.addSubscriptions.status;
-export const selectAddSubscriptionError = state=> state.addSubscriptions.error;
+export const selectAddSubscription = state=> state.addSubscription.data;
+export const selectAddSubscriptionStatus = state=> state.addSubscription.status;
+export const selectAddSubscriptionError = state=> state.addSubscription.error;
 
-export const selectUpdateSubscription = state=> state.updateSubscriptions.data;
-export const selectUpdateSubscriptionStatus = state=> state.updateSubscriptions.status;
-export const selectUpdateSubscriptionError = state=> state.updateSubscriptions.error;
+export const selectUpdateSubscription = state=> state.updateSubscription.data;
+export const selectUpdateSubscriptionStatus = state=> state.updateSubscription.status;
+export const selectUpdateSubscriptionError = state=> state.updateSubscription.error;
 
-export const selectDeleteSubscription = state=> state.deleteSubscriptions.data;
-export const selectDeleteSubscriptionStatus = state=> state.deleteSubscriptions.status;
-export const selectDeleteSubscriptionError = state=> state.deleteSubscriptions.error;
+export const selectDeleteSubscription = state=> state.deleteSubscription.data;
+export const selectDeleteSubscriptionStatus = state=> state.deleteSubscription.status;
+export const selectDeleteSubscriptionError = state=> state.deleteSubscription.error;
