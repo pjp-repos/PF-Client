@@ -1,6 +1,10 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import axios from "axios";
+import Filters from '../Components/Home/Filters/Filters';
+import NavBar from '../Components/Navbar/NavBar';
+import Pagination from '../Components/Home/Pagination/Pagination';
+import Table from '../Components/Home/Table/Table';
 import {getGlobalPrices} from '../Redux/Actions/actionCreators';
 import {
   selectGlobalPrices,
@@ -8,7 +12,12 @@ import {
   selectGlobalPricesError
 } from '../Redux/Selectors/selectors';
 
+const CRYPTOSFORPAGE = 20;
+
 function Home() {
+  const [actualPage, setActualPage] = React.useState(1);
+  let topCryptos = CRYPTOSFORPAGE * actualPage;
+  let initialCryptos = topCryptos - CRYPTOSFORPAGE;
   const dispatch = useDispatch();
   const data = useSelector(selectGlobalPrices);
   const status = useSelector(selectGlobalPricesStatus);
@@ -25,18 +34,12 @@ function Home() {
   )
   return (
     
-    <>
-      {
-          data.map((price)=>{
-             let string = `Symbol: ${price.symbol} name:${price.name} price: ${price.price}`;
-             return(
-                <p key={price.id}>
-                  {string}
-                </p>
-              )
-          })
-      }     
-    </>
+    <div >
+      <NavBar />
+      <Filters />
+      <Table cryptos = {data.slice(initialCryptos,topCryptos)}/>
+      {data.length > 0 && <Pagination totalCryptos = {data.length} cryptosForPage = {CRYPTOSFORPAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
+    </div>
   );
 }
 
