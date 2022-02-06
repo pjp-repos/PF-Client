@@ -4,6 +4,9 @@ import {
     GET_PRICES,
     GET_PRICES_STATUS,
     GET_PRICES_ERROR,
+    GET_SYMBOLS,
+    GET_SYMBOLS_STATUS,
+    GET_SYMBOLS_ERROR,
     SET_PRICES_FILTER,
     SET_PRICES_ORDER,
     NEW_ACCOUNT,
@@ -43,6 +46,14 @@ export const getGlobalPrices = (dispatch, currency) =>{
     const statusCbPrices = (value)=>dispatch({type:GET_PRICES_STATUS,payload:value});
     const errorCbPrices = (errorObj)=>dispatch({type:GET_PRICES_ERROR,payload:errorObj});
     helpFetch(`${API_URL}/cryptos/${currency}`,  dataCbPrices, statusCbPrices, errorCbPrices);
+};
+
+// getSymbols action (thunk function)
+export const getSymbols = (dispatch) =>{
+    const dataCbSymbols = (data)=>dispatch({type:GET_SYMBOLS,payload:data});
+    const statusCbSymbols = (value)=>dispatch({type:GET_SYMBOLS_STATUS,payload:value});
+    const errorCbSymbols = (errorObj)=>dispatch({type:GET_SYMBOLS_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/cryptos/symbols`,  dataCbSymbols, statusCbSymbols, errorCbSymbols);
 };
 
 // filterGlobalPrices action
@@ -123,6 +134,9 @@ export const addSubscription = (dispatch, form) =>{
     });
 };
 
+// resetaddSubscriptionStatus
+export const resetAddSubscriptionStatus = (dispatch)=>dispatch({type:ADD_SUBSCRIPTION_STATUS,payload:0});
+
 // updateSubscription action (thunk function)
 export const updateSubscription = (dispatch, form, id) =>{
     const dataCbupdateSubscription = (data)=>dispatch({type:UPDATE_SUBSCRIPTION,payload:data});
@@ -136,6 +150,10 @@ export const updateSubscription = (dispatch, form, id) =>{
         body:form
     });
 };
+
+// resetUpdateSubscriptionStatus
+export const resetUpdateSubscriptionStatus = (dispatch)=>dispatch({type:UPDATE_SUBSCRIPTION_STATUS,payload:0});
+
 
 // deleteSubscription action (thunk function)
 export const deleteSubscription = (dispatch, id) =>{

@@ -6,6 +6,9 @@ export const DropDownContainer = styled("div")`
     /* padding-right: 10px; */
     position: relative;
     overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     
     @media screen and (min-width: 768px){
         width: 150px;
@@ -23,6 +26,17 @@ export const DropDownButton = styled(Button)`
     &:hover{
         background-color: var(--first-color);
     }
+`;
+
+export const DropDownLabel = styled.p`
+    color:var(--first-color);
+`;
+
+export const DropDownError = styled.p`
+    display: ${
+        ({show})=>(show ? 'block' : 'none' )
+    };
+    color:var(--error-color);
 `;
 
 export const DropDownListContainer = styled.div`

@@ -6,8 +6,8 @@ import Home from './Pages/home';
 import SignUp from './Pages/signUp';
 import SignIn from './Pages/signIn';
 import SubscriptionPage from './Pages/subscriptions';
-import UpdateSubscriptionPage from './Pages/updateSubscriptions';
-import AddSubscriptionPage from './Pages/addSubscriptions'
+import SubscriptionFormPage from './Pages/subscriptionFormPage';
+
 
 function App() {
    
@@ -17,8 +17,7 @@ function App() {
             <Route exact path="/signup" element={ <SignUp/>} />           
             <Route exact path="/signin" element={ <SignIn/>} />           
             <Route exact path="/subscriptions" element={ <SubscriptionPage/>} />           
-            <Route exact path="/addsubscription" element={ <UpdateSubscriptionPage/>} />           
-            <Route exact path="/editsubscription" element={ <AddSubscriptionPage/>} />           
+            <Route exact path="/subscriptions/form" element={ <SubscriptionFormPage/>} />                     
         </Routes>
     );
 }

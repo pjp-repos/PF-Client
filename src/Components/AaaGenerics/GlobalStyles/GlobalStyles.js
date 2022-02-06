@@ -24,7 +24,8 @@ export const GlobalStyle = createGlobalStyle`
         /* ==================== Custom Props ==================== */
         --first-color: #01bf71;
         --white-color: #ffffff;
-
+        --bg-color-dark: black;
+        --error-color: red;
         /* ==================== Fluid font-size ==================== */
         
         /* https://utopia.fyi/type/calculator?c=320,18,1.2,1600,24,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l*/        
