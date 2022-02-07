@@ -7,7 +7,7 @@ export default function Pagination({totalCryptos,cryptosForPage,actualPage, setA
         let totalPages = [];
         for( let i = 1 ; i <= Math.ceil(totalCryptos/cryptosForPage); i++){
             totalPages.push(
-             ButtonPagination  key = {i} onClick = {(e) => setActualPage(parseInt(e.target.id))} id = {i} actualPage = {actualPage} >{i}</ButtonPagination>);
+             <ButtonPagination  key = {i} onClick = {(e) => setActualPage(parseInt(e.target.id))} id = {i} actualPage = {actualPage} >{i}</ButtonPagination>);
         }  
         return totalPages
     }
