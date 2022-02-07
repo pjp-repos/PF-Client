@@ -1,7 +1,7 @@
 import styled  from "styled-components";
 
 const Container = styled.div`
-    width: 100%;
+    width: 95%;
     padding: 0 1rem;
     border: none;
     /* border-bottom: 2px solid rgba(255,255,255,0.2); */
@@ -14,6 +14,8 @@ const Container = styled.div`
     flex-direction: ${(props)=>props.flexDir};
     justify-content: center;
     align-items: center;
+
+    background-color: transparent;
 
     @media screen and (min-width: 768px){
         max-width: 700px;

@@ -18,14 +18,15 @@ export default function Table({cryptos}){
             </Row>
            
             {
-              cryptos.length > 0  && cryptos.map(crypto =><Row >
-              <Column><Coin src ={crypto.image} alt="icon"/></Column>
-              <Column>{crypto.symbol}</Column>
-              <Column>{crypto.name}</Column>
-              <Column>{crypto.price}</Column>
-              <Column>{crypto.price_change_percentage_24h}%</Column>
-              <Column>{crypto.market_cap}</Column>
-              <Column>{crypto. market_cap_change_percentage_24h}%</Column>
+              cryptos.length > 0  && cryptos.map(crypto =>
+              <Row key={crypto.symbol}>
+                <Column><Coin src ={crypto.image} alt="icon"/></Column>
+                <Column>{crypto.symbol}</Column>
+                <Column>{crypto.name}</Column>
+                <Column>{crypto.price}</Column>
+                <Column>{crypto.price_change_percentage_24h}%</Column>
+                <Column>{crypto.market_cap}</Column>
+                <Column>{crypto. market_cap_change_percentage_24h}%</Column>
               </Row>) 
             }
         </TableC>

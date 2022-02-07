@@ -15,11 +15,11 @@ export const SubscriptionFormWrapper = styled.div`
     justify-items: center;
     align-items: center;
 
-    background-color: var(--bg-color-dark); 
+    background-color: var(--gb-color-content-dark);
     
     @media screen and (min-width: 768px){
         height: 75vh;
-        grid-template-rows: 10vh repeat(5,15vh); 
+        grid-template-rows: 10vh repeat(4,15vh); 
     }
 `;
 

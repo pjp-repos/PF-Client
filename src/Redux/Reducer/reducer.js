@@ -7,6 +7,7 @@ import {
     GET_SYMBOLS_ERROR,
     SET_PRICES_FILTER,
     SET_PRICES_ORDER,
+    SET_PRICES_CURRENCY,
     NEW_ACCOUNT,
     NEW_ACCOUNT_STATUS,
     NEW_ACCOUNT_ERROR,
@@ -31,27 +32,10 @@ import {
     DELETE_SUBSCRIPTION,
     DELETE_SUBSCRIPTION_STATUS,
     DELETE_SUBSCRIPTION_ERROR
-
-
 } from "../types";
 
-const sortCbPricesAsc = (a,b) =>{
-    let nameA = a.symbol.toUpperCase(); // ignore upper and lowercase
-    let nameB = b.symbol.toUpperCase(); // ignore upper and lowercase
-    
-    if (nameA < nameB) return -1;   
-    if (nameA > nameB) return 1;
-    return 0; // names must be equal
-}
+import sortCallbacks from "../SortCallbacks/sortCallbacks";
 
-const sortCbPricesDesc = (a,b) =>{
-    let nameA = a.symbol.toUpperCase(); // ignore upper and lowercase
-    let nameB = b.symbol.toUpperCase(); // ignore upper and lowercase
-    
-    if (nameA < nameB) return 1;   
-    if (nameA > nameB) return -1;
-    return 0; // names must be equal
-}
 
 const initialState = {
     session:{
@@ -64,7 +48,8 @@ const initialState = {
         status:0,
         error:{name:"",message:""},
         filter:"",
-        order:false,
+        order:"",
+        currency:"usd"
     },
     symbols:{
         data:{},
@@ -124,10 +109,8 @@ const reducer = (state = initialState, action) => {
             if(state.prices.filter!==""){
                 prices = prices.filter(el=>el.symbol.includes(state.prices.filter));
             };
-            if(state.prices.order){
-                prices.sort(sortCbPricesDesc);
-            }else{
-                prices.sort(sortCbPricesAsc);
+            if(state.prices.order!==""){
+                prices.sort(sortCallbacks[state.prices.order]);
             }
             return {
                 ...state,
@@ -197,6 +180,15 @@ const reducer = (state = initialState, action) => {
                 prices:{
                     ...state.prices,
                     order:action.payload
+                }
+            }
+
+        case SET_PRICES_CURRENCY:
+            return {
+                ...state,
+                prices:{
+                    ...state.prices,
+                    currency:action.payload
                 }
             }
 

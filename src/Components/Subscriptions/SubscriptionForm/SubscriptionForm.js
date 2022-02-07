@@ -47,7 +47,6 @@ import {
  // Generic styled components
 import Dropdown from '../../AaaGenerics/Dropdown/Dropdown';
 import { H3 } from '../../AaaGenerics/Texts/Hx';
-import SectionRelative from '../../AaaGenerics/Sections/SectionRelative';
 import Container from '../../AaaGenerics/Sections/Container';
 import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
 
@@ -190,13 +189,7 @@ const SubscriptionForm = ({update, id}) => {
         || statusUpdate===1
         || statusSubscription===1
         || statusSymbols===1
-    ) return (
-        <SectionRelative>
-            <Container>
-                <Spinner/>
-            </Container>
-        </SectionRelative>        
-    );
+    ) return <Spinner/> 
 
     // Errors
     let errorMessage="Form proccess fail. Details: "
@@ -205,13 +198,7 @@ const SubscriptionForm = ({update, id}) => {
     if(update && statusUpdate===3 ) errorMessage=`${errorMessage} - Subscription was not updated! Error name: ${errorUpdate.name} Error message: ${errorUpdate.message}`;
     if(update && statusSubscription===3 ) errorMessage=`${errorMessage} - Subscription data could no be loaded! Error name: ${errorSubscription.name} Error message: ${errorSubscription.message}`;
     if(errorMessage!=="Form proccess fail. Details: "){
-        return (
-            <SectionRelative>
-                <Container>
-                    <p>{errorMessage}</p>
-                </Container>
-            </SectionRelative>        
-        )
+        return (<p>{errorMessage}</p>)
     };
 
     // Success
@@ -225,95 +212,84 @@ const SubscriptionForm = ({update, id}) => {
             )
         )        
     ){
-        return (
-            <SectionRelative>
-                <Container>
-                    <p>{successMessage}</p>
-                </Container>
-            </SectionRelative>        
-        )
+        return (<p>{successMessage}</p>)
     };
 
     return (
-        <>
-            <SectionRelative>
-                <Container>
-                    <SubscriptionFormWrapper>
-                        <H3>New subscription form</H3>
-                        <SubscriptionFormBlock>
-                            {/* Symbol 1 select dropdown */}                       
-                            <Dropdown 
-                                labelText="Symbol 1"                                   
-                                options={symbols}
-                                multiple={false}
-                                
-                                fieldName='symbol1Id'
-                                fieldValue={form.symbol1Id}
-                                errorText={errors.symbol1Id}
-                                dropdownCb={handleDropdown}
-                            />     
+        <SubscriptionFormWrapper>
+            <H3>New subscription form</H3>
+            <SubscriptionFormBlock>
+                {/* Symbol 1 select dropdown */}                       
+                <Dropdown 
+                    labelText="Symbol 1"                                   
+                    options={symbols}
+                    multiple={false}
+                    
+                    fieldName='symbol1Id'
+                    fieldValue={form.symbol1Id}
+                    errorText={errors.symbol1Id}
+                    dropdownCb={handleDropdown}
+                />     
 
-                            {/* Symbol 2 select dropdown */}                         
-                            <Dropdown 
-                                labelText="Symbol 2"                                       
-                                options={symbols}
-                                multiple={false}
-                                
-                                fieldName='symbol2Id'
-                                fieldValue={form.symbol2Id}
-                                errorText={errors.symbol2Id}
-                                dropdownCb={handleDropdown}
-                            />
-                        </SubscriptionFormBlock>
-                        <SubscriptionFormBlock>
-                            {/* Rise price field */}
-                            <SubscriptionFormLabel>
-                                Price for rice alert
-                            </SubscriptionFormLabel>
-                            <SubscriptionFormInput 
-                                type="number" 
-                                name="risePrice"
-                                placeholder='Type price for rise alert...'
-                                value={form.risePrice}
-                                onChange={handleChange}
-                                required
-                            />
-                            <SubscriptionFormError>
-                                {errors.risePrice && errors.risePrice}
-                            </SubscriptionFormError>
-                        </SubscriptionFormBlock>
-                        <SubscriptionFormBlock>
-                            {/* Fall price field */}
-                            <SubscriptionFormLabel>
-                                Price for fall alert
-                            </SubscriptionFormLabel>
-                            <SubscriptionFormInput 
-                                type="number"   
-                                name="fallPrice"
-                                placeholder='Type price for fall alert...'
-                                value={form.fallPrice}
-                                onChange={handleChange}
-                                required
-                            />
-                            <SubscriptionFormError>
-                                {errors.fallPrice && errors.fallPrice}
-                            </SubscriptionFormError>
-                        </SubscriptionFormBlock>
-                        <SubscriptionFormBlock>
-                            <SubscriptionFormButton onClick={resetFields}>
-                                Clear fields
-                            </SubscriptionFormButton>
-                            <SubscriptionFormButton onClick={handleCancel}>
-                                Cancel/Close
-                            </SubscriptionFormButton> 
-                            <SubscriptionFormButton onClick={handleExecute}>
-                                Submit
-                            </SubscriptionFormButton>
-                        </SubscriptionFormBlock>
-                    </SubscriptionFormWrapper>
-                </Container>
-            </SectionRelative>
-        </>
+                {/* Symbol 2 select dropdown */}                         
+                <Dropdown 
+                    labelText="Symbol 2"                                       
+                    options={symbols}
+                    multiple={false}
+                    
+                    fieldName='symbol2Id'
+                    fieldValue={form.symbol2Id}
+                    errorText={errors.symbol2Id}
+                    dropdownCb={handleDropdown}
+                />
+            </SubscriptionFormBlock>
+            <SubscriptionFormBlock>
+                {/* Rise price field */}
+                <SubscriptionFormLabel>
+                    Price for rice alert
+                </SubscriptionFormLabel>
+                <SubscriptionFormInput 
+                    type="number" 
+                    name="risePrice"
+                    placeholder='Type price for rise alert...'
+                    value={form.risePrice}
+                    onChange={handleChange}
+                    required
+                />
+                <SubscriptionFormError>
+                    {errors.risePrice && errors.risePrice}
+                </SubscriptionFormError>
+            </SubscriptionFormBlock>
+            <SubscriptionFormBlock>
+                {/* Fall price field */}
+                <SubscriptionFormLabel>
+                    Price for fall alert
+                </SubscriptionFormLabel>
+                <SubscriptionFormInput 
+                    type="number"   
+                    name="fallPrice"
+                    placeholder='Type price for fall alert...'
+                    value={form.fallPrice}
+                    onChange={handleChange}
+                    required
+                />
+                <SubscriptionFormError>
+                    {errors.fallPrice && errors.fallPrice}
+                </SubscriptionFormError>
+            </SubscriptionFormBlock>
+            <SubscriptionFormBlock>
+                <SubscriptionFormButton onClick={resetFields}>
+                    Clear fields
+                </SubscriptionFormButton>
+                <SubscriptionFormButton onClick={handleCancel}>
+                    Cancel/Close
+                </SubscriptionFormButton> 
+                <SubscriptionFormButton onClick={handleExecute}>
+                    Submit
+                </SubscriptionFormButton>
+            </SubscriptionFormBlock>
+        </SubscriptionFormWrapper>
+
     )   
 }
 
