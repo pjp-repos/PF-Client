@@ -8,36 +8,46 @@ import {getGlobalPrices} from '../Redux/Actions/actionCreators';
 import {
   selectGlobalPrices,
   selectGlobalPricesStatus,
-  selectGlobalPricesError
+  selectGlobalPricesError,
+  selectGlobalPricesCurrency
 } from '../Redux/Selectors/selectors';
 
-const CRYPTOSFORPAGE = 20;
+const CRYPTOS_PER_PAGE = 20;
 
 function Home() {
   const [actualPage, setActualPage] = React.useState(1);
-  let topCryptos = CRYPTOSFORPAGE * actualPage;
-  let initialCryptos = topCryptos - CRYPTOSFORPAGE;
+  let topCryptos = CRYPTOS_PER_PAGE * actualPage;
+  let initialCryptos = topCryptos - CRYPTOS_PER_PAGE;
   const dispatch = useDispatch();
   const data = useSelector(selectGlobalPrices);
   const status = useSelector(selectGlobalPricesStatus);
   const error = useSelector(selectGlobalPricesError);
+  const currency = useSelector(selectGlobalPricesCurrency);
   
   useEffect(() => {    
-    getGlobalPrices(dispatch,'usd'); 
+    getGlobalPrices(dispatch,currency); 
   }, [])
   
-  if(status===1) return(
-    <p>
-      Loading...
-    </p>
-  )
+  // const refresh = ()=>{
+  //   console.log('Refreshing...');
+  //   getGlobalPrices(dispatch,currency)
+  // }
+
+  // // Refresh prices
+  // const intervalID = setInterval(refresh, 5000);
+
   return (
     
     <div >
       <NavBar />
       <Filters />
-      <Table cryptos = {data.slice(initialCryptos,topCryptos)}/>
-      {data.length > 0 && <Pagination totalCryptos = {data.length} cryptosForPage = {CRYPTOSFORPAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
+      {status===1
+      ?<p>Loading...</p>
+      :<>
+        <Table cryptos = {data.slice(initialCryptos,topCryptos)}/>
+        {data.length > 0 && <Pagination totalCryptos = {data.length} cryptosForPage = {CRYPTOS_PER_PAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
+      </>
+      }      
     </div>
   );
 }

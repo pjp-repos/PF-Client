@@ -2,8 +2,12 @@ import {
     GET_PRICES,
     GET_PRICES_STATUS,
     GET_PRICES_ERROR,
+    GET_SYMBOLS,
+    GET_SYMBOLS_STATUS,
+    GET_SYMBOLS_ERROR,
     SET_PRICES_FILTER,
     SET_PRICES_ORDER,
+    SET_PRICES_CURRENCY,
     NEW_ACCOUNT,
     NEW_ACCOUNT_STATUS,
     NEW_ACCOUNT_ERROR,
@@ -28,27 +32,10 @@ import {
     DELETE_SUBSCRIPTION,
     DELETE_SUBSCRIPTION_STATUS,
     DELETE_SUBSCRIPTION_ERROR
-
-
 } from "../types";
 
-const sortCbPricesAsc = (a,b) =>{
-    let nameA = a.symbol.toUpperCase(); // ignore upper and lowercase
-    let nameB = b.symbol.toUpperCase(); // ignore upper and lowercase
-    
-    if (nameA < nameB) return -1;   
-    if (nameA > nameB) return 1;
-    return 0; // names must be equal
-}
+import sortCallbacks from "../SortCallbacks/sortCallbacks";
 
-const sortCbPricesDesc = (a,b) =>{
-    let nameA = a.symbol.toUpperCase(); // ignore upper and lowercase
-    let nameB = b.symbol.toUpperCase(); // ignore upper and lowercase
-    
-    if (nameA < nameB) return 1;   
-    if (nameA > nameB) return -1;
-    return 0; // names must be equal
-}
 
 const initialState = {
     session:{
@@ -61,7 +48,13 @@ const initialState = {
         status:0,
         error:{name:"",message:""},
         filter:"",
-        order:false,
+        order:"",
+        currency:"usd"
+    },
+    symbols:{
+        data:{},
+        status:0,
+        error:{name:"",message:""},
     },
     newAccount:{
         data:{},
@@ -116,10 +109,8 @@ const reducer = (state = initialState, action) => {
             if(state.prices.filter!==""){
                 prices = prices.filter(el=>el.symbol.includes(state.prices.filter));
             };
-            if(state.prices.order){
-                prices.sort(sortCbPricesDesc);
-            }else{
-                prices.sort(sortCbPricesAsc);
+            if(state.prices.order!==""){
+                prices.sort(sortCallbacks[state.prices.order]);
             }
             return {
                 ...state,
@@ -147,6 +138,33 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
+        case GET_SYMBOLS:
+            return {
+                ...state,
+                symbols:{
+                    ...state.symbols,
+                    data:action.payload
+                }
+            }
+
+        case GET_SYMBOLS_STATUS:
+            return {
+                ...state,
+                symbols:{
+                    ...state.symbols,
+                    status:action.payload
+                }
+            }
+
+        case GET_SYMBOLS_ERROR:
+            return {
+                ...state,
+                symbols:{
+                    ...state.symbols,
+                    error:action.payload
+                }
+            }
+
         case SET_PRICES_FILTER:
             return {
                 ...state,
@@ -162,6 +180,15 @@ const reducer = (state = initialState, action) => {
                 prices:{
                     ...state.prices,
                     order:action.payload
+                }
+            }
+
+        case SET_PRICES_CURRENCY:
+            return {
+                ...state,
+                prices:{
+                    ...state.prices,
+                    currency:action.payload
                 }
             }
 
@@ -245,6 +272,7 @@ const reducer = (state = initialState, action) => {
                     error:action.payload
                 }
             }
+
         case GET_SUBSCRIPTIONS:
             return {
                 ...state,

@@ -28,7 +28,8 @@ export const helpFetch = async (url, dataCb, statusCb,  errorCb, options={})=>{
         const res = await fetch(url, options);
         const json = await res.json();
         console.log(json);
-        
+        dataCb(json);
+
         if(!res.ok){
             let err = new Error("Error en la petición fetch")
             if(res.status === 490){
@@ -40,8 +41,6 @@ export const helpFetch = async (url, dataCb, statusCb,  errorCb, options={})=>{
             }
             throw err;
         }
-
-        dataCb(json);
         statusCb(2);
         errorCb({name:"",message:""})
 
