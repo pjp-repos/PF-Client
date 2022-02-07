@@ -18,7 +18,7 @@ export default function Table({cryptos}){
             </Row>
            
             {
-              cryptos.length > 0  && cryptos.map(crypto =><Row >
+              cryptos.length > 0  && cryptos.map(crypto =><Row   key = {crypto.image}>
               <Column><Coin src ={crypto.image} alt="icon"/></Column>
               <Column>{crypto.symbol}</Column>
               <Column>{crypto.name}</Column>
