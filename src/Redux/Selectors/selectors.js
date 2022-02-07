@@ -1,6 +1,10 @@
 export const selectGlobalPrices = state=> state.prices.data;
 export const selectGlobalPricesStatus = state=> state.prices.status;
 export const selectGlobalPricesError = state=> state.prices.error;
+export const selectGlobalPricesCurrency = state=> state.prices.currency;
+export const selectGlobalPricesOrder = state=> state.prices.order;
+export const selectGlobalPricesFilter = state=> state.prices.filter;
+
 
 export const selectSymbols = state=> state.symbols.data;
 export const selectSymbolsStatus = state=> state.symbols.status;

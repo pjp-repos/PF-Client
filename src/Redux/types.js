@@ -11,6 +11,7 @@ export const GET_SYMBOLS_ERROR="GET_SYMBOLS_ERROR";
 // Filtrados y ordenamientos de la lista de precios de criptos
 export const SET_PRICES_FILTER="SET_PRICES_FILTER";
 export const SET_PRICES_ORDER="SET_PRICES_ORDER";
+export const SET_PRICES_CURRENCY="SET_PRICES_CURRENCY";
 
 // Envía el formulario de creación de cuenta
 export const NEW_ACCOUNT="NEW_ACCOUNT";

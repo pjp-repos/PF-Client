@@ -9,6 +9,7 @@ import {
     GET_SYMBOLS_ERROR,
     SET_PRICES_FILTER,
     SET_PRICES_ORDER,
+    SET_PRICES_CURRENCY,
     NEW_ACCOUNT,
     NEW_ACCOUNT_STATUS,
     NEW_ACCOUNT_ERROR,
@@ -60,7 +61,10 @@ export const getSymbols = (dispatch) =>{
 export const filterGlobalPrices = (dispatch, filterString)=>dispatch({type:SET_PRICES_FILTER,payload:filterString});
 
 // filterGlobalPrices action
-export const orderGlobalPrices = (dispatch, descending)=>dispatch({type:SET_PRICES_ORDER,payload:descending});
+export const orderGlobalPrices = (dispatch, order)=>dispatch({type:SET_PRICES_ORDER,payload:order});
+
+// filterGlobalPrices action
+export const currencyGlobalPrices = (dispatch, currency)=>dispatch({type:SET_PRICES_CURRENCY,payload:currency});
 
 // postNewAccount action (thunk function)
 export const postNewAccount = (dispatch, form) =>{
