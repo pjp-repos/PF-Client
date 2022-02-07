@@ -4,8 +4,12 @@ import {
     GET_PRICES,
     GET_PRICES_STATUS,
     GET_PRICES_ERROR,
+    GET_SYMBOLS,
+    GET_SYMBOLS_STATUS,
+    GET_SYMBOLS_ERROR,
     SET_PRICES_FILTER,
     SET_PRICES_ORDER,
+    SET_PRICES_CURRENCY,
     NEW_ACCOUNT,
     NEW_ACCOUNT_STATUS,
     NEW_ACCOUNT_ERROR,
@@ -45,11 +49,22 @@ export const getGlobalPrices = (dispatch, currency) =>{
     helpFetch(`${API_URL}/cryptos/${currency}`,  dataCbPrices, statusCbPrices, errorCbPrices);
 };
 
+// getSymbols action (thunk function)
+export const getSymbols = (dispatch) =>{
+    const dataCbSymbols = (data)=>dispatch({type:GET_SYMBOLS,payload:data});
+    const statusCbSymbols = (value)=>dispatch({type:GET_SYMBOLS_STATUS,payload:value});
+    const errorCbSymbols = (errorObj)=>dispatch({type:GET_SYMBOLS_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/cryptos/symbols`,  dataCbSymbols, statusCbSymbols, errorCbSymbols);
+};
+
 // filterGlobalPrices action
 export const filterGlobalPrices = (dispatch, filterString)=>dispatch({type:SET_PRICES_FILTER,payload:filterString});
 
 // filterGlobalPrices action
-export const orderGlobalPrices = (dispatch, descending)=>dispatch({type:SET_PRICES_ORDER,payload:descending});
+export const orderGlobalPrices = (dispatch, order)=>dispatch({type:SET_PRICES_ORDER,payload:order});
+
+// filterGlobalPrices action
+export const currencyGlobalPrices = (dispatch, currency)=>dispatch({type:SET_PRICES_CURRENCY,payload:currency});
 
 // postNewAccount action (thunk function)
 export const postNewAccount = (dispatch, form) =>{
@@ -123,6 +138,9 @@ export const addSubscription = (dispatch, form) =>{
     });
 };
 
+// resetaddSubscriptionStatus
+export const resetAddSubscriptionStatus = (dispatch)=>dispatch({type:ADD_SUBSCRIPTION_STATUS,payload:0});
+
 // updateSubscription action (thunk function)
 export const updateSubscription = (dispatch, form, id) =>{
     const dataCbupdateSubscription = (data)=>dispatch({type:UPDATE_SUBSCRIPTION,payload:data});
@@ -136,6 +154,10 @@ export const updateSubscription = (dispatch, form, id) =>{
         body:form
     });
 };
+
+// resetUpdateSubscriptionStatus
+export const resetUpdateSubscriptionStatus = (dispatch)=>dispatch({type:UPDATE_SUBSCRIPTION_STATUS,payload:0});
+
 
 // deleteSubscription action (thunk function)
 export const deleteSubscription = (dispatch, id) =>{

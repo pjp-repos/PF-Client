@@ -4,7 +4,7 @@ export const ContainerNavbar = styled.div`
    height:70px;
    display:flex;
    flex-direction:row;
-   alig-items:flex-end;
+   align-items:flex-end;
    justify-content:space-between;
    width:100%;
    box-shadow: 2px 2px 4px black;

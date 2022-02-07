@@ -23,7 +23,12 @@ export const GlobalStyle = createGlobalStyle`
     :root{
         /* ==================== Custom Props ==================== */
         --first-color: #01bf71;
-        --white-color: #ffffff;
+        --text-color-dark: #ffffff;
+        --title-color-dark: yellow;
+        --error-color-dark: red;
+        --bg-color-dark: #424242;
+        --gb-color-content-dark:#212121;
+        --bg-color-button-dark: #121212;
 
         /* ==================== Fluid font-size ==================== */
         

@@ -1,14 +1,14 @@
 import PageViewport from "../Components/AaaGenerics/Sections/PageViewport";
 import Container from "../Components/AaaGenerics/Sections/Container";
-import SubscriptionTable from "../Components/Subscriptions/SubscriptionTable/SubscriptionTable";
+import SubscriptionForm from "../Components/Subscriptions/SubscriptionForm/SubscriptionForm";
 
-const SubscriptionPage = () => {
+const SubscriptionFormPage = () => {
     return(
         <PageViewport>
             <Container>
-                <SubscriptionTable/>
+                <SubscriptionForm update={false}/>
             </Container>
         </PageViewport>
     )
  };
- export default SubscriptionPage;
+ export default SubscriptionFormPage;
