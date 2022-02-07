@@ -34,7 +34,10 @@ export const InputSign= styled.input`
   &:hover{
     border:1.5px solid white;
  }
-
+ &::placeholder{
+    color:white;
+    font-family:'Montserrat', sans-serif;
+}
 }
 `
 export const LabelSign = styled.label`
@@ -83,6 +86,13 @@ export const Link = styled.button`
   outline:0;
   font-family:'Montserrat', sans-serif;
   ${props => (props.top && props.size && props.left && `top:${props.top}%; font-size:${props.size}px; left:${props.left}%`)};
-
+`
+export const Error = styled.label`
+  position:absolute;
+  color: #efb810;
+  font-family:'Montserrat', sans-serif;
+  font-size:12px;
+  left:15%;
+  ${props => (props.top &&  `top:${props.top}%;`)};
 
 `
