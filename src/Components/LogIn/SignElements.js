@@ -83,10 +83,8 @@ export const ContainerLogo = styled.div `
    left:45%;
 `
 
-export const Title = styled.h4`
-  position:absolute;
-  color:#ededf5;
-  ${props => (props.top && props.size && props.left && `top:${props.top}%; font-size:${props.size}px; left:${props.left}%`)};
+export const White = styled.a`
+ color:white;
 
 `
 export const Link = styled.button`
