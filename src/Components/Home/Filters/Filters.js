@@ -79,6 +79,7 @@ export default function Filters(){
             </Select>
           </ContainerSelectTooltip>
        </ContainerSelects>
+
        <ContainerSearch> 
           <InputSearch placeholder="Search for symbol" value = {filter} onChange = {handlerFilter}/>
           <ButtonSearch><span className="material-icons-outlined">search</span></ButtonSearch>
