@@ -67,7 +67,7 @@ const SubscriptionTable = () => {
         </SectionRelative>        
     );
 
-    if(subsStatus===3)<p>Fail</p>
+    if(subsStatus===3)return(<p>Fail</p>)
     return (
         <TableWrapper>
             <Table>

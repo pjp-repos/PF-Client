@@ -9,6 +9,7 @@ export default function NavBar(){
     <ContainerNavbar>
         <Title > <ImgTitle src = {coin} alt = "coin" /> HenryCoin</Title>
         <ContainerButtons>
+          <ButtonNavbar onClick={(e) => navigate("/subscriptions")}>Subscriptions</ButtonNavbar> 
           <ButtonNavbar onClick={(e) => navigate("/signin")}>Sign In</ButtonNavbar> 
           <ButtonNavbar onClick={(e) => navigate("/signup")} signup>Sign Up</ButtonNavbar>
         </ContainerButtons>

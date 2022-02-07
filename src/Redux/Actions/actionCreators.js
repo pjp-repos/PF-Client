@@ -37,7 +37,7 @@ import {
 
 } from "../types";
 
-const API_URL = 'https://pfapi2.herokuapp.com';
+const API_URL = 'http://localhost:3001';
 
 
 
@@ -113,7 +113,9 @@ export const getSubscriptions = (dispatch) =>{
     const dataCbSubscriptions = (data)=>dispatch({type:GET_SUBSCRIPTIONS,payload:data});
     const statusCbSubscriptions = (value)=>dispatch({type:GET_SUBSCRIPTIONS_STATUS,payload:value});
     const errorCbSubscriptions = (errorObj)=>dispatch({type:GET_SUBSCRIPTIONS_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/subs/`,  dataCbSubscriptions, statusCbSubscriptions, errorCbSubscriptions);
+    helpFetch(`${API_URL}/subs/`,  dataCbSubscriptions, statusCbSubscriptions, errorCbSubscriptions,{
+        credentials: "include"
+    });
 };
 
 // getSubscription action (thunk function)
@@ -121,7 +123,9 @@ export const getSubscription = (dispatch, id) =>{
     const dataCbSubscription = (data)=>dispatch({type:GET_SUBSCRIPTION,payload:data});
     const statusCbSubscription = (value)=>dispatch({type:GET_SUBSCRIPTION_STATUS,payload:value});
     const errorCbSubscription = (errorObj)=>dispatch({type:GET_SUBSCRIPTION_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/subs/${id}`,  dataCbSubscription, statusCbSubscription, errorCbSubscription);
+    helpFetch(`${API_URL}/subs/${id}`,  dataCbSubscription, statusCbSubscription, errorCbSubscription,{
+        credentials: "same-origin"
+    });
 };
 
 // addSubscription action (thunk function)
@@ -133,6 +137,7 @@ export const addSubscription = (dispatch, form) =>{
         headers:{
             "Content-Type": "application/json"
         },
+        credentials: "same-origin",
         method:'POST',
         body:form
     });
