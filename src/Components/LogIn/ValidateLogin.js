@@ -1,7 +1,6 @@
 const validateUsernameOrPassword = (value) => {
-    console.log(value);
-    if(!/^[a-zA-Z0-9]+$/.test(value) || value.length > 8)
-    return "Must be plain text or Numbers, max 8 characters"
+    if(!/^[a-zA-Z0-9]+$/.test(value) || value.length > 18)
+    return "Spaces are not allowed, max 18 characters"
     return "";
 }
 
@@ -20,10 +19,13 @@ const validateEmail = (value) => {
 export const validateSubmit = (errorState,formState) => {
     if(!validateInputsSubmit(errorState,formState))
       return "Inputs cant be empty or with errors"
+    return "";
 }
 
 export const validateSignIn = (value) => {
-   return validateUsernameOrPassword(value);
+   if(value.includes(" ") || value.length > 18)
+    return "Spaces are not allowed, max 18 characters"
+    return "";
 }
 
 export const validateSignUp = (id,value,state) => {

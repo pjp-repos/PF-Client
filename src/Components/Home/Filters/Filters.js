@@ -47,7 +47,7 @@ export default function Filters(){
        </ContainerSelects>
        <ContainerSearch>
           <InputSearch placeholder="Search for symbol"/>
-          <ButtonSearch><span class="material-icons-outlined">search</span></ButtonSearch>
+          <ButtonSearch><span className="material-icons-outlined">search</span></ButtonSearch>
        </ContainerSearch>
     </ContainerFilters>
   )

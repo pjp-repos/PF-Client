@@ -17,6 +17,19 @@ export const ContainerSign = styled.div`
    background-color:#181A20;
    font-family:'Montserrat', sans-serif;
    box-shadow: 4px 4px 8px black;
+
+   @media screen and (max-width:840px){
+    width:80%
+  }
+
+   @media screen and (max-width:542px){
+    width:75%
+  }
+
+  @media screen and (max-width:420px){
+    width:100%
+  }
+
 `
 export const InputSign= styled.input`
   border: 1px solid #474D57;
@@ -94,5 +107,5 @@ export const Error = styled.label`
   font-size:12px;
   left:15%;
   ${props => (props.top &&  `top:${props.top}%;`)};
-
 `
+
