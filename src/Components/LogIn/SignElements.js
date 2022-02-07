@@ -9,11 +9,11 @@ export const ContainerSignP = styled.div`
 export const ContainerSign = styled.div`
    width:30%;
    margin-left:auto;
-   margin-top:5%;
+   margin-top:2%;
    color:white;
    margin-right:auto;
    position:relative;
-   min-height:80vh;
+   min-height:92vh;
    background-color:#181A20;
    font-family:'Montserrat', sans-serif;
    box-shadow: 4px 4px 8px black;
@@ -69,7 +69,20 @@ export const ContainerLogo = styled.div `
 
 export const Title = styled.h4`
   position:absolute;
-  font-size:25px;
-  ${props => (props.top && props.color && props.left && `top:${props.top}%; color:${props.color}; left:${props.left}%`)};
+  color:#ededf5;
+  ${props => (props.top && props.size && props.left && `top:${props.top}%; font-size:${props.size}px; left:${props.left}%`)};
+
+`
+export const Link = styled.button`
+  position:absolute;
+  color: #efb810;
+  background-color:transparent;
+  font-weight:bold;
+  margin-top:2.5px;
+  border: 0;
+  outline:0;
+  font-family:'Montserrat', sans-serif;
+  ${props => (props.top && props.size && props.left && `top:${props.top}%; font-size:${props.size}px; left:${props.left}%`)};
+
 
 `
