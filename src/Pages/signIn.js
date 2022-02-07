@@ -1,5 +1,5 @@
 import React from "react";
-import { ContainerSignP, ContainerSign,InputSign,LabelSign,Submit,Title,Link,Error} from "../Components/LogIn/SignElements";
+import { ContainerSignP, ContainerSign,InputSign,LabelSign,Submit,White,Link,Error} from "../Components/LogIn/SignElements";
 import { ButtonGoogle ,GoogleIcon,TextGoogle} from "../Components/LogIn/SignInElements";
 import {useNavigate} from "react-router-dom";
 import { validateSignIn,validateSubmit } from "../Components/LogIn/ValidateLogin";
@@ -61,8 +61,7 @@ export default function SignIn(){
   return (
     <ContainerSignP>
        <ContainerSign>
-          <Title top = {1} left = {22} size = {25}>Sign In</Title>
-          <Link top = {6} left = {44} size = {25} onClick = {(e) => navigate("../")}>HenryCoin</Link>
+          <Link top = {6} left = {22} size = {25} onClick = {(e) => navigate("../")}><White>Sign In </White>HenryCoin</Link>
           <GoogleIcon src="https://img.icons8.com/color/48/000000/google-logo.png" alt = "icon"/>
           <ButtonGoogle href = "https://pfapi2.herokuapp.com/login/google"><TextGoogle></TextGoogle>Sign In With Google </ButtonGoogle>
           <LabelSign top = {32} left = {47}>Or</LabelSign>
@@ -74,8 +73,7 @@ export default function SignIn(){
           <Error top = {70} >{errorSigninState.password}</Error>
           {errorSubmit !== ""  && <Error top = {74} >{errorSubmit}</Error>}
           <Submit type = "submit" top = {78} onClick = {handlerSubmit}>Sign In</Submit>
-          <Title top = {88} left = {24} size = {12}>You Dont Have Account?</Title>
-          <Link top = {90} left = {60} size = {12}  onClick = {(e) => navigate("../signup")} >/SignUp</Link>
+          <Link top = {90} left = {24} size = {12}  onClick = {(e) => navigate("../signup")} > <White>You Dont Have Account?</White> /SignUp</Link>
       </ContainerSign>
     </ContainerSignP>
   )

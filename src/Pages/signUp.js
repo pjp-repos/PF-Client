@@ -1,5 +1,5 @@
 import React from "react";
-import { ContainerSignP, ContainerSign,InputSign,LabelSign,Submit,Title,Link,Error} from "../Components/LogIn/SignElements";
+import { ContainerSignP, ContainerSign,InputSign,LabelSign,Submit,Link,Error,White} from "../Components/LogIn/SignElements";
 import {useNavigate} from "react-router-dom";
 import { validateSignUp,validateSubmit } from "../Components/LogIn/ValidateLogin";
 import {
@@ -68,8 +68,7 @@ const handlerSubmit = (e) => {
    return (
     <ContainerSignP>
       <ContainerSign>
-      <Title top = {1} left = {19} size = {25}>Sign Up</Title>
-        <Link top = {6} left = {44} size = {25} onClick = {(e) => navigate("../")}>HenryCoin</Link>
+        <Link top = {6} left = {18} size = {25} onClick = {(e) => navigate("../")}><White>Sign Up </White>HenryCoin</Link>
         <LabelSign  htmlFor = "username" top = {15}> Username</LabelSign>
         <InputSign top = {20} value = {signUpState.username} id = "username" onChange={handlerState}/>
         <Error top = {27} >{error.username}</Error>
@@ -84,8 +83,7 @@ const handlerSubmit = (e) => {
         <Error top = {76} >{error.repeatPassword}</Error>
         {errorSubmit !== "" && <Error top = {79} >{errorSubmit}</Error> }
         <Submit top = {82} onClick = {handlerSubmit} >Sign Up</Submit>
-        <Title top = {90} left = {27} size = {12}>You Have Account?</Title>
-        <Link top = {92} left = {56} size = {12}  onClick = {(e) => navigate("../signin")} >/SignIn</Link>
+        <Link top = {92} left = {28} size = {12}  onClick = {(e) => navigate("../signin")} ><White>You have account? </White>/SignIn</Link>
       </ContainerSign>
     </ContainerSignP>
   )
