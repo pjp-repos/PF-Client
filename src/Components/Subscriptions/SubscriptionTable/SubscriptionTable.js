@@ -6,7 +6,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { 
     selectSubscriptions,
     selectSubscriptionsStatus,
-    selectSubscriptionsError
+    selectSubscriptionsError,
+    selectSessionToken,
+    selectSessionIsAuthenticated,
+
 } from '../../../Redux/Selectors/selectors';
 import { 
     getSubscriptions, 
@@ -38,9 +41,11 @@ const SubscriptionTable = () => {
     const subs = useSelector(selectSubscriptions);
     const subsStatus = useSelector(selectSubscriptionsStatus);
     const subsError = useSelector(selectSubscriptionsError);
+    const token = useSelector(selectSessionToken);
+    const isAuthenticated = useSelector(selectSessionIsAuthenticated);
 
     useEffect(()=>{
-        getSubscriptions(dispatch)
+        isAuthenticated?.getSubscriptions(dispatch, token);
     }, [])
 
     const dispatch = useDispatch()
@@ -55,6 +60,7 @@ const SubscriptionTable = () => {
 
     // === RENDERS ============================================
 
+    if(!isAuthenticated)return(<p>Forbbiden</p>)
     // Loadings
     if(
         subsStatus===1 
