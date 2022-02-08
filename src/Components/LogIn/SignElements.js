@@ -51,7 +51,7 @@ export const InputSign= styled.input`
     color:white;
     font-family:'Montserrat', sans-serif;
 }
-}
+
 `
 export const LabelSign = styled.label`
   position:absolute;

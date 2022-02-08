@@ -17,6 +17,7 @@ import {
     SIGN_OUT,
     SIGN_OUT_STATUS,
     SIGN_OUT_ERROR,
+    SET_SESSION_INFO,
     GET_SUBSCRIPTIONS,
     GET_SUBSCRIPTIONS_STATUS,
     GET_SUBSCRIPTIONS_ERROR,
@@ -40,7 +41,9 @@ import sortCallbacks from "../SortCallbacks/sortCallbacks";
 const initialState = {
     session:{
         userName:"",
-        isAutenticated: false,
+        token:"",
+        email:"",
+        isAuthenticated : false,
         roles:[]
     },
     prices:{
@@ -270,6 +273,31 @@ const reducer = (state = initialState, action) => {
                 signOut:{
                     ...state.signOut,
                     error:action.payload
+                }
+            }
+
+        case SET_SESSION_INFO:
+            let userName="";
+            let token="";
+            let email="";
+            let isAuthenticated= false;
+            //Sign in or sign out?
+            if(action.payload){
+                if(state.signIn.status===2){
+                    userName=state.signIn.username;
+                    token=state.signIn.token;
+                    email=state.signIn.email;
+                    isAuthenticated=true;
+                };
+            }
+            return {
+                ...state,
+                session:{
+                    ...state.session,
+                    userName:userName,
+                    token:token,
+                    email:email,
+                    isAuthenticated:isAuthenticated,
                 }
             }
 
