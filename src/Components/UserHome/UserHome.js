@@ -6,8 +6,6 @@ import NavBar from "../Navbar/NavBar";
 
 export default function UserHome(){
    return (
-     <div>
-       <NavBar />
        <UserPage>
        <Banner>
          <ContainBanner>
@@ -31,9 +29,6 @@ export default function UserHome(){
             <Img className = "Img" src =  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxj0RWIZIAJi-6jrUMY40aZVBFCK1f1Df6iw&usqp=CAU"/>
         </Card>
     </ContainerCards>
-     </UserPage>
-
-     </div>
-     
+     </UserPage>     
   )
 }
