@@ -8,6 +8,7 @@ import SignIn from './Pages/signIn';
 import SubscriptionPage from './Pages/subscriptions';
 import SubscriptionFormPage from './Pages/subscriptionFormPage';
 import AuthHome from './Pages/AuthHome';
+import TransactionsPage from './Pages/TransactionsPage';
 
 
 function App() {
@@ -17,7 +18,8 @@ function App() {
             <Route exact path="/" element={ <Home/>} />           
             <Route exact path="/signup" element={ <SignUp/>} />           
             <Route exact path="/signin" element={ <SignIn/>} />   
-            <Route exact path="/home" element={ <AuthHome></AuthHome>} />           
+            <Route exact path="/home" element={ <AuthHome/>} />  
+            <Route exact path="/transactions" element={ <TransactionsPage/>} />               
             <Route exact path="/subscriptions" element={ <SubscriptionPage/>} />           
             <Route exact path="/subscriptions/form" element={ <SubscriptionFormPage/>} />                     
         </Routes>
