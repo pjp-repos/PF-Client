@@ -35,6 +35,7 @@ export const ButtonNavbar = styled.button`
 font-family:'Montserrat', sans-serif;
 margin-right:10px;
 display:block;
+cursor:pointer;
 font-size:18px;
 color:white;
 background-color:transparent;

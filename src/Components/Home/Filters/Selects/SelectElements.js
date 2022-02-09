@@ -31,4 +31,10 @@ export const Select = styled.select`
    border:1px solid #474D57;
    margin-left:8px;
    border-radius:5px;
+
+   @media screen and (max-width:540px){
+      margin-left:0px;
+      margin-right:10px;
+      margin-top:20px;
+  }
 `

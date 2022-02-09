@@ -8,7 +8,7 @@ export const TableC = styled.div`
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  min-height: 100vh;
+  min-height: 60vh;
 `
 
 export const Coin = styled.img`

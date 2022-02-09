@@ -10,11 +10,11 @@ export default function Table({cryptos}){
             <Row head>
                 <Column>Icon</Column> 
                 <Column>Symbol</Column> 
-                <Column>Name</Column> 
+                <Column invisiblesm>Name</Column> 
                 <Column>Price</Column> 
-                <Column>24hr Porc</Column> 
+                <Column invisiblemd>24hr Porc</Column> 
                 <Column>Market Cap</Column>
-                <Column>24hr Porc</Column>  
+                <Column invisiblemd>24hr Porc</Column>  
             </Row>
            
             {
@@ -23,11 +23,11 @@ export default function Table({cryptos}){
               <Row key={crypto.symbol}>
                 <Column><Coin src ={crypto.image} alt="icon"/></Column>
                 <Column>{crypto.symbol}</Column>
-                <Column>{crypto.name}</Column>
+                <Column invisiblesm>{crypto.name}</Column>
                 <Column>{crypto.price}</Column>
-                <Column>{crypto.price_change_percentage_24h}%</Column>
+                <Column invisiblemd>{crypto.price_change_percentage_24h}%</Column>
                 <Column>{crypto.market_cap}</Column>
-                <Column>{crypto. market_cap_change_percentage_24h}%</Column>
+                <Column invisiblemd >{crypto. market_cap_change_percentage_24h}%</Column>
               </Row>) 
             }
         </TableC>
