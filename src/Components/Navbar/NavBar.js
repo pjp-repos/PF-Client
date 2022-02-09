@@ -11,7 +11,7 @@ export default function NavBar(){
   const user = useSelector(selectSignIn);
   return (
     <ContainerNavbar>
-        <Title > <ImgTitle src = {coin} alt = "coin" /> HenryCoin</Title>
+        <Title > <ImgTitle visibilitySm src = {coin} alt = "coin" /> HenryCoin</Title>
         {!user.tokenUser && <ContainerButtons>
           <ButtonNavbar onClick={(e) => navigate("/signin")}>Sign In</ButtonNavbar> 
           <ButtonNavbar onClick={(e) => navigate("/signup")} signup>Sign Up</ButtonNavbar>

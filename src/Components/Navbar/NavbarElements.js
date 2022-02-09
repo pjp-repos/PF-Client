@@ -16,13 +16,15 @@ export const ContainerNavbar = styled(flex)`
 export const ImgTitle = styled.img`
      height:16px;
      width:16px;
+     @media screen and (max-width:540px){
+      ${props => props.visibilitySm && 'display:none;'};
+      }
    `
 export const Title = styled.h4`
    margin-top:25px;
    margin-left:22px;
    font-size:20px;
-   color:#efb810;
-  
+   color:#efb810;  
   `
 export const ContainerButtons = styled(flex)`
   height:100%;
@@ -30,6 +32,9 @@ export const ContainerButtons = styled(flex)`
   justify-content:flex-end;
   align-items:center;
   margin-right:30px;
+  @media screen and (max-width:540px){
+    margin-right:6px;
+   }
 `
 export const ButtonNavbar = styled.button`
 font-family:'Montserrat', sans-serif;
@@ -47,6 +52,9 @@ height:40px;
 ${props => props.signup ? 'border: 1px solid #efb810; color:#efb810 ': 'border: 1px solid #474D57;'};
  border-radius:5px;
 }
+@media screen and (max-width:540px){
+  margin-right:6px;
+ }
 `
 export const UserContainer = styled(ContainerButtons) `
  position:relative;
