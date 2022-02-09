@@ -13,21 +13,28 @@ export const ContainerSign = styled.div`
    color:white;
    margin-right:auto;
    position:relative;
-   min-height:92vh;
+   min-height:600px;
    background-color:#181A20;
    font-family:'Montserrat', sans-serif;
    box-shadow: 4px 4px 8px black;
 
    @media screen and (max-width:840px){
-    width:80%
+    width:70%
   }
-
-   @media screen and (max-width:542px){
-    width:75%
-  }
-
+ 
   @media screen and (max-width:420px){
+    margin-top:20%;
+    margin-right:10px;
     width:100%
+  }
+  @media screen and (min-width:1020px){
+    margin-top:40px;
+    width:35%
+  }
+
+  @media screen and (min-width:1800px){
+    margin-top:60px;
+    width:25%
   }
 
 `
@@ -97,6 +104,7 @@ export const Link = styled.button`
   outline:0;
   font-family:'Montserrat', sans-serif;
   ${props => (props.top && props.size && props.left && `top:${props.top}%; font-size:${props.size}px; left:${props.left}%`)};
+  left:25%;
 `
 export const Error = styled.label`
   position:absolute;

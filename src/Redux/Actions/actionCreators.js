@@ -85,13 +85,13 @@ export const postNewAccount = (dispatch, form) =>{
 export const resetNewAccountStatus = (dispatch)=>dispatch({type:NEW_ACCOUNT_STATUS,payload:0});
 
 // postSignIn action (thunk function)
-export const postSignIn = (dispatch, form) =>{
+export const postSignIn = (dispatch, form,token) =>{
     const dataCbSignIn = (data)=>dispatch({type:SIGN_IN,payload:data});
     const statusCbSignIn = (value)=>dispatch({type:SIGN_IN_STATUS,payload:value});
     const errorCbSignIn = (errorObj)=>dispatch({type:SIGN_IN_ERROR,payload:errorObj});
     helpFetch(`${API_URL}/login`,  dataCbSignIn, statusCbSignIn, errorCbSignIn,{
         headers:{
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
         method:'POST',
         body:form
@@ -121,8 +121,9 @@ export const getSubscriptions = (dispatch, token) =>{
     const statusCbSubscriptions = (value)=>dispatch({type:GET_SUBSCRIPTIONS_STATUS,payload:value});
     const errorCbSubscriptions = (errorObj)=>dispatch({type:GET_SUBSCRIPTIONS_ERROR,payload:errorObj});
     helpFetch(`${API_URL}/subs/`,  dataCbSubscriptions, statusCbSubscriptions, errorCbSubscriptions,{
-        headers:{          
-            "Authorization": `Bearer ${token}`,
+        headers:{
+            "Content-Type": "application/json",
+            "Authorization":`Bearer ${token}`
         },
     });
 };

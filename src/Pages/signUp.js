@@ -83,7 +83,7 @@ const handlerSubmit = (e) => {
         <Error top = {76} >{error.repeatPassword}</Error>
         {errorSubmit !== "" && <Error top = {79} >{errorSubmit}</Error> }
         <Submit top = {82} onClick = {handlerSubmit} >Sign Up</Submit>
-        <Link top = {92} left = {28} size = {12}  onClick = {(e) => navigate("../signin")} ><White>You have account? </White>/SignIn</Link>
+        <Link top = {92} left = {28} size = {12}  onClick = {(e) => navigate("../signin")} ><White>You have an account? </White>/SignIn</Link>
       </ContainerSign>
     </ContainerSignP>
   )
