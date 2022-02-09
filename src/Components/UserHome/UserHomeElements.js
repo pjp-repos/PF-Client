@@ -81,3 +81,65 @@ export const ContainBanner = styled.div`
     align-text:center;
    }
 `
+
+export const ImgBannerr = styled.img`
+  margin-top:5%;
+  margin-left:5%;
+  width:45%;
+  height:70%;
+  object-fit:contain;
+
+  @media screen and (min-width:1900px){
+    width:55%;
+    height:60%;
+   }
+  @media screen and (max-width:920px){
+    width:40%;
+    height:40%;
+    margin-left:0;
+  }
+  @media screen and (max-width:540px){
+    width:50%;
+    height:50%;
+    margin-left:0;
+  }
+ 
+`
+export const Henry = styled.a`
+  color:#efb810;
+`
+export const TitleHenry = styled.h1`
+ font-size:50px;
+ margin-bottom:8%;
+ @media screen and (min-width:1900px){
+ font-size:60px;
+ }
+ @media screen and (max-width:1024px){
+  font-size:40px;
+  }
+  @media screen and (max-width:840px){
+    font-size:35px;
+    margin-bottom:10%;
+  }
+`
+export const InfoBanner = styled.p`
+margin-bottom:8%;
+font-size:22px;
+
+@media screen and (max-width:840px){
+  font-size:18px;
+  margin-bottom:15%;
+}
+
+`
+
+export const ButtonWallet = styled.button`
+  color:white;
+  background-color:#efb810;
+  padding:10px;
+  font-family: 'Montserrat', sans-serif;
+  border:1px solid #efb810;
+  border-radius:10px;
+  cursor:pointer;
+`
+    

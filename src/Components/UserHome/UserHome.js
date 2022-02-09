@@ -1,11 +1,14 @@
 import React from "react";
-import { UserPage,Card,ContainerCards,Title,Img,Banner,ImgBannerr,Henry,TitleHenry,ContainBanner, InfoBanner,ButtonWallet} from "./CardFunctionsElements";
+import { UserPage,Card,ContainerCards,Title,Img,Banner,ImgBannerr,Henry,TitleHenry,ContainBanner, InfoBanner,ButtonWallet} from "./UserHomeElements";
 import img from "../../Images/ImgBanner.png"
+import NavBar from "../Navbar/NavBar";
 
 
 export default function UserHome(){
    return (
-     <UserPage>
+     <div>
+       <NavBar />
+       <UserPage>
        <Banner>
          <ContainBanner>
            <TitleHenry>Welcome to <Henry>HenryCoin</Henry></TitleHenry>
@@ -29,5 +32,8 @@ export default function UserHome(){
         </Card>
     </ContainerCards>
      </UserPage>
+
+     </div>
+     
   )
 }

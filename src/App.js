@@ -7,6 +7,7 @@ import SignUp from './Pages/signUp';
 import SignIn from './Pages/signIn';
 import SubscriptionPage from './Pages/subscriptions';
 import SubscriptionFormPage from './Pages/subscriptionFormPage';
+import UserHome from './Components/UserHome/UserHome';
 
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
         <Routes>
             <Route exact path="/" element={ <Home/>} />           
             <Route exact path="/signup" element={ <SignUp/>} />           
-            <Route exact path="/signin" element={ <SignIn/>} />           
+            <Route exact path="/signin" element={ <SignIn/>} />   
+            <Route exact path="/home" element={ <UserHome/>} />           
             <Route exact path="/subscriptions" element={ <SubscriptionPage/>} />           
             <Route exact path="/subscriptions/form" element={ <SubscriptionFormPage/>} />                     
         </Routes>

@@ -29,7 +29,7 @@ export default function SignIn(){
 
   React.useEffect(() => {    
     if (status === 2)
-     navigate("../")
+     navigate("../home")
     if (status === 3){
       setErrorSubmit("Error name or password incorrect")
     }
