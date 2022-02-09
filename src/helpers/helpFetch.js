@@ -27,7 +27,7 @@ export const helpFetch = async (url, dataCb, statusCb,  errorCb, options={})=>{
     try {
         const res = await fetch(url, options);
         const json = await res.json();
-        console.log(json);
+        console.log(res);
         dataCb(json);
 
         if(!res.ok){

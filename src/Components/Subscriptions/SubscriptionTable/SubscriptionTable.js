@@ -7,7 +7,8 @@ import {
     selectSubscriptions,
     selectSubscriptionsStatus,
     selectSubscriptionsError,
-    selectSignIn
+    selectSessionToken,
+    selectSessionIsAuthenticated,
 } from '../../../Redux/Selectors/selectors';
 import { 
     getSubscriptions, 
@@ -39,10 +40,11 @@ const SubscriptionTable = () => {
     const subs = useSelector(selectSubscriptions);
     const subsStatus = useSelector(selectSubscriptionsStatus);
     const subsError = useSelector(selectSubscriptionsError);
-    const validate = useSelector(selectSignIn);
+    const token = useSelector(selectSessionToken);
+    const isAuthenticated = useSelector(selectSessionIsAuthenticated);
 
     useEffect(()=>{
-        getSubscriptions(dispatch,validate.tokenUser)
+        isAuthenticated?.getSubscriptions(dispatch, token);
     }, [])
 
     const dispatch = useDispatch()
@@ -57,6 +59,7 @@ const SubscriptionTable = () => {
 
     // === RENDERS ============================================
 
+    if(!isAuthenticated)return(<p>Forbbiden</p>)
     // Loadings
     if(
         subsStatus===1 
@@ -69,7 +72,7 @@ const SubscriptionTable = () => {
         </SectionRelative>        
     );
 
-    if(subsStatus===3)<p>Fail</p>
+    if(subsStatus===3)return(<p>Fail</p>)
     return (
         <TableWrapper>
             <Table>

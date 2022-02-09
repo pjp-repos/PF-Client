@@ -28,6 +28,9 @@ export const SIGN_OUT="SIGN_OUT";
 export const SIGN_OUT_STATUS="SIGN_OUT_STATUS";
 export const SIGN_OUT_ERROR="SIGN_OUT_ERROR";
 
+// Setea la info de sesión despues de un sign in y sign out
+export const SET_SESSION_INFO="SET_SESSION_INFO";
+
 // Envía solicitud del listado de suscripciones
 export const GET_SUBSCRIPTIONS="GET_SUBSCRIPTIONS";
 export const GET_SUBSCRIPTIONS_STATUS="GET_SUBSCRIPTIONS_STATUS";

@@ -1,10 +1,10 @@
 export const selectGlobalPrices = state=> state.prices.data;
 export const selectGlobalPricesStatus = state=> state.prices.status;
 export const selectGlobalPricesError = state=> state.prices.error;
+
 export const selectGlobalPricesCurrency = state=> state.prices.currency;
 export const selectGlobalPricesOrder = state=> state.prices.order;
 export const selectGlobalPricesFilter = state=> state.prices.filter;
-
 
 export const selectSymbols = state=> state.symbols.data;
 export const selectSymbolsStatus = state=> state.symbols.status;
@@ -21,6 +21,11 @@ export const selectSignInError = state=> state.signIn.error;
 export const selectSignOut = state=> state.signOut.data;
 export const selectSignOutStatus = state=> state.signOut.status;
 export const selectSignOutError = state=> state.signOut.error;
+
+export const selectSessionUsername = state=> state.session.userName;
+export const selectSessionToken = state=> state.session.token;
+export const selectSessionEmail = state=> state.session.email;
+export const selectSessionIsAuthenticated = state=> state.session.isAuthenticated;
 
 export const selectSubscriptions = state=> state.subscriptions.data;
 export const selectSubscriptionsStatus = state=> state.subscriptions.status;

@@ -19,6 +19,7 @@ import {
     SIGN_OUT,
     SIGN_OUT_STATUS,
     SIGN_OUT_ERROR,
+    SET_SESSION_INFO,
     GET_SUBSCRIPTIONS,
     GET_SUBSCRIPTIONS_STATUS,
     GET_SUBSCRIPTIONS_ERROR,
@@ -95,21 +96,27 @@ export const postSignIn = (dispatch, form,token) =>{
         method:'POST',
         body:form
     });
+    dispatch({type:SET_SESSION_INFO,payload:true});
 };
 
 // resetNewAccountStatus
 export const resetSignInStatus = (dispatch)=>dispatch({type:SIGN_IN_STATUS,payload:0});
 
 // getSingOut action (thunk function)
-export const getSingOut = (dispatch) =>{
+export const getSingOut = (dispatch, token) =>{
     const dataCbSingOut = (data)=>dispatch({type:SIGN_OUT,payload:data});
     const statusCbSingOut = (value)=>dispatch({type:SIGN_OUT_STATUS,payload:value});
     const errorCbSingOut = (errorObj)=>dispatch({type:SIGN_OUT_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/logout/`,  dataCbSingOut, statusCbSingOut, errorCbSingOut);
+    helpFetch(`${API_URL}/logout/`,  dataCbSingOut, statusCbSingOut, errorCbSingOut,{
+        headers:{          
+            "Authorization": `Bearer ${token}`,
+        },
+    });
+    dispatch({type:SET_SESSION_INFO,payload:false});
 };
 
 // getSubscriptions action (thunk function)
-export const getSubscriptions = (dispatch,token) =>{
+export const getSubscriptions = (dispatch, token) =>{
     const dataCbSubscriptions = (data)=>dispatch({type:GET_SUBSCRIPTIONS,payload:data});
     const statusCbSubscriptions = (value)=>dispatch({type:GET_SUBSCRIPTIONS_STATUS,payload:value});
     const errorCbSubscriptions = (errorObj)=>dispatch({type:GET_SUBSCRIPTIONS_ERROR,payload:errorObj});
@@ -122,21 +129,26 @@ export const getSubscriptions = (dispatch,token) =>{
 };
 
 // getSubscription action (thunk function)
-export const getSubscription = (dispatch, id) =>{
+export const getSubscription = (dispatch, token, id) =>{
     const dataCbSubscription = (data)=>dispatch({type:GET_SUBSCRIPTION,payload:data});
     const statusCbSubscription = (value)=>dispatch({type:GET_SUBSCRIPTION_STATUS,payload:value});
     const errorCbSubscription = (errorObj)=>dispatch({type:GET_SUBSCRIPTION_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/subs/${id}`,  dataCbSubscription, statusCbSubscription, errorCbSubscription);
+    helpFetch(`${API_URL}/subs/${id}`,  dataCbSubscription, statusCbSubscription, errorCbSubscription,{
+        headers:{          
+            "Authorization": `Bearer ${token}`,
+        },
+    });
 };
 
 // addSubscription action (thunk function)
-export const addSubscription = (dispatch, form) =>{
+export const addSubscription = (dispatch, token, form) =>{
     const dataCbAddSubscription = (data)=>dispatch({type:ADD_SUBSCRIPTION,payload:data});
     const statusCbAddSubscription = (value)=>dispatch({type:ADD_SUBSCRIPTION_STATUS,payload:value});
     const errorCbAddSubscription = (errorObj)=>dispatch({type:ADD_SUBSCRIPTION_ERROR,payload:errorObj});
     helpFetch(`${API_URL}/subs/`,  dataCbAddSubscription, statusCbAddSubscription, errorCbAddSubscription,{
         headers:{
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",            
+            "Authorization": `Bearer ${token}`,
         },
         method:'POST',
         body:form
@@ -147,13 +159,14 @@ export const addSubscription = (dispatch, form) =>{
 export const resetAddSubscriptionStatus = (dispatch)=>dispatch({type:ADD_SUBSCRIPTION_STATUS,payload:0});
 
 // updateSubscription action (thunk function)
-export const updateSubscription = (dispatch, form, id) =>{
+export const updateSubscription = (dispatch, token, form, id) =>{
     const dataCbupdateSubscription = (data)=>dispatch({type:UPDATE_SUBSCRIPTION,payload:data});
     const statusCbupdateSubscription = (value)=>dispatch({type:UPDATE_SUBSCRIPTION_STATUS,payload:value});
     const errorCbupdateSubscription = (errorObj)=>dispatch({type:UPDATE_SUBSCRIPTION_ERROR,payload:errorObj});
     helpFetch(`${API_URL}/subs/${id}`,  dataCbupdateSubscription, statusCbupdateSubscription, errorCbupdateSubscription,{
         headers:{
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
         },
         method:'PUT',
         body:form
@@ -165,13 +178,14 @@ export const resetUpdateSubscriptionStatus = (dispatch)=>dispatch({type:UPDATE_S
 
 
 // deleteSubscription action (thunk function)
-export const deleteSubscription = (dispatch, id) =>{
+export const deleteSubscription = (dispatch,token, id) =>{
     const dataCbdeleteSubscription = (data)=>dispatch({type:DELETE_SUBSCRIPTION,payload:data});
     const statusCbdeleteSubscription = (value)=>dispatch({type:DELETE_SUBSCRIPTION_STATUS,payload:value});
     const errorCbdeleteSubscription = (errorObj)=>dispatch({type:DELETE_SUBSCRIPTION_ERROR,payload:errorObj});
     helpFetch(`${API_URL}/subs/${id}`,  dataCbdeleteSubscription, statusCbdeleteSubscription, errorCbdeleteSubscription,{
         headers:{
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
         },
         method:'DELETE'
     });
