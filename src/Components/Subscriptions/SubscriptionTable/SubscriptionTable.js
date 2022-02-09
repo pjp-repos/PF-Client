@@ -6,7 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { 
     selectSubscriptions,
     selectSubscriptionsStatus,
-    selectSubscriptionsError
+    selectSubscriptionsError,
+    selectSignIn
 } from '../../../Redux/Selectors/selectors';
 import { 
     getSubscriptions, 
@@ -38,9 +39,10 @@ const SubscriptionTable = () => {
     const subs = useSelector(selectSubscriptions);
     const subsStatus = useSelector(selectSubscriptionsStatus);
     const subsError = useSelector(selectSubscriptionsError);
+    const validate = useSelector(selectSignIn);
 
     useEffect(()=>{
-        getSubscriptions(dispatch)
+        getSubscriptions(dispatch,validate.tokenUser)
     }, [])
 
     const dispatch = useDispatch()

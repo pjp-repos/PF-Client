@@ -49,7 +49,6 @@ export default function SignIn(){
   }
 
   const handlerSubmit = async (e) => {
-      e.prevent.default();
       const error = validateSubmit(errorSigninState,signinState);
       if(error!== "")
         setErrorSubmit(error);
@@ -61,7 +60,7 @@ export default function SignIn(){
   return (
     <ContainerSignP>
        <ContainerSign>
-          <Link top = {6} left = {22} size = {25} onClick = {(e) => navigate("../")}><White>Sign In </White>HenryCoin</Link>
+          <Link top = {4} left = {30} size = {25} onClick = {(e) => navigate("../")}><White>Sign In </White>HenryCoin</Link>
           <GoogleIcon src="https://img.icons8.com/color/48/000000/google-logo.png" alt = "icon"/>
           <ButtonGoogle href = "https://pfapi2.herokuapp.com/login/google"><TextGoogle></TextGoogle>Sign In With Google </ButtonGoogle>
           <LabelSign top = {32} left = {47}>Or</LabelSign>

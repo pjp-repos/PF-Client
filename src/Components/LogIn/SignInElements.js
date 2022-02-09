@@ -24,6 +24,9 @@ export const ButtonGoogle = styled.a`
     position: absolute;
     top:22%;
     left:71%;
+    @media screen and (min-width:1020px){
+      left:74%;
+    }
   `
   export const TextGoogle = styled.span`
   font-family:'Montserrat', sans-serif;
