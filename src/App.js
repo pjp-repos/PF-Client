@@ -20,6 +20,7 @@ function App() {
             <Route exact path="/home" element={ <AuthHome></AuthHome>} />           
             <Route exact path="/subscriptions" element={ <SubscriptionPage/>} />           
             <Route exact path="/subscriptions/form" element={ <SubscriptionFormPage/>} />                     
+            <Route path="/subscriptions/form/:id" element={ <SubscriptionFormPage/>} />                     
         </Routes>
     );
 }

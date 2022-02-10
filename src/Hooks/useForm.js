@@ -2,10 +2,10 @@ import { useState } from "react";
 
 export const useForm = (initialForm, validateForm, submitForm)=>{
     
+  
     const [form,setForm] = useState(initialForm);
     const [errors, setErrors] = useState({});
-    //const [error, setError] = useState(false);
-
+  
     // Events delegates
     const handleChange = (e) =>{
         setForm({
@@ -37,6 +37,7 @@ export const useForm = (initialForm, validateForm, submitForm)=>{
         setErrors({});
     }
 
+    
     return {
         form,
         errors,

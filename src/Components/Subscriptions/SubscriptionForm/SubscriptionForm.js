@@ -1,5 +1,6 @@
 // Imports
 import React, {useEffect} from 'react';
+import {useNavigate, useParams} from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 
 // Redux actions
@@ -25,7 +26,9 @@ import {
     selectSubscriptionError,
     selectSymbols,
     selectSymbolsStatus,
-    selectSymbolsError
+    selectSymbolsError,
+    selectSessionIsAuthenticated,
+    selectSessionToken
 } from '../../../Redux/Selectors/selectors'
 
 // Custom hooks
@@ -51,10 +54,38 @@ import Container from '../../AaaGenerics/Sections/Container';
 import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
 
 
-const SubscriptionForm = ({update, id}) => {  
+const SubscriptionForm = () => {  
+    // Router-dom hooks
+    const {id} = useParams();
+    let update = false;
+    if(id) update = true;
+    const navigate = useNavigate();
+
     // Redux hooks  
     const dispatch = useDispatch();
+    const isAuthenticated = useSelector(selectSessionIsAuthenticated);
+    const token = useSelector(selectSessionToken);
+    
+    // Load symbol list for dropdowns and subscription data (Update case)
+    useEffect(() => {   
+        getSymbols(dispatch,token); 
+        if(isAuthenticated){
+            if(update){
+                getSubscription(dispatch,token, id); 
+                resetUpdateSubscriptionStatus(dispatch);
+            } else{
+                resetAddSubscriptionStatus(dispatch);
+            }
+        }
+    }, [])
 
+    const resetStatus = () =>{
+        if(update){
+            resetUpdateSubscriptionStatus(dispatch);
+        } else{
+            resetAddSubscriptionStatus(dispatch);
+        }
+    };
 
     const dataAdd = useSelector(selectAddSubscription);
     const statusAdd = useSelector(selectAddSubscriptionStatus);
@@ -74,21 +105,9 @@ const SubscriptionForm = ({update, id}) => {
     
     // Submit form thunk function execution
     let submitForm = ()=>{};
-    if(update) submitForm=(form, id)=>updateSubscription(dispatch, form, id)
-    else submitForm=(form)=>addSubscription(dispatch, form)
+    if(update) submitForm=(form)=>updateSubscription(dispatch,token, form, id)
+    else submitForm=(form)=>addSubscription(dispatch,token, form)
   
-    // Load symbol list for dropdowns.
-    // Edit form needs to be prepopulated, so it is needed to load data
-    // Reset status for conditional render issues.
-    useEffect(() => {   
-        getSymbols(dispatch);
-        if(update){
-            getSubscription(dispatch, id);
-            resetUpdateSubscriptionStatus(dispatch);
-        } else{
-            resetAddSubscriptionStatus(dispatch);
-        }
-    }, [])
 
 
     // Dropdows option list
@@ -102,8 +121,6 @@ const SubscriptionForm = ({update, id}) => {
         });
     }
 
-    // custom hook useForm
-
     // Filed names width default values
     const initialForm = {
         id:null,
@@ -111,15 +128,6 @@ const SubscriptionForm = ({update, id}) => {
         symbol2Id:"",
         risePrice:"0",
         fallPrice:"0"
-    };
-
-    // Prepopulated editting form
-    if(update && statusSubscription===2){
-        initialForm.id = dataSubscription.id
-        initialForm.symbol1Id = dataSubscription.symbol1Id;
-        initialForm.symbol2Id = dataSubscription.symbol2Id;
-        initialForm.risePrice = dataSubscription.risePrice;
-        initialForm.fallPrice = dataSubscription.fallPrice;
     };
 
     // Field validations callback for useForm 
@@ -159,6 +167,7 @@ const SubscriptionForm = ({update, id}) => {
         return errors;
     };
 
+    // custom hook useForm
     const {        
         form,
         errors,
@@ -168,22 +177,36 @@ const SubscriptionForm = ({update, id}) => {
         resetFields
     } = useForm(initialForm, validationsForm, submitForm);
 
-    const handleExecute= ()=>{
-        if(handleSubmit(true)){
-            //closeModal();
+    // Prepopulated editting form
+    let populateForm = false;
+    if(update && statusSubscription===2) populateForm = true;
+    useEffect(() => { 
+        if (populateForm){
+            initialForm.id = dataSubscription.id
+            initialForm.symbol1Id = dataSubscription.symbol1Id;
+            initialForm.symbol2Id = dataSubscription.symbol2Id;
+            initialForm.risePrice = dataSubscription.risePrice;
+            initialForm.fallPrice = dataSubscription.fallPrice;    
+            resetFields(); 
         }
+    }, [populateForm])
+
+    const handleExecute= ()=>{
+        handleSubmit(false);
     };
     
     const handleCancel = ()=>{
         resetFields();
-        //closeModal();
+        navigate("/subscriptions");
     };
-
 
 
     // === RENDERS ============================================
 
-    // Loadings
+    // === Authenticated ===
+    if(!isAuthenticated)return<p>Forbbiden</p>
+
+    // === Loadings ===
     if(
         statusAdd===1 
         || statusUpdate===1
@@ -191,18 +214,7 @@ const SubscriptionForm = ({update, id}) => {
         || statusSymbols===1
     ) return <Spinner/> 
 
-    // Errors
-    let errorMessage="Form proccess fail. Details: "
-    if(statusSymbols===3) errorMessage=`${errorMessage} - Symbols could not be loaded! Error name: ${errorSymbols.name} Error message: ${errorSymbols.message} More details:  ${dataSymbols.error} `;
-    if(!update && statusAdd===3 ) errorMessage=`${errorMessage} - Subscription was not saved! Error name: ${errorAdd.name} Error message: ${errorAdd.message}`;
-    if(update && statusUpdate===3 ) errorMessage=`${errorMessage} - Subscription was not updated! Error name: ${errorUpdate.name} Error message: ${errorUpdate.message}`;
-    if(update && statusSubscription===3 ) errorMessage=`${errorMessage} - Subscription data could no be loaded! Error name: ${errorSubscription.name} Error message: ${errorSubscription.message}`;
-    if(errorMessage!=="Form proccess fail. Details: "){
-        return (<p>{errorMessage}</p>)
-    };
-
     // Success
-    let successMessage="Form was proccessed successfully: "
     if(
         statusSymbols===2 &&(
             !update && statusAdd===2 
@@ -212,9 +224,61 @@ const SubscriptionForm = ({update, id}) => {
             )
         )        
     ){
-        return (<p>{successMessage}</p>)
+        // return<p>Success!</p>
+        navigate("/subscriptions");
     };
 
+    // === Errors ===
+   
+    // Symbol list
+    if(statusSymbols===3){
+        return<p>{`Oops. An error ocurred. 
+            Type: ${errorSymbols.errorType} 
+            Code: ${errorSymbols.errorCode} 
+            Message: ${errorSymbols.errorMessage} 
+        `}</p>
+    } 
+
+    // Subscription list
+    if(update && statusSubscription===3){
+        return<p>{`Oops. An error ocurred. 
+            Type: ${errorSubscription.errorType} 
+            Code: ${errorSubscription.errorCode} 
+            Message: ${errorSubscription.errorMessage} 
+        `}</p>
+    } 
+
+    // Add new subscription
+    if(!update && statusAdd===3){
+        return(
+        <>
+            <p>
+                {`Oops. An error ocurred. 
+                    Type: ${errorAdd.errorType} 
+                    Code: ${errorAdd.errorCode} 
+                    Message: ${errorAdd.errorMessage} 
+                `}
+            </p>
+            <button onClick={()=>resetAddSubscriptionStatus(dispatch)}>Ok</button>
+        </>)
+    } 
+
+    // Update subscription
+    if(update && statusUpdate===3){
+        return(
+        <>
+            <p>
+                {`Oops. An error ocurred. 
+                    Type: ${errorUpdate.errorType} 
+                    Code: ${errorUpdate.errorCode} 
+                    Message: ${errorUpdate.errorMessage} 
+                `}
+            </p>
+            <button onClick={()=>resetUpdateSubscriptionStatus(dispatch)}>Ok</button>
+        </>)
+    } 
+    
+    
     return (
         <SubscriptionFormWrapper>
             <H3>New subscription form</H3>

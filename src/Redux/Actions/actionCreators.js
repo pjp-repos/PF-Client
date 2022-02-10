@@ -4,15 +4,19 @@ import {
     GET_PRICES,
     GET_PRICES_STATUS,
     GET_PRICES_ERROR,
+
     GET_SYMBOLS,
     GET_SYMBOLS_STATUS,
     GET_SYMBOLS_ERROR,
+
     SET_PRICES_FILTER,
     SET_PRICES_ORDER,
     SET_PRICES_CURRENCY,
+
     NEW_ACCOUNT,
     NEW_ACCOUNT_STATUS,
     NEW_ACCOUNT_ERROR,
+
     SIGN_IN,
     SIGN_IN_STATUS,
     SIGN_IN_ERROR,
@@ -20,6 +24,7 @@ import {
     SIGN_OUT_STATUS,
     SIGN_OUT_ERROR,
     SET_SESSION_INFO,
+
     GET_SUBSCRIPTIONS,
     GET_SUBSCRIPTIONS_STATUS,
     GET_SUBSCRIPTIONS_ERROR,
@@ -34,11 +39,51 @@ import {
     UPDATE_SUBSCRIPTION_ERROR,
     DELETE_SUBSCRIPTION,
     DELETE_SUBSCRIPTION_STATUS,
-    DELETE_SUBSCRIPTION_ERROR
+    DELETE_SUBSCRIPTION_ERROR,
+    FILTER_SUBSCRIPTIONS,
+    SORT_SUBSCRIPTIONS,
+
+    GET_ORDERS,
+    GET_ORDERS_STATUS,
+    GET_ORDERS_ERROR,
+    GET_ORDER,
+    GET_ORDER_STATUS,
+    GET_ORDER_ERROR,
+    ADD_ORDER,
+    ADD_ORDER_STATUS,
+    ADD_ORDER_ERROR,
+    UPDATE_ORDER,
+    UPDATE_ORDER_STATUS,
+    UPDATE_ORDER_ERROR,
+    DELETE_ORDER,
+    DELETE_ORDER_STATUS,
+    DELETE_ORDER_ERROR,
+    FILTER_ORDERS,
+    SORT_ORDERS,
+
+    GET_TRANSACTIONS,
+    GET_TRANSACTIONS_STATUS,
+    GET_TRANSACTIONS_ERROR,
+    FILTER_TRANSACTIONS,
+    SORT_TRANSACTIONS,
+
+    GET_PORTFOLIO,
+    GET_PORTFOLIO_STATUS,
+    GET_PORTFOLIO_ERROR,
+    FILTER_PORTFOLIO,
+    SORT_PORTFOLIO,
+
+    GET_SETTINGS,
+    GET_SETTINGS_STATUS,
+    GET_SETTINGS_ERROR,
+    UPDATE_SETTINGS,
+    UPDATE_SETTINGS_STATUS,
+    UPDATE_SETTINGS_ERROR,
 
 } from "../types";
 
-const API_URL = 'http://localhost:3001';
+//const API_URL = 'http://localhost:3001';
+const API_URL = 'https://pfapi2.herokuapp.com';
 
 
 
@@ -95,8 +140,10 @@ export const postSignIn = (dispatch, form,token) =>{
         },
         method:'POST',
         body:form
-    });
-    dispatch({type:SET_SESSION_INFO,payload:true});
+    },[
+        ()=>dispatch({type:SET_SESSION_INFO,payload:true})
+    ]);
+    
 };
 
 // resetNewAccountStatus
@@ -111,8 +158,10 @@ export const getSingOut = (dispatch, token) =>{
         headers:{          
             "Authorization": `Bearer ${token}`,
         },
-    });
-    dispatch({type:SET_SESSION_INFO,payload:false});
+    },[
+        ()=>dispatch({type:SET_SESSION_INFO,payload:false})
+    ]);
+    
 };
 
 // getSubscriptions action (thunk function)
@@ -188,5 +237,165 @@ export const deleteSubscription = (dispatch,token, id) =>{
             "Authorization": `Bearer ${token}`,
         },
         method:'DELETE'
+    },[
+        ()=>getSubscriptions(dispatch, token)
+    ]);
+};
+
+// filter subscriptions payload=filterForm{criteria1:"",criteria2:"xxx"...}
+export const filterSubscriptions = (dispatch, filterForm)=>dispatch({type:FILTER_SUBSCRIPTIONS,payload:filterForm});
+
+// order subscriptions payload='orderCriteria' 
+export const sortSubscriptions = (dispatch, order)=>dispatch({type:SORT_SUBSCRIPTIONS,payload:order});
+
+// getOrders action (thunk function)
+export const getOrders = (dispatch, token) =>{
+    const dataCbOrders = (data)=>dispatch({type:GET_ORDERS,payload:data});
+    const statusCbOrders = (value)=>dispatch({type:GET_ORDERS_STATUS,payload:value});
+    const errorCbOrders = (errorObj)=>dispatch({type:GET_ORDERS_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/orders/`,  dataCbOrders, statusCbOrders, errorCbOrders,{
+        headers:{
+            "Content-Type": "application/json",
+            "Authorization":`Bearer ${token}`
+        },
+    });
+};
+
+// getOrder action (thunk function)
+export const getOrder = (dispatch, token, id) =>{
+    const dataCbOrder = (data)=>dispatch({type:GET_ORDER,payload:data});
+    const statusCbOrder = (value)=>dispatch({type:GET_ORDER_STATUS,payload:value});
+    const errorCbOrder = (errorObj)=>dispatch({type:GET_ORDER_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/orders/${id}`,  dataCbOrder, statusCbOrder, errorCbOrder,{
+        headers:{          
+            "Authorization": `Bearer ${token}`,
+        },
+    });
+};
+
+// addOrder action (thunk function)
+export const addOrder = (dispatch, token, form) =>{
+    const dataCbAddOrder = (data)=>dispatch({type:ADD_ORDER,payload:data});
+    const statusCbAddOrder = (value)=>dispatch({type:ADD_ORDER_STATUS,payload:value});
+    const errorCbAddOrder = (errorObj)=>dispatch({type:ADD_ORDER_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/orders/`,  dataCbAddOrder, statusCbAddOrder, errorCbAddOrder,{
+        headers:{
+            "Content-Type": "application/json",            
+            "Authorization": `Bearer ${token}`,
+        },
+        method:'POST',
+        body:form
+    });
+};
+
+// resetaddOrderStatus
+export const resetAddOrderStatus = (dispatch)=>dispatch({type:ADD_ORDER_STATUS,payload:0});
+
+// updateOrder action (thunk function)
+export const updateOrder = (dispatch, token, form, id) =>{
+    const dataCbupdateOrder = (data)=>dispatch({type:UPDATE_ORDER,payload:data});
+    const statusCbupdateOrder = (value)=>dispatch({type:UPDATE_ORDER_STATUS,payload:value});
+    const errorCbupdateOrder = (errorObj)=>dispatch({type:UPDATE_ORDER_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/orders/${id}`,  dataCbupdateOrder, statusCbupdateOrder, errorCbupdateOrder,{
+        headers:{
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+        method:'PUT',
+        body:form
+    });
+};
+
+// resetUpdateOrderStatus
+export const resetUpdateOrderStatus = (dispatch)=>dispatch({type:UPDATE_ORDER_STATUS,payload:0});
+
+
+// deleteOrder action (thunk function)
+export const deleteOrder = (dispatch,token, id) =>{
+    const dataCbdeleteOrder = (data)=>dispatch({type:DELETE_ORDER,payload:data});
+    const statusCbdeleteOrder = (value)=>dispatch({type:DELETE_ORDER_STATUS,payload:value});
+    const errorCbdeleteOrder = (errorObj)=>dispatch({type:DELETE_ORDER_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/orders/${id}`,  dataCbdeleteOrder, statusCbdeleteOrder, errorCbdeleteOrder,{
+        headers:{
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+        method:'DELETE'
+    },[
+        ()=>getOrders(dispatch, token)
+    ]);
+};
+
+// filter orderscriptions payload=filterForm{criteria1:"",criteria2:"xxx"...}
+export const filterOrders = (dispatch, filterForm)=>dispatch({type:FILTER_ORDERS,payload:filterForm});
+
+// order orderscriptions payload='orderCriteria' 
+export const sortOrders = (dispatch, order)=>dispatch({type:SORT_ORDERS,payload:order});
+
+// getTransactions action (thunk function)
+export const getTransactions = (dispatch, token) =>{
+    const dataCbTransactions = (data)=>dispatch({type:GET_TRANSACTIONS,payload:data});
+    const statusCbTransactions = (value)=>dispatch({type:GET_TRANSACTIONS_STATUS,payload:value});
+    const errorCbTransactions = (errorObj)=>dispatch({type:GET_TRANSACTIONS_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/transactions/`,  dataCbTransactions, statusCbTransactions, errorCbTransactions,{
+        headers:{
+            "Content-Type": "application/json",
+            "Authorization":`Bearer ${token}`
+        },
+    });
+};
+
+
+// filter transactions payload=filterForm{criteria1:"",criteria2:"xxx"...}
+export const filterTransactions = (dispatch, filterForm)=>dispatch({type:FILTER_TRANSACTIONS,payload:filterForm});
+
+// order transactions payload='orderCriteria' 
+export const sortTransactions = (dispatch, order)=>dispatch({type:SORT_TRANSACTIONS,payload:order});
+
+// getPortfolio action (thunk function)
+export const getPortfolio = (dispatch, token) =>{
+    const dataCbPortfolio = (data)=>dispatch({type:GET_PORTFOLIO,payload:data});
+    const statusCbPortfolio = (value)=>dispatch({type:GET_PORTFOLIO_STATUS,payload:value});
+    const errorCbPortfolio = (errorObj)=>dispatch({type:GET_PORTFOLIO_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/portfolio/`,  dataCbPortfolio, statusCbPortfolio, errorCbPortfolio,{
+        headers:{
+            "Content-Type": "application/json",
+            "Authorization":`Bearer ${token}`
+        },
+    });
+};
+
+
+// filter portfolio payload=filterForm{criteria1:"",criteria2:"xxx"...}
+export const filterPortfolio = (dispatch, filterForm)=>dispatch({type:FILTER_PORTFOLIO,payload:filterForm});
+
+// order portfolio payload='orderCriteria' 
+export const sortPortfolio = (dispatch, order)=>dispatch({type:SORT_PORTFOLIO,payload:order});
+
+// getSettings action (thunk function)
+export const getSettings = (dispatch, token) =>{
+    const dataCbSettings = (data)=>dispatch({type:GET_SETTINGS,payload:data});
+    const statusCbSettings = (value)=>dispatch({type:GET_SETTINGS_STATUS,payload:value});
+    const errorCbSettings = (errorObj)=>dispatch({type:GET_SETTINGS_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/settings/`,  dataCbSettings, statusCbSettings, errorCbSettings,{
+        headers:{
+            "Content-Type": "application/json",
+            "Authorization":`Bearer ${token}`
+        },
+    });
+};
+
+// updateSettings action (thunk function)
+export const updateSettings = (dispatch, token, form, id) =>{
+    const dataCbupdateSettings = (data)=>dispatch({type:UPDATE_SETTINGS,payload:data});
+    const statusCbupdateSettings = (value)=>dispatch({type:UPDATE_SETTINGS_STATUS,payload:value});
+    const errorCbupdateSettings = (errorObj)=>dispatch({type:UPDATE_SETTINGS_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/orders/${id}`,  dataCbupdateSettings, statusCbupdateSettings, errorCbupdateSettings,{
+        headers:{
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+        method:'PUT',
+        body:form
     });
 };

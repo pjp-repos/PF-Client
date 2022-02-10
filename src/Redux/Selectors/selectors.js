@@ -46,3 +46,40 @@ export const selectUpdateSubscriptionError = state=> state.updateSubscription.er
 export const selectDeleteSubscription = state=> state.deleteSubscription.data;
 export const selectDeleteSubscriptionStatus = state=> state.deleteSubscription.status;
 export const selectDeleteSubscriptionError = state=> state.deleteSubscription.error;
+
+export const selectOrders = state=> state.orders.data;
+export const selectOrdersStatus = state=> state.orders.status;
+export const selectOrdersError = state=> state.orders.error;
+
+export const selectOrder = state=> state.order.data;
+export const selectOrderStatus = state=> state.order.status;
+export const selectOrderError = state=> state.order.error;
+
+export const selectAddOrder = state=> state.addOrder.data;
+export const selectAddOrderStatus = state=> state.addOrder.status;
+export const selectAddOrderError = state=> state.addOrder.error;
+
+export const selectUpdateOrder = state=> state.updateOrder.data;
+export const selectUpdateOrderStatus = state=> state.updateOrder.status;
+export const selectUpdateOrderError = state=> state.updateOrder.error;
+
+export const selectDeleteOrder = state=> state.deleteOrder.data;
+export const selectDeleteOrderStatus = state=> state.deleteOrder.status;
+export const selectDeleteOrderError = state=> state.deleteOrder.error;
+
+export const selectTransactions = state=> state.transactions.data;
+export const selectTransactionsStatus = state=> state.transactions.status;
+export const selectTransactionsError = state=> state.transactions.error;
+
+export const selectPortfolio = state=> state.portfolio.data;
+export const selectPortfolioStatus = state=> state.portfolio.status;
+export const selectPortfolioError = state=> state.portfolio.error;
+
+export const selectSettings = state=> state.settings.data;
+export const selectSettingsStatus = state=> state.settings.status;
+export const selectSettingsError = state=> state.settings.error;
+
+export const selectUpdateSettings = state=> state.updateSettings.data;
+export const selectUpdateSettingsStatus = state=> state.updateSettings.status;
+export const selectUpdateSettingsError = state=> state.updateSettings.error;
+
