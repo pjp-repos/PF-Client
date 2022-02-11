@@ -59,6 +59,9 @@ const sortCallbacks={
     symbolAsc:sortCbSymbolAsc,
     symbolDesc:sortCbSymbolDesc,
     priceAsc:sortCbPriceAsc,
-    priceDesc:sortCbPriceDesc
+    priceDesc:sortCbPriceDesc,
+    subscriptions:{
+        bySymbol:"",
+    }
 };
 export default sortCallbacks;

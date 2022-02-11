@@ -7,7 +7,10 @@ import {
     selectSubscriptions,
     selectSubscriptionsStatus,
     selectSubscriptionsError,
-    selectSignIn
+    selectSessionToken,
+    selectSessionIsAuthenticated,
+    selectDeleteSubscriptionStatus,
+    selectDeleteSubscriptionError,
 } from '../../../Redux/Selectors/selectors';
 import { 
     getSubscriptions, 
@@ -34,32 +37,38 @@ import Container from '../../AaaGenerics/Sections/Container';
 import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
 
 const SubscriptionTable = () => {
-    const subsV =[] //Vacio
+ 
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector(selectSessionIsAuthenticated);
+    const token = useSelector(selectSessionToken);
+    
+    useEffect(()=>{
+        isAuthenticated && getSubscriptions(dispatch, token);
+    }, [isAuthenticated])
     
     const subs = useSelector(selectSubscriptions);
     const subsStatus = useSelector(selectSubscriptionsStatus);
     const subsError = useSelector(selectSubscriptionsError);
-    const validate = useSelector(selectSignIn);
+    const deleteStatus = useSelector(selectDeleteSubscriptionStatus);
+    const deleteError = useSelector(selectDeleteSubscriptionError);
+    
 
-    useEffect(()=>{
-        getSubscriptions(dispatch,validate.tokenUser)
-    }, [])
-
-    const dispatch = useDispatch()
     
     const handleDelete = (e) =>{
         if(window.confirm('Seguro que desea eliminar la subscripcion?'))
         {
-            deleteSubscription(dispatch, e.target.id)
+            deleteSubscription(dispatch, token, e.target.id);            
         }
     }
 
 
     // === RENDERS ============================================
 
+    if(!isAuthenticated)return(<p>Forbbiden</p>)
     // Loadings
     if(
-        subsStatus===1 
+        subsStatus===1 ||
+        deleteStatus===1
 
     ) return (
         <SectionRelative>
@@ -69,12 +78,12 @@ const SubscriptionTable = () => {
         </SectionRelative>        
     );
 
-    if(subsStatus===3)<p>Fail</p>
+    if(subsStatus===3 || deleteStatus===3)return(<p>Fail</p>)
     return (
         <TableWrapper>
             <Table>
                 {/* {subs.length ?<> */}
-                <Link to='/addsubscription'><Button>New subscription</Button></Link>
+                <Link to='/subscriptions/form'><Button>New subscription</Button></Link>
                 <Row head='head'>
                     <Column>id</Column>
                     <Column>Pair</Column>
@@ -99,7 +108,7 @@ const SubscriptionTable = () => {
                         <Column>{s.alertOnFall ? 'True' : 'False'}</Column>
                         <Column> {s.risePrice} </Column>
                         <Column>{s.alertOnRise ? 'True' : 'False'}</Column>
-                        <Link to='/addsubscription'><ButtonE><img src={edit} height='20px'/></ButtonE></Link>
+                        <Link to={`/subscriptions/form/${s.id}`}><ButtonE><img src={edit} height='20px'/></ButtonE></Link>
                         <ButtonE id={s.id} onClick={handleDelete}><img id={s.id} src={borrar} height='20px'/></ButtonE>
                     </Row>
                 ))}

@@ -1,4 +1,4 @@
-export const helpFetch = async (url, dataCb, statusCb,  errorCb, options={})=>{
+export const helpFetch = async (url, dataCb, statusCb,  errorCb, options={},finallyCbs=[])=>{
     statusCb(1);
 
     // --- Options ------------------------------.-
@@ -27,26 +27,22 @@ export const helpFetch = async (url, dataCb, statusCb,  errorCb, options={})=>{
     try {
         const res = await fetch(url, options);
         const json = await res.json();
-        console.log(json);
-        dataCb(json);
+        console.log(res);
 
         if(!res.ok){
-            let err = new Error("Error en la petición fetch")
-            if(res.status === 490){
-                err.name = json.name
-                err.message = json.message
-            }else{
-                err.name = res.status || "00";
-                err.message = res.statusText || "Ocurrió un error";
-            }
-            throw err;
+            dataCb([]);
+            errorCb(json)
+            statusCb(3);
+        }else{
+            dataCb(json);
+            errorCb({})
+            statusCb(2);
         }
-        statusCb(2);
-        errorCb({name:"",message:""})
-
 
     } catch (err) {
-        statusCb(3);
-        errorCb({name:err.name, message:err.message})
-    } 
+        errorCb({errCode:9999, errType:err.name, errMessage:err.message})
+            statusCb(3);
+    } finally{
+        finallyCbs.forEach(cb=>cb());
+    }
 }
