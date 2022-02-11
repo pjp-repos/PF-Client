@@ -366,7 +366,7 @@ export const getPortfolio = (dispatch, token) =>{
 };
 
 
-// filter portfolio payload=filterForm{criteria1:"",criteria2:"xxx"...}
+//  filter portfolio payload=filterForm{criteria1:"",criteria2:"xxx"...}
 export const filterPortfolio = (dispatch, filterForm)=>dispatch({type:FILTER_PORTFOLIO,payload:filterForm});
 
 // order portfolio payload='orderCriteria' 
