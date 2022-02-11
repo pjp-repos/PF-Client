@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const ContainerPagination = styled.div`
-   margin-top:20px;
+   margin-top:25px;
    margin-bottom:20px;
    display:flex;
    flex-direction:row;

@@ -32,24 +32,23 @@ export default function NavBar(){
   
   return (
     <ContainerNavbar>
-        <Title > <ImgTitle src = {coin} alt = "coin" /> HenryCoin</Title>
-        {!isAuthenticated && 
-          <ContainerButtons>          
-            <ButtonNavbar onClick={(e) => navigate("/signin")}>Sign In</ButtonNavbar> 
-            <ButtonNavbar onClick={(e) => navigate("/signup")} signup>Sign Up</ButtonNavbar>
-          </ContainerButtons>
-        }
+
+        <Title > <ImgTitle visibilitySm src = {coin} alt = "coin" /> HenryCoin</Title>
+        {!isAuthenticated && <ContainerButtons>
+          <ButtonNavbar onClick={(e) => navigate("/signin")}>Sign In</ButtonNavbar> 
+          <ButtonNavbar onClick={(e) => navigate("/signup")} signup>Sign Up</ButtonNavbar>
+        </ContainerButtons>}
         {isAuthenticated && 
-          <UserContainer>
-            <img src = {User} alt = "coin"/>
-            <OptionsContainer className="OptionsContainer">
-              <Option onClick={(e) => navigate("/")}>Markets</Option>
-              <Option onClick={(e) => navigate("/subscriptions")}>Subscriptions</Option>
-              <Option><p>Orders</p></Option>
-              <Option><p>Historial</p></Option>
-              <Option><p>Logout</p></Option>
-            </OptionsContainer>
-          </UserContainer>
+         <UserContainer>
+              <img src = {User} alt = "coin"/>
+             <OptionsContainer className="OptionsContainer">
+               <Option><p>Market</p></Option>
+               <Option><p>Subscribes</p></Option>
+               <Option><p>Orders</p></Option>
+               <Option><p>Historial</p></Option>
+               <Option><p>Logout</p></Option>
+             </OptionsContainer>
+        </UserContainer>
         }
     </ContainerNavbar>
   )
