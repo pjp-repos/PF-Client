@@ -69,16 +69,16 @@ const handlerSubmit = (e) => {
     <ContainerSignP>
       <ContainerSign>
         <Link top = {6} left = {18} size = {25} onClick = {(e) => navigate("../")}><White>Sign Up </White>HenryCoin</Link>
-        <LabelSign  htmlFor = "username" top = {15}> Username</LabelSign>
+        <LabelSign right = {53} htmlFor = "username" > Username</LabelSign>
         <InputSign top = {20} value = {signUpState.username} id = "username" onChange={handlerState}/>
         <Error top = {27} >{error.username}</Error>
-        <LabelSign  htmlFor = "email" top = {30}> Email</LabelSign>
+        <LabelSign right = {60}  htmlFor = "email" top = {30}> Email</LabelSign>
         <InputSign top = {35}  value = {signUpState.email} id = "email" onChange={handlerState}/>
-        <Error top = {42} >{error.email}</Error>
-        <LabelSign  htmlFor = "password" top = {47}>Password</LabelSign>
+        <Error top = {43} >{error.email}</Error>
+        <LabelSign  right = {55} htmlFor = "password" top = {47}>Password</LabelSign>
         <InputSign  type = "password" autoComplete="on" top = {52}  value = {signUpState.password} id = "password" onChange={handlerState} />
         <Error top = {59} >{error.password}</Error>
-        <LabelSign  htmlFor = "repeatPassword" top = {64}> Repeat Password</LabelSign>
+        <LabelSign right = {42}  htmlFor = "repeatPassword" top = {64}> Repeat Password</LabelSign>
         <InputSign  type = "password" autoComplete="on" top = {69}  value = {signUpState.repeatPassword} id = "repeatPassword" onChange={handlerState} />
         <Error top = {76} >{error.repeatPassword}</Error>
         {errorSubmit !== "" && <Error top = {79} >{errorSubmit}</Error> }

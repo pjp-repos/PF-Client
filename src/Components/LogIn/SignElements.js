@@ -9,6 +9,11 @@ export const ContainerSignP = styled.div`
 export const ContainerSign = styled.div`
    width:30%;
    margin-left:auto;
+   display:flex;
+   padding-top:40px;
+   flex-direction:column;
+   justifiy-content:center;
+   align-items:center;
    margin-top:2%;
    color:white;
    margin-right:auto;
@@ -22,7 +27,7 @@ export const ContainerSign = styled.div`
     width:70%
   }
  
-  @media screen and (max-width:420px){
+  @media screen and (max-width:520px){
     margin-top:20%;
     margin-right:10px;
     width:100%
@@ -41,15 +46,13 @@ export const ContainerSign = styled.div`
 export const InputSign= styled.input`
   border: 1px solid #474D57;
   border-radius:4px;
-  position:absolute;
   color:white;
   background-color:transparent;
   font-family:'Montserrat', sans-serif;
   outline:0;
+  margin-bottom:40px;
   width:70%;
-  left:15%;
   height:40px;
-  ${props => (props.top && `top:${props.top}%`)};
 
   &:hover{
     border:1.5px solid white;
@@ -61,26 +64,25 @@ export const InputSign= styled.input`
 }
 `
 export const LabelSign = styled.label`
-  position:absolute;
-  left:15%;
   font-family:'Montserrat', sans-serif;
+  display:block;
+  margin-bottom:3px;
   font-size:15px;
-  ${props => (props.top && `top:${props.top}%`)};
-  ${props => (props.left && `left:${props.left}%`)};
+  ${props => (props.right && `margin-right:${props.right}%`)};
+  ${props => (props.mtop && props.mb && `margin-top:${props.mtop}%;margin-bottom:${props.mb}%;`)};
 `
 
 export const Submit = styled.button`
-  position:absolute;
   color:white;
+  margin-top:25px;
+  margin-bottom:5px;
   background-color:#474D57;
   border:1px solid #474D57;
   font-family:'Montserrat', sans-serif;
   width:70%;
-  left:15%;
   height:45px;
   outline:0;
   border-radius:8px;
-  ${props => (props.top && `top:${props.top}%`)};
   &:hover{
     background-color:#8a919e;
  }
@@ -95,16 +97,14 @@ export const White = styled.a`
 
 `
 export const Link = styled.button`
-  position:absolute;
   color: #efb810;
   background-color:transparent;
   font-weight:bold;
-  margin-top:2.5px;
+  margin-bottom:30px;
   border: 0;
   outline:0;
   font-family:'Montserrat', sans-serif;
-  ${props => (props.top && props.size && props.left && `top:${props.top}%; font-size:${props.size}px; left:${props.left}%`)};
-  left:25%;
+  ${props => (props.size   && ` font-size:${props.size}px;`)};
 `
 export const Error = styled.label`
   position:absolute;

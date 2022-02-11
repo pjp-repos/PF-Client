@@ -9,6 +9,7 @@ import SubscriptionPage from './Pages/subscriptions';
 import SubscriptionFormPage from './Pages/subscriptionFormPage';
 import AuthHome from './Pages/AuthHome';
 import TransactionsPage from './Pages/TransactionsPage';
+import OrderPage from './Pages/OrderPage';
 
 
 function App() {
@@ -19,7 +20,8 @@ function App() {
             <Route exact path="/signup" element={ <SignUp/>} />           
             <Route exact path="/signin" element={ <SignIn/>} />   
             <Route exact path="/home" element={ <AuthHome/>} />  
-            <Route exact path="/transactions" element={ <TransactionsPage/>} />               
+            <Route exact path="/transactions" element={ <TransactionsPage/>} /> 
+            <Route exact path="/order" element={ <OrderPage />} />                           
             <Route exact path="/subscriptions" element={ <SubscriptionPage/>} />           
             <Route exact path="/subscriptions/form" element={ <SubscriptionFormPage/>} />                     
         </Routes>
