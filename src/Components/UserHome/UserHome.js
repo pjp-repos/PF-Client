@@ -1,6 +1,6 @@
 import React from "react";
 import { UserPage,Card,ContainerCards,Title,Img,Banner,ImgBannerr,Henry,TitleHenry,ContainBanner, InfoBanner,ButtonWallet} from "./UserHomeElements";
-import img from "../../Images/ImgBanner.png"
+import img from "../../Assets/Images/ImgBanner.png"
 import NavBar from "../Navbar/NavBar";
 
 
