@@ -188,7 +188,7 @@ const initialState = {
         },
         order:"",
     },
-    portolio:{
+    portfolio:{
         data:[],
         status:0,
         error:{},

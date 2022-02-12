@@ -24,7 +24,7 @@ export default function TransactionsTable({transactionsUser}){
               <Column>{transaction.symbol}</Column>
               <Column>{transaction.deposit}</Column>
               <Column>{transaction.withdraw}</Column>
-              <Column invisiblemd>{transaction.update}</Column>
+              <Column invisiblemd>{transaction.date}</Column>
               </Rowt>) 
             }
         </TableT>
