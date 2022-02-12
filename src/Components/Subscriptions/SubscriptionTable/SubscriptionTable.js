@@ -11,10 +11,14 @@ import {
     selectSessionIsAuthenticated,
     selectDeleteSubscriptionStatus,
     selectDeleteSubscriptionError,
+    selectPortfolio,
+    selectPortfolioStatus,
+    selectPortfolioError
 } from '../../../Redux/Selectors/selectors';
 import { 
     getSubscriptions, 
-    deleteSubscription 
+    deleteSubscription,
+    getPortfolio 
 } from '../../../Redux/Actions/actionCreators';
 
 //import Container from '../AaaGenerics/Sections/Container'
@@ -44,6 +48,7 @@ const SubscriptionTable = () => {
     
     useEffect(()=>{
         isAuthenticated && getSubscriptions(dispatch, token);
+        isAuthenticated && getPortfolio(dispatch, token);
     }, [isAuthenticated])
     
     const subs = useSelector(selectSubscriptions);
@@ -52,9 +57,13 @@ const SubscriptionTable = () => {
     const deleteStatus = useSelector(selectDeleteSubscriptionStatus);
     const deleteError = useSelector(selectDeleteSubscriptionError);
     
+    const portfolio = useSelector(selectPortfolio);
+    const portfolioStatus = useSelector(selectPortfolioStatus);
+    const portfolioError = useSelector(selectPortfolioError);    
 
     
     const handleDelete = (e) =>{
+        if(portfolioStatus===2) console.log(portfolio)
         if(window.confirm('Seguro que desea eliminar la subscripcion?'))
         {
             deleteSubscription(dispatch, token, e.target.id);            

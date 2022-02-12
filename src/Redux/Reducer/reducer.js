@@ -7,6 +7,10 @@ import {
     GET_SYMBOLS_STATUS,
     GET_SYMBOLS_ERROR,
 
+    GET_PAIR,
+    GET_PAIR_STATUS,
+    GET_PAIR_ERROR,
+
     SET_PRICES_FILTER,
     SET_PRICES_ORDER,
     SET_PRICES_CURRENCY,
@@ -100,6 +104,11 @@ const initialState = {
         currency:"usd"
     },
     symbols:{
+        data:[],
+        status:0,
+        error:{},
+    },
+    pair:{
         data:[],
         status:0,
         error:{},
@@ -204,7 +213,7 @@ const initialState = {
         status:0,
         error:{},
     },
-    UpdateSetting:{
+    updateSetting:{
         data:[],
         status:0,
         error:{},
@@ -272,6 +281,32 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 symbols:{
                     ...state.symbols,
+                    error:action.payload
+                }
+            }
+        case GET_PAIR:
+            return {
+                ...state,
+                pair:{
+                    ...state.pair,
+                    data:action.payload
+                }
+            }
+
+        case GET_PAIR_STATUS:
+            return {
+                ...state,
+                pair:{
+                    ...state.pair,
+                    status:action.payload
+                }
+            }
+
+        case GET_PAIR_ERROR:
+            return {
+                ...state,
+                pair:{
+                    ...state.pair,
                     error:action.payload
                 }
             }

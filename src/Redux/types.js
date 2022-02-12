@@ -4,6 +4,11 @@ export const GET_SYMBOLS="GET_SYMBOLS";
 export const GET_SYMBOLS_STATUS="GET_SYMBOLS_STATUS";
 export const GET_SYMBOLS_ERROR="GET_SYMBOLS_ERROR";
 
+// Pair price / verify if pair exists
+export const GET_PAIR="GET_PAIR";
+export const GET_PAIR_STATUS="GET_PAIR_STATUS";
+export const GET_PAIR_ERROR="GET_PAIR_ERROR";
+
 // ==== Market table (No crud) =====================
 // Get list of market prices
 export const GET_PRICES="GET_PRICES";
