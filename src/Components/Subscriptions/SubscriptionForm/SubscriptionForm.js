@@ -1,5 +1,5 @@
 // Imports
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -52,9 +52,12 @@ import Dropdown from '../../AaaGenerics/Dropdown/Dropdown';
 import { H3 } from '../../AaaGenerics/Texts/Hx';
 import Container from '../../AaaGenerics/Sections/Container';
 import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
+import Modal from '../../AaaGenerics/Modal/Modal'
 
 
 const SubscriptionForm = () => {  
+    // Modal states
+    const [showModalErrorAdd,setShowModalErrorAdd] = useState(false);
     // Router-dom hooks
     const {id} = useParams();
     let update = false;
@@ -250,8 +253,9 @@ const SubscriptionForm = () => {
 
     // Add new subscription
     if(!update && statusAdd===3){
+        setShowModalErrorAdd(true)
         return(
-        <>
+        <Modal show={showModalErrorAdd}>
             <p>
                 {`Oops. An error ocurred. 
                     Type: ${errorAdd.errorType} 
@@ -259,8 +263,11 @@ const SubscriptionForm = () => {
                     Message: ${errorAdd.errorMessage} 
                 `}
             </p>
-            <button onClick={()=>resetAddSubscriptionStatus(dispatch)}>Ok</button>
-        </>)
+            <button onClick={()=>{
+                resetAddSubscriptionStatus(dispatch)
+                setShowModalErrorAdd(false)
+            }}>Ok</button>
+        </Modal>)
     } 
 
     // Update subscription

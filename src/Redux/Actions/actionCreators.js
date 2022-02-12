@@ -105,6 +105,19 @@ export const getSymbols = (dispatch) =>{
     helpFetch(`${API_URL}/cryptos/symbols`,  dataCbSymbols, statusCbSymbols, errorCbSymbols);
 };
 
+// getPair action (thunk function)
+export const getPair = (dispatch, token,symbol1,symbol2) =>{
+    const dataCbPair = (data)=>dispatch({type:GET_TRANSACTIONS,payload:data});
+    const statusCbPair = (value)=>dispatch({type:GET_TRANSACTIONS_STATUS,payload:value});
+    const errorCbPair = (errorObj)=>dispatch({type:GET_TRANSACTIONS_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/pair/valid?symbol1Id=${symbol1}&symbol2Id=${symbol2}`,  dataCbPair, statusCbPair, errorCbPair,{
+        headers:{
+            "Content-Type": "application/json",
+            "Authorization":`Bearer ${token}`
+        },
+    });
+};
+
 // filterGlobalPrices action
 export const filterGlobalPrices = (dispatch, filterString)=>dispatch({type:SET_PRICES_FILTER,payload:filterString});
 
@@ -335,11 +348,11 @@ export const filterOrders = (dispatch, filterForm)=>dispatch({type:FILTER_ORDERS
 export const sortOrders = (dispatch, order)=>dispatch({type:SORT_ORDERS,payload:order});
 
 // getTransactions action (thunk function)
-export const getTransactions = (dispatch, token) =>{
+export const getTransactions = (dispatch, token,dateFrom='2000-01-01',dateTo='2100-12-31') =>{
     const dataCbTransactions = (data)=>dispatch({type:GET_TRANSACTIONS,payload:data});
     const statusCbTransactions = (value)=>dispatch({type:GET_TRANSACTIONS_STATUS,payload:value});
     const errorCbTransactions = (errorObj)=>dispatch({type:GET_TRANSACTIONS_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/transactions/`,  dataCbTransactions, statusCbTransactions, errorCbTransactions,{
+    helpFetch(`${API_URL}/transactions?dateFrom=${dateFrom}&dateTo=${dateTo}`,  dataCbTransactions, statusCbTransactions, errorCbTransactions,{
         headers:{
             "Content-Type": "application/json",
             "Authorization":`Bearer ${token}`
