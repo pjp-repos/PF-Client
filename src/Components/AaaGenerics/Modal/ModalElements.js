@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {MdClose} from "react-icons/md";
+// import {MdClose} from "react-icons/md";
 
 export const ModalBg = styled.div`
     width: 100%;
@@ -51,22 +51,22 @@ export const ModalWrapper = styled.div`
 //     align-self:center;
 // `;
 
-export const ModalcloseBtn = styled(MdClose)`
-    width: 32px;
-    height: 32px;
-    padding:0;
+// export const ModalcloseBtn = styled(MdClose)`
+//     width: 32px;
+//     height: 32px;
+//     padding:0;
 
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index:999;
+//     position: absolute;
+//     top: 20px;
+//     right: 20px;
+//     z-index:999;
 
-    display: ${
-        ({closeBtn})=>(closeBtn ? 'block' : 'none' )
-    };
+//     display: ${
+//         ({closeBtn})=>(closeBtn ? 'block' : 'none' )
+//     };
     
-    fill: var(--first-color);
-    cursor: pointer;
+//     fill: var(--first-color);
+//     cursor: pointer;
 
-`;
+// `;
     
