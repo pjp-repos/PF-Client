@@ -253,21 +253,17 @@ const SubscriptionForm = () => {
 
     // Add new subscription
     if(!update && statusAdd===3){
-        setShowModalErrorAdd(true)
         return(
-        <Modal show={showModalErrorAdd}>
-            <p>
-                {`Oops. An error ocurred. 
-                    Type: ${errorAdd.errorType} 
-                    Code: ${errorAdd.errorCode} 
-                    Message: ${errorAdd.errorMessage} 
-                `}
-            </p>
-            <button onClick={()=>{
-                resetAddSubscriptionStatus(dispatch)
-                setShowModalErrorAdd(false)
-            }}>Ok</button>
-        </Modal>)
+            <>
+                <p>
+                    {`Oops. An error ocurred. 
+                        Type: ${errorUpdate.errorType} 
+                        Code: ${errorUpdate.errorCode} 
+                        Message: ${errorUpdate.errorMessage} 
+                    `}
+                </p>
+                <button onClick={()=>resetAddSubscriptionStatus(dispatch)}>Ok</button>
+            </>)
     } 
 
     // Update subscription
