@@ -44,7 +44,6 @@ export default function Order(){
     const token = useSelector(selectSessionToken);
     const pairValid = useSelector(selectPairAll);
 
-    console.log(pairValid);
     React.useEffect(() => {  
       getSymbols(dispatch,token);    
       getPortfolio(dispatch,token);
@@ -57,8 +56,7 @@ export default function Order(){
 
     const handleSubmit = () => {
         setErrorSubmit("");
-        const validate = validateSubmit(stateOrder,symbolsState);
-
+        const validate = validateSubmit(stateOrder,symbolsState,pairValid[1]);
         if(validate !== "")
           setErrorSubmit(validate);
         else{

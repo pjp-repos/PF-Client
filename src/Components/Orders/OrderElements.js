@@ -102,7 +102,7 @@ export const SubmitOrder = styled(Submit)`
  export const DivInfo = styled(flex)`
   width:100%;
   height:20px;
-  margin-bottom:2px;
+  margin-bottom:5px;
 `
 
 export const DivTotal= styled(flex)`
