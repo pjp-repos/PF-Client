@@ -9,6 +9,10 @@ import {
     GET_SYMBOLS_STATUS,
     GET_SYMBOLS_ERROR,
 
+    GET_PAIR,
+    GET_PAIR_STATUS,
+    GET_PAIR_ERROR,
+
     SET_PRICES_FILTER,
     SET_PRICES_ORDER,
     SET_PRICES_CURRENCY,
@@ -105,9 +109,9 @@ export const getSymbols = (dispatch) =>{
 
 // getPair action (thunk function)
 export const getPair = (dispatch, token,symbol1,symbol2) =>{
-    const dataCbPair = (data)=>dispatch({type:GET_TRANSACTIONS,payload:data});
-    const statusCbPair = (value)=>dispatch({type:GET_TRANSACTIONS_STATUS,payload:value});
-    const errorCbPair = (errorObj)=>dispatch({type:GET_TRANSACTIONS_ERROR,payload:errorObj});
+    const dataCbPair = (data)=>dispatch({type:GET_PAIR,payload:data});
+    const statusCbPair = (value)=>dispatch({type:GET_PAIR_STATUS,payload:value});
+    const errorCbPair = (errorObj)=>dispatch({type:GET_PAIR_ERROR,payload:errorObj});
     helpFetch(`${API_URL}/pair/valid?symbol1Id=${symbol1}&symbol2Id=${symbol2}`,  dataCbPair, statusCbPair, errorCbPair,{
         headers:{
             "Content-Type": "application/json",
