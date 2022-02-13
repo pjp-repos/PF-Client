@@ -19,10 +19,8 @@ export const setSymbol1 = (setSymbolsState,portfolio,e,symbolsState) =>{
     }) 
 }
 
-export const validatePair = (symbolsState,e) => {
-    if(e.target.id === "symbol1" && symbolsState.symbol2 !== "Crypto")
-      return true
-    else if (symbolsState.symbol1 !== "Crypto" && e.target.id === "symbol2")
+export const validatePair = (symbolsState) => {
+    if( symbolsState.symbol1 !== "Crypto" && symbolsState.symbol2 !== "Crypto")
       return true
     return false;
 }

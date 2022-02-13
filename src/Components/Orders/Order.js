@@ -7,11 +7,12 @@ import {
     selectSymbols,
     selectSessionIsAuthenticated,
     selectSessionToken,
-    selectPortfolio
+    selectPortfolio,
+    selectPairAll
  } from "../../Redux/Selectors/selectors";
 import { useSelector,useDispatch} from "react-redux";
 import {
-    getSymbols, getPortfolio
+    getSymbols, getPortfolio,getPair
 } from '../../Redux/Actions/actionCreators';
 import nomoney from "../../Assets/Images/nomoney.png"
 import {setSymbol1,setSymbol2,validatePair,validateSubmit} from "./OrderFunctions"
@@ -41,11 +42,18 @@ export default function Order(){
     const isAuthenticated = useSelector(selectSessionIsAuthenticated);
     const portfolio = useSelector(selectPortfolio);
     const token = useSelector(selectSessionToken);
+    const pairValid = useSelector(selectPairAll);
 
+    console.log(pairValid);
     React.useEffect(() => {  
       getSymbols(dispatch,token);    
       getPortfolio(dispatch,token);
     }, []);
+
+    React.useEffect(() => {
+      if(validatePair(symbolsState))
+         getPair(dispatch,token,symbolsState.symbol1,symbolsState.symbol2);
+    },[symbolsState]);
 
     const handleSubmit = () => {
         setErrorSubmit("");
@@ -78,8 +86,6 @@ export default function Order(){
        setSymbol1(setSymbolsState,portfolio,e,symbolsState);
      else
        setSymbol2(setSymbolsState,symbols,e,symbolsState)    
-
-      console.log(validatePair(symbolsState,e));
     }
 
    return (
@@ -113,18 +119,23 @@ export default function Order(){
                 </DivSellBuy>
             </DivTrade>
             <DivInfo>
-               <Info></Info>
+               {
+                 pairValid[1] === 2 && <Info> 1 {symbolsState.symbol1} equals: {(pairValid[0].price).toFixed(8)} {symbolsState.symbol2}</Info>
+               }
+               {
+                 pairValid[1] === 3 && <Info> Error Pair Invalid</Info>
+               }
             </DivInfo>
             <SubmitDiv type = {stateOrder.type}>
                 <DivTotal>
                    <Info>Avaliable</Info>
                    <Info>{`${symbolsState.symbol1price}  ${symbolsState.symbol1}`} </Info>
                 </DivTotal>
-                <InputSellBuy id = "amount" type = "number" onChange = {(e) => handlerType(e.target.id,e.target.value)} placeholder="Amount"/>
-                { stateOrder.type === "Limit" && <InputSellBuy type = "number" onChange={(e) => handlerType(e.target.id,e.target.value)} id = "limit" placeholder="Limit"/> }
+                <InputSellBuy id = "amount" type = "number"  value = {stateOrder.amount} onChange = {(e) => handlerType(e.target.id,e.target.value)} placeholder="Amount"/>
+                { stateOrder.type === "Limit" && <InputSellBuy value = {stateOrder.limit} type = "number" onChange={(e) => handlerType(e.target.id,e.target.value)} id = "limit" placeholder="Limit"/> }
                 <DivTotal>
                    <Info>Total:</Info>
-                   <Info>0 btc</Info>
+                   {pairValid[1] === 2 ? <Info>{(pairValid[0].price*parseInt(stateOrder.amount)).toFixed(8)} {symbolsState.symbol2}</Info> :<Info>0 Cryptos</Info>}
                 </DivTotal>
                 {<ContainerOptionsOrders>
                    <ButtonOption border name = "typeOrder" onClick =  {(e) => handlerType(e.target.name,e.target.id)} actual = {stateOrder.typeOrder} id ="Sell">Sell</ButtonOption>
