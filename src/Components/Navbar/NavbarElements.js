@@ -67,12 +67,16 @@ export const UserContainer = styled(ContainerButtons) `
   margin-right:0.5%;
   align-items:center;
   &:hover .OptionsContainer{
-    height:160px;
+    height:205px;
   };
 `
 export const OptionsContainer = styled.div`
   position:absolute;
   overflow: hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start
+  justify-content:center;
   text-align:center;
   background-color:#181A20;
   z-index:1;
@@ -80,10 +84,14 @@ export const OptionsContainer = styled.div`
   width:150px;
   height:0px;
 `;
-export const Option = styled(flex)`
-  align-items:center;
-  justify-content:center;
-  height:30px;
+export const Option =styled.button`
+  height:40px;
+  outline:0;
+  font-size:15px; 
+  background-color:transparent;
+  border:0;
+  color:white;
+  font-family:'Montserrat', sans-serif;
   &:hover{
     background-color:#474D57;
     cursor: pointer;

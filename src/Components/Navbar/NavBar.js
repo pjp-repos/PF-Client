@@ -42,10 +42,10 @@ export default function NavBar(){
          <UserContainer>
               <img src = {User} alt = "coin"/>
              <OptionsContainer className="OptionsContainer">
-               <Option><p>Market</p></Option>
-               <Option><p>Subscribes</p></Option>
-               <Option><p>Orders</p></Option>
-               <Option><p>Historial</p></Option>
+               <Option onClick={(e) => navigate("/")}><p>Market</p></Option>
+               <Option onClick={(e) => navigate("/subscriptions")}><p>Subscribe</p></Option>
+               <Option onClick={(e) => navigate("/order")}><p>Orders</p></Option>
+               <Option onClick={(e) => navigate("/transactions")}><p>Historial</p></Option>
                <Option><p>Logout</p></Option>
              </OptionsContainer>
         </UserContainer>

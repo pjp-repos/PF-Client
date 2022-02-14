@@ -56,6 +56,16 @@ height:50px;
 `
 export const SelectSellBuy = styled(Select)`
  cursor:pointer;
+ &::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width:5px;
+  background-color: #181A20;
+}
+
+&::-webkit-scrollbar-thumb {
+  background-color: white;
+  height: 1px;
+}
 `
 
 export const Image = styled.img`
@@ -70,7 +80,7 @@ height:80px;
 export const SubmitDiv = styled(flex)`
 position:relative;
 justify-content:space-around;
-padding-top:10px;
+padding-top:12px;
 width:90%;
 height:300px;
 background-color:blue;
@@ -79,6 +89,7 @@ text-align:center;
 flex-direction:column;
 background-color:rgb(20, 21, 26);
 border-radius:10px;
+${props => props.type === "Limit" && `height:380px`};
 `
 export const SubmitOrder = styled(Submit)`
   position:relative;
@@ -91,7 +102,7 @@ export const SubmitOrder = styled(Submit)`
  export const DivInfo = styled(flex)`
   width:100%;
   height:20px;
-  margin-bottom:2px;
+  margin-bottom:5px;
 `
 
 export const DivTotal= styled(flex)`
@@ -100,7 +111,7 @@ export const DivTotal= styled(flex)`
   justify-content:space-between;
 `
 export const Info = styled.span`
-${props => props.error && `color:#efb810`};
+${props => props.error && `color:#efb810;margin-bottom:-12px;`};
 ${props => props.right && `margin-right:${props.right}%`};
 `
 export const ButtonOption = styled.button`
