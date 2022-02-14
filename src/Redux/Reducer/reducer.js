@@ -83,11 +83,27 @@ import {
     UPDATE_SETTINGS_ERROR,
 } from "../types";
 
-import sortCallbacks from "../FilterAndSort/sortCallbacks";
-import filterAndSort from "../FilterAndSort/filterCallbacks";
+import filterAndSort from "../FilterAndSort/filterAndSort";
 
 
 const initialState = {
+    forms:{
+        subscriptions:{
+
+        },
+        orders:{
+
+        },
+        settings:{
+
+        },
+        signIn:{
+
+        },
+        signUp:{
+            
+        }
+    },
     session:{
         userName:"",
         token:"",
@@ -99,7 +115,9 @@ const initialState = {
         data:[],
         status:0,
         error:{},
-        filter:"",
+        filter:{
+            symbol:""
+        },
         order:"",
         currency:"usd"
     },
@@ -193,7 +211,7 @@ const initialState = {
         filter:{
             dateFrom:"",
             dateTo:"",
-            symbols:""
+            symbol:""
         },
         order:"",
     },
@@ -226,12 +244,12 @@ const reducer = (state = initialState, action) => {
 
         case GET_PRICES:
             let prices = [...action.payload];
-            if(state.prices.filter!==""){
-                prices = prices.filter(el=>el.symbol.includes(state.prices.filter));
-            };
-            if(state.prices.order!==""){
-                prices.sort(sortCallbacks[state.prices.order]);
-            }
+            prices = filterAndSort(
+                'prices',
+                prices,
+                state.prices.filter,
+                state.prices.order
+            );
             return {
                 ...state,
                 prices:{
@@ -768,12 +786,12 @@ const reducer = (state = initialState, action) => {
 
         case GET_TRANSACTIONS:
             let transactions = [...action.payload];
-            // transactions = filterAndSort(
-            //     'transactions',
-            //     transactions,
-            //     state.transactions.filter,
-            //     state.transactions.order
-            // );
+            transactions = filterAndSort(
+                'transactions',
+                transactions,
+                state.transactions.filter,
+                state.transactions.order
+            );
             return {
                 ...state,
                 transactions:{
