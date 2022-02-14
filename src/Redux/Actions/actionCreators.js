@@ -297,7 +297,7 @@ export const addOrder = (dispatch, token, form) =>{
     const dataCbAddOrder = (data)=>dispatch({type:ADD_ORDER,payload:data});
     const statusCbAddOrder = (value)=>dispatch({type:ADD_ORDER_STATUS,payload:value});
     const errorCbAddOrder = (errorObj)=>dispatch({type:ADD_ORDER_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/orders/`,  dataCbAddOrder, statusCbAddOrder, errorCbAddOrder,{
+    helpFetch(`${API_URL}/order/neworder`,  dataCbAddOrder, statusCbAddOrder, errorCbAddOrder,{
         headers:{
             "Content-Type": "application/json",            
             "Authorization": `Bearer ${token}`,

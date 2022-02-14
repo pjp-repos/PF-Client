@@ -12,7 +12,7 @@ import {
  } from "../../Redux/Selectors/selectors";
 import { useSelector,useDispatch} from "react-redux";
 import {
-    getSymbols, getPortfolio,getPair
+    getSymbols, getPortfolio,getPair,addOrder
 } from '../../Redux/Actions/actionCreators';
 import nomoney from "../../Assets/Images/nomoney.png"
 import {setSymbol1,setSymbol2,validatePair,validateSubmit} from "./OrderFunctions"
@@ -26,9 +26,11 @@ const stateOrderInitial = {
 }
 const stateSymbolsInitial = {
     symbol1:"Crypto",
+    symbol1Id:"",
     symbol1Img:`${nomoney}`,
     symbol1price:0,
     symbol2:"Crypto",
+    symbol2Id:"",
     symbol2Img:`${nomoney}`
 }
 
@@ -51,7 +53,7 @@ export default function Order(){
 
     React.useEffect(() => {
       if(validatePair(symbolsState))
-         getPair(dispatch,token,symbolsState.symbol1,symbolsState.symbol2);
+         getPair(dispatch,token,symbolsState.symbol1Id,symbolsState.symbol2Id);
     },[symbolsState]);
 
     const handleSubmit = () => {
@@ -62,13 +64,13 @@ export default function Order(){
         else{
           const order = {
               buyOrder:stateOrder.typeOrder === "Sell" ? false :true,
-              symbol1Id:symbolsState.symbol1,
-              symbol2Id:symbolsState.symbol2,
+              symbol1Id:symbolsState.symbol1Id,
+              symbol2Id:symbolsState.symbol2Id,
               amount:parseInt(stateOrder.amount),
               marketOrder:stateOrder.type === "Limit" ? false :true,
               priceLimit:parseInt(stateOrder.limit)
           }
-          console.log(order);
+          addOrder(dispatch,token,order);
         }
     }
 

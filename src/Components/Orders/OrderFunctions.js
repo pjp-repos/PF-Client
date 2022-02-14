@@ -1,9 +1,10 @@
 export const  setSymbol2 = (setSymbolsState,symbols,e,symbolsState) => {
-
+    const symbolTarget = symbols.find(el => el.symbol === e.target.value);
     setSymbolsState({
         ...symbolsState,
+        symbol2Id:symbolTarget.id,
         symbol2:e.target.value,
-        symbol2Img: symbols.find(el => el.symbol === e.target.value).image 
+        symbol2Img:symbolTarget.image 
 
     })  
 }
@@ -13,6 +14,7 @@ export const setSymbol1 = (setSymbolsState,portfolio,e,symbolsState) =>{
     const symbolPortfolio =  portfolio.find(el => el.symbol === e.target.value);
     setSymbolsState({
         ...symbolsState,
+        symbol1Id:symbolPortfolio.idSymbol,
         symbol1:e.target.value,
         symbol1Img: symbolPortfolio.image ,
         symbol1price:symbolPortfolio.balance
