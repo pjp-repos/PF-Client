@@ -70,6 +70,7 @@ export default function Order(){
               marketOrder:stateOrder.type === "Limit" ? false :true,
               priceLimit:parseInt(stateOrder.limit)
           }
+          console.log(order);
           addOrder(dispatch,token,order);
         }
     }

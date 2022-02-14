@@ -3,7 +3,7 @@ import {Row} from "../../Home/Table/Row"
 import { Select } from "../../Home/Filters/Selects/SelectElements"
 import { ContainerFilters } from "../../Home/Filters/ContainerFilters"
 import {TableC} from "../../Home/Table/TableElements"
-import { Card,Title,Img } from "../../UserHome/UserHomeElements"
+import { Card ,Img} from "../../UserHome/UserHomeElements"
 
 export const RowO = styled(Row)`
   grid-template-columns: 0.2fr 0.2fr 0.25fr 0.25fr 0.2fr 0.2fr 0.3fr ;
@@ -49,12 +49,11 @@ export const BannerOrder = styled(Card)`
   margin-left:auto;
   margin-right:auto;
   height:100%;
-  width:50%;
+  width:40%;
   background-color:blue;
 `
 
-export const BannerImg = styled.div`
-    height:100%;
-    width:100%;
-    object-fit:cover;
+export const BannerImg = styled(Img)`
+    height:120px;
+    opacity:1;
 `

@@ -1,10 +1,8 @@
 import React from "react";
 import Pagination from "../../Home/Pagination/Pagination";
-import { Container ,TableO,RowO,BannerOrder,DivBanner} from "./OrderTableElements";
+import { Container ,TableO,RowO,BannerOrder,DivBanner,BannerImg} from "./OrderTableElements";
 import { Column } from "../../Home/Table/Column";
-
-
-
+import { Title } from "../../UserHome/UserHomeElements";
 
 const ORDERFORPAGE = 10;
 const order = [{
@@ -35,7 +33,8 @@ export default function Transactions(){
     <Container>
         <DivBanner>
           <BannerOrder>
-            <h2>Make A Order</h2>
+            <Title>Make A Order</Title>
+            <BannerImg className = "Img" src =  "https://images.unsplash.com/photo-1634542984003-e0fb8e200e91?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80" alt = "banner" />
           </BannerOrder>
         </DivBanner>
         <TableO>
