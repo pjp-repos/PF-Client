@@ -1,5 +1,5 @@
-
-const sortCbSymbolAsc = (a,b) =>{
+// ==== PRICES CALLBACKS =======================
+const pricesCbSymbolAsc = (a,b) =>{
     let elementA = a.symbol.toUpperCase(); // ignore upper and lowercase
     let elementB = b.symbol.toUpperCase(); // ignore upper and lowercase
     
@@ -8,7 +8,7 @@ const sortCbSymbolAsc = (a,b) =>{
     return 0; // names must be equal
 }
 
-const sortCbSymbolDesc = (a,b) =>{
+const pricesCbSymbolDesc = (a,b) =>{
     let elementA = a.symbol.toUpperCase(); // ignore upper and lowercase
     let elementB = b.symbol.toUpperCase(); // ignore upper and lowercase
     
@@ -17,7 +17,7 @@ const sortCbSymbolDesc = (a,b) =>{
     return 0; 
 }
 
-const sortCbMarketAsc = (a,b) =>{
+const pricesCbMarketAsc = (a,b) =>{
     let elementA = a.market_cap;
     let elementB = b.market_cap;
     
@@ -26,7 +26,7 @@ const sortCbMarketAsc = (a,b) =>{
     return 0; // names must be equal
 }
 
-const sortCbMarketDesc = (a,b) =>{
+const pricesCbMarketDesc = (a,b) =>{
     let elementA = a.market_cap;
     let elementB = b.market_cap;
     
@@ -35,7 +35,7 @@ const sortCbMarketDesc = (a,b) =>{
     return 0; 
 }
 
-const sortCbPriceAsc = (a,b) =>{
+const pricesCbPriceAsc = (a,b) =>{
     let elementA = a.price;
     let elementB = b.price;
     
@@ -44,7 +44,7 @@ const sortCbPriceAsc = (a,b) =>{
     return 0; // names must be equal
 }
 
-const sortCbPriceDesc = (a,b) =>{
+const pricesCbPriceDesc = (a,b) =>{
     let elementA = a.price;
     let elementB = b.price;
     
@@ -52,16 +52,43 @@ const sortCbPriceDesc = (a,b) =>{
     if (elementA > elementB) return -1;
     return 0; 
 }
+
+// ==== TRANSACTIONS CALLBACKS =========================
+
+const transactionsCbSymbolAsc = (a,b) =>{
+    let elementA = a.symbol.toUpperCase(); // ignore upper and lowercase
+    let elementB = b.symbol.toUpperCase(); // ignore upper and lowercase
+    
+    if (elementA < elementB) return -1;   
+    if (elementA > elementB) return 1;
+    return 0; // names must be equal
+}
+
+const transactionsCbSymbolDesc = (a,b) =>{
+    let elementA = a.symbol.toUpperCase(); // ignore upper and lowercase
+    let elementB = b.symbol.toUpperCase(); // ignore upper and lowercase
+    
+    if (elementA < elementB) return 1;   
+    if (elementA > elementB) return -1;
+    return 0; 
+}
+
 
 const sortCallbacks={
-    marketDesc:sortCbMarketDesc,
-    marketAsc:sortCbMarketAsc,
-    symbolAsc:sortCbSymbolAsc,
-    symbolDesc:sortCbSymbolDesc,
-    priceAsc:sortCbPriceAsc,
-    priceDesc:sortCbPriceDesc,
+    prices:{
+        marketDesc:pricesCbMarketDesc,
+        marketAsc:pricesCbMarketAsc,
+        symbolAsc:pricesCbSymbolAsc,
+        symbolDesc:pricesCbSymbolDesc,
+        priceAsc:pricesCbPriceAsc,
+        priceDesc:pricesCbPriceDesc,
+    },
     subscriptions:{
         bySymbol:"",
+    },
+    transactions:{
+        symbolAsc:transactionsCbSymbolAsc,
+        symbolDesc:transactionsCbSymbolDesc,
     }
 };
 export default sortCallbacks;

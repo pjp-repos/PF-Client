@@ -55,7 +55,7 @@ export default function Filters(){
   }
 
   const handlerFilter = (e) => {
-    filterGlobalPrices(dispatch,e.target.value); 
+    filterGlobalPrices(dispatch,{symbol:e.target.value}); 
     getGlobalPrices(dispatch,currency);   
   }
 
@@ -81,7 +81,7 @@ export default function Filters(){
        </ContainerSelects>
 
        <ContainerSearch> 
-          <InputSearch placeholder="Search for symbol" value = {filter} onChange = {handlerFilter}/>
+          <InputSearch placeholder="Search for symbol" value = {filter.symbol} onChange = {handlerFilter}/>
           <ButtonSearch><span className="material-icons-outlined">search</span></ButtonSearch>
        </ContainerSearch>
     </ContainerFilters>
