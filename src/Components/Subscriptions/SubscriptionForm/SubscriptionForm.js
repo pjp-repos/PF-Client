@@ -15,20 +15,11 @@ import {
 
 // Redux Selectors
 import {
-    selectAddSubscription,
-    selectAddSubscriptionStatus,
-    selectAddSubscriptionError,
-    selectUpdateSubscription,
-    selectUpdateSubscriptionStatus,
-    selectUpdateSubscriptionError,
-    selectSubscription,
-    selectSubscriptionStatus,
-    selectSubscriptionError,
-    selectSymbols,
-    selectSymbolsStatus,
-    selectSymbolsError,
-    selectSessionIsAuthenticated,
-    selectSessionToken
+    selectAddSubscriptionAll,
+    selectUpdateSubscriptionAll,
+    selectSubscriptionAll,
+    selectSymbolsAll,
+    selectSessionAll,
 } from '../../../Redux/Selectors/selectors'
 
 // Custom hooks
@@ -52,12 +43,8 @@ import Dropdown from '../../AaaGenerics/Dropdown/Dropdown';
 import { H3 } from '../../AaaGenerics/Texts/Hx';
 import Container from '../../AaaGenerics/Sections/Container';
 import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
-import Modal from '../../AaaGenerics/Modal/Modal'
-
 
 const SubscriptionForm = () => {  
-    // Modal states
-    const [showModalErrorAdd,setShowModalErrorAdd] = useState(false);
     // Router-dom hooks
     const {id} = useParams();
     let update = false;
@@ -66,8 +53,7 @@ const SubscriptionForm = () => {
 
     // Redux hooks  
     const dispatch = useDispatch();
-    const isAuthenticated = useSelector(selectSessionIsAuthenticated);
-    const token = useSelector(selectSessionToken);
+    const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
     
     // Load symbol list for dropdowns and subscription data (Update case)
     useEffect(() => {   
@@ -90,21 +76,11 @@ const SubscriptionForm = () => {
         }
     };
 
-    const dataAdd = useSelector(selectAddSubscription);
-    const statusAdd = useSelector(selectAddSubscriptionStatus);
-    const errorAdd = useSelector(selectAddSubscriptionError);
+    const [dataAdd, statusAdd, errorAdd] = useSelector(selectAddSubscriptionAll);
+    const [dataUpdate, statusUpdate, errorUpdate] = useSelector(selectUpdateSubscriptionAll);
+    const [dataSubscription, statusSubscription, errorSubscription] = useSelector(selectSubscriptionAll);
+    const [dataSymbols, statusSymbols, errorSymbols] = useSelector(selectSymbolsAll);
 
-    const dataUpdate = useSelector(selectUpdateSubscription);
-    const statusUpdate = useSelector(selectUpdateSubscriptionStatus);
-    const errorUpdate = useSelector(selectUpdateSubscriptionError);
-
-    const dataSubscription = useSelector(selectSubscription);
-    const statusSubscription = useSelector(selectSubscriptionStatus);
-    const errorSubscription = useSelector(selectSubscriptionError);
-
-    const dataSymbols = useSelector(selectSymbols);
-    const statusSymbols = useSelector(selectSymbolsStatus);
-    const errorSymbols = useSelector(selectSymbolsError);
     
     // Submit form thunk function execution
     let submitForm = ()=>{};

@@ -1,21 +1,29 @@
+// ==== PRICES
+const pricesBySymbol = (el,param) =>{
+    return el.symbol.toLowerCase().includes(param.toLowerCase()) || param==="";
+};
+// ==== TRANSACTIONS ==========================================================
+const transactionBySymbol = (el,param) =>{
+    return el.symbol.toLowerCase().includes(param.toLowerCase()) || param==="";
+};
 
-const transactionByDateFrom = () =>{
+const transactionByDateFrom = (el,param) =>{
+    return el.date >= param || param==="";
+};
 
-}
+const transactionByDateTo = (el,param) =>{
+    return el.date <= param || param==="";
+};
 
-const transactionByDateTo = () =>{
-
-}
-
-const transactionBySymbols = () =>{
-
-}
 
 const filterCallbacks={
+    prices:{
+        symbol:pricesBySymbol,
+    },
     transactions:{
+        symbol:transactionBySymbol,
         dateFrom:transactionByDateFrom,
         dateTo:transactionByDateTo,
-        symbols:transactionBySymbols
     },
     portfolio:{
 

@@ -123,7 +123,7 @@ export const getPair = (dispatch, token,symbol1,symbol2) =>{
 };
 
 // filterGlobalPrices action
-export const filterGlobalPrices = (dispatch, filterString)=>dispatch({type:SET_PRICES_FILTER,payload:filterString});
+export const filterGlobalPrices = (dispatch, filterForm)=>dispatch({type:SET_PRICES_FILTER,payload:filterForm});
 
 // filterGlobalPrices action
 export const orderGlobalPrices = (dispatch, order)=>dispatch({type:SET_PRICES_ORDER,payload:order});
@@ -183,6 +183,7 @@ export const getSingOut = (dispatch, token) =>{
     
 };
 
+// ==== SUBSCRIPTIONS ==============================================================================
 // getSubscriptions action (thunk function)
 export const getSubscriptions = (dispatch, token) =>{
     const dataCbSubscriptions = (data)=>dispatch({type:GET_SUBSCRIPTIONS,payload:data});
@@ -267,6 +268,7 @@ export const filterSubscriptions = (dispatch, filterForm)=>dispatch({type:FILTER
 // order subscriptions payload='orderCriteria' 
 export const sortSubscriptions = (dispatch, order)=>dispatch({type:SORT_SUBSCRIPTIONS,payload:order});
 
+// ==== ORDERS ==============================================================================
 // getOrders action (thunk function)
 export const getOrders = (dispatch, token) =>{
     const dataCbOrders = (data)=>dispatch({type:GET_ORDERS,payload:data});
@@ -328,7 +330,6 @@ export const updateOrder = (dispatch, token, form, id) =>{
 // resetUpdateOrderStatus
 export const resetUpdateOrderStatus = (dispatch)=>dispatch({type:UPDATE_ORDER_STATUS,payload:0});
 
-
 // deleteOrder action (thunk function)
 export const deleteOrder = (dispatch,token, id) =>{
     const dataCbdeleteOrder = (data)=>dispatch({type:DELETE_ORDER,payload:data});
@@ -351,6 +352,7 @@ export const filterOrders = (dispatch, filterForm)=>dispatch({type:FILTER_ORDERS
 // order orderscriptions payload='orderCriteria' 
 export const sortOrders = (dispatch, order)=>dispatch({type:SORT_ORDERS,payload:order});
 
+// ==== TRANSACTIONS ==============================================================================
 // getTransactions action (thunk function)
 export const getTransactions = (dispatch, token,dateFrom='2000-01-01',dateTo='2100-12-31') =>{
     const dataCbTransactions = (data)=>dispatch({type:GET_TRANSACTIONS,payload:data});
@@ -364,13 +366,13 @@ export const getTransactions = (dispatch, token,dateFrom='2000-01-01',dateTo='21
     });
 };
 
-
 // filter transactions payload=filterForm{criteria1:"",criteria2:"xxx"...}
 export const filterTransactions = (dispatch, filterForm)=>dispatch({type:FILTER_TRANSACTIONS,payload:filterForm});
 
 // order transactions payload='orderCriteria' 
 export const sortTransactions = (dispatch, order)=>dispatch({type:SORT_TRANSACTIONS,payload:order});
 
+// ==== PORTFOLIO ==============================================================================
 // getPortfolio action (thunk function)
 export const getPortfolio = (dispatch, token) =>{
     const dataCbPortfolio = (data)=>dispatch({type:GET_PORTFOLIO,payload:data});

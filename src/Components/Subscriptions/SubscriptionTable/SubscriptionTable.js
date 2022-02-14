@@ -4,21 +4,14 @@ import { Link } from 'react-router-dom'
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { 
-    selectSubscriptions,
-    selectSubscriptionsStatus,
-    selectSubscriptionsError,
-    selectSessionToken,
-    selectSessionIsAuthenticated,
-    selectDeleteSubscriptionStatus,
-    selectDeleteSubscriptionError,
-    selectPairAll,
-
-} from '../../../Redux/Selectors/selectors';
-import { 
     getSubscriptions, 
     deleteSubscription,
-    getPair
 } from '../../../Redux/Actions/actionCreators';
+import { 
+    selectSubscriptionsAll,
+    selectDeleteSubscriptionAll,
+    selectSessionAll,
+} from '../../../Redux/Selectors/selectors';
 
 //import Container from '../AaaGenerics/Sections/Container'
 //import {Button} from '../AaaGenerics/Button/Button'
@@ -42,31 +35,20 @@ import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
 const SubscriptionTable = () => {
  
     const dispatch = useDispatch();
-    const isAuthenticated = useSelector(selectSessionIsAuthenticated);
-    const token = useSelector(selectSessionToken);
+    const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
+
     
     useEffect(()=>{
         isAuthenticated && getSubscriptions(dispatch, token);
-        isAuthenticated && getPair(dispatch, token, 2,1);
     }, [isAuthenticated])
     
-    const subs = useSelector(selectSubscriptions);
-    const subsStatus = useSelector(selectSubscriptionsStatus);
-    const subsError = useSelector(selectSubscriptionsError);
-    const deleteStatus = useSelector(selectDeleteSubscriptionStatus);
-    const deleteError = useSelector(selectDeleteSubscriptionError);
-    
-    const [pairData,pairStatus,pairError] = useSelector(selectPairAll);
- 
-
+    const [subsData, subsStatus, subsError ] = useSelector(selectSubscriptionsAll);
+    const [deleteData, deleteStatus, deleteError ] = useSelector(selectDeleteSubscriptionAll);
     
     const handleDelete = (e) =>{
-        getPair(dispatch, token, 2,1);
-        
         if(window.confirm('Seguro que desea eliminar la subscripcion?'))
         {
-            if(pairStatus===2) console.log(pairData,pairError)
-            //deleteSubscription(dispatch, token, e.target.id);            
+            deleteSubscription(dispatch, token, e.target.id);            
         }
     }
 
@@ -87,7 +69,25 @@ const SubscriptionTable = () => {
         </SectionRelative>        
     );
 
-    if(subsStatus===3 || deleteStatus===3)return(<p>Fail</p>)
+    // Errors
+    if(deleteStatus===3){
+        return(<p>{
+                `Oops. Something was wrong. 
+                ErrorCode:${deleteError.errorCode} 
+                ErrorType:${deleteError.errorType} 
+                ErrorMessage:${deleteError.errorMessage}
+                `
+        }</p>)
+    }
+    if(subsStatus===3){
+        return(<p>{
+                `Oops. Something was wrong. 
+                ErrorCode:${subsError.errorCode} 
+                ErrorType:${subsError.errorType} 
+                ErrorMessage:${subsError.errorMessage}
+                `
+        }</p>)
+    }
     return (
         <TableWrapper>
             <Table>
@@ -105,7 +105,7 @@ const SubscriptionTable = () => {
                     <Column>risePrice</Column>
                     <Column>alertOnRise</Column>
                 </Row>
-                {subs.map(s => (
+                {subsData.map(s => (
                     <Row key={s.id} id={s.id}>
                         <Column>{s.id}</Column>
                         <Column>{s.pair[0]}</Column>
