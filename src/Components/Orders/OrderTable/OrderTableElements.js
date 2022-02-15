@@ -1,7 +1,5 @@
 import styled from "styled-components"
 import {Row} from "../../Home/Table/Row"
-import { Select } from "../../Home/Filters/Selects/SelectElements"
-import { ContainerFilters } from "../../Home/Filters/ContainerFilters"
 import {TableC} from "../../Home/Table/TableElements"
 import { Card ,Img} from "../../UserHome/UserHomeElements"
 
@@ -12,18 +10,41 @@ export const RowO = styled(Row)`
   width:100%;
   grid-gap:0.1%;
 
-  @media screen and (max-width:900px){
-    overflow-x:auto;
-   }
+  @media screen and (max-width:920px){
+    width:170%;
+  }
+  
+  @media screen and (max-width:540px){
+    width:250%;
+  }
+
 `
 export const Container = styled.div`
-   width: 100%;
+   min-width: 100%;
    justify-content: center;
 `
 
 export const TableO = styled(TableC)`
   margin-top:30px;
   min-height:30px;
+
+  @media screen and (max-width:920px){
+    overflow-x:scroll;
+    overflow-y:hidden;
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width:5px;
+      height:6px;
+      background-color: #181A20;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: white;
+      height: 1px;
+    }
+   }
+   
 `
 export const ContainerEdit = styled.div `
   width:100%;
@@ -42,6 +63,7 @@ export const DivBanner = styled.div`
   margin-bottom:40px;
   justify-content:center;
   height:120px;
+
 `
 
 export const BannerOrder = styled(Card)`
@@ -49,6 +71,13 @@ export const BannerOrder = styled(Card)`
   margin-right:auto;
   height:100%;
   width:40%;
+ 
+   @media screen and (max-width:920px){
+    width:70%;
+   }
+   @media screen and (max-width:540px){
+    width:80%;
+   }
 `
 
 export const BannerImg = styled(Img)`

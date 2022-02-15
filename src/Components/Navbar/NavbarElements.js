@@ -79,7 +79,7 @@ export const OptionsContainer = styled.div`
   justify-content:center;
   text-align:center;
   background-color:#181A20;
-  z-index:1;
+  z-index:3;
   top:95%;
   width:150px;
   height:0px;

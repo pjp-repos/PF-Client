@@ -15,7 +15,7 @@ export default function TransactionsTable({transactionsUser}){
                 <Column>Symbol</Column> 
                 <Column>Deposit</Column> 
                 <Column>Withdraw</Column> 
-                <Column invisiblemd>Date</Column>  
+                <Column>Date</Column>  
             </Rowt>
            
             {
@@ -24,7 +24,7 @@ export default function TransactionsTable({transactionsUser}){
               <Column>{transaction.symbol}</Column>
               <Column>{transaction.deposit % 1 === 0 ? transaction.deposit : transaction.deposit.toFixed(6)}</Column>
               <Column>{transaction.withdraw % 1 === 0 ? transaction.withdraw : transaction.withdraw.toFixed(6)}</Column>
-              <Column invisiblemd>{transaction.date}</Column>
+              <Column >{transaction.date}</Column>
               </Rowt>) 
             }
         </TableT>

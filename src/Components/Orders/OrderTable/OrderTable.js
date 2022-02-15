@@ -60,10 +60,9 @@ export default function Transactions(){
                 <Column>symbol2</Column> 
                 <Column>Amount</Column> 
                 <Column>priceLimit</Column> 
-                <Column invisiblemd>Type Order</Column>  
-                <Column invisiblemd>State Order</Column> 
+                <Column>Type Order</Column>  
+                <Column>State Order</Column> 
                 <Column>Update</Column>  
-            
             </RowO>
            
             {
@@ -72,13 +71,13 @@ export default function Transactions(){
               <Column>{orderItem.Symbol1}</Column>
               <Column>{orderItem.Symbol2}</Column>
               <Column>{orderItem.Amount}</Column>
-              <Column>{orderItem.priceLimit}</Column>
-              <Column invisiblemd>{orderItem.typeOrder}</Column>
-              <Column invisiblemd>{orderItem.StateOrder}</Column>
-              <Column invisiblemd>10-01-2022</Column>
+              <Column >{orderItem.priceLimit}</Column>
+              <Column >{orderItem.typeOrder}</Column>
+              <Column >{orderItem.StateOrder}</Column>
+              <Column >10-01-2022</Column>
                 {
                   orderItem.StateOrder === "Pending" &&
-                  <Column invisiblemd>
+                  <Column >
                     <ButtonE><img src = {Edit} height="20px" alt = "edit"/></ButtonE>
                     <ButtonE><img src = {Delete} height="20px" alt = "delete"/></ButtonE>
                   </Column>

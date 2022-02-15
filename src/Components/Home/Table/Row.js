@@ -11,14 +11,9 @@ ${props => props.head && 'font-weight:bold; background-color:#474D57'};
 &:hover{
     background-color: rgb(20, 21, 26);
 }
-@media screen and (max-width:840px){
-    grid-template-columns: 0.5fr 0.6fr 0.8fr 0.7fr 0.7fr 
-   
-}
 
+}
 @media screen and (max-width:540px){
-    grid-template-columns: 0.2fr 0.4fr 0.5fr 0.5fr 
-   
+    width:250%;
 }
-
 `

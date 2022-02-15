@@ -103,28 +103,28 @@ const SubscriptionTable = () => {
                 <RowS head>
                     <Column>id</Column>
                     <Column>Pair</Column>
-                    <Column>Symbol1</Column>
-                    <Column></Column>
-                    <Column>Symbol2</Column>
+                    <Column >Symbol1</Column>
+                    <Column ></Column>
+                    <Column >Symbol2</Column>
                     <Column>Price</Column>
-                    <Column>fallPrice</Column>
-                    <Column>alertOnFall</Column>
-                    <Column>risePrice</Column>
-                    <Column>alertOnRise</Column>
+                    <Column >fallPrice</Column>
+                    <Column >alertOnFall</Column>
+                    <Column >risePrice</Column>
+                    <Column >alertOnRise</Column>
                 </RowS>
                 {subsData.map(s => (
                     <RowS key={s.id} id={s.id}>
                         <Column>{s.id}</Column>
                         <Column>{s.pair[0]}</Column>
-                        <Column><img src={s.symbol1[1]} height='20px'/>{s.symbol1[0]}</Column>
-                        <Column><img src={arrow} width='20px'/></Column>
-                        <Column><img src={s.symbol2[1]} height='20px'/>{s.symbol2[0]}</Column>
-                        <Column> {Number(s.pair[1])} </Column>
-                        <Column> {s.fallPrice} </Column>
-                        <Column>{s.alertOnFall ? 'True' : 'False'}</Column>
-                        <Column> {s.risePrice} </Column>
-                        <Column>{s.alertOnRise ? 'True' : 'False'}</Column>
-                        <Column>
+                        <Column ><img src={s.symbol1[1]} height='20px'/>{s.symbol1[0]}</Column>
+                        <Column ><img src={arrow} width='20px'/></Column>
+                        <Column ><img src={s.symbol2[1]} height='20px'/>{s.symbol2[0]}</Column>
+                        <Column > {Number(s.pair[1])} </Column>
+                        <Column > {s.fallPrice} </Column>
+                        <Column >{s.alertOnFall ? 'True' : 'False'}</Column>
+                        <Column > {s.risePrice} </Column>
+                        <Column >{s.alertOnRise ? 'True' : 'False'}</Column>
+                        <Column >
                            <Link to={`/subscriptions/form/${s.id}`}><ButtonE><img src={edit} height='20px'/></ButtonE></Link>
                            <ButtonE id={s.id} onClick={handleDelete}><img id={s.id} src={borrar} height='20px'/></ButtonE>
                         </Column>

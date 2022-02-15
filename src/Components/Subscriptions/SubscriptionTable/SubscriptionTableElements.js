@@ -21,13 +21,36 @@ export const ButtonE = styled(Button)`
 `;
 
 export const TableS = styled(TableC)`
-    
+  @media screen and (max-width:920px){
+    overflow-x:scroll;
+    overflow-y:hidden;
+    &::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width:5px;
+        height:6px;
+        background-color: #181A20;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background-color: white;
+        height: 1px;
+      }
+   }
 `;
 
 export const RowS = styled(Row)`
-     grid-template-columns: 0.2fr 0.5fr 0.4fr 0.2fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.9fr ;
-`;
+    grid-template-columns: 0.2fr 0.5fr 0.4fr 0.2fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.9fr ;
 
+    @media screen and (max-width:920px){
+        width:180%;
+}
+
+    @media screen and (max-width:540px){
+        width:280%;
+    }
+       
+    
+`;
 
 export const TableWrapper = styled.div`
     min-width: 100%;
