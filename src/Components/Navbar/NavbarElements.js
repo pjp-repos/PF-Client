@@ -97,3 +97,8 @@ export const Option =styled.button`
     cursor: pointer;
   }
 `;
+export const ImgUser = styled.img`
+@media screen and (max-width:540px){
+  margin-left:50px;
+ }
+`

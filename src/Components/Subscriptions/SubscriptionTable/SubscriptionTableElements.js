@@ -1,9 +1,11 @@
 import styled from 'styled-components';
+import { Row } from '../../Home/Table/Row';
+import { TableC } from '../../Home/Table/TableElements';
 
 export const Button = styled.button`
     margin: 25px;
     height: 25px;
-    background-color: #0ecb81;
+    background-color:  #efb810;
     color: white;
     border-radius: 5px;
     border: none;
@@ -18,34 +20,18 @@ export const ButtonE = styled(Button)`
     width: auto;
 `;
 
-export const Table = styled.div`
-    display: flex;
-    flex-direction: column;
-    color: white;
-    margin: 15px;
-    align-items: center;
-    justify-content: center;
+export const TableS = styled(TableC)`
+    
 `;
 
-export const Row = styled.div`
-    display: grid;
-    grid-template-columns: repeat(12,${props => props.width < 1200 ? '10%' : '5rem'});
-    border-bottom: 1px solid #ccc;
-    background-color: ${props => props.head ? '#0b0e11' : '#181A20'};
+export const RowS = styled(Row)`
+     grid-template-columns: 0.2fr 0.5fr 0.4fr 0.2fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.9fr ;
 `;
 
-export const Column = styled.div`
-    display: inline-flex;
-    justify-content: space-around;
-    align-items: center;
-    text-align: center;
-    padding: 5px 10px;
-`;
 
 export const TableWrapper = styled.div`
     min-width: 100%;
     width: 100%;
-    background-color: #181A20;
     display: flex;
     flex-direction: column;
     align-items: center;

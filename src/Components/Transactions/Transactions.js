@@ -8,10 +8,9 @@ import {
   selectSessionIsAuthenticated,
   selectSessionToken,
   selectPortfolio,
-  selectPortfolioStatus
 } from "../../Redux/Selectors/selectors";
 import { useSelector,useDispatch} from "react-redux";
-import {getTransactions,getPortfolio} from '../../Redux/Actions/actionCreators';
+import {getTransactions,getPortfolio,filterTransactions} from '../../Redux/Actions/actionCreators';
 import { useNavigate } from "react-router-dom";
 const TRANSACTIONSFORPAGE = 10;
 const types = ["All","usdt","btc"];
@@ -32,14 +31,19 @@ export default function Transactions(){
       getPortfolio(dispatch,token);
     }, []);
 
+    const handlerSelects = (e) => {
+      filterTransactions(dispatch,{symbol:e.target.value})
+    }
+
   return (
     <div >
         <NavBar />
         <ContainerFiltersT>
             <Wallet>Wallet</Wallet>
-            <SelectTransactions>
+            <SelectTransactions id = "symbol" onChange = {handlerSelects}> 
+                <option id = "symbol" value = "">All</option>
                 {
-                  portfolio.length > 0 &&  portfolio.map(type => <option key = {type.symbol}>{type.symbol}</option>)
+                  portfolio.length > 0 &&  portfolio.map(type => <option key = {type.symbol} id = "symbol" value = {type.symbol}>{type.symbol}</option>)
                 }
             </SelectTransactions>
         </ContainerFiltersT>

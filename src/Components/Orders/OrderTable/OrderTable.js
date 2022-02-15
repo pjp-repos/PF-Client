@@ -1,8 +1,16 @@
 import React from "react";
+import Delete from "../../../Assets/delete.svg"
+import Edit from "../../../Assets/edit.svg"
 import Pagination from "../../Home/Pagination/Pagination";
 import { Container ,TableO,RowO,BannerOrder,DivBanner,BannerImg} from "./OrderTableElements";
 import { Column } from "../../Home/Table/Column";
 import { Title } from "../../UserHome/UserHomeElements";
+import {selectOrderAll,selectSessionToken} from "../../../Redux/Selectors/selectors"
+import { getOrders } from "../../../Redux/Actions/actionCreators";
+import { useSelector,useDispatch} from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { ButtonE } from "../../Subscriptions/SubscriptionTable/SubscriptionTableElements";
+
 
 const ORDERFORPAGE = 10;
 const order = [{
@@ -25,39 +33,56 @@ const order = [{
 
 export default function Transactions(){
     const [actualPage, setActualPage] = React.useState(1);
+    const dispatch = useDispatch();
     let topOrders = ORDERFORPAGE * actualPage;
     let initialOrders = topOrders - ORDERFORPAGE;
+    let orders = useSelector(selectOrderAll);
+    const token = useSelector(selectSessionToken);
+    const navigate = useNavigate();
+
+    React.useEffect(() => {
+        getOrders(dispatch,token);
+    },[]);
    
   return (
     
     <Container>
         <DivBanner>
-          <BannerOrder>
+          <BannerOrder onClick={(e) => navigate("./form")}>
             <Title>Make A Order</Title>
-            <BannerImg className = "Img" src =  "https://images.unsplash.com/photo-1634542984003-e0fb8e200e91?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80" alt = "banner" />
+            <BannerImg className = "Img" src =  "https://images.unsplash.com/photo-1631603090989-93f9ef6f9d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80" alt = "banner" />
           </BannerOrder>
         </DivBanner>
         <TableO>
             <RowO head>
+                <Column>Id</Column> 
                 <Column>Symbol1</Column> 
                 <Column>symbol2</Column> 
                 <Column>Amount</Column> 
                 <Column>priceLimit</Column> 
                 <Column invisiblemd>Type Order</Column>  
-                <Column invisiblemd>State Order</Column>  
-                <Column invisiblemd> Edit</Column>  
+                <Column invisiblemd>State Order</Column> 
+                <Column>Update</Column>  
+            
             </RowO>
            
             {
               order.length > 0  && order.map(orderItem=><RowO >
+              <Column>1</Column>
               <Column>{orderItem.Symbol1}</Column>
               <Column>{orderItem.Symbol2}</Column>
               <Column>{orderItem.Amount}</Column>
               <Column>{orderItem.priceLimit}</Column>
               <Column invisiblemd>{orderItem.typeOrder}</Column>
               <Column invisiblemd>{orderItem.StateOrder}</Column>
-              <Column invisiblemd>{orderItem.StateOrder == "Pending" ? "Edit"
-              :"Finished"}</Column>
+              <Column invisiblemd>10-01-2022</Column>
+                {
+                  orderItem.StateOrder === "Pending" &&
+                  <Column invisiblemd>
+                    <ButtonE><img src = {Edit} height="20px" alt = "edit"/></ButtonE>
+                    <ButtonE><img src = {Delete} height="20px" alt = "delete"/></ButtonE>
+                  </Column>
+                }
               </RowO>) 
             }
         </TableO>

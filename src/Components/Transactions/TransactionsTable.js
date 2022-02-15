@@ -22,8 +22,8 @@ export default function TransactionsTable({transactionsUser}){
               transactionsUser.length > 0  && transactionsUser.map(transaction=><Rowt >
               <Column>{transaction.id}</Column>
               <Column>{transaction.symbol}</Column>
-              <Column>{transaction.deposit}</Column>
-              <Column>{transaction.withdraw}</Column>
+              <Column>{transaction.deposit % 1 === 0 ? transaction.deposit : transaction.deposit.toFixed(6)}</Column>
+              <Column>{transaction.withdraw % 1 === 0 ? transaction.withdraw : transaction.withdraw.toFixed(6)}</Column>
               <Column invisiblemd>{transaction.date}</Column>
               </Rowt>) 
             }

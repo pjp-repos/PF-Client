@@ -32,15 +32,16 @@ justify-content:flex-start;
  width:25%;
 }
 `
-export const ContainerOptionsOrders = styled.div`
+export const ContainerOptionsOrders = styled(flex)`
   width:100%;
   height:60px;
-  margin-bottom:2%;
-  margin-top:6%;
+  
 `
 export const DivImages = styled(flex)`
   width:100%;
+  ${props => props.typeOrder === "Buy" && `flex-direction:row-reverse`};
   height:120px;
+  margin-top:20px;
 `
 export const DivSellBuy = styled(flex)`
   width:47%;
@@ -76,20 +77,21 @@ export const Image = styled.img`
 export const DivTrade = styled(flex)`
 width:100%;
 height:80px;
+${props => props.typeOrder === "Buy" && `flex-direction:row-reverse`};
 `
 export const SubmitDiv = styled(flex)`
 position:relative;
 justify-content:space-around;
 padding-top:12px;
 width:90%;
-height:300px;
+height:280px;
 background-color:blue;
 margin-bottom:10px;
 text-align:center;
 flex-direction:column;
 background-color:rgb(20, 21, 26);
 border-radius:10px;
-${props => props.type === "Limit" && `height:380px`};
+${props => props.type === "Limit" && `height:340px`};
 `
 export const SubmitOrder = styled(Submit)`
   position:relative;

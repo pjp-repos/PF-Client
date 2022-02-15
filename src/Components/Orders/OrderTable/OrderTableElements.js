@@ -6,15 +6,14 @@ import {TableC} from "../../Home/Table/TableElements"
 import { Card ,Img} from "../../UserHome/UserHomeElements"
 
 export const RowO = styled(Row)`
-  grid-template-columns: 0.2fr 0.2fr 0.25fr 0.25fr 0.2fr 0.2fr 0.3fr ;
+  grid-template-columns: 0.08fr 0.15fr 0.15fr 0.2fr 0.2fr 0.15fr 0.15fr  0.18fr 0.25fr  ;
   margin-left:auto;
   margin-right:auto;
-  width:95%;
+  width:100%;
   grid-gap:0.1%;
 
-  @media screen and (max-width:840px){
-    grid-template-columns: 0.1fr 0.3fr 0.3fr 0.3fr;
-    width:90%;
+  @media screen and (max-width:900px){
+    overflow-x:auto;
    }
 `
 export const Container = styled.div`
@@ -50,10 +49,9 @@ export const BannerOrder = styled(Card)`
   margin-right:auto;
   height:100%;
   width:40%;
-  background-color:blue;
 `
 
 export const BannerImg = styled(Img)`
     height:120px;
-    opacity:1;
+    opacity:0.6;
 `

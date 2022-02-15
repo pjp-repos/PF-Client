@@ -17,7 +17,8 @@ import {
   ImgTitle,
   UserContainer,
   OptionsContainer,
-  Option
+  Option,
+  ImgUser,
 } from "./NavbarElements.js";
 
 // Assets
@@ -40,7 +41,7 @@ export default function NavBar(){
         </ContainerButtons>}
         {isAuthenticated && 
          <UserContainer>
-              <img src = {User} alt = "coin"/>
+              <ImgUser src = {User} alt = "coin"/>
              <OptionsContainer className="OptionsContainer">
                <Option onClick={(e) => navigate("/")}><p>Market</p></Option>
                <Option onClick={(e) => navigate("/subscriptions")}><p>Subscribe</p></Option>

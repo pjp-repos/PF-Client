@@ -45,7 +45,7 @@ export default function Order(){
     const portfolio = useSelector(selectPortfolio);
     const token = useSelector(selectSessionToken);
     const pairValid = useSelector(selectPairAll);
-
+  
     React.useEffect(() => {  
       getSymbols(dispatch,token);    
       getPortfolio(dispatch,token);
@@ -64,14 +64,14 @@ export default function Order(){
         else{
           const order = {
               buyOrder:stateOrder.typeOrder === "Sell" ? false :true,
-              symbol1Id:symbolsState.symbol1Id,
-              symbol2Id:symbolsState.symbol2Id,
-              amount:parseInt(stateOrder.amount),
+              symbol1Id:stateOrder.typeOrder === "Sell" ? symbolsState.symbol1Id : symbolsState.symbol2Id,
+              symbol2Id:stateOrder.typeOrder === "Sell" ? symbolsState.symbol2Id : symbolsState.symbol1Id,
+              amount:parseFloat(stateOrder.amount),
               marketOrder:stateOrder.type === "Limit" ? false :true,
-              priceLimit:parseInt(stateOrder.limit)
+              priceLimit:parseFloat(stateOrder.limit)
           }
-          console.log(order);
           addOrder(dispatch,token,order);
+          navigate("../order");
         }
     }
 
@@ -95,54 +95,57 @@ export default function Order(){
             <ContainerOptionsOrders>
               <ButtonOption name = "type" onClick = {(e) => handlerType(e.target.name,e.target.id)} actual = {stateOrder.type} id ="Market">Market</ButtonOption>
               <ButtonOption name = "type" onClick =  {(e) => handlerType(e.target.name,e.target.id)} actual = {stateOrder.type} id = "Limit">Limit</ButtonOption>
-            </ContainerOptionsOrders>     
-            <DivImages>
+            </ContainerOptionsOrders>  
+            <ContainerOptionsOrders>
+              <ButtonOption border name = "typeOrder" onClick ={(e) => handlerType(e.target.name,e.target.id)} actual = {stateOrder.typeOrder} id ="Sell">Sell</ButtonOption>
+              <ButtonOption border name = "typeOrder" onClick = {(e) => handlerType(e.target.name,e.target.id)} actual = {stateOrder.typeOrder} id = "Buy">Buy</ButtonOption>
+            </ContainerOptionsOrders>    
+            <DivImages typeOrder = {stateOrder.typeOrder}>
                <Image src = {symbolsState.symbol1Img} alt ="orders"/>
                <Image src = {symbolsState.symbol2Img} alt = "orders"/>
             </DivImages>
-            <DivTrade>
+            <DivTrade typeOrder = {stateOrder.typeOrder}>
                 <DivSellBuy>
-                   <SelectSellBuy id = "symbol1" value = {symbolsState.symbol1} onChange={handlerSelect}>
+                   <SelectSellBuy  id = "symbol1" value = {symbolsState.symbol1} onChange={handlerSelect}>
                        <option id = "symbol1" disabled>Crypto</option>
                        {
-                          portfolio.length > 0 && portfolio.map(option => <option key = {option.symbol} id = "symbol1" value = {option.symbol}>{option.symbol}</option>)
+                          portfolio.map(option => <option key = {option.symbol} id = "symbol1" value = {option.symbol}>{option.symbol}</option>)
                        }
                    </SelectSellBuy>
                 </DivSellBuy>
-                <svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 0 24 24" width="48px" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z"/></svg>
+                {
+                  stateOrder.typeOrder === "Sell" ? <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="48px" viewBox="0 0 24 24" width="48px" fill="#FFFFFF"><rect fill="none" height="24" width="24"/><path d="M15,5l-1.41,1.41L18.17,11H2V13h16.17l-4.59,4.59L15,19l7-7L15,5z"/></svg>
+                  : <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="48px" viewBox="0 0 24 24" width="48px" fill="#FFFFFF"><rect fill="none" height="24" width="24"/><path d="M9,19l1.41-1.41L5.83,13H22V11H5.83l4.59-4.59L9,5l-7,7L9,19z"/></svg>
+                }
                 <DivSellBuy>
                   <SelectSellBuy id = "symbol2"  value = {symbolsState.symbol2} onChange={handlerSelect} >
-                      <option id = "symbol1" disabled>Crypto</option>
+                      <option id = "symbol2" disabled>Crypto</option>
                       {
-                        symbols.length > 0 && symbols.map(option => <option key = {option.symbol} id = "symbol2" value = {option.symbol}>{option.symbol}</option>)
+                        symbols.length > 0 &&  symbols.map(option => <option key = {option.symbol} id = "symbol2" value = {option.symbol}>{option.symbol}</option>)
                       }       
                    </SelectSellBuy>
                 </DivSellBuy>
             </DivTrade>
             <DivInfo>
                {
-                 pairValid[1] === 2 && <Info> 1 {symbolsState.symbol1} equals: {(pairValid[0].price).toFixed(8)} {symbolsState.symbol2}</Info>
+                  symbolsState.symbol2 !== "Crypto" &&  symbolsState.symbol1 !== "Crypto" && pairValid[1] === 3 && <Info> Error Pair Invalid</Info>
                }
                {
-                 pairValid[1] === 3 && <Info> Error Pair Invalid</Info>
+                 symbolsState.symbol2 !== "Crypto" &&  symbolsState.symbol1 !== "Crypto" &&  pairValid[1] === 2 && <Info> 1 {symbolsState.symbol1} equals: {(pairValid[0].price).toFixed(8)} {symbolsState.symbol2}</Info>
                }
+               
             </DivInfo>
             <SubmitDiv type = {stateOrder.type}>
                 <DivTotal>
                    <Info>Avaliable</Info>
-                   <Info>{`${symbolsState.symbol1price}  ${symbolsState.symbol1}`} </Info>
+                   <Info>{symbolsState.symbol1price % 1 !== 0 ?`${symbolsState.symbol1price.toFixed(8)}  ${symbolsState.symbol1}`:`${symbolsState.symbol1price}  ${symbolsState.symbol1}`} </Info>
                 </DivTotal>
-                <InputSellBuy id = "amount" type = "number"  value = {stateOrder.amount} onChange = {(e) => handlerType(e.target.id,e.target.value)} placeholder="Amount"/>
-                { stateOrder.type === "Limit" && <InputSellBuy value = {stateOrder.limit} type = "number" onChange={(e) => handlerType(e.target.id,e.target.value)} id = "limit" placeholder="Limit"/> }
+                <InputSellBuy id = "amount" type = "number"  onChange = {(e) => handlerType(e.target.id,e.target.value)} placeholder="Amount"/>
+                { stateOrder.type === "Limit" && <InputSellBuy  type = "number" onChange={(e) => handlerType(e.target.id,e.target.value)} id = "limit" placeholder="Limit"/> }
                 <DivTotal>
                    <Info>Total:</Info>
-                   {pairValid[1] === 2 ? <Info>{(pairValid[0].price*parseInt(stateOrder.amount)).toFixed(8)} {symbolsState.symbol2}</Info> :<Info>0 Cryptos</Info>}
-                </DivTotal>
-                {<ContainerOptionsOrders>
-                   <ButtonOption border name = "typeOrder" onClick =  {(e) => handlerType(e.target.name,e.target.id)} actual = {stateOrder.typeOrder} id ="Sell">Sell</ButtonOption>
-                   <ButtonOption border name = "typeOrder" onClick =  {(e) => handlerType(e.target.name,e.target.id)} actual = {stateOrder.typeOrder} id = "Buy">Buy</ButtonOption>
-                </ContainerOptionsOrders>     
-                }   
+                   {pairValid[1] === 2 ? <Info>{(pairValid[0].price*parseFloat(stateOrder.amount)).toFixed(8)} {symbolsState.symbol2}</Info> :<Info>0 Cryptos</Info>}
+                </DivTotal>    
                 <Info error >{errorSubmit}</Info>
                 <SubmitOrder onClick = {handleSubmit}>Get {stateOrder.type}</SubmitOrder>
             </SubmitDiv>
