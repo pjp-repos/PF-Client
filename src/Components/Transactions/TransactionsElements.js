@@ -4,18 +4,18 @@ import { Select } from "../Home/Filters/Selects/SelectElements"
 import { ContainerFilters } from "../Home/Filters/ContainerFilters"
 import {TableC} from "../Home/Table/TableElements"
 export const Rowt = styled(Row)`
-  grid-template-columns: 0.1fr 0.2fr 0.2fr 0.2fr 0.3fr;
+  grid-template-columns: 0.15fr 0.15fr 0.2fr 0.2fr 0.2fr 0.25fr 0.3fr;
   margin-left:auto;
   margin-right:auto;
-  width:60%;
+  width:80%;
   grid-gap:0.1%;
 
   @media screen and (max-width:920px){
-    width:80%;
+    width:95%;
   }
 
   @media screen and (max-width:540px){
-    width:145%;
+    width:190%;
   }
 `
 export const ContainerFiltersT = styled(ContainerFilters)`

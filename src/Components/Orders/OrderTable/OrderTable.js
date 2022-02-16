@@ -5,41 +5,23 @@ import Pagination from "../../Home/Pagination/Pagination";
 import { Container ,TableO,RowO,BannerOrder,DivBanner,BannerImg} from "./OrderTableElements";
 import { Column } from "../../Home/Table/Column";
 import { Title } from "../../UserHome/UserHomeElements";
-import {selectOrderAll,selectSessionToken} from "../../../Redux/Selectors/selectors"
+import {selectOrdersAll,selectSessionToken} from "../../../Redux/Selectors/selectors"
 import { getOrders } from "../../../Redux/Actions/actionCreators";
 import { useSelector,useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ButtonE } from "../../Subscriptions/SubscriptionTable/SubscriptionTableElements";
 
-
 const ORDERFORPAGE = 10;
-const order = [{
-  Symbol1:"ETH",
-  Symbol2:"BTC",
-  Amount:18282,
-  priceLimit:7138329,
-  typeOrder:"Sell",
-  StateOrder:"Pending",
-},
-{
-    Symbol1:"USDT",
-    Symbol2:"BTC",
-    Amount:18282,
-    priceLimit:7138329,
-    typeOrder:"Sell",
-    StateOrder:"Fullfilled",
-  }
-]
 
 export default function Transactions(){
     const [actualPage, setActualPage] = React.useState(1);
     const dispatch = useDispatch();
     let topOrders = ORDERFORPAGE * actualPage;
     let initialOrders = topOrders - ORDERFORPAGE;
-    let orders = useSelector(selectOrderAll);
+    let orders = useSelector(selectOrdersAll);
     const token = useSelector(selectSessionToken);
     const navigate = useNavigate();
-
+   
     React.useEffect(() => {
         getOrders(dispatch,token);
     },[]);
@@ -63,29 +45,31 @@ export default function Transactions(){
                 <Column>Type Order</Column>  
                 <Column>State Order</Column> 
                 <Column>Update</Column>  
+                <Column>Edit</Column>  
             </RowO>
            
             {
-              order.length > 0  && order.map(orderItem=><RowO >
-              <Column>1</Column>
-              <Column>{orderItem.Symbol1}</Column>
-              <Column>{orderItem.Symbol2}</Column>
-              <Column>{orderItem.Amount}</Column>
+              orders[0].length > 0  && orders[0].slice(initialOrders,topOrders).map(orderItem=><RowO key = {orderItem.id}>
+              <Column>{orderItem.id}</Column>
+              <Column><img src={orderItem.SymbolSell.image} height='20px'/>{orderItem.SymbolSell.symbol}</Column>
+              <Column><img src={orderItem.SymbolBuy.image} height='20px'/>{orderItem.SymbolBuy.symbol}</Column>
+              <Column >{orderItem.amount}</Column>
               <Column >{orderItem.priceLimit}</Column>
-              <Column >{orderItem.typeOrder}</Column>
-              <Column >{orderItem.StateOrder}</Column>
-              <Column >10-01-2022</Column>
+              <Column >{orderItem.buyOrder === true ? "Buy" : "Sell"}</Column>
+              <Column >{orderItem.sendOnPending === true ? "Pending" : orderItem.sendOnFullfiled === true ? "Fullfilled" : "Pending"}</Column>
+              <Column >{orderItem.date}</Column>
                 {
-                  orderItem.StateOrder === "Pending" &&
+                  orderItem.sendOnPending === true && orderItem.marketOrder === false ?
                   <Column >
                     <ButtonE><img src = {Edit} height="20px" alt = "edit"/></ButtonE>
                     <ButtonE><img src = {Delete} height="20px" alt = "delete"/></ButtonE>
                   </Column>
+                  : <Column>Order Not Editable</Column>
                 }
               </RowO>) 
             }
         </TableO>
-        { order.length > 0 && <Pagination totalCryptos = {order.length} cryptosForPage = {ORDERFORPAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
+        { orders[0].length > 0 && <Pagination totalCryptos = {orders[0].length} cryptosForPage = {ORDERFORPAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
     </Container>
   )
 }

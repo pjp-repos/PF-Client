@@ -56,7 +56,7 @@ export default function Order(){
          getPair(dispatch,token,symbolsState.symbol1Id,symbolsState.symbol2Id);
     },[symbolsState]);
 
-    const handleSubmit = () => {
+    const handleSubmit =  () => {
         setErrorSubmit("");
         const validate = validateSubmit(stateOrder,symbolsState,pairValid[1]);
         if(validate !== "")
@@ -70,7 +70,7 @@ export default function Order(){
               marketOrder:stateOrder.type === "Limit" ? false :true,
               priceLimit:parseFloat(stateOrder.limit)
           }
-          addOrder(dispatch,token,order);
+           addOrder(dispatch,token,order);
           navigate("../order");
         }
     }
