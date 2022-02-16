@@ -33,8 +33,8 @@ export const validateSubmit = (stateOrder,symbolsState,statusPair) => {
     if(statusPair === 3)
       return "The pair is invalid"
     if(Math.sign(parseFloat(stateOrder.amount)) === -1 || Math.sign(parseFloat(stateOrder.amount)) === 0)
-      return "Amount cant be negative or zero"
+      return "Amount cant be negative,zero or empty"
     if(stateOrder.type === "Limit" && (Math.sign(parseFloat(stateOrder.limit)) === -1 || Math.sign(parseFloat(stateOrder.limit)) === 0))
-      return "Limit cant be negative number or zero "
+      return "Limit cant be negative number,zero or empty "
       return "";
 }

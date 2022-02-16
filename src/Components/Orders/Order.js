@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useParams} from "react-router-dom";
 import { OrderContainer,ContainerOptionsOrders,
     DivImages,Image,DivTrade,SubmitOrder,SubmitDiv,DivSellBuy,
     InputSellBuy,SelectSellBuy,Info,DivInfo,DivTotal,ButtonOption} from "./OrderElements";
@@ -8,15 +8,15 @@ import {
     selectSessionIsAuthenticated,
     selectSessionToken,
     selectPortfolio,
-    selectPairAll
+    selectPairAll,
+    selectOrderAll
  } from "../../Redux/Selectors/selectors";
 import { useSelector,useDispatch} from "react-redux";
 import {
-    getSymbols, getPortfolio,getPair,addOrder
+    getSymbols, getPortfolio,getPair,addOrder,getOrder,resetUpdateOrderStatus,updateOrder
 } from '../../Redux/Actions/actionCreators';
 import nomoney from "../../Assets/Images/nomoney.png"
 import {setSymbol1,setSymbol2,validatePair,validateSubmit} from "./OrderFunctions"
-
 
 const stateOrderInitial = {
     type:"Market",
@@ -35,6 +35,7 @@ const stateSymbolsInitial = {
 }
 
 export default function Order(){
+    const {id} = useParams();
     const [errorSubmit, setErrorSubmit] = React.useState("");
     const [stateOrder,setStateOrder] = React.useState(stateOrderInitial);
     const symbols = useSelector(selectSymbols);
@@ -45,12 +46,42 @@ export default function Order(){
     const portfolio = useSelector(selectPortfolio);
     const token = useSelector(selectSessionToken);
     const pairValid = useSelector(selectPairAll);
+    const order = useSelector(selectOrderAll);
+    let update = false;
+    if(id) update = true;
   
-    React.useEffect(() => {  
-      getSymbols(dispatch,token);    
+    React.useEffect( () => { 
+      if(update){
+        getOrder(dispatch,token,id);
+      }
+      getSymbols(dispatch,token);
       getPortfolio(dispatch,token);
+
+      return () => {
+        resetUpdateOrderStatus(dispatch);
+      }
     }, []);
 
+  React.useEffect(() => {
+      if(update){
+        setStateOrder({
+          type:"Limit",
+          amount:order[0].amount, 
+          limit:order[0].priceLimit,
+          typeOrder:order[0].buyOrder === true ? "Buy" :"Sell"
+        });
+        setSymbolsState({
+          symbol1: order[0].SymbolSell.symbol,
+          symbol1Id:order[0].idSymbolToSell,
+          symbol1Img:order[0].SymbolSell.image,
+          symbol1price: portfolio.find(el => el.symbol === order[0].SymbolSell.symbol).balance,
+          symbol2:order[0].SymbolBuy.symbol,
+          symbol2Id:order[0].idSymbolToBuy,
+          symbol2Img: order[0].SymbolBuy.image 
+      })
+      }
+    },[order[1] === 2])
+    
     React.useEffect(() => {
       if(validatePair(symbolsState))
          getPair(dispatch,token,symbolsState.symbol1Id,symbolsState.symbol2Id);
@@ -70,7 +101,12 @@ export default function Order(){
               marketOrder:stateOrder.type === "Limit" ? false :true,
               priceLimit:parseFloat(stateOrder.limit)
           }
-           addOrder(dispatch,token,order);
+          if(update){
+             updateOrder(dispatch,token,order,id);
+          }else{
+            addOrder(dispatch,token,order);
+          }
+           
           navigate("../order");
         }
     }
@@ -90,6 +126,7 @@ export default function Order(){
     }
 
    return (
+      
       <div>
         <OrderContainer>
             <ContainerOptionsOrders>
@@ -114,8 +151,8 @@ export default function Order(){
                    </SelectSellBuy>
                 </DivSellBuy>
                 {
-                  stateOrder.typeOrder === "Sell" ? <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="48px" viewBox="0 0 24 24" width="48px" fill="#FFFFFF"><rect fill="none" height="24" width="24"/><path d="M15,5l-1.41,1.41L18.17,11H2V13h16.17l-4.59,4.59L15,19l7-7L15,5z"/></svg>
-                  : <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="48px" viewBox="0 0 24 24" width="48px" fill="#FFFFFF"><rect fill="none" height="24" width="24"/><path d="M9,19l1.41-1.41L5.83,13H22V11H5.83l4.59-4.59L9,5l-7,7L9,19z"/></svg>
+                  stateOrder.typeOrder === "Sell" ? <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="48px" viewBox="0 0 24 24" width="48px" fill="#FFFFFF"><rect fill="none" height="24" width="24"/><path d="M15,5l-1.41,1.41L18.17,11H2V13h16.17l-4.59,4.59L15,19l7-7L15,5z"/></svg>
+                  : <svg xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24" height="48px" viewBox="0 0 24 24" width="48px" fill="#FFFFFF"><rect fill="none" height="24" width="24"/><path d="M9,19l1.41-1.41L5.83,13H22V11H5.83l4.59-4.59L9,5l-7,7L9,19z"/></svg>
                 }
                 <DivSellBuy>
                   <SelectSellBuy id = "symbol2"  value = {symbolsState.symbol2} onChange={handlerSelect} >
@@ -140,8 +177,8 @@ export default function Order(){
                    <Info>Avaliable</Info>
                    <Info>{symbolsState.symbol1price % 1 !== 0 ?`${symbolsState.symbol1price.toFixed(8)}  ${symbolsState.symbol1}`:`${symbolsState.symbol1price}  ${symbolsState.symbol1}`} </Info>
                 </DivTotal>
-                <InputSellBuy id = "amount" type = "number"  onChange = {(e) => handlerType(e.target.id,e.target.value)} placeholder="Amount"/>
-                { stateOrder.type === "Limit" && <InputSellBuy  type = "number" onChange={(e) => handlerType(e.target.id,e.target.value)} id = "limit" placeholder="Limit"/> }
+                <InputSellBuy id = "amount"  type = "number" onChange = {(e) => handlerType(e.target.id,e.target.value)} placeholder={update === true ? stateOrder.amount.toString() : "Amount"}/>
+                { stateOrder.type === "Limit" && <InputSellBuy  type = "number" onChange={(e) => handlerType(e.target.id,e.target.value)} id = "limit" placeholder={update === true ? stateOrder.limit.toString(): "Limit"}/> }
                 <DivTotal>
                    <Info>Total:</Info>
                    {pairValid[1] === 2 ? <Info>{(pairValid[0].price*parseFloat(stateOrder.amount)).toFixed(8)} {symbolsState.symbol2}</Info> :<Info>0 Cryptos</Info>}
