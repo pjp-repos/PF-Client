@@ -1,94 +1,65 @@
-// ==== PRICES CALLBACKS =======================
-const pricesCbSymbolAsc = (a,b) =>{
-    let elementA = a.symbol.toUpperCase(); // ignore upper and lowercase
-    let elementB = b.symbol.toUpperCase(); // ignore upper and lowercase
+// GENERIC CALLBACK
+const genericAsc = (a,b,cb,number=false) =>{
+
+    let elementA = cb(a);
+    let elementB = cb(b);
+
+    if(!number){
+        elementA = `${elementA}`.toUpperCase(); // ignore upper and lowercase
+        elementB = `${elementB}`.toUpperCase(); // ignore upper and lowercase
+    }else{
+        elementA = parseFloat(elementA);
+        elementB = parseFloat(elementB);
+    }
     
     if (elementA < elementB) return -1;   
     if (elementA > elementB) return 1;
     return 0; // names must be equal
 }
 
-const pricesCbSymbolDesc = (a,b) =>{
-    let elementA = a.symbol.toUpperCase(); // ignore upper and lowercase
-    let elementB = b.symbol.toUpperCase(); // ignore upper and lowercase
+const genericDesc = (a,b,cb,number=false) =>{
+
+    let elementA = cb(a);
+    let elementB = cb(b);
+
+    if(!number){
+        elementA = `${elementA}`.toUpperCase(); // ignore upper and lowercase
+        elementB = `${elementB}`.toUpperCase(); // ignore upper and lowercase
+    }else{
+        elementA = parseFloat(elementA);
+        elementB = parseFloat(elementB);
+    }
+    
     
     if (elementA < elementB) return 1;   
     if (elementA > elementB) return -1;
-    return 0; 
-}
-
-const pricesCbMarketAsc = (a,b) =>{
-    let elementA = a.market_cap;
-    let elementB = b.market_cap;
-    
-    if (elementA < elementB) return -1;   
-    if (elementA > elementB) return 1;
     return 0; // names must be equal
-}
-
-const pricesCbMarketDesc = (a,b) =>{
-    let elementA = a.market_cap;
-    let elementB = b.market_cap;
-    
-    if (elementA < elementB) return 1;   
-    if (elementA > elementB) return -1;
-    return 0; 
-}
-
-const pricesCbPriceAsc = (a,b) =>{
-    let elementA = a.price;
-    let elementB = b.price;
-    
-    if (elementA < elementB) return -1;   
-    if (elementA > elementB) return 1;
-    return 0; // names must be equal
-}
-
-const pricesCbPriceDesc = (a,b) =>{
-    let elementA = a.price;
-    let elementB = b.price;
-    
-    if (elementA < elementB) return 1;   
-    if (elementA > elementB) return -1;
-    return 0; 
-}
-
-// ==== TRANSACTIONS CALLBACKS =========================
-
-const transactionsCbSymbolAsc = (a,b) =>{
-    let elementA = a.symbol.toUpperCase(); // ignore upper and lowercase
-    let elementB = b.symbol.toUpperCase(); // ignore upper and lowercase
-    
-    if (elementA < elementB) return -1;   
-    if (elementA > elementB) return 1;
-    return 0; // names must be equal
-}
-
-const transactionsCbSymbolDesc = (a,b) =>{
-    let elementA = a.symbol.toUpperCase(); // ignore upper and lowercase
-    let elementB = b.symbol.toUpperCase(); // ignore upper and lowercase
-    
-    if (elementA < elementB) return 1;   
-    if (elementA > elementB) return -1;
-    return 0; 
 }
 
 
 const sortCallbacks={
     prices:{
-        marketDesc:pricesCbMarketDesc,
-        marketAsc:pricesCbMarketAsc,
-        symbolAsc:pricesCbSymbolAsc,
-        symbolDesc:pricesCbSymbolDesc,
-        priceAsc:pricesCbPriceAsc,
-        priceDesc:pricesCbPriceDesc,
+        marketAsc:(a,b)=>genericAsc(a,b,(el)=>el.market_cap,true),
+        marketDesc:(a,b)=>genericDesc(a,b,(el)=>el.market_cap,true),
+        symbolAsc:(a,b)=>genericAsc(a,b,(el)=>el.symbol),
+        symbolDesc:(a,b)=>genericDesc(a,b,(el)=>el.symbol),
+        priceAsc:(a,b)=>genericAsc(a,b,(el)=>el.price,true),
+        pricelDesc:(a,b)=>genericDesc(a,b,(el)=>el.price,true),
     },
     subscriptions:{
         bySymbol:"",
     },
     transactions:{
-        symbolAsc:transactionsCbSymbolAsc,
-        symbolDesc:transactionsCbSymbolDesc,
+        symbolAsc:(a,b)=>genericAsc(a,b,(el)=>el.symbol),
+        symbolDesc:(a,b)=>genericDesc(a,b,(el)=>el.symbol),
+    },
+    portfolio:{
+        symbolAsc:(a,b)=>genericAsc(a,b,(el)=>el.symbol),
+        symbolDesc:(a,b)=>genericDesc(a,b,(el)=>el.symbol),
+        balanceAsc:(a,b)=>genericAsc(a,b,(el)=>el.balance),
+        balanceDesc:(a,b)=>genericDesc(a,b,(el)=>el.balance),
+        inBtcAsc:(a,b)=>genericAsc(a,b,(el)=>el.inBtc),
+        inBtcDesc:(a,b)=>genericDesc(a,b,(el)=>el.inBtc),
     }
 };
 export default sortCallbacks;

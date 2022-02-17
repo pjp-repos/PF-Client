@@ -32,9 +32,6 @@ import {
     GET_SUBSCRIPTIONS,
     GET_SUBSCRIPTIONS_STATUS,
     GET_SUBSCRIPTIONS_ERROR,
-    GET_SUBSCRIPTION,
-    GET_SUBSCRIPTION_STATUS,
-    GET_SUBSCRIPTION_ERROR,
     ADD_SUBSCRIPTION,
     ADD_SUBSCRIPTION_STATUS,
     ADD_SUBSCRIPTION_ERROR,
@@ -46,6 +43,11 @@ import {
     DELETE_SUBSCRIPTION_ERROR,
     FILTER_SUBSCRIPTIONS,
     SORT_SUBSCRIPTIONS,
+    FORM_SUBSCRIPTIONS_NEW_BTN,
+    FORM_SUBSCRIPTIONS_EDIT_BTN,
+    FORM_SUBSCRIPTIONS_RESET_BTN,
+    FORM_SUBSCRIPTIONS_HANDLE_CHANGE,
+    FORM_SUBSCRIPTION_VALIDATE,
 
     GET_ORDERS,
     GET_ORDERS_STATUS,
@@ -83,6 +85,7 @@ import {
     UPDATE_SETTINGS,
     UPDATE_SETTINGS_STATUS,
     UPDATE_SETTINGS_ERROR,
+
 
 } from "../types";
 
@@ -149,20 +152,18 @@ export const postNewAccount = (dispatch, form) =>{
 export const resetNewAccountStatus = (dispatch)=>dispatch({type:NEW_ACCOUNT_STATUS,payload:0});
 
 // postSignIn action (thunk function)
-export const postSignIn = (dispatch, form,token) =>{
+export const postSignIn = async (dispatch, form,token) =>{
     const dataCbSignIn = (data)=>dispatch({type:SIGN_IN,payload:data});
     const statusCbSignIn = (value)=>dispatch({type:SIGN_IN_STATUS,payload:value});
     const errorCbSignIn = (errorObj)=>dispatch({type:SIGN_IN_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/login`,  dataCbSignIn, statusCbSignIn, errorCbSignIn,{
+    await helpFetch(`${API_URL}/login`,  dataCbSignIn, statusCbSignIn, errorCbSignIn,{
         headers:{
             "Content-Type": "application/json",
         },
         method:'POST',
         body:form
-    },[
-        ()=>dispatch({type:SET_SESSION_INFO,payload:true})
-    ]);
-    
+    });
+    dispatch({type:SET_SESSION_INFO,payload:true});    
 };
 
 // resetNewAccountStatus
@@ -184,7 +185,8 @@ export const getSingOut = (dispatch, token) =>{
 };
 
 // ==== SUBSCRIPTIONS ==============================================================================
-// getSubscriptions action (thunk function)
+
+// Table info
 export const getSubscriptions = (dispatch, token) =>{
     const dataCbSubscriptions = (data)=>dispatch({type:GET_SUBSCRIPTIONS,payload:data});
     const statusCbSubscriptions = (value)=>dispatch({type:GET_SUBSCRIPTIONS_STATUS,payload:value});
@@ -197,17 +199,21 @@ export const getSubscriptions = (dispatch, token) =>{
     });
 };
 
-// getSubscription action (thunk function)
-export const getSubscription = (dispatch, token, id) =>{
-    const dataCbSubscription = (data)=>dispatch({type:GET_SUBSCRIPTION,payload:data});
-    const statusCbSubscription = (value)=>dispatch({type:GET_SUBSCRIPTION_STATUS,payload:value});
-    const errorCbSubscription = (errorObj)=>dispatch({type:GET_SUBSCRIPTION_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/subs/${id}`,  dataCbSubscription, statusCbSubscription, errorCbSubscription,{
-        headers:{          
-            "Authorization": `Bearer ${token}`,
-        },
-    });
-};
+// New button callback
+export const formSubscriptionsNewBtn = (dispatch)=>dispatch({type:FORM_SUBSCRIPTIONS_NEW_BTN,payload:null});
+
+// Edit button callback
+export const formSubscriptionsEditBtn = (dispatch,dataToEdit)=>dispatch({type:FORM_SUBSCRIPTIONS_EDIT_BTN,payload:dataToEdit});
+
+// REset fields button callback
+export const formSubscriptionsResetBtn = (dispatch)=>dispatch({type:FORM_SUBSCRIPTIONS_RESET_BTN,payload:null});
+
+// Handle change callback
+export const formSubscriptionsHandleChange = (dispatch,key,value)=>dispatch({type:FORM_SUBSCRIPTIONS_HANDLE_CHANGE,payload:{key,value}});
+
+// Validate form callback
+export const formSubscriptionsValidate = (dispatch)=>dispatch({type:FORM_SUBSCRIPTION_VALIDATE,payload:null});
+
 
 // addSubscription action (thunk function)
 export const addSubscription = (dispatch, token, form) =>{
@@ -268,13 +274,42 @@ export const filterSubscriptions = (dispatch, filterForm)=>dispatch({type:FILTER
 // order subscriptions payload='orderCriteria' 
 export const sortSubscriptions = (dispatch, order)=>dispatch({type:SORT_SUBSCRIPTIONS,payload:order});
 
+// getSubscription action (thunk function)
+// export const getSubscription = async (dispatch, token, id) =>{
+//     const dataCbSubscription = (data)=>dispatch({type:GET_SUBSCRIPTION,payload:data});
+//     const statusCbSubscription = (value)=>dispatch({type:GET_SUBSCRIPTION_STATUS,payload:value});
+//     const errorCbSubscription = (errorObj)=>dispatch({type:GET_SUBSCRIPTION_ERROR,payload:errorObj});
+//     await helpFetch(`${API_URL}/subs/${id}`,  dataCbSubscription, statusCbSubscription, errorCbSubscription,{
+//         headers:{          
+//             "Authorization": `Bearer ${token}`,
+//         },
+//     })  
+    
+// };
+
+
 // ==== ORDERS ==============================================================================
 // getOrders action (thunk function)
-export const getOrders = (dispatch, token) =>{
+export const getOrders = (dispatch, token, status=false,dateFrom=false, dateTo=false) =>{
     const dataCbOrders = (data)=>dispatch({type:GET_ORDERS,payload:data});
     const statusCbOrders = (value)=>dispatch({type:GET_ORDERS_STATUS,payload:value});
     const errorCbOrders = (errorObj)=>dispatch({type:GET_ORDERS_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/orders/`,  dataCbOrders, statusCbOrders, errorCbOrders,{
+    let queryArray = [
+        {key:'status',value:status},
+        {key:'dateFrom',value:dateFrom},
+        {key:'dateTo',value:dateTo}
+    ];
+    let queryString = ""
+    queryArray.forEach(q=>{
+        if(q.value){
+            if(queryString===""){
+                queryString=`?${q.key}=${q.value}`
+            }else{
+                queryString=`${queryString}&${q.key}=${q.value}`
+            }
+        }
+    })
+    helpFetch(`${API_URL}/orders/${queryString}`,  dataCbOrders, statusCbOrders, errorCbOrders,{
         headers:{
             "Content-Type": "application/json",
             "Authorization":`Bearer ${token}`
@@ -420,3 +455,10 @@ export const updateSettings = (dispatch, token, form, id) =>{
         body:form
     });
 };
+
+// ==================================================================
+// =========================   CRUDS  ===============================
+// ==================================================================
+
+// === Subscriptions =================================================
+
