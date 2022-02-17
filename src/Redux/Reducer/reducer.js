@@ -892,12 +892,12 @@ const reducer = (state = initialState, action) => {
 
         case GET_PORTFOLIO:
             let portfolio = [...action.payload];
-            // portfolio = filterAndSort(
-            //     'portfolio',
-            //     portfolio,
-            //     state.portfolio.filter,
-            //     state.portfolio.order
-            // );
+            portfolio = filterAndSort(
+                'portfolio',
+                portfolio,
+                state.portfolio.filter,
+                state.portfolio.order
+            );
             return {
                 ...state,
                 portfolio:{
