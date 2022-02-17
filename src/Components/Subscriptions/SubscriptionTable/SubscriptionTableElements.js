@@ -38,7 +38,7 @@ export const TableS = styled(TableC)`
    }
 `;
 
-export const RowS = styled(Row)`
+export const RowS= styled(Row)`
     grid-template-columns: 0.2fr 0.5fr 0.4fr 0.2fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.9fr ;
 
     @media screen and (max-width:920px){
