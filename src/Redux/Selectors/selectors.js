@@ -36,31 +36,14 @@ export const selectSessionIsAuthenticated = state=> state.session.isAuthenticate
 export const selectSessionEmail = state=> state.session.email;
 export const selectSessionAll = state=> [state.session.userName,state.session.token,state.session.isAuthenticated, state.session.email];
 
-export const selectSubscriptions = state=> state.subscriptions.data;
-export const selectSubscriptionsStatus = state=> state.subscriptions.status;
-export const selectSubscriptionsError = state=> state.subscriptions.error;
+// ==== Subscriptions ===================================================================
 export const selectSubscriptionsAll = state=> [state.subscriptions.data, state.subscriptions.status,state.subscriptions.error];
-
-export const selectSubscription = state=> state.subscription.data;
-export const selectSubscriptionStatus = state=> state.subscription.status;
-export const selectSubscriptionError = state=> state.subscription.error;
-export const selectSubscriptionAll = state=> [state.subscription.data,state.subscription.status,state.subscription.error];
-
-export const selectAddSubscription = state=> state.addSubscription.data;
-export const selectAddSubscriptionStatus = state=> state.addSubscription.status;
-export const selectAddSubscriptionError = state=> state.addSubscription.error;
 export const selectAddSubscriptionAll = state=> [state.addSubscription.data,state.addSubscription.status,state.addSubscription.error];
-
-export const selectUpdateSubscription = state=> state.updateSubscription.data;
-export const selectUpdateSubscriptionStatus = state=> state.updateSubscription.status;
-export const selectUpdateSubscriptionError = state=> state.updateSubscription.error;
 export const selectUpdateSubscriptionAll = state=> [state.updateSubscription.data,state.updateSubscription.status,state.updateSubscription.error];
-
-export const selectDeleteSubscription = state=> state.deleteSubscription.data;
-export const selectDeleteSubscriptionStatus = state=> state.deleteSubscription.status;
-export const selectDeleteSubscriptionError = state=> state.deleteSubscription.error;
 export const selectDeleteSubscriptionAll = state=> [state.deleteSubscription.data,state.deleteSubscription.status,state.deleteSubscription.error];
+export const selectSubscriptionFormAll = state=>[state.formSubscriptions.form,state.formSubscriptions.edit ,state.formSubscriptions.errors,state.formSubscriptions.error]
 
+// ==== Orders ===================================================================
 export const selectOrders = state=> state.orders.data;
 export const selectOrdersStatus = state=> state.orders.status;
 export const selectOrdersError = state=> state.orders.error;

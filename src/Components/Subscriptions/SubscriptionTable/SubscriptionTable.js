@@ -1,11 +1,14 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import {useNavigate, Link} from "react-router-dom";
 
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { 
     getSubscriptions, 
+    getSymbols,
     deleteSubscription,
+    formSubscriptionsNewBtn,
+    formSubscriptionsEditBtn,
 } from '../../../Redux/Actions/actionCreators';
 import { 
     selectSubscriptionsAll,
@@ -33,24 +36,40 @@ import Container from '../../AaaGenerics/Sections/Container';
 import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
 
 const SubscriptionTable = () => {
+
+    // Router-dom hooks
+    const navigate = useNavigate();
  
+    // Redux
     const dispatch = useDispatch();
     const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
-
-    
-    useEffect(()=>{
-        isAuthenticated && getSubscriptions(dispatch, token);
-    }, [isAuthenticated])
-    
     const [subsData, subsStatus, subsError ] = useSelector(selectSubscriptionsAll);
     const [deleteData, deleteStatus, deleteError ] = useSelector(selectDeleteSubscriptionAll);
+
+    // Load table data and any other data who is needed by the form
+    useEffect(()=>{
+        isAuthenticated && getSubscriptions(dispatch, token);
+        isAuthenticated && getSymbols(dispatch,token); 
+    }, [isAuthenticated]);
     
+    
+    // New - Edit - Delete events
+    const handleNew = () =>{
+        formSubscriptionsNewBtn(dispatch);
+        navigate('/subscriptions/form');
+    };
+
+    const handleEdit = (form) =>{
+        formSubscriptionsEditBtn(dispatch, form);
+        navigate('/subscriptions/form');
+    };
+
     const handleDelete = (e) =>{
         if(window.confirm('Seguro que desea eliminar la subscripcion?'))
         {
             deleteSubscription(dispatch, token, e.target.id);            
         }
-    }
+    };
 
 
     // === RENDERS ============================================
@@ -92,7 +111,7 @@ const SubscriptionTable = () => {
         <TableWrapper>
             <Table>
                 {/* {subs.length ?<> */}
-                <Link to='/subscriptions/form'><Button>New subscription</Button></Link>
+                <Button onClick={handleNew}>New subscription</Button>
                 <Row head='head'>
                     <Column>id</Column>
                     <Column>Pair</Column>
@@ -108,16 +127,16 @@ const SubscriptionTable = () => {
                 {subsData.map(s => (
                     <Row key={s.id} id={s.id}>
                         <Column>{s.id}</Column>
-                        <Column>{s.pair[0]}</Column>
+                        <Column>{s.pair}</Column>
                         <Column><img src={s.symbol1[1]} height='20px'/>{s.symbol1[0]}</Column>
                         <Column><img src={arrow} width='20px'/></Column>
                          <Column><img src={s.symbol2[1]} height='20px'/>{s.symbol2[0]}</Column>
-                        <Column> {Number(s.pair[1])} </Column>
+                        <Column> {Number(s.price)} </Column>
                         <Column> {s.fallPrice} </Column>
-                        <Column>{s.alertOnFall ? 'True' : 'False'}</Column>
+                        <Column>{s.alertOnFall ? 'Y' : 'N'}</Column>
                         <Column> {s.risePrice} </Column>
-                        <Column>{s.alertOnRise ? 'True' : 'False'}</Column>
-                        <Link to={`/subscriptions/form/${s.id}`}><ButtonE><img src={edit} height='20px'/></ButtonE></Link>
+                        <Column>{s.alertOnRise ? 'Y' : 'N'}</Column>
+                        <ButtonE onClick={()=>handleEdit(s)}><img src={edit} height='20px'/></ButtonE>
                         <ButtonE id={s.id} onClick={handleDelete}><img id={s.id} src={borrar} height='20px'/></ButtonE>
                     </Row>
                 ))}
