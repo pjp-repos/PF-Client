@@ -11,4 +11,9 @@ ${props => props.head && 'font-weight:bold; background-color:#474D57'};
 &:hover{
     background-color: rgb(20, 21, 26);
 }
+
+}
+@media screen and (max-width:540px){
+    width:250%;
+}
 `

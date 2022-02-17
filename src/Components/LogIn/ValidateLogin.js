@@ -23,8 +23,8 @@ export const validateSubmit = (errorState,formState) => {
 }
 
 export const validateSignIn = (value) => {
-   if(value.includes(" ") || value.length > 18)
-    return "Spaces are not allowed, max 18 characters"
+   if(value.includes(" ") || value.length > 25)
+    return "Spaces are not allowed, max 25 characters"
     return "";
 }
 

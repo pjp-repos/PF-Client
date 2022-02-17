@@ -14,16 +14,34 @@ export const ContainerNavbar = styled(flex)`
 `;
 
 export const ImgTitle = styled.img`
-  height:16px;
-  width:16px;
-`;
-
-export const Title = styled.h4`
-   margin-top:25px;
-   margin-left:22px;
+     height:16px;
+     width:16px;
+     @media screen and (max-width:540px){
+      ${props => props.visibilitySm && 'display:none;'};
+      }
+   `
+export const Title = styled.button`
+   font-family:'Montserrat', sans-serif;
    font-size:20px;
+   cursor:pointer;
+   font-weight:bold;
+   outline:0;
+   border:0;
+   background-color:transparent;
    color:#efb810;  
-`;
+   margin-right:12px;
+   @media screen and (max-width:540px){
+     margin-right:30px;
+    }
+  `
+export const DivTitle = styled.div`
+  width:200px;
+  height:100%;
+  display:flex;
+  background-color:transparent;
+  align-items:center;
+  justify-content:center;
+`
 
 export const ContainerButtons = styled(flex)`
   height:100%;
@@ -31,24 +49,33 @@ export const ContainerButtons = styled(flex)`
   justify-content:flex-end;
   align-items:center;
   margin-right:30px;
+
+  @media screen and (max-width:540px){
+    margin-right:6px;
+   }
+`
+export const ButtonNavbar = styled.button`
+font-family:'Montserrat', sans-serif;
+margin-right:10px;
+display:block;
+cursor:pointer;
+font-size:18px;
+color:white;
+background-color:transparent;
+border:0;
+outline:0;
+height:40px;
+
+&:hover{
+${props => props.signup ? 'border: 1px solid #efb810; color:#efb810 ': 'border: 1px solid #474D57;'};
+ border-radius:5px;
+}
+@media screen and (max-width:540px){
+  margin-right:6px;
+ }
 `;
 
-export const ButtonNavbar = styled.button`
-  font-family:'Montserrat', sans-serif;
-  margin-right:10px;
-  display:block;
-  font-size:18px;
-  color:white;
-  background-color:transparent;
-  border:0;
-  outline:0;
-  height:40px;
 
-  &:hover{
-  ${props => props.signup ? 'border: 1px solid #efb810; color:#efb810 ': 'border: 1px solid #474D57;'};
-  border-radius:5px;
-  };
-`
 export const UserContainer = styled(ContainerButtons) `
   position:relative;
   width:150px;
@@ -56,25 +83,38 @@ export const UserContainer = styled(ContainerButtons) `
   margin-right:0.5%;
   align-items:center;
   &:hover .OptionsContainer{
-    height:160px;
+    height:205px;
   };
 `
 export const OptionsContainer = styled.div`
   position:absolute;
   overflow: hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start
+  justify-content:center;
   text-align:center;
   background-color:#181A20;
-  z-index:1;
+  z-index:3;
   top:95%;
   width:150px;
   height:0px;
 `;
-export const Option = styled(flex)`
-  align-items:center;
-  justify-content:center;
-  height:30px;
+export const Option =styled.button`
+  height:40px;
+  outline:0;
+  font-size:15px; 
+  background-color:transparent;
+  border:0;
+  color:white;
+  font-family:'Montserrat', sans-serif;
   &:hover{
     background-color:#474D57;
     cursor: pointer;
   }
 `;
+export const ImgUser = styled.img`
+@media screen and (max-width:540px){
+  margin-left:50px;
+ }
+`

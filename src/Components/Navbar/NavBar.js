@@ -1,11 +1,12 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
+import Modal from "../AaaGenerics/Modal/Modal.js";
 
 // Redux issues
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { 
   selectSessionIsAuthenticated, 
-  selectSessionUsername 
+  selectSessionToken
 } from "../../Redux/Selectors/selectors.js";
 
 // Styled components 
@@ -17,8 +18,12 @@ import {
   ImgTitle,
   UserContainer,
   OptionsContainer,
-  Option
+  Option,
+  DivTitle,
+  ImgUser,
 } from "./NavbarElements.js";
+
+import { getSingOut } from "../../Redux/Actions/actionCreators.js";
 
 // Assets
 import coin from "../../Assets/Images/Coin.png"
@@ -26,30 +31,35 @@ import User from "../../Assets/Images/User.png"
 
 export default function NavBar(){
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const token = useSelector(selectSessionToken);
   // Statess
   const isAuthenticated = useSelector(selectSessionIsAuthenticated);
-  const username = useSelector(selectSessionUsername);
-  
+
+
   return (
     <ContainerNavbar>
-        <Title > <ImgTitle src = {coin} alt = "coin" /> HenryCoin</Title>
-        {!isAuthenticated && 
-          <ContainerButtons>          
-            <ButtonNavbar onClick={(e) => navigate("/signin")}>Sign In</ButtonNavbar> 
-            <ButtonNavbar onClick={(e) => navigate("/signup")} signup>Sign Up</ButtonNavbar>
-          </ContainerButtons>
-        }
+        <DivTitle>
+          <Title onClick = {(e) => navigate("/home")}> <ImgTitle visibilitySm src = {coin} alt = "coin" /> HenryCoin</Title>
+        </DivTitle>
+        {!isAuthenticated && <ContainerButtons>
+          <ButtonNavbar onClick={(e) => navigate("/signin")}>Sign In</ButtonNavbar> 
+          <ButtonNavbar onClick={(e) => navigate("/signup")} signup>Sign Up</ButtonNavbar>
+        </ContainerButtons>}
         {isAuthenticated && 
-          <UserContainer>
-            <img src = {User} alt = "coin"/>
-            <OptionsContainer className="OptionsContainer">
-              <Option onClick={(e) => navigate("/")}>Markets</Option>
-              <Option onClick={(e) => navigate("/subscriptions")}>Subscriptions</Option>
-              <Option><p>Orders</p></Option>
-              <Option><p>Historial</p></Option>
-              <Option><p>Logout</p></Option>
-            </OptionsContainer>
-          </UserContainer>
+         <UserContainer>
+              <ImgUser src = {User} alt = "coin"/>
+             <OptionsContainer className="OptionsContainer">
+               <Option onClick={(e) => navigate("/")}><p>Market</p></Option>
+               <Option onClick={(e) => navigate("/subscriptions")}><p>Subscribe</p></Option>
+               <Option onClick={(e) => navigate("/order")}><p>Orders</p></Option>
+               <Option onClick={(e) => navigate("/transactions")}><p>Historial</p></Option>
+               <Option onClick={(e) =>{
+                 getSingOut(dispatch,token);
+                 navigate("/");
+               } }><p>Logout</p></Option>
+             </OptionsContainer>
+        </UserContainer>
         }
     </ContainerNavbar>
   )

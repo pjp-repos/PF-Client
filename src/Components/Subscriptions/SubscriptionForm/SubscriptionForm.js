@@ -1,41 +1,26 @@
-// Imports
-import React, {useEffect} from 'react';
+/// Imports
+import React, {useState, useEffect} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 
 // Redux actions
 import {
+    resetAddSubscriptionStatus,
+    resetUpdateSubscriptionStatus,
+    formSubscriptionsHandleChange,
+    formSubscriptionsValidate,
     addSubscription,
     updateSubscription,
-    getSubscription,
-    getSymbols,
-    resetAddSubscriptionStatus,
-    resetUpdateSubscriptionStatus
 } from '../../../Redux/Actions/actionCreators';
 
 // Redux Selectors
 import {
-    selectAddSubscription,
-    selectAddSubscriptionStatus,
-    selectAddSubscriptionError,
-    selectUpdateSubscription,
-    selectUpdateSubscriptionStatus,
-    selectUpdateSubscriptionError,
-    selectSubscription,
-    selectSubscriptionStatus,
-    selectSubscriptionError,
-    selectSymbols,
-    selectSymbolsStatus,
-    selectSymbolsError,
-    selectSessionIsAuthenticated,
-    selectSessionToken
+    selectAddSubscriptionAll,
+    selectUpdateSubscriptionAll,
+    selectSymbolsAll,
+    selectSessionAll,
+    selectSubscriptionFormAll
 } from '../../../Redux/Selectors/selectors'
-
-// Custom hooks
-import { useForm } from '../../../Hooks/useForm';
-
-//Helpers
-import { helpRegexValidate } from '../../../helpers/helpRegexValidate';
 
 // Styled components
 import { 
@@ -53,23 +38,26 @@ import { H3 } from '../../AaaGenerics/Texts/Hx';
 import Container from '../../AaaGenerics/Sections/Container';
 import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
 
-
 const SubscriptionForm = () => {  
+
     // Router-dom hooks
-    const {id} = useParams();
-    let update = false;
-    if(id) update = true;
     const navigate = useNavigate();
 
     // Redux hooks  
     const dispatch = useDispatch();
-    const isAuthenticated = useSelector(selectSessionIsAuthenticated);
-    const token = useSelector(selectSessionToken);
+    const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
+    const [dataSymbols, statusSymbols, errorSymbols] = useSelector(selectSymbolsAll);
+    const [form, edit, errors, error] = useSelector(selectSubscriptionFormAll);
+    const [dataAdd, statusAdd, errorAdd] = useSelector(selectAddSubscriptionAll);
+    const [dataUpdate, statusUpdate, errorUpdate] = useSelector(selectUpdateSubscriptionAll);
+
     
     // Load symbol list for dropdowns and subscription data (Update case)
     useEffect(() => {   
-        getSymbols(dispatch,token); 
-        if(isAuthenticated){
+        if(!isAuthenticated){
+            navigate("/signin");
+        }else{
+            getSymbols(dispatch,token); 
             if(update){
                 getSubscription(dispatch,token, id); 
                 resetUpdateSubscriptionStatus(dispatch);
@@ -79,35 +67,6 @@ const SubscriptionForm = () => {
         }
     }, [])
 
-    const resetStatus = () =>{
-        if(update){
-            resetUpdateSubscriptionStatus(dispatch);
-        } else{
-            resetAddSubscriptionStatus(dispatch);
-        }
-    };
-
-    const dataAdd = useSelector(selectAddSubscription);
-    const statusAdd = useSelector(selectAddSubscriptionStatus);
-    const errorAdd = useSelector(selectAddSubscriptionError);
-
-    const dataUpdate = useSelector(selectUpdateSubscription);
-    const statusUpdate = useSelector(selectUpdateSubscriptionStatus);
-    const errorUpdate = useSelector(selectUpdateSubscriptionError);
-
-    const dataSubscription = useSelector(selectSubscription);
-    const statusSubscription = useSelector(selectSubscriptionStatus);
-    const errorSubscription = useSelector(selectSubscriptionError);
-
-    const dataSymbols = useSelector(selectSymbols);
-    const statusSymbols = useSelector(selectSymbolsStatus);
-    const errorSymbols = useSelector(selectSymbolsError);
-    
-    // Submit form thunk function execution
-    let submitForm = ()=>{};
-    if(update) submitForm=(form)=>updateSubscription(dispatch,token, form, id)
-    else submitForm=(form)=>addSubscription(dispatch,token, form)
-  
 
 
     // Dropdows option list
@@ -120,84 +79,32 @@ const SubscriptionForm = () => {
             }
         });
     }
-
-    // Filed names width default values
-    const initialForm = {
-        id:null,
-        symbol1Id:"",
-        symbol2Id:"",
-        risePrice:"0",
-        fallPrice:"0"
+ 
+    // Form events    
+    const handleChange = (e)=>{
+        formSubscriptionsHandleChange(dispatch, e.target.name,e.target.value)
+        formSubscriptionsValidate(dispatch);
     };
+    
+    const handleDropdown = (key,value)=>{
+        formSubscriptionsHandleChange(dispatch, key, value)
+        formSubscriptionsValidate(dispatch);
+    }
 
-    // Field validations callback for useForm 
-    const validationsForm = (form)=>{
-        let errors={};
-        
-        // symbol1Id:
-        if(!form.symbol1Id){
-            errors.symbol1Id="Chose symbol 1";
+    const handleSubmit= ()=>{
+        if(!error){
+            if(edit) updateSubscription(dispatch,token, form, form.id);
+            else addSubscription(dispatch,token, form);            
+        }else{
+            alert('Check inpust. Form contain errors or no changes was made')
         }
-
-        // symbol2Id:
-        if(!form.symbol2Id){
-            errors.symbol2Id="Chose symbol 2";
-        }
-
-        // raisePrice
-        const risePrice = form.risePrice
-        if(!risePrice){
-            errors.risePrice="Rise price is required. 0 for no alert";
-        }else if(!helpRegexValidate('Float',risePrice)){
-            errors.risePrice="Invalid number.";
-        }else if(parseFloat(risePrice)<0 ){
-            errors.risePrice="Rise alert price must be 0 or higer than 0";
-        }
-
-        // fallPrice
-        const fallPrice = form.fallPrice
-        if(!fallPrice){
-            errors.fallPrice="Fall price is required. 0 for no alert";
-        }else if(!helpRegexValidate('Float',fallPrice)){
-            errors.fallPrice="Invalid number.";
-        }else if(parseFloat(fallPrice)<0 ){
-            errors.fallPrice="Fall alert price must be 0 or higer than 0";
-        }
-
-        return errors;
-    };
-
-    // custom hook useForm
-    const {        
-        form,
-        errors,
-        handleChange,
-        handleDropdown,
-        handleSubmit,
-        resetFields
-    } = useForm(initialForm, validationsForm, submitForm);
-
-    // Prepopulated editting form
-    let populateForm = false;
-    if(update && statusSubscription===2) populateForm = true;
-    useEffect(() => { 
-        if (populateForm){
-            initialForm.id = dataSubscription.id
-            initialForm.symbol1Id = dataSubscription.symbol1Id;
-            initialForm.symbol2Id = dataSubscription.symbol2Id;
-            initialForm.risePrice = dataSubscription.risePrice;
-            initialForm.fallPrice = dataSubscription.fallPrice;    
-            resetFields(); 
-        }
-    }, [populateForm])
-
-    const handleExecute= ()=>{
-        handleSubmit(false);
     };
     
     const handleCancel = ()=>{
-        resetFields();
         navigate("/subscriptions");
+    };
+
+    const handleReset = ()=>{
     };
 
 
@@ -210,17 +117,15 @@ const SubscriptionForm = () => {
     if(
         statusAdd===1 
         || statusUpdate===1
-        || statusSubscription===1
         || statusSymbols===1
     ) return <Spinner/> 
 
-    // Success
+    //Success
     if(
         statusSymbols===2 &&(
-            !update && statusAdd===2 
+            !edit && statusAdd===2 
             || (
-                update && statusUpdate===2 
-                && update && statusSubscription===2
+                edit && statusUpdate===2 
             )
         )        
     ){
@@ -239,32 +144,24 @@ const SubscriptionForm = () => {
         `}</p>
     } 
 
-    // Subscription list
-    if(update && statusSubscription===3){
-        return<p>{`Oops. An error ocurred. 
-            Type: ${errorSubscription.errorType} 
-            Code: ${errorSubscription.errorCode} 
-            Message: ${errorSubscription.errorMessage} 
-        `}</p>
-    } 
 
     // Add new subscription
-    if(!update && statusAdd===3){
+    if(!edit && statusAdd===3){
         return(
-        <>
-            <p>
-                {`Oops. An error ocurred. 
-                    Type: ${errorAdd.errorType} 
-                    Code: ${errorAdd.errorCode} 
-                    Message: ${errorAdd.errorMessage} 
-                `}
-            </p>
-            <button onClick={()=>resetAddSubscriptionStatus(dispatch)}>Ok</button>
-        </>)
+            <>
+                <p>
+                    {`Oops. An error ocurred. 
+                        Type: ${errorUpdate.errorType} 
+                        Code: ${errorUpdate.errorCode} 
+                        Message: ${errorUpdate.errorMessage} 
+                    `}
+                </p>
+                <button onClick={()=>resetAddSubscriptionStatus(dispatch)}>Ok</button>
+            </>)
     } 
 
     // Update subscription
-    if(update && statusUpdate===3){
+    if(edit && statusUpdate===3){
         return(
         <>
             <p>
@@ -342,13 +239,13 @@ const SubscriptionForm = () => {
                 </SubscriptionFormError>
             </SubscriptionFormBlock>
             <SubscriptionFormBlock>
-                <SubscriptionFormButton onClick={resetFields}>
+                <SubscriptionFormButton onClick={handleReset}>
                     Clear fields
                 </SubscriptionFormButton>
                 <SubscriptionFormButton onClick={handleCancel}>
                     Cancel/Close
                 </SubscriptionFormButton> 
-                <SubscriptionFormButton onClick={handleExecute}>
+                <SubscriptionFormButton onClick={handleSubmit}>
                     Submit
                 </SubscriptionFormButton>
             </SubscriptionFormBlock>
@@ -358,5 +255,3 @@ const SubscriptionForm = () => {
 }
 
 export default SubscriptionForm;
-
-

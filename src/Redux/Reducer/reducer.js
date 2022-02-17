@@ -7,6 +7,10 @@ import {
     GET_SYMBOLS_STATUS,
     GET_SYMBOLS_ERROR,
 
+    GET_PAIR,
+    GET_PAIR_STATUS,
+    GET_PAIR_ERROR,
+
     SET_PRICES_FILTER,
     SET_PRICES_ORDER,
     SET_PRICES_CURRENCY,
@@ -23,23 +27,31 @@ import {
     SIGN_OUT_ERROR,
     SET_SESSION_INFO,
 
+    // Fetch to get subscriptions
     GET_SUBSCRIPTIONS,
     GET_SUBSCRIPTIONS_STATUS,
     GET_SUBSCRIPTIONS_ERROR,
-    GET_SUBSCRIPTION,
-    GET_SUBSCRIPTION_STATUS,
-    GET_SUBSCRIPTION_ERROR,
+    // Fetch to add a new subscription
     ADD_SUBSCRIPTION,
     ADD_SUBSCRIPTION_STATUS,
     ADD_SUBSCRIPTION_ERROR,
+    // Fetch to edit an existing subscription
     UPDATE_SUBSCRIPTION,
     UPDATE_SUBSCRIPTION_STATUS,
     UPDATE_SUBSCRIPTION_ERROR,
+    // Fetch to delete an existing subscription
     DELETE_SUBSCRIPTION,
     DELETE_SUBSCRIPTION_STATUS,
     DELETE_SUBSCRIPTION_ERROR,
+    // Filter an sorting setting
     FILTER_SUBSCRIPTIONS,
     SORT_SUBSCRIPTIONS,
+    // Form events
+    FORM_SUBSCRIPTIONS_NEW_BTN,
+    FORM_SUBSCRIPTIONS_EDIT_BTN,
+    FORM_SUBSCRIPTIONS_RESET_BTN,
+    FORM_SUBSCRIPTIONS_HANDLE_CHANGE,
+    FORM_SUBSCRIPTION_VALIDATE,
 
     GET_ORDERS,
     GET_ORDERS_STATUS,
@@ -77,10 +89,14 @@ import {
     UPDATE_SETTINGS,
     UPDATE_SETTINGS_STATUS,
     UPDATE_SETTINGS_ERROR,
+
+    
+  
+
 } from "../types";
 
-import sortCallbacks from "../FilterAndSort/sortCallbacks";
-import filterAndSort from "../FilterAndSort/filterCallbacks";
+import filterAndSort from "../FilterAndSort/filterAndSort";
+import { validateForm, validateField } from "../FormValidations/validateForm";
 
 
 const initialState = {
@@ -95,11 +111,18 @@ const initialState = {
         data:[],
         status:0,
         error:{},
-        filter:"",
+        filter:{
+            symbol:""
+        },
         order:"",
         currency:"usd"
     },
     symbols:{
+        data:[],
+        status:0,
+        error:{},
+    },
+    pair:{
         data:[],
         status:0,
         error:{},
@@ -119,6 +142,7 @@ const initialState = {
         status:0,
         error:{},
     },
+    // --- Subscriptions--------------------
     subscriptions:{
         data:[],
         status:0,
@@ -129,11 +153,6 @@ const initialState = {
             symbols:""
         },
         order:false,
-    },
-    subscription:{
-        data:{},
-        status:0,
-        error:{},
     },
     addSubscription:{
         data:{},
@@ -150,6 +169,21 @@ const initialState = {
         status:0,
         error:{},
     },
+    formSubscriptions:{
+        initialForm:{
+            id:null,
+            symbol1Id:"",
+            symbol2Id:"",
+            risePrice:"0",
+            fallPrice:"0"
+        },
+        form:null,
+        edit:false,
+        errors:{},
+        error:true
+    },
+
+    // --- Orders ----------------------------
     orders:{
         data:[],
         status:0,
@@ -184,11 +218,11 @@ const initialState = {
         filter:{
             dateFrom:"",
             dateTo:"",
-            symbols:""
+            symbol:""
         },
         order:"",
     },
-    portolio:{
+    portfolio:{
         data:[],
         status:0,
         error:{},
@@ -204,7 +238,7 @@ const initialState = {
         status:0,
         error:{},
     },
-    UpdateSetting:{
+    updateSetting:{
         data:[],
         status:0,
         error:{},
@@ -217,12 +251,12 @@ const reducer = (state = initialState, action) => {
 
         case GET_PRICES:
             let prices = [...action.payload];
-            if(state.prices.filter!==""){
-                prices = prices.filter(el=>el.symbol.includes(state.prices.filter));
-            };
-            if(state.prices.order!==""){
-                prices.sort(sortCallbacks[state.prices.order]);
-            }
+            prices = filterAndSort(
+                'prices',
+                prices,
+                state.prices.filter,
+                state.prices.order
+            );
             return {
                 ...state,
                 prices:{
@@ -272,6 +306,32 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 symbols:{
                     ...state.symbols,
+                    error:action.payload
+                }
+            }
+        case GET_PAIR:
+            return {
+                ...state,
+                pair:{
+                    ...state.pair,
+                    data:action.payload
+                }
+            }
+
+        case GET_PAIR_STATUS:
+            return {
+                ...state,
+                pair:{
+                    ...state.pair,
+                    status:action.payload
+                }
+            }
+
+        case GET_PAIR_ERROR:
+            return {
+                ...state,
+                pair:{
+                    ...state.pair,
                     error:action.payload
                 }
             }
@@ -409,6 +469,8 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
+        // ============ SUBSCRIPTIONS ===============================
+
         case GET_SUBSCRIPTIONS:
             let subscriptions = [...action.payload];
             // subscriptions = filterAndSort(
@@ -443,32 +505,77 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
-        case GET_SUBSCRIPTION:
+        case FORM_SUBSCRIPTIONS_NEW_BTN:
             return {
                 ...state,
-                subscription:{
-                    ...state.subscription,
-                    data:action.payload
+                // Reset Fetch status for 
+                addSubscription:{
+                    ...state.addSubscription,
+                    status:0
+                },
+                formSubscriptions:{
+                    ...state.formSubscriptions,
+                    form:state.formSubscriptions.initialForm,
+                    edit:false,
+                    error:true
                 }
             }
+            
+            case FORM_SUBSCRIPTIONS_EDIT_BTN:
+                return {
+                    ...state,
+                    updateSubscription:{
+                        ...state.updateSubscription,
+                        status:0
+                    },
+                    formSubscriptions:{
+                        ...state.formSubscriptions,
+                        form:{
+                            id:action.payload.id,
+                            symbol1Id:action.payload.symbol1Id,
+                            symbol2Id:action.payload.symbol2Id,
+                            risePrice:action.payload.risePrice,
+                            fallPrice:action.payload.fallPrice,   
+                        },
+                        edit:true,
+                        error:true
+                    }
+                }
+                
+            case FORM_SUBSCRIPTIONS_RESET_BTN:
+                return {
+                    ...state,
+                    formSubscriptions:{
+                        ...state.formSubscriptions,
+                        form:state.formSubscriptions.initialForm,
+                    }
+                }
+                
+            case FORM_SUBSCRIPTIONS_HANDLE_CHANGE:
+                return {
+                    ...state,
+                    formSubscriptions:{
+                        ...state.formSubscriptions,
+                        form:{
+                            ...state.formSubscriptions.form,
+                            [action.payload.key]:action.payload.value
+                        },
+                }
+            }   
 
-        case GET_SUBSCRIPTION_STATUS:
+        case FORM_SUBSCRIPTION_VALIDATE:
+            const [subscripcionValidateError, subscripcionValidateErrors] = validateForm(
+                'subscriptions',
+                state.formSubscriptions.form
+            )
             return {
                 ...state,
-                subscription:{
-                    ...state.subscription,
-                    status:action.payload
+                formSubscriptions:{
+                    ...state.formSubscriptions,
+                    error:subscripcionValidateError,
+                    errors:subscripcionValidateErrors
                 }
-            }
-    
-        case GET_SUBSCRIPTION_ERROR:
-            return {
-                ...state,
-                subscription:{
-                    ...state.subscription,
-                    error:action.payload
-                }
-            }
+            }  
 
         case ADD_SUBSCRIPTION:
             return {
@@ -733,12 +840,12 @@ const reducer = (state = initialState, action) => {
 
         case GET_TRANSACTIONS:
             let transactions = [...action.payload];
-            // transactions = filterAndSort(
-            //     'transactions',
-            //     transactions,
-            //     state.transactions.filter,
-            //     state.transactions.order
-            // );
+            transactions = filterAndSort(
+                'transactions',
+                transactions,
+                state.transactions.filter,
+                state.transactions.order
+            );
             return {
                 ...state,
                 transactions:{
@@ -785,12 +892,12 @@ const reducer = (state = initialState, action) => {
 
         case GET_PORTFOLIO:
             let portfolio = [...action.payload];
-            // portfolio = filterAndSort(
-            //     'portfolio',
-            //     portfolio,
-            //     state.portfolio.filter,
-            //     state.portfolio.order
-            // );
+            portfolio = filterAndSort(
+                'portfolio',
+                portfolio,
+                state.portfolio.filter,
+                state.portfolio.order
+            );
             return {
                 ...state,
                 portfolio:{
@@ -891,9 +998,11 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
+
+            
         default:
             return {...state}
     }
 }
-
+// hh
 export default reducer;
