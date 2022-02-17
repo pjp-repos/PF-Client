@@ -1,11 +1,15 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom';
+import {useNavigate, Link} from "react-router-dom";
+
+
 //Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { 
     getSubscriptions, 
+    getSymbols,
     deleteSubscription,
+    formSubscriptionsNewBtn,
+    formSubscriptionsEditBtn,
 } from '../../../Redux/Actions/actionCreators';
 import { 
     selectSubscriptionsAll,
@@ -35,9 +39,16 @@ import Container from '../../AaaGenerics/Sections/Container';
 import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
 
 const SubscriptionTable = () => {
+
+    // Router-dom hooks
+    const navigate = useNavigate();
  
+    // Redux
     const dispatch = useDispatch();
     const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
+    const [subsData, subsStatus, subsError ] = useSelector(selectSubscriptionsAll);
+    const [deleteData, deleteStatus, deleteError ] = useSelector(selectDeleteSubscriptionAll);
+
     const navigate = useNavigate();
     
     useEffect(()=>{
@@ -45,18 +56,28 @@ const SubscriptionTable = () => {
            navigate("/signin")
         }else{
             getSubscriptions(dispatch, token);
+            getSymbols(dispatch,token)
         }
     }, [isAuthenticated])
-    
-    const [subsData, subsStatus, subsError ] = useSelector(selectSubscriptionsAll);
-    const [deleteData, deleteStatus, deleteError ] = useSelector(selectDeleteSubscriptionAll);
-    
+
+        
+    // New - Edit - Delete events
+    const handleNew = () =>{
+        formSubscriptionsNewBtn(dispatch);
+        navigate('/subscriptions/form');
+    };
+
+    const handleEdit = (form) =>{
+        formSubscriptionsEditBtn(dispatch, form);
+        navigate('/subscriptions/form');
+    };
+
     const handleDelete = (e) =>{
         if(window.confirm('Seguro que desea eliminar la subscripcion?'))
         {
             deleteSubscription(dispatch, token, e.target.id);            
         }
-    }
+    };
 
 
     // === RENDERS ============================================
@@ -104,6 +125,7 @@ const SubscriptionTable = () => {
            </DivBanner>
             <TableS>
                 {/* {subs.length ?<> */}
+
                 <RowS head>
                     <Column>id</Column>
                     <Column>Pair</Column>
@@ -119,6 +141,7 @@ const SubscriptionTable = () => {
                 {subsData.map(s => (
                     <RowS key={s.id} id={s.id}>
                         <Column>{s.id}</Column>
+
                         <Column>{s.pair[0]}</Column>
                         <Column ><img src={s.symbol1[1]} height='20px'/>{s.symbol1[0]}</Column>
                         <Column ><img src={arrow} width='20px'/></Column>
@@ -133,6 +156,7 @@ const SubscriptionTable = () => {
                            <ButtonE id={s.id} onClick={handleDelete}><img id={s.id} src={borrar} height='20px'/></ButtonE>
                         </Column>
                     </RowS>
+
                 ))}
                 
                 {/* </> :<>
