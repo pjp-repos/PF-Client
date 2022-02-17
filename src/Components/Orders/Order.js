@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate ,useParams} from "react-router-dom";
 import { OrderContainer,ContainerOptionsOrders,
     DivImages,Image,DivTrade,SubmitOrder,SubmitDiv,DivSellBuy,
-    InputSellBuy,SelectSellBuy,Info,DivInfo,DivTotal,ButtonOption} from "./OrderElements";
+    InputSellBuy,SelectSellBuy,Info,DivInfo,DivTotal,ButtonOption,OrderGraphics,DivInfoOrder, TitleGraphic} from "./OrderElements";
 import {
     selectSymbols,
     selectSessionIsAuthenticated,
@@ -17,6 +17,7 @@ import {
 } from '../../Redux/Actions/actionCreators';
 import nomoney from "../../Assets/Images/nomoney.png"
 import {setSymbol1,setSymbol2,validatePair,validateSubmit} from "./OrderFunctions"
+import Graphics from "../Graphics/Graphics";
 
 const stateOrderInitial = {
     type:"Market",
@@ -133,6 +134,11 @@ export default function Order(){
    return (
       
       <div>
+        <OrderGraphics>
+         <DivInfoOrder>
+            <TitleGraphic>BTC/USDT</TitleGraphic>
+            <Graphics />
+         </DivInfoOrder>
         <OrderContainer>
             <ContainerOptionsOrders>
               <ButtonOption name = "type" onClick = {(e) => handlerType(e.target.name,e.target.id)} actual = {stateOrder.type} id ="Market">Market</ButtonOption>
@@ -192,6 +198,8 @@ export default function Order(){
                 <SubmitOrder onClick = {handleSubmit}>Get {stateOrder.type}</SubmitOrder>
             </SubmitDiv>
         </OrderContainer>
+
+        </OrderGraphics>
       </div>
     )
 }

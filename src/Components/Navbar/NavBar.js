@@ -1,5 +1,6 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
+import Modal from "../AaaGenerics/Modal/Modal.js";
 
 // Redux issues
 import { useSelector,useDispatch } from "react-redux";
@@ -34,6 +35,7 @@ export default function NavBar(){
   const token = useSelector(selectSessionToken);
   // Statess
   const isAuthenticated = useSelector(selectSessionIsAuthenticated);
+
 
   return (
     <ContainerNavbar>
