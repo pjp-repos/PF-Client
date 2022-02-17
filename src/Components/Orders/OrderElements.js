@@ -9,13 +9,38 @@ justify-content:center;
 align-items:center;
 font-size:15px;
 `
+export const OrderGraphics = styled(flex)`
+  width:90%;
+  margin-left:auto;
+  margin-right:auto;
+  box-shadow: 4px 4px 8px black;
+  min-height:500px;
+  margin-top:40px;
+  margin-bottom:80px;
+  @media screen and (max-width:940px){
+    width:100%;
+   }
+   
+   @media screen and (max-width:540px){
+    width:100%;
+    flex-direction:column; 
+   }
+`
+export const DivInfoOrder = styled(flex)`
+  flex-direction:Column;
+  justify-content:flex-start;
+  width:65%;
+  height:650px;
+  border-radius:10px;
+  @media screen and (max-width:540px){
+    width:100%; 
+    height:300px;
+   }
+`
 export const OrderContainer = styled(flex)`
-margin-top:20px;
-margin-bottom:4%;
-width:30%;
-box-shadow: 4px 4px 8px black;
+width:35%;
 margin-left: auto;
-background-color: #181A20;
+background-color:#181A20;
 margin-right:auto;
 min-height:500px;
 flex-direction:column;
@@ -26,21 +51,23 @@ justify-content:flex-start;
 }
 
 @media screen and (max-width:540px){
- width:90%; 
+ width:100%; 
+ margin-top:10px;
 }
 @media screen and (min-width:1900px){
  width:25%;
 }
 `
-export const ContainerOptionsOrders = styled.div`
+export const ContainerOptionsOrders = styled(flex)`
   width:100%;
   height:60px;
-  margin-bottom:2%;
-  margin-top:6%;
+  
 `
 export const DivImages = styled(flex)`
   width:100%;
+  ${props => props.typeOrder === "Buy" && `flex-direction:row-reverse`};
   height:120px;
+  margin-top:20px;
 `
 export const DivSellBuy = styled(flex)`
   width:47%;
@@ -76,20 +103,20 @@ export const Image = styled.img`
 export const DivTrade = styled(flex)`
 width:100%;
 height:80px;
+${props => props.typeOrder === "Buy" && `flex-direction:row-reverse`};
 `
 export const SubmitDiv = styled(flex)`
 position:relative;
 justify-content:space-around;
 padding-top:12px;
 width:90%;
-height:300px;
-background-color:blue;
+height:280px;
 margin-bottom:10px;
 text-align:center;
 flex-direction:column;
 background-color:rgb(20, 21, 26);
 border-radius:10px;
-${props => props.type === "Limit" && `height:380px`};
+${props => props.type === "Limit" && `height:340px`};
 `
 export const SubmitOrder = styled(Submit)`
   position:relative;
@@ -129,4 +156,10 @@ export const ButtonOption = styled.button`
    ${props => props.actual === props.id && `color:#efb810`};
    ${props => props.border && props.actual === props.id && `border:1px solid #efb810;width:30%;`};
    ${props => props.border && props.actual !== props.id && `border:1px solid #474D57; color:#474D57;width:30%`};
+`
+export const TitleGraphic = styled.h1`
+  margin-top:70px;
+  @media screen and (max-width:540px){
+    margin-top:20px;
+   }
 `

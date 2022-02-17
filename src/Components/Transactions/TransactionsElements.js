@@ -4,16 +4,19 @@ import { Select } from "../Home/Filters/Selects/SelectElements"
 import { ContainerFilters } from "../Home/Filters/ContainerFilters"
 import {TableC} from "../Home/Table/TableElements"
 export const Rowt = styled(Row)`
-  grid-template-columns: 0.1fr 0.2fr 0.2fr 0.2fr 0.3fr;
+  grid-template-columns: 0.15fr 0.15fr 0.2fr 0.2fr 0.2fr 0.25fr 0.3fr;
   margin-left:auto;
   margin-right:auto;
-  width:60%;
+  width:80%;
   grid-gap:0.1%;
 
-  @media screen and (max-width:840px){
-    grid-template-columns: 0.1fr 0.3fr 0.3fr 0.3fr;
-    width:90%;
-   }
+  @media screen and (max-width:920px){
+    width:95%;
+  }
+
+  @media screen and (max-width:540px){
+    width:190%;
+  }
 `
 export const ContainerFiltersT = styled(ContainerFilters)`
   margin-top:40px;
@@ -44,6 +47,21 @@ export const SelectTransactions = styled(Select)`
 `
 export const TableT = styled(TableC)`
   min-height:40vh;
+  @media screen and (max-width:540px){
+    overflow-x:scroll;
+    overflow-y:hidden;
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width:5px;
+      height:6px;
+      background-color: #181A20;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: white;
+      height: 1px;
+    }
+   }
 `
    
 export const Container = styled.div`

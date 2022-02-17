@@ -20,12 +20,28 @@ export const ImgTitle = styled.img`
       ${props => props.visibilitySm && 'display:none;'};
       }
    `
-export const Title = styled.h4`
-   margin-top:25px;
-   margin-left:22px;
+export const Title = styled.button`
+   font-family:'Montserrat', sans-serif;
    font-size:20px;
+   cursor:pointer;
+   font-weight:bold;
+   outline:0;
+   border:0;
+   background-color:transparent;
    color:#efb810;  
+   margin-right:12px;
+   @media screen and (max-width:540px){
+     margin-right:30px;
+    }
   `
+export const DivTitle = styled.div`
+  width:200px;
+  height:100%;
+  display:flex;
+  background-color:transparent;
+  align-items:center;
+  justify-content:center;
+`
 
 export const ContainerButtons = styled(flex)`
   height:100%;
@@ -79,7 +95,7 @@ export const OptionsContainer = styled.div`
   justify-content:center;
   text-align:center;
   background-color:#181A20;
-  z-index:1;
+  z-index:3;
   top:95%;
   width:150px;
   height:0px;
@@ -97,3 +113,8 @@ export const Option =styled.button`
     cursor: pointer;
   }
 `;
+export const ImgUser = styled.img`
+@media screen and (max-width:540px){
+  margin-left:50px;
+ }
+`

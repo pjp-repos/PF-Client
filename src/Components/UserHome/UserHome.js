@@ -21,7 +21,7 @@ export default function UserHome(){
             <Title>Subscribe</Title>
             <Img className = "Img" src = "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"/>
         </Card>
-        <Card onClick = {(e) => navigate("../order/form")}>
+        <Card onClick = {(e) => navigate("../order")}>
           <Title>Sell/Buy</Title>
           <Img className = "Img" src =  "https://images.unsplash.com/photo-1631603090989-93f9ef6f9d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80"/>
         </Card>

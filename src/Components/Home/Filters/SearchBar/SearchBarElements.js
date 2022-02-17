@@ -16,6 +16,7 @@ export const ContainerSearch = styled.div`
   background-color:#474D57;
   width:220px;
   height:40px;
+  margin-top:20px;
   border-radius:20px;
   margin-right:30px;
 

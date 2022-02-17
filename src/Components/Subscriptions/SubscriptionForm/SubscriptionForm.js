@@ -46,13 +46,28 @@ const SubscriptionForm = () => {
     // Redux hooks  
     const dispatch = useDispatch();
     const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
-
     const [dataSymbols, statusSymbols, errorSymbols] = useSelector(selectSymbolsAll);
-    
     const [form, edit, errors, error] = useSelector(selectSubscriptionFormAll);
-
     const [dataAdd, statusAdd, errorAdd] = useSelector(selectAddSubscriptionAll);
     const [dataUpdate, statusUpdate, errorUpdate] = useSelector(selectUpdateSubscriptionAll);
+
+    
+    // Load symbol list for dropdowns and subscription data (Update case)
+    useEffect(() => {   
+        if(!isAuthenticated){
+            navigate("/signin");
+        }else{
+            getSymbols(dispatch,token); 
+            if(update){
+                getSubscription(dispatch,token, id); 
+                resetUpdateSubscriptionStatus(dispatch);
+            } else{
+                resetAddSubscriptionStatus(dispatch);
+            }
+        }
+    }, [])
+
+
 
     // Dropdows option list
     let symbols=[];

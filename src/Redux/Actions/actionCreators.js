@@ -319,6 +319,7 @@ export const getOrders = (dispatch, token, status=false,dateFrom=false, dateTo=f
 
 // getOrder action (thunk function)
 export const getOrder = (dispatch, token, id) =>{
+
     const dataCbOrder = (data)=>dispatch({type:GET_ORDER,payload:data});
     const statusCbOrder = (value)=>dispatch({type:GET_ORDER_STATUS,payload:value});
     const errorCbOrder = (errorObj)=>dispatch({type:GET_ORDER_ERROR,payload:errorObj});

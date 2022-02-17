@@ -5,7 +5,7 @@ import OrderTable from "../Components/Orders/OrderTable/OrderTable"
 const OrderTablePage = () => {
     return(
         <div>
-            <NavBar />
+            <NavBar/>
             <OrderTable />
         </div>
     )

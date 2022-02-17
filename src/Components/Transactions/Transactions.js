@@ -8,18 +8,17 @@ import {
   selectSessionIsAuthenticated,
   selectSessionToken,
   selectPortfolio,
-  selectPortfolioStatus
 } from "../../Redux/Selectors/selectors";
 import { useSelector,useDispatch} from "react-redux";
-import {getTransactions,getPortfolio} from '../../Redux/Actions/actionCreators';
+import {getTransactions,getPortfolio,filterTransactions} from '../../Redux/Actions/actionCreators';
 import { useNavigate } from "react-router-dom";
 const TRANSACTIONSFORPAGE = 10;
 const types = ["All","usdt","btc"];
 
 export default function Transactions(){
     const [actualPage, setActualPage] = React.useState(1);
-    let topTransactions = TRANSACTIONSFORPAGE * actualPage;
-    let initialTransactions = topTransactions - TRANSACTIONSFORPAGE;
+    let topTransactions = actualPage === 1 ? 11 : TRANSACTIONSFORPAGE * actualPage + 1 ;
+    let initialTransactions = actualPage === 1 ? 0 :topTransactions - TRANSACTIONSFORPAGE;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const transactions = useSelector(selectTransactions);
@@ -28,18 +27,28 @@ export default function Transactions(){
     const token = useSelector(selectSessionToken);
 
     React.useEffect(() => {  
-      getTransactions(dispatch,token);    
-      getPortfolio(dispatch,token);
+      if(!isAuthenticated)
+        navigate("/signin")
+      else{
+        getTransactions(dispatch,token);    
+        getPortfolio(dispatch,token);
+      }
     }, []);
+
+    const handlerSelects = (e) => {
+      filterTransactions(dispatch,{symbol:e.target.value});
+      getTransactions(dispatch,token);    
+    }
 
   return (
     <div >
         <NavBar />
         <ContainerFiltersT>
             <Wallet>Wallet</Wallet>
-            <SelectTransactions>
+            <SelectTransactions id = "symbol" onChange = {handlerSelects}> 
+                <option id = "symbol" value = "">All</option>
                 {
-                  portfolio.length > 0 &&  portfolio.map(type => <option key = {type.symbol}>{type.symbol}</option>)
+                  portfolio.length > 0 &&  portfolio.map(type => <option key = {type.symbol} id = "symbol" value = {type.symbol}>{type.symbol}</option>)
                 }
             </SelectTransactions>
         </ContainerFiltersT>
