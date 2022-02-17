@@ -4,7 +4,7 @@ import {TableC} from "../../Home/Table/TableElements"
 import { Card ,Img} from "../../UserHome/UserHomeElements"
 
 export const RowO = styled(Row)`
-  grid-template-columns: 0.08fr 0.15fr 0.15fr 0.15fr 0.15fr 0.15fr 0.15fr  0.18fr 0.25fr  ;
+  grid-template-columns: 0.08fr 0.15fr 0.15fr 0.15fr 0.16fr 0.15fr 0.15fr 0.15fr  0.15fr 0.22fr  ;
   margin-left:auto;
   margin-right:auto;
   width:100%;
@@ -15,7 +15,7 @@ export const RowO = styled(Row)`
   }
   
   @media screen and (max-width:540px){
-    width:250%;
+    width:270%;
   }
 
 `

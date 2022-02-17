@@ -10,6 +10,7 @@ import { getOrders,deleteOrder} from "../../../Redux/Actions/actionCreators";
 import { useSelector,useDispatch} from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { ButtonE } from "../../Subscriptions/SubscriptionTable/SubscriptionTableElements";
+import DateFilters from "../../Utils/DatesFilters";
 
 
 const ORDERFORPAGE = 10;
@@ -25,9 +26,13 @@ export default function Transactions(){
     const navigate = useNavigate();
  
     React.useEffect(() => {
-      setTimeout(() => {
-        getOrders(dispatch,token);
-      },3000)
+      if(!isAuthenticated)
+         navigate("/signin")
+      else{
+        setTimeout(() => {
+          getOrders(dispatch,token);
+        },3000)
+      }
     },[]);
 
     const handlerDelete = (e) => {
@@ -46,13 +51,15 @@ export default function Transactions(){
             <BannerImg className = "Img" src =  "https://images.unsplash.com/photo-1631603090989-93f9ef6f9d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80" alt = "banner" />
           </BannerOrder>
         </DivBanner>
+        <DateFilters />
         <TableO>
             <RowO head>
                 <Column>Id</Column> 
                 <Column>Symbol1</Column> 
                 <Column>symbol2</Column> 
                 <Column>Amount</Column> 
-                <Column>priceLimit</Column> 
+                <Column>Price</Column>
+                <Column>PriceLimit</Column> 
                 <Column>Type Order</Column>  
                 <Column>State Order</Column> 
                 <Column>Update</Column>  
@@ -65,6 +72,7 @@ export default function Transactions(){
               <Column><img src={orderItem.SymbolSell.image} height='20px'/>{orderItem.SymbolSell.symbol}</Column>
               <Column><img src={orderItem.SymbolBuy.image} height='20px'/>{orderItem.SymbolBuy.symbol}</Column>
               <Column >{orderItem.amount % 1 !== 0 ? orderItem.amount.toFixed(5) : orderItem.amount}</Column>
+              <Column>{orderItem.price % 1 !== 0 ? orderItem.price.toFixed(4) : orderItem.price}</Column>
               <Column >{orderItem.priceLimit % 1 !== 0 ? orderItem.priceLimit.toFixed(5) : orderItem.priceLimit}</Column>
               <Column >{orderItem.buyOrder === true ? "Buy" : "Sell"}</Column>
               <Column >{orderItem.sendOnPending === true ? "Pending" : orderItem.sendOnFullfiled === true ? "Fullfilled" : "Pending"}</Column>

@@ -27,12 +27,17 @@ export default function Transactions(){
     const token = useSelector(selectSessionToken);
 
     React.useEffect(() => {  
-      getTransactions(dispatch,token);    
-      getPortfolio(dispatch,token);
+      if(!isAuthenticated)
+        navigate("/signin")
+      else{
+        getTransactions(dispatch,token);    
+        getPortfolio(dispatch,token);
+      }
     }, []);
 
     const handlerSelects = (e) => {
-      filterTransactions(dispatch,{symbol:e.target.value})
+      filterTransactions(dispatch,{symbol:e.target.value});
+      getTransactions(dispatch,token);    
     }
 
   return (

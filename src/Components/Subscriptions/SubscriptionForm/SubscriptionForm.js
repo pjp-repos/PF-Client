@@ -57,8 +57,10 @@ const SubscriptionForm = () => {
     
     // Load symbol list for dropdowns and subscription data (Update case)
     useEffect(() => {   
-        getSymbols(dispatch,token); 
-        if(isAuthenticated){
+        if(!isAuthenticated){
+            navigate("/signin");
+        }else{
+            getSymbols(dispatch,token); 
             if(update){
                 getSubscription(dispatch,token, id); 
                 resetUpdateSubscriptionStatus(dispatch);

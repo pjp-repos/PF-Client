@@ -50,15 +50,20 @@ export default function Order(){
     let update = false;
     if(id) update = true;
   
+  
     React.useEffect( () => { 
-      if(update){
-        getOrder(dispatch,token,id);
-      }
-      getSymbols(dispatch,token);
-      getPortfolio(dispatch,token);
-
-      return () => {
-        resetUpdateOrderStatus(dispatch);
+      if(!isAuthenticated)
+        navigate("/signin")
+      else{
+        if(update){
+          getOrder(dispatch,token,id);
+        }
+        getSymbols(dispatch,token);
+        getPortfolio(dispatch,token);
+  
+        return () => {
+          resetUpdateOrderStatus(dispatch);
+        }
       }
     }, []);
 

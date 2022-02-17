@@ -2,10 +2,10 @@ import React from "react";
 import {useNavigate} from "react-router-dom";
 
 // Redux issues
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { 
   selectSessionIsAuthenticated, 
-  selectSessionUsername 
+  selectSessionToken
 } from "../../Redux/Selectors/selectors.js";
 
 // Styled components 
@@ -18,8 +18,11 @@ import {
   UserContainer,
   OptionsContainer,
   Option,
+  DivTitle,
   ImgUser,
 } from "./NavbarElements.js";
+
+import { getSingOut } from "../../Redux/Actions/actionCreators.js";
 
 // Assets
 import coin from "../../Assets/Images/Coin.png"
@@ -27,14 +30,16 @@ import User from "../../Assets/Images/User.png"
 
 export default function NavBar(){
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const token = useSelector(selectSessionToken);
   // Statess
   const isAuthenticated = useSelector(selectSessionIsAuthenticated);
-  const username = useSelector(selectSessionUsername);
-  
+
   return (
     <ContainerNavbar>
-
-        <Title > <ImgTitle visibilitySm src = {coin} alt = "coin" /> HenryCoin</Title>
+        <DivTitle>
+          <Title onClick = {(e) => navigate("/home")}> <ImgTitle visibilitySm src = {coin} alt = "coin" /> HenryCoin</Title>
+        </DivTitle>
         {!isAuthenticated && <ContainerButtons>
           <ButtonNavbar onClick={(e) => navigate("/signin")}>Sign In</ButtonNavbar> 
           <ButtonNavbar onClick={(e) => navigate("/signup")} signup>Sign Up</ButtonNavbar>
@@ -47,7 +52,10 @@ export default function NavBar(){
                <Option onClick={(e) => navigate("/subscriptions")}><p>Subscribe</p></Option>
                <Option onClick={(e) => navigate("/order")}><p>Orders</p></Option>
                <Option onClick={(e) => navigate("/transactions")}><p>Historial</p></Option>
-               <Option><p>Logout</p></Option>
+               <Option onClick={(e) =>{
+                 getSingOut(dispatch,token);
+                 navigate("/");
+               } }><p>Logout</p></Option>
              </OptionsContainer>
         </UserContainer>
         }

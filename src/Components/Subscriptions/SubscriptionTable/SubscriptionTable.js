@@ -41,7 +41,11 @@ const SubscriptionTable = () => {
     const navigate = useNavigate();
     
     useEffect(()=>{
-        isAuthenticated && getSubscriptions(dispatch, token);
+        if(!isAuthenticated){
+           navigate("/signin")
+        }else{
+            getSubscriptions(dispatch, token);
+        }
     }, [isAuthenticated])
     
     const [subsData, subsStatus, subsError ] = useSelector(selectSubscriptionsAll);
