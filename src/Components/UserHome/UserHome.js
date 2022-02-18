@@ -12,7 +12,7 @@ export default function UserHome(){
          <ContainBanner>
            <TitleHenry>Welcome to <Henry>HenryCoin</Henry></TitleHenry>
            <InfoBanner>Algo informacion para rellenar lo vacio</InfoBanner>
-           <ButtonWallet>Go to Wallet</ButtonWallet>
+           <ButtonWallet onClick = {(e) => navigate("../wallet")}>Go to Wallet</ButtonWallet>
          </ContainBanner>
          <ImgBannerr src ={img} alt="banner"/>
        </Banner> 

@@ -81,24 +81,27 @@ export default function Portafolio(){
   }
   function handleSymbol(t){
     t.preventDefault();
-    toOrderSymbol?dispatch(sortPortfolio(dispatch,'symbolAsc')):dispatch(sortPortfolio(dispatch,'symbolDesc'));
+    toOrderSymbol?sortPortfolio(dispatch,'symbolAsc'):sortPortfolio(dispatch,'symbolDesc');
     setToOrderSymbol(!toOrderSymbol);
+    getPortfolio(dispatch, token);
   }
   function handleAmount(t){
     t.preventDefault();
-    setOrderAmount(!toOrderAmount);
-    
-    toOrderAmount?dispatch(sortPortfolio(dispatch,'balanceAsc')):dispatch(sortPortfolio(dispatch,'balanceDesc'));
+    setOrderAmount(!toOrderAmount);    
+    toOrderAmount?sortPortfolio(dispatch,'balanceAsc'):sortPortfolio(dispatch,'balanceDesc');
+    getPortfolio(dispatch, token);
   }
   function handlpriceBtc(t){
     t.preventDefault();
     setOrderPriceBtc(!toOrderPriceBtc);
-    toOrderPriceBtc?dispatch(sortPortfolio(dispatch,'inBtcAsc')):dispatch(sortPortfolio(dispatch,'inBtcDesc'));
+    toOrderPriceBtc?sortPortfolio(dispatch,'inBtcAsc'):sortPortfolio(dispatch,'inBtcDesc');
+    getPortfolio(dispatch, token);
   }
   function handlepriceUsdt(t){
     t.preventDefault();
     setOrderPriceU(!toOrderPriceU);
-    toOrderPriceU?dispatch(sortPortfolio(dispatch,'inBtcAsc')):dispatch(sortPortfolio(dispatch,'inBtcDesc'));
+    toOrderPriceU?sortPortfolio(dispatch,'inBtcAsc'):sortPortfolio(dispatch,'inBtcDesc');
+    getPortfolio(dispatch, token);
   }
 
 
@@ -116,7 +119,7 @@ export default function Portafolio(){
                 <Column>Symbol <button onClick = {handleSymbol} > {toOrderSymbol ? <FaAngleUp/>:<FaAngleDown/>} </button></Column> 
                 <Column>Amount<button onClick = {handleAmount} > {toOrderAmount ? <FaAngleUp/>:<FaAngleDown/>} </button> </Column> 
                <Column>Value in BTC  <button onClick = {handlpriceBtc} > {toOrderPriceBtc ? <FaAngleUp/>:<FaAngleDown/>} </button> </Column> 
-               <Column>Value in USDT <button onClick = {handlepriceUsdt} > {tdoOrerPriceU ? <FaAngleUp/>:<FaAngleDown/>} </button></Column> 
+               <Column>Value in USDT <button onClick = {handlepriceUsdt} > {toOrderPriceU ? <FaAngleUp/>:<FaAngleDown/>} </button></Column> 
             </Row>
            
             {
