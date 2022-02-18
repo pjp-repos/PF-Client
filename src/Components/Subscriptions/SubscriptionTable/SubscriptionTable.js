@@ -21,7 +21,7 @@ import {
 import arrow from '../../../Assets/arrow.svg'
 import edit from '../../../Assets/edit.svg'
 import borrar from '../../../Assets/delete.svg'
-
+import subs from "../../../Assets/Images/subs.png"
 // Styled components
 import {
     Button,
@@ -36,6 +36,8 @@ import Container from '../../AaaGenerics/Sections/Container';
 import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
 import { BannerImg,BannerOrder,DivBanner} from '../../Orders/OrderTable/OrderTableElements';
 import { Title } from '../../UserHome/UserHomeElements';
+import { ContainBanner, InfoBanner,Banner,ButtonWallet,ImgBannerr,Henry,TitleHenry } from '../../UserHome/UserHomeElements';
+
 
 const SubscriptionTable = () => {
 
@@ -111,13 +113,24 @@ const SubscriptionTable = () => {
     }
     return (
         <TableWrapper>
-             <DivBanner>
+            { subsData.length === 0 && 
+                <Banner>
+                 <ContainBanner>
+                    <TitleHenry><Henry>HenryCoin</Henry> Subscriptions</TitleHenry>
+                    <InfoBanner>Receive alerts from your favorite crypto pairs</InfoBanner>
+                    <ButtonWallet  onClick={handleNew}>Go to Subs</ButtonWallet>
+                 </ContainBanner>
+                 <ImgBannerr src ={subs} alt="banner"/>
+               </Banner> 
+       } 
+            { subsData.length > 0 &&  <DivBanner>
                 <BannerOrder onClick={handleNew}>
                   <Title>Make A Subscription</Title>
                   <BannerImg className = "Img" src =  "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt = "banner" />
                 </BannerOrder>
              </DivBanner>
-            <TableS>
+            }
+           {  subsData.length > 0 && <TableS>
                 {/* {subs.length ?<> */}
                 
                 <RowS head='head'>
@@ -157,6 +170,7 @@ const SubscriptionTable = () => {
                     <Link to='/addsubscription'><Button>New Subscription</Button></Link>
                 </>} */}
             </TableS>
+            }
         </TableWrapper>
     )
 }

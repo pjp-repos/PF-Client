@@ -138,7 +138,7 @@ export default function Order(){
         <OrderGraphics>
          <DivInfoOrder>
             <TitleGraphic>{symbolsState.symbol1}/{symbolsState.symbol2}</TitleGraphic>
-           { <Graphics data = {pairValid[1] === 2 ? pairValid[0].array : []} /> }
+           { <Graphics data = {pairValid[1] === 2 && symbolsState.symbol1 !== "Crypto" && symbolsState.symbol2 !== "Crypto" ? pairValid[0].array : []} /> }
          </DivInfoOrder>
         <OrderContainer>
             <ContainerOptionsOrders>

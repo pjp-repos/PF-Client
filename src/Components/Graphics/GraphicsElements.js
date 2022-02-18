@@ -15,7 +15,7 @@ export const DivGraphic= styled.div`
 
 export const TooltipDiv = styled.div`
   background-color: rgb(20, 21, 26);
-  width:130px;
+  width:140px;
   height:60px;
   font-size:15px;
   color:white;

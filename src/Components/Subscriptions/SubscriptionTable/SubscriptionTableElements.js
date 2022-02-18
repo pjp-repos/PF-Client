@@ -55,6 +55,7 @@ export const RowS= styled(Row)`
 export const TableWrapper = styled.div`
     min-width: 100%;
     width: 100%;
+    margin-top:40px;
     display: flex;
     flex-direction: column;
     align-items: center;
