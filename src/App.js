@@ -14,6 +14,7 @@ import OrderTablePage from './Pages/OrderTablePage';
 import Wallet from './Pages/Wallet';
 
 
+
 function App() {
    
     return (
@@ -22,13 +23,16 @@ function App() {
             <Route exact path="/signup" element={ <SignUp/>} />           
             <Route exact path="/signin" element={ <SignIn/>} />   
             <Route exact path="/home" element={ <AuthHome/>} />  
-            <Route exact path="/transactions" element={ <TransactionsPage/>} /> 
+            <Route exact path="/transactions" element={ <TransactionsPage/>} />            
+
+            <Route exact path="/order" element={ <OrderTablePage />} /> 
             <Route exact path="/order/form" element={ <OrderPage />} /> 
-            <Route exact path="/order" element={ <OrderTablePage />} />                          
+            <Route exact path="/order/form/:id" element={ <OrderPage />} />                                      
             <Route exact path="/subscriptions" element={ <SubscriptionPage/>} />           
             <Route exact path="/subscriptions/form" element={ <SubscriptionFormPage/>} />                     
-            <Route path="/subscriptions/form/:id" element={ <SubscriptionFormPage/>} />     
-            <Route exact path="/wallet" element={ <Wallet/>} />                 
+            <Route path="/subscriptions/form/:id" element={ <SubscriptionFormPage/>} />  
+            <Route exact path="/wallet" element={ <Wallet/>} />  
+
         </Routes>
     );
 }
