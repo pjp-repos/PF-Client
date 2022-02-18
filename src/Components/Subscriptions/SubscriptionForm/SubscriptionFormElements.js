@@ -4,7 +4,9 @@ import { Button } from "../../AaaGenerics/Button/Button";
 import { Input } from "../../AaaGenerics/Input/Input"
 
 export const SubscriptionFormWrapper = styled.div`
-    width: 100%;
+    margin-left:auto;
+    margin-right:auto;
+    width: 40%;
     height: 100vh;
     padding: 8px;
 

@@ -1,4 +1,3 @@
-/// Imports
 import React, {useState, useEffect} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
@@ -35,7 +34,6 @@ import {
  // Generic styled components
 import Dropdown from '../../AaaGenerics/Dropdown/Dropdown';
 import { H3 } from '../../AaaGenerics/Texts/Hx';
-import Container from '../../AaaGenerics/Sections/Container';
 import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
 
 const SubscriptionForm = () => {  
@@ -50,24 +48,6 @@ const SubscriptionForm = () => {
     const [form, edit, errors, error] = useSelector(selectSubscriptionFormAll);
     const [dataAdd, statusAdd, errorAdd] = useSelector(selectAddSubscriptionAll);
     const [dataUpdate, statusUpdate, errorUpdate] = useSelector(selectUpdateSubscriptionAll);
-
-    
-    // Load symbol list for dropdowns and subscription data (Update case)
-    useEffect(() => {   
-        if(!isAuthenticated){
-            navigate("/signin");
-        }else{
-            getSymbols(dispatch,token); 
-            if(update){
-                getSubscription(dispatch,token, id); 
-                resetUpdateSubscriptionStatus(dispatch);
-            } else{
-                resetAddSubscriptionStatus(dispatch);
-            }
-        }
-    }, [])
-
-
 
     // Dropdows option list
     let symbols=[];
