@@ -106,4 +106,4 @@ export default function Transactions(){
         { orders[0].length > 0 && <Pagination totalCryptos = {orders[0].length} cryptosForPage = {ORDERFORPAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
     </Container>
   )
-}
+};
