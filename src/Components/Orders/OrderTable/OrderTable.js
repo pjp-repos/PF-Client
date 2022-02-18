@@ -11,6 +11,8 @@ import { useSelector,useDispatch} from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { ButtonE } from "../../Subscriptions/SubscriptionTable/SubscriptionTableElements";
 import DateFilters from "../../Utils/DatesFilters";
+import { Banner,ContainBanner,InfoBanner,TitleHenry,ButtonWallet,ImgBannerr,Henry } from "../../UserHome/UserHomeElements";
+import img from "../../../Assets/Images/orderBanner.png"
 
 
 const ORDERFORPAGE = 10;
@@ -45,14 +47,26 @@ export default function Transactions(){
   return (
     
     <Container>
-        <DivBanner>
+       { orders[0].length === 0 && 
+        <Banner>
+         <ContainBanner>
+           <TitleHenry><Henry>HenryCoin</Henry> Orders</TitleHenry>
+           <InfoBanner>You got 1000000 usdt for orders</InfoBanner>
+           <ButtonWallet  onClick={(e) => navigate("./form")}>Go to Orders</ButtonWallet>
+         </ContainBanner>
+         <ImgBannerr src ={img} alt="banner"/>
+        </Banner> 
+       } 
+       {orders[0].length > 0 &&
+         <DivBanner>
           <BannerOrder onClick={(e) => navigate("./form")}>
-            <Title>Make A Order</Title>
+            <Title>{"Make A Order" }</Title>
             <BannerImg className = "Img" src =  "https://images.unsplash.com/photo-1631603090989-93f9ef6f9d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80" alt = "banner" />
           </BannerOrder>
-        </DivBanner>
-        <DateFilters />
-        <TableO>
+         </DivBanner>
+        }
+        {orders[0].length > 0 && <DateFilters />}
+        {orders[0].length > 0 && <TableO>
             <RowO head>
                 <Column>Id</Column> 
                 <Column>Symbol1</Column> 
@@ -67,7 +81,7 @@ export default function Transactions(){
             </RowO>
            
             {
-              orders[0].length > 0  && orders[0].slice(initialOrders,topOrders).map(orderItem=><RowO key = {orderItem.id}>
+              orders[0].slice(initialOrders,topOrders).map(orderItem=><RowO key = {orderItem.id}>
               <Column>{orderItem.id}</Column>
               <Column><img src={orderItem.SymbolSell.image} height='20px'/>{orderItem.SymbolSell.symbol}</Column>
               <Column><img src={orderItem.SymbolBuy.image} height='20px'/>{orderItem.SymbolBuy.symbol}</Column>
@@ -88,6 +102,7 @@ export default function Transactions(){
               </RowO>) 
             }
         </TableO>
+        }
         { orders[0].length > 0 && <Pagination totalCryptos = {orders[0].length} cryptosForPage = {ORDERFORPAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
     </Container>
   )

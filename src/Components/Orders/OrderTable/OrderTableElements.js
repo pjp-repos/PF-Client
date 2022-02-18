@@ -22,6 +22,7 @@ export const RowO = styled(Row)`
 export const Container = styled.div`
    min-width: 100%;
    justify-content: center;
+   margin-top:20px;
 `
 
 export const TableO = styled(TableC)`
@@ -81,6 +82,6 @@ export const BannerOrder = styled(Card)`
 `
 
 export const BannerImg = styled(Img)`
-    height:120px;
+    height:100%;
     opacity:0.6;
 `
