@@ -34,7 +34,6 @@ import {
  // Generic styled components
 import Dropdown from '../../AaaGenerics/Dropdown/Dropdown';
 import { H3 } from '../../AaaGenerics/Texts/Hx';
-import Container from '../../AaaGenerics/Sections/Container';
 import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
 
 const SubscriptionForm = () => {  
@@ -45,11 +44,8 @@ const SubscriptionForm = () => {
     // Redux hooks  
     const dispatch = useDispatch();
     const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
-
     const [dataSymbols, statusSymbols, errorSymbols] = useSelector(selectSymbolsAll);
-    
     const [form, edit, errors, error] = useSelector(selectSubscriptionFormAll);
-
     const [dataAdd, statusAdd, errorAdd] = useSelector(selectAddSubscriptionAll);
     const [dataUpdate, statusUpdate, errorUpdate] = useSelector(selectUpdateSubscriptionAll);
 

@@ -13,7 +13,7 @@ import {
  } from "../../Redux/Selectors/selectors";
 import { useSelector,useDispatch} from "react-redux";
 import {
-    getSymbols, getPortfolio,getPair,addOrder,getOrder,resetUpdateOrderStatus,updateOrder
+    getSymbols, getPortfolio,getPair,addOrder,getOrder,resetUpdateOrderStatus,updateOrder,resetAddOrderStatus
 } from '../../Redux/Actions/actionCreators';
 import nomoney from "../../Assets/Images/nomoney.png"
 import {setSymbol1,setSymbol2,validatePair,validateSubmit} from "./OrderFunctions"
@@ -90,8 +90,9 @@ export default function Order(){
     },[order[1] === 2])
     
     React.useEffect(() => {
-      if(validatePair(symbolsState))
-         getPair(dispatch,token,symbolsState.symbol1Id,symbolsState.symbol2Id);
+      if(validatePair(symbolsState)){
+        stateOrder.typeOrder === "Sell" ? getPair(dispatch,token,symbolsState.symbol1Id,symbolsState.symbol2Id) : getPair(dispatch,token,symbolsState.symbol2Id,symbolsState.symbol1Id);
+      }
     },[symbolsState]);
 
     const handleSubmit =  () => {
@@ -110,10 +111,12 @@ export default function Order(){
           }
           if(update){
              updateOrder(dispatch,token,order,id);
+             resetUpdateOrderStatus(dispatch);
           }else{
             addOrder(dispatch,token,order);
+            resetAddOrderStatus(dispatch);
           }
-           
+          
           navigate("../order");
         }
     }
@@ -138,7 +141,7 @@ export default function Order(){
         <OrderGraphics>
          <DivInfoOrder>
             <TitleGraphic>{symbolsState.symbol1}/{symbolsState.symbol2}</TitleGraphic>
-           { <Graphics data = {pairValid[1] === 2 ? pairValid[0].array : []} /> }
+           { <Graphics data = {pairValid[1] === 2 && symbolsState.symbol1 !== "Crypto" && symbolsState.symbol2 !== "Crypto" ? pairValid[0].array : []} /> }
          </DivInfoOrder>
         <OrderContainer>
             <ContainerOptionsOrders>
@@ -193,7 +196,7 @@ export default function Order(){
                 { stateOrder.type === "Limit" && <InputSellBuy  type = "number" onChange={(e) => handlerType(e.target.id,e.target.value)} id = "limit" placeholder={update === true ? stateOrder.limit.toString(): "Limit"}/> }
                 <DivTotal>
                    <Info>Total:</Info>
-                   {pairValid[1] === 2 ? <Info>{(pairValid[0].price*parseFloat(stateOrder.amount)).toFixed(8)} {symbolsState.symbol2}</Info> :<Info>0 Cryptos</Info>}
+                   {pairValid[1] === 2 ? <Info>{(pairValid[0].price*parseFloat(stateOrder.amount)).toFixed(8)} {stateOrder.typeOrder === "Sell" ? symbolsState.symbol2 : symbolsState.symbol1}</Info> :<Info>0 Cryptos</Info>}
                 </DivTotal>    
                 <Info error >{errorSubmit}</Info>
                 <SubmitOrder onClick = {handleSubmit}>Get {stateOrder.type}</SubmitOrder>

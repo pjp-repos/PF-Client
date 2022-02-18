@@ -30,7 +30,7 @@ function PersonalTooltip({active,payload,label}){
     if(active){
         return (
             <TooltipDiv>
-                <p>Price: {payload[0].value}</p>
+                <p>Price: {payload[0].value % 1 !== 0 ? payload[0].value.toFixed(8) : payload[0].value }</p>
                 <p>Date: {label}</p>
             </TooltipDiv>
         )
