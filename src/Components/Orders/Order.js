@@ -140,7 +140,7 @@ export default function Order(){
       <div>
         <OrderGraphics>
          <DivInfoOrder>
-            <TitleGraphic>{symbolsState.symbol1}/{symbolsState.symbol2}</TitleGraphic>
+            <TitleGraphic>{stateOrder.typeOrder === "Sell" ? symbolsState.symbol1 + "-" + symbolsState.symbol2 : symbolsState.symbol2 + "-" + symbolsState.symbol1 }</TitleGraphic>
            { <Graphics data = {pairValid[1] === 2 && symbolsState.symbol1 !== "Crypto" && symbolsState.symbol2 !== "Crypto" ? pairValid[0].array : []} /> }
          </DivInfoOrder>
         <OrderContainer>
@@ -183,7 +183,9 @@ export default function Order(){
                   symbolsState.symbol2 !== "Crypto" &&  symbolsState.symbol1 !== "Crypto" && pairValid[1] === 3 && <Info> Error Pair Invalid</Info>
                }
                {
-                 symbolsState.symbol2 !== "Crypto" &&  symbolsState.symbol1 !== "Crypto" &&  pairValid[1] === 2 && <Info> 1 {symbolsState.symbol1} equals: {(pairValid[0].price).toFixed(8)} {symbolsState.symbol2}</Info>
+                 symbolsState.symbol2 !== "Crypto" &&  symbolsState.symbol1 !== "Crypto" &&  pairValid[1] === 2 && (stateOrder.typeOrder === "Sell" ?
+                 <Info> 1 {symbolsState.symbol1} equals: {(pairValid[0].price).toFixed(8)} {symbolsState.symbol2}</Info>
+                 :  <Info> 1 {symbolsState.symbol2} equals: {(pairValid[0].price).toFixed(8)} {symbolsState.symbol1}</Info>)
                }
                
             </DivInfo>
