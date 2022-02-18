@@ -196,7 +196,7 @@ export default function Order(){
                 { stateOrder.type === "Limit" && <InputSellBuy  type = "number" onChange={(e) => handlerType(e.target.id,e.target.value)} id = "limit" placeholder={update === true ? stateOrder.limit.toString(): "Limit"}/> }
                 <DivTotal>
                    <Info>Total:</Info>
-                   {pairValid[1] === 2 ? <Info>{(pairValid[0].price*parseFloat(stateOrder.amount)).toFixed(8)} {stateOrder.typeOrder === "Sell" ? symbolsState.symbol1 : symbolsState.symbol2}</Info> :<Info>0 Cryptos</Info>}
+                   {pairValid[1] === 2 ? <Info>{(pairValid[0].price*parseFloat(stateOrder.amount)).toFixed(8)} {stateOrder.typeOrder === "Sell" ? symbolsState.symbol2 : symbolsState.symbol1}</Info> :<Info>0 Cryptos</Info>}
                 </DivTotal>    
                 <Info error >{errorSubmit}</Info>
                 <SubmitOrder onClick = {handleSubmit}>Get {stateOrder.type}</SubmitOrder>
