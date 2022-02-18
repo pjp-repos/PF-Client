@@ -50,6 +50,7 @@ export default function Order(){
     const order = useSelector(selectOrderAll);
     let update = false;
     if(id) update = true;
+    console.log(pairValid);
   
   
     React.useEffect( () => { 
@@ -136,8 +137,8 @@ export default function Order(){
       <div>
         <OrderGraphics>
          <DivInfoOrder>
-            <TitleGraphic>BTC/USDT</TitleGraphic>
-            <Graphics />
+            <TitleGraphic>{symbolsState.symbol1}/{symbolsState.symbol2}</TitleGraphic>
+           { <Graphics data = {pairValid[1] === 2 ? pairValid[0].array : []} /> }
          </DivInfoOrder>
         <OrderContainer>
             <ContainerOptionsOrders>
