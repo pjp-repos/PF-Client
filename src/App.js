@@ -1,27 +1,37 @@
+// Dependences
+import { Routes, Route } from 'react-router-dom';
 
-import './App.css';
-import { BrowserRouter, Route, Routes } from "react-router-dom"
-import HomePage from './Componentes/HomePage';
-import NavBar2 from "./Componentes/NavBar2"
+// Pages
+import Home from './Pages/home';
+import SignUp from './Pages/signUp';
+import SignIn from './Pages/signIn';
+import SubscriptionPage from './Pages/subscriptions';
+import SubscriptionFormPage from './Pages/subscriptionFormPage';
+import AuthHome from './Pages/AuthHome';
+import TransactionsPage from './Pages/TransactionsPage';
+import OrderPage from './Pages/OrderPage';
+import OrderTablePage from './Pages/OrderTablePage';
+import Wallet from './Pages/Wallet';
+
 
 function App() {
-  return (
-
-    <BrowserRouter>
-    
-      <div className="App">
-        <NavBar2/>
+   
+    return (
         <Routes>
-
-          <Route exact path= "/" element= {<HomePage/>}/>
-         
-          
-
+            <Route exact path="/" element={ <Home/>} />           
+            <Route exact path="/signup" element={ <SignUp/>} />           
+            <Route exact path="/signin" element={ <SignIn/>} />   
+            <Route exact path="/home" element={ <AuthHome/>} />  
+            <Route exact path="/transactions" element={ <TransactionsPage/>} /> 
+            <Route exact path="/order/form" element={ <OrderPage />} /> 
+            <Route exact path="/order" element={ <OrderTablePage />} />                          
+            <Route exact path="/subscriptions" element={ <SubscriptionPage/>} />           
+            <Route exact path="/subscriptions/form" element={ <SubscriptionFormPage/>} />                     
+            <Route path="/subscriptions/form/:id" element={ <SubscriptionFormPage/>} />     
+            <Route exact path="/wallet" element={ <Wallet/>} />                 
         </Routes>
-      </div>
-
-    </BrowserRouter>
-  );
+    );
 }
 
 export default App;
+
