@@ -135,9 +135,9 @@ const SubscriptionForm = () => {
             <>
                 <p>
                     {`Oops. An error ocurred. 
-                        Type: ${errorUpdate.errorType} 
-                        Code: ${errorUpdate.errorCode} 
-                        Message: ${errorUpdate.errorMessage} 
+                        Type: ${errorAdd.errorType} 
+                        Code: ${errorAdd.errorCode} 
+                        Message: ${errorAdd.errorMessage} 
                     `}
                 </p>
                 <button onClick={()=>resetAddSubscriptionStatus(dispatch)}>Ok</button>
