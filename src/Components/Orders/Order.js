@@ -93,8 +93,9 @@ export default function Order(){
       if(validatePair(symbolsState)){
         stateOrder.typeOrder === "Sell" ? getPair(dispatch,token,symbolsState.symbol1Id,symbolsState.symbol2Id) : getPair(dispatch,token,symbolsState.symbol2Id,symbolsState.symbol1Id);
       }
-    },[symbolsState]);
+    },[symbolsState,stateOrder.typeOrder]);
 
+    
     const handleSubmit =  () => {
         setErrorSubmit("");
         const validate = validateSubmit(stateOrder,symbolsState,pairValid[1]);
