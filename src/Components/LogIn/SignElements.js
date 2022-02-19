@@ -102,6 +102,7 @@ export const Link = styled.button`
   font-weight:bold;
   margin-bottom:30px;
   border: 0;
+  cursor:pointer;
   outline:0;
   font-family:'Montserrat', sans-serif;
   ${props => (props.size   && ` font-size:${props.size}px;`)};

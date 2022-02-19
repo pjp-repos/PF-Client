@@ -158,7 +158,6 @@ const SubscriptionForm = () => {
     
     return (
         <SubscriptionFormWrapper>
-            <H3>New subscription form</H3>
             <SubscriptionFormBlock>
                 {/* Symbol 1 select dropdown */}                       
                 <Dropdown 

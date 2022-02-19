@@ -13,7 +13,6 @@ import { useSelector,useDispatch} from "react-redux";
 import {getTransactions,getPortfolio,filterTransactions} from '../../Redux/Actions/actionCreators';
 import { useNavigate } from "react-router-dom";
 const TRANSACTIONSFORPAGE = 10;
-const types = ["All","usdt","btc"];
 
 export default function Transactions(){
     const [actualPage, setActualPage] = React.useState(1);

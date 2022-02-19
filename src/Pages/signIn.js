@@ -71,7 +71,7 @@ export default function SignIn(){
           <Error top = {67} >{errorSigninState.password}</Error>
           {errorSubmit !== ""  && <Error top = {74} >{errorSubmit}</Error>}
           <Submit type = "submit" top = {78} onClick = {handlerSubmit}>Sign In</Submit>
-          <Link top = {90} left = {24} size = {12}  onClick = {(e) => navigate("../signup")} > <White>You Dont Have Account?</White> /SignUp</Link>
+          <Link top = {90} left = {24} size = {12}  onClick = {(e) => navigate("../signup")} > <White>Don't have an account ?</White> /SignUp</Link>
       </ContainerSign>
     </ContainerSignP>
   )

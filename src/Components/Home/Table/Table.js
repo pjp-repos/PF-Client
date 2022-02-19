@@ -7,8 +7,8 @@ export default function Table({cryptos}){
     return (
     <Container>
         <TableC>
-            <Row>
-                <Column fixedHead>Icon</Column> 
+            <Row head>
+                <Column >Icon</Column> 
                 <Column>Symbol</Column> 
                 <Column >Name</Column> 
                 <Column>Price</Column> 

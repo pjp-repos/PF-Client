@@ -17,7 +17,7 @@ import img from "../../../Assets/Images/orderBanner.png"
 
 const ORDERFORPAGE = 10;
 
-export default function Transactions(){
+export default function OrderTable(){
     const [actualPage, setActualPage] = React.useState(1);
     const dispatch = useDispatch();
     let topOrders = ORDERFORPAGE * actualPage;
@@ -26,6 +26,7 @@ export default function Transactions(){
     let orders = useSelector(selectOrdersAll);
     const token = useSelector(selectSessionToken);
     const navigate = useNavigate();
+    console.log(orders);
  
     React.useEffect(() => {
       if(!isAuthenticated)
@@ -83,8 +84,8 @@ export default function Transactions(){
             {
               orders[0].slice(initialOrders,topOrders).map(orderItem=><RowO key = {orderItem.id}>
               <Column>{orderItem.id}</Column>
-              <Column><img src={orderItem.SymbolSell.image} height='20px'/>{orderItem.SymbolSell.symbol}</Column>
-              <Column><img src={orderItem.SymbolBuy.image} height='20px'/>{orderItem.SymbolBuy.symbol}</Column>
+              <Column><img src={orderItem.symbol1.image} height='20px'/>{orderItem.symbol1.symbol}</Column>
+              <Column><img src={orderItem.symbol2.image} height='20px'/>{orderItem.symbol2.symbol}</Column>
               <Column >{orderItem.amount % 1 !== 0 ? orderItem.amount.toFixed(5) : orderItem.amount}</Column>
               <Column>{orderItem.price % 1 !== 0 ? orderItem.price.toFixed(6) : orderItem.price}</Column>
               <Column >{orderItem.priceLimit % 1 !== 0 ? orderItem.priceLimit.toFixed(5) : orderItem.priceLimit}</Column>
