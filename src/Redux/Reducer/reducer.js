@@ -680,12 +680,12 @@ const reducer = (state = initialState, action) => {
         // ============ ORDERS===============================
         case GET_ORDERS:
             let orders = [...action.payload];
-            orders = filterAndSort(
-                'orders',
-                orders,
-                state.orders.filter,
-                state.orders.order
-            );
+            // orders = filterAndSort(
+            //     'orders',
+            //     orders,
+            //     state.orders.filter,
+            //     state.orders.order
+            // );
             return {
                 ...state,
                 orders:{
