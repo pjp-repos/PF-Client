@@ -521,46 +521,46 @@ const reducer = (state = initialState, action) => {
                 }
             }
             
-            case FORM_SUBSCRIPTIONS_EDIT_BTN:
-                return {
-                    ...state,
-                    updateSubscription:{
-                        ...state.updateSubscription,
-                        status:0
+        case FORM_SUBSCRIPTIONS_EDIT_BTN:
+            return {
+                ...state,
+                updateSubscription:{
+                    ...state.updateSubscription,
+                    status:0
+                },
+                formSubscriptions:{
+                    ...state.formSubscriptions,
+                    form:{
+                        id:action.payload.id,
+                        symbol1Id:action.payload.symbol1Id,
+                        symbol2Id:action.payload.symbol2Id,
+                        risePrice:action.payload.risePrice,
+                        fallPrice:action.payload.fallPrice,   
                     },
-                    formSubscriptions:{
-                        ...state.formSubscriptions,
-                        form:{
-                            id:action.payload.id,
-                            symbol1Id:action.payload.symbol1Id,
-                            symbol2Id:action.payload.symbol2Id,
-                            risePrice:action.payload.risePrice,
-                            fallPrice:action.payload.fallPrice,   
-                        },
-                        edit:true,
-                        error:true
-                    }
+                    edit:true,
+                    error:true
                 }
-                
-            case FORM_SUBSCRIPTIONS_RESET_BTN:
-                return {
-                    ...state,
-                    formSubscriptions:{
-                        ...state.formSubscriptions,
-                        form:state.formSubscriptions.initialForm,
-                    }
+            }
+            
+        case FORM_SUBSCRIPTIONS_RESET_BTN:
+            return {
+                ...state,
+                formSubscriptions:{
+                    ...state.formSubscriptions,
+                    form:state.formSubscriptions.initialForm,
                 }
-                
-            case FORM_SUBSCRIPTIONS_HANDLE_CHANGE:
-                return {
-                    ...state,
-                    formSubscriptions:{
-                        ...state.formSubscriptions,
-                        form:{
-                            ...state.formSubscriptions.form,
-                            [action.payload.key]:action.payload.value
-                        },
-                }
+            }
+            
+        case FORM_SUBSCRIPTIONS_HANDLE_CHANGE:
+            return {
+                ...state,
+                formSubscriptions:{
+                    ...state.formSubscriptions,
+                    form:{
+                        ...state.formSubscriptions.form,
+                        [action.payload.key]:action.payload.value
+                    },
+            }
             }   
 
         case FORM_SUBSCRIPTION_VALIDATE:
@@ -677,14 +677,15 @@ const reducer = (state = initialState, action) => {
                 }
             }    
 
+        // ============ ORDERS===============================
         case GET_ORDERS:
             let orders = [...action.payload];
-            // orders = filterAndSort(
-            //     'orders',
-            //     orders,
-            //     state.orders.filter,
-            //     state.orders.order
-            // );
+            orders = filterAndSort(
+                'orders',
+                orders,
+                state.orders.filter,
+                state.orders.order
+            );
             return {
                 ...state,
                 orders:{
@@ -741,8 +742,8 @@ const reducer = (state = initialState, action) => {
         case ADD_ORDER:
             return {
                 ...state,
-                addSubscription:{
-                    ...state.addSubscription,
+                addOrder:{
+                    ...state.addOrder,
                     data:action.payload
                 }
             }
@@ -750,17 +751,18 @@ const reducer = (state = initialState, action) => {
         case ADD_ORDER_STATUS:
             return {
                 ...state,
-                addSubscription:{
-                    ...state.addSubscription,
+                addOrder:{
+                    ...state.addOrder,
                     status:action.payload
                 }
             }
 
         case ADD_ORDER_ERROR:
+            //
             return {
                 ...state,
-                addSubscription:{
-                    ...state.addSubscription,
+                addOrder:{
+                    ...state.addOrder,
                     error:action.payload
                 }
             }
@@ -769,8 +771,8 @@ const reducer = (state = initialState, action) => {
         case UPDATE_ORDER:
             return {
                 ...state,
-                updateSubscription:{
-                    ...state.updateSubscription,
+                updateOrder:{
+                    ...state.updateOrder,
                     data:action.payload
                 }
             }
@@ -778,8 +780,8 @@ const reducer = (state = initialState, action) => {
         case UPDATE_ORDER_STATUS:
             return {
                 ...state,
-                updateSubscription:{
-                    ...state.updateSubscription,
+                updateOrder:{
+                    ...state.updateOrder,
                     status:action.payload
                 }
             }
@@ -787,8 +789,8 @@ const reducer = (state = initialState, action) => {
         case UPDATE_ORDER_ERROR:
             return {
                 ...state,
-                updateSubscription:{
-                    ...state.updateSubscription,
+                updateOrder:{
+                    ...state.updateOrder,
                     error:action.payload
                 }
             }
@@ -796,8 +798,8 @@ const reducer = (state = initialState, action) => {
         case DELETE_ORDER:
             return {
                 ...state,
-                deleteSubscription:{
-                    ...state.deleteSubscription,
+                deleteOrder:{
+                    ...state.deleteOrder,
                     data:action.payload
                 }
             }
@@ -805,8 +807,8 @@ const reducer = (state = initialState, action) => {
         case DELETE_ORDER_STATUS:
             return {
                 ...state,
-                deleteSubscription:{
-                    ...state.deleteSubscription,
+                deleteOrder:{
+                    ...state.deleteOrder,
                     status:action.payload
                 }
             }
@@ -814,8 +816,8 @@ const reducer = (state = initialState, action) => {
         case DELETE_ORDER_ERROR:
             return {
                 ...state,
-                deleteSubscription:{
-                    ...state.deleteSubscription,
+                deleteOrder:{
+                    ...state.deleteOrder,
                     error:action.payload
                 }
             }
@@ -838,6 +840,7 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
+        // ====== TRANSACTIONS ========================
         case GET_TRANSACTIONS:
             let transactions = [...action.payload];
             transactions = filterAndSort(

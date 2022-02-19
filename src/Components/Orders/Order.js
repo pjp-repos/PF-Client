@@ -10,6 +10,8 @@ import {
     selectPortfolio,
     selectPairAll,
     selectOrderAll,
+    selectAddOrderAll,
+    selectUpdateOrderAll,
 
  } from "../../Redux/Selectors/selectors";
 import { useSelector,useDispatch} from "react-redux";
@@ -19,6 +21,7 @@ import {
 import nomoney from "../../Assets/Images/nomoney.png"
 import {setSymbol1,setSymbol2,validatePair,validateSubmit} from "./OrderFunctions"
 import Graphics from "../Graphics/Graphics";
+import Spinner from '../AaaGenerics/Loaders/Spinner/Spinner'
 
 const stateOrderInitial = {
     type:"Market",
@@ -49,7 +52,8 @@ export default function Order(){
     const token = useSelector(selectSessionToken);
     const pairValid = useSelector(selectPairAll);
     const order = useSelector(selectOrderAll);
-
+    const [dataAdd, statusAdd, errorAdd] = useSelector(selectAddOrderAll);
+    const [dataUpdate, statusUpdate, errorUpdate] = useSelector(selectUpdateOrderAll);
     
     let update = false;
     if(id) update = true;
@@ -113,7 +117,7 @@ export default function Order(){
           }else{
             addOrder(dispatch,token,order);
           }
-          navigate("../order")
+          //navigate("../order")
         }
     }
 
@@ -132,7 +136,64 @@ export default function Order(){
        setSymbol2(setSymbolsState,symbols,e,symbolsState)    
     }
 
-   return (
+    // === RENDERS ============================================
+
+    // === Authenticated ===
+    if(!isAuthenticated)return<p>Forbbiden</p>
+
+    // === Loadings ===
+    if(
+        statusAdd===1 
+        || statusUpdate===1
+    ) return <Spinner/> 
+
+    //Success
+    if(
+        (
+            !update && statusAdd===2 
+            || (
+              update && statusUpdate===2 
+            )
+        )        
+    ){
+        // return<p>Success!</p>
+        navigate("/order");
+        //
+    };
+
+    // === Errors ===
+    
+    // Add new subscription
+    if(!update && statusAdd===3){
+        return(
+            <>
+                <p>
+                    {`Oops. An error ocurred. 
+                        Type: ${errorAdd.errorType} 
+                        Code: ${errorAdd.errorCode} 
+                        Message: ${errorAdd.errorMessage} 
+                    `}
+                </p>
+                <button onClick={()=>resetAddOrderStatus(dispatch)}>Ok</button>
+            </>)
+    } 
+
+    // Update subscription
+    if(update && statusUpdate===3){
+        return(
+        <>
+            <p>
+                {`Oops. An error ocurred. 
+                    Type: ${errorUpdate.errorType} 
+                    Code: ${errorUpdate.errorCode} 
+                    Message: ${errorUpdate.errorMessage} 
+                `}
+            </p>
+            <button onClick={()=>resetUpdateOrderStatus(dispatch)}>Ok</button>
+        </>)
+    } 
+
+  return (
       
       <div>
         <OrderGraphics>
