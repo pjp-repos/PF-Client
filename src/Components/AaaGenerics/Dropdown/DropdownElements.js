@@ -17,6 +17,7 @@ export const DropDownContainer = styled("div")`
 
 export const DropDownButton = styled(Button)`
     width: 100%;
+    background-color:#474D57;
     border-bottom-left-radius: ${
         ({show})=>(show ? '0' : '50px' )
     };
@@ -24,19 +25,20 @@ export const DropDownButton = styled(Button)`
         ({show})=>(show ? '0' : '50px' )
     };
     &:hover{
-        background-color: var(--first-color);
+        background-color: #8a919e;
     }
 `;
 
 export const DropDownLabel = styled.p`
-    color:var(--first-color);
+    color:white;
 `;
 
 export const DropDownError = styled.p`
     display: ${
         ({show})=>(show ? 'block' : 'none' )
     };
-    color:var(--error-color);
+    color:#efb810;
+    font-size:14px;
 `;
 
 export const DropDownListContainer = styled.div`

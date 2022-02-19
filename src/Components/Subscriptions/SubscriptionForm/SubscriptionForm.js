@@ -30,6 +30,8 @@ import {
     SubscriptionFormError,
     SubscriptionFormLabel,
     InputBlock,
+    Title,
+    SubTitle
  } from './SubscriptionFormElements';
 
  // Generic styled components
@@ -159,6 +161,7 @@ const SubscriptionForm = () => {
     
     return (
         <SubscriptionFormWrapper>
+            <Title><SubTitle>Subscription</SubTitle> Form</Title>
             <SubscriptionFormBlock>
                 {/* Symbol 1 select dropdown */}                       
                 <Dropdown 
