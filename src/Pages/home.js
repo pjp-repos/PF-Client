@@ -11,6 +11,7 @@ import {
   selectGlobalPricesError,
   selectGlobalPricesCurrency
 } from '../Redux/Selectors/selectors';
+import Spinner from '../Components/AaaGenerics/Loaders/Spinner/Spinner';
 
 const CRYPTOS_PER_PAGE = 20;
 
@@ -40,10 +41,10 @@ function Home() {
     
     <div >
       <NavBar />
-      <Filters />
       {status===1
-      ?<p>Loading...</p>
+      ?<Spinner />
       :<>
+        <Filters />
         <Table cryptos = {data.slice(initialCryptos,topCryptos)}/>
         {data.length > 0 && <Pagination totalCryptos = {data.length} cryptosForPage = {CRYPTOS_PER_PAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
       </>

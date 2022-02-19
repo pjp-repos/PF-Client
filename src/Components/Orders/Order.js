@@ -9,7 +9,8 @@ import {
     selectSessionToken,
     selectPortfolio,
     selectPairAll,
-    selectOrderAll
+    selectOrderAll,
+
  } from "../../Redux/Selectors/selectors";
 import { useSelector,useDispatch} from "react-redux";
 import {
@@ -48,9 +49,10 @@ export default function Order(){
     const token = useSelector(selectSessionToken);
     const pairValid = useSelector(selectPairAll);
     const order = useSelector(selectOrderAll);
+
     let update = false;
     if(id) update = true;
-    let loadData = order[1] === 2 ? true : false;
+    let loadData = order[1] === 2 && id ? true : false;
 
     React.useEffect( () => { 
       if(!isAuthenticated)
@@ -107,15 +109,13 @@ export default function Order(){
           }
           if(update){
              updateOrder(dispatch,token,order,id);
-             resetUpdateOrderStatus(dispatch);
           }else{
             addOrder(dispatch,token,order);
-            resetAddOrderStatus(dispatch);
           }
-          
-          navigate("../order");
+          navigate("../order")
         }
     }
+
 
     const handlerType = (name,value) => {
          setStateOrder({

@@ -12,6 +12,7 @@ export const SpinnerWrapper = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
+    margin-top:50px;
     justify-content: center;
     align-items: center;
 `;
@@ -37,7 +38,7 @@ export const SpinnerText = styled.div`
     margin: 0 1rem;
     display:none;
     position: absolute;
-    top:0;
+    top:20px;
     left:0;
     right:0;
     bottom:0;

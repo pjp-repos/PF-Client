@@ -5,15 +5,21 @@ import {
     SpinnerText 
 
 }from './SpinnerElements';
+import Container from '../../Sections/Container';
+import SectionRelative from '../../Sections/SectionRelative';
 
 const Spinner = () => {
     return (  
-        <SpinnerWrapper>
-            <SpinnerText>
-                Loading...
-            </SpinnerText>
-            <SpinnerDiv/>
-        </SpinnerWrapper>   
+        <SectionRelative>
+            <Container>
+               <SpinnerWrapper>
+                  <SpinnerText>
+                     Loading...
+                   </SpinnerText>
+                <SpinnerDiv/>
+               </SpinnerWrapper>     
+            </Container>
+        </SectionRelative>  
     )
 }
 

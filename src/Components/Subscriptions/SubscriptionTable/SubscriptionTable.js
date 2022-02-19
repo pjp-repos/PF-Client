@@ -31,8 +31,6 @@ import {
     TableWrapper
 } from './SubscriptionTableElements'
 import { Column } from '../../Home/Table/Column';
-import SectionRelative from '../../AaaGenerics/Sections/SectionRelative';
-import Container from '../../AaaGenerics/Sections/Container';
 import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
 import { BannerImg,BannerOrder,DivBanner} from '../../Orders/OrderTable/OrderTableElements';
 import { Title } from '../../UserHome/UserHomeElements';
@@ -85,11 +83,8 @@ const SubscriptionTable = () => {
         deleteStatus===1
 
     ) return (
-        <SectionRelative>
-            <Container>
-                <Spinner/>
-            </Container>
-        </SectionRelative>        
+            <Spinner/>
+                 
     );
 
     // Errors
