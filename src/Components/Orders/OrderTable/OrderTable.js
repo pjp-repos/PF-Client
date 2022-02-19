@@ -1,9 +1,16 @@
 // Packages
-import React from "react";
+import React, {useState} from "react";
 import { useSelector,useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
 // Redux
-import { getOrders,deleteOrder,resetUpdateOrderStatus,resetAddOrderStatus} from "../../../Redux/Actions/actionCreators";
+import { 
+  getOrders,
+  deleteOrder,
+  resetUpdateOrderStatus,
+  resetAddOrderStatus,
+  filterOrders,
+  sortOrders
+} from "../../../Redux/Actions/actionCreators";
 import {selectOrdersAll,selectSessionAll, selectDeleteOrderAll} from "../../../Redux/Selectors/selectors"
 // Assets
 import Delete from "../../../Assets/delete.svg"
@@ -26,9 +33,33 @@ export default function OrderTable(){
     // React router
     const navigate = useNavigate();
     
-    const [actualPage, setActualPage] = React.useState(1);
+    const [actualPage, setActualPage] = useState(1);
     let topOrders = ORDERFORPAGE * actualPage;
     let initialOrders = topOrders - ORDERFORPAGE;
+    
+    const [orderForm, setOrderForm] = useState({
+      symbol1:{
+        asc:"symbol1Asc",
+        desc:"symbol1Desc",
+        value:false
+      },
+      symbol2:{
+        asc:"symbol2Asc",
+        desc:"symbol2Desc",
+        value:false
+      },
+      date:{
+        asc:"dateAsc",
+        desc:"dateDesc",
+        value:false
+      },
+      type:{
+        asc:"typeAsc",
+        desc:"typeDesc",
+        value:false
+      },
+    });
+
 
     // Redux
     const dispatch = useDispatch();
@@ -40,29 +71,39 @@ export default function OrderTable(){
       if(!isAuthenticated)
          navigate("/signin")
       else{
-        setTimeout(() => {
           getOrders(dispatch,token);
-        }, 1000)
       }
     },[]);
 
-    const handlerDelete = (e) => {
+  const handlerDelete = (e) => {
       if(window.confirm('Are you sure you want to delete….?'))
       {
           deleteOrder(dispatch, token, e.target.id);            
       }
-    }
+  }
 
-    const editForm = (e) => {
-       resetUpdateOrderStatus(dispatch);
-       navigate(`/order/form/${e.target.id}`)
-    }
+  const editForm = (e) => {
+      resetUpdateOrderStatus(dispatch);
+      navigate(`/order/form/${e.target.id}`)
+  }
 
-    const addForm = (e) => {
-        resetAddOrderStatus(dispatch);
-        navigate("./form")
-    }
+  const addForm = (e) => {
+      resetAddOrderStatus(dispatch);
+      navigate("./form")
+  }
   
+  const handleOrder = (orderKey)=>{
+    setOrderForm({
+      ...orderForm,
+      [orderKey]:{
+        ...orderForm[orderKey],
+        value:!orderForm[orderKey].value
+      }
+    })
+    let orderSelected = orderForm[orderKey].value?orderForm[orderKey].asc:orderForm[orderKey].desc
+    sortOrders(dispatch,orderSelected);
+    getOrders(dispatch,token);
+  }
   // === RENDERS ============================================
 
   if(!isAuthenticated)return(<p>Forbbiden</p>)
@@ -108,14 +149,14 @@ export default function OrderTable(){
        <TableO>
             <RowO head>
                 <Column>Id</Column> 
-                <Column>Symbol1</Column> 
-                <Column>symbol2</Column> 
+                <Column onClick={()=>handleOrder("symbol1")}>Symbol1</Column> 
+                <Column onClick={()=>handleOrder("symbol2")}>symbol2</Column> 
                 <Column>Amount</Column> 
                 <Column>Price</Column>
                 <Column>PriceLimit</Column> 
-                <Column>Type Order</Column>  
+                <Column onClick={()=>handleOrder("type")}>Type Order</Column>  
                 <Column>State Order</Column> 
-                <Column>Update</Column>  
+                <Column onClick={()=>handleOrder("date")}>Date</Column>  
                 <Column>Edit</Column>  
             </RowO>
            

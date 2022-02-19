@@ -46,6 +46,18 @@ const sortCallbacks={
         priceAsc:(a,b)=>genericAsc(a,b,(el)=>el.price,true),
         pricelDesc:(a,b)=>genericDesc(a,b,(el)=>el.price,true),
     },
+
+    orders:{
+        symbol1Asc:(a,b)=>genericAsc(a,b,(el)=>el.symbol1.symbol),
+        symbol1Desc:(a,b)=>genericDesc(a,b,(el)=>el.symbol1.symbol),
+        symbol2Asc:(a,b)=>genericAsc(a,b,(el)=>el.symbol2.symbol),
+        symbol2Desc:(a,b)=>genericDesc(a,b,(el)=>el.symbol2.symbol),   
+        dateAsc:(a,b)=>genericAsc(a,b,(el)=>el.date),
+        dateDesc:(a,b)=>genericDesc(a,b,(el)=>el.date),
+        typeAsc:(a,b)=>genericAsc(a,b,(el)=>el.buyOrder),
+        typeDesc:(a,b)=>genericDesc(a,b,(el)=>el.buyOrder),
+    },
+
     subscriptions:{
         bySymbol:"",
     },
