@@ -1,28 +1,20 @@
 import styled from "styled-components";
-
-import { Button } from "../../AaaGenerics/Button/Button";
-import { Input } from "../../AaaGenerics/Input/Input"
+import { Submit,InputSign } from "../../LogIn/SignElements";
 
 export const SubscriptionFormWrapper = styled.div`
     margin-left:auto;
     margin-right:auto;
     width: 40%;
-    height: 100vh;
+    min-height: 500px;
     padding: 8px;
 
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 10vh 25vh 15vh 15vh 20vh; 
-    /* justify-content: center; */
+    display: flex;
+    flex-direction:column;
     justify-items: center;
     align-items: center;
 
     background-color: var(--gb-color-content-dark);
     
-    @media screen and (min-width: 768px){
-        height: 75vh;
-        grid-template-rows: 10vh repeat(4,15vh); 
-    }
 `;
 
 export const SubscriptionFormLabel = styled.p`
@@ -42,13 +34,15 @@ export const SubscriptionFormError = styled.p`
 `;
 
 
-export const SubscriptionFormInput = styled(Input)`
+export const SubscriptionFormInput = styled(InputSign)`
     margin: 0 3px;
     @media screen and (min-width: 768px){
         width: 50%;
     }
 `;
-export const SubscriptionFormButton = styled(Button)`
+export const SubscriptionFormButton = styled(Submit)`
+
+   width:25%;
 
 `;
 
@@ -56,9 +50,10 @@ export const SubscriptionFormBlock = styled.div`
     width: 100%;
     height: 100%;
     padding: 10px 0;
+    margin-top:40px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items:center;
     border-radius: 5px;
     

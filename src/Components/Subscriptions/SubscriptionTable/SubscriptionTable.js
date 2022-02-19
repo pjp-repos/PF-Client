@@ -152,7 +152,7 @@ const SubscriptionTable = () => {
                         <Column><img src={s.symbol1[1]} height='20px'/>{s.symbol1[0]}</Column>
                         <Column><img src={arrow} width='20px'/></Column>
                          <Column><img src={s.symbol2[1]} height='20px'/>{s.symbol2[0]}</Column>
-                        <Column> {Number(s.price)} </Column>
+                        <Column> {s.price % 1 !== 0 ? Number(s.price).toFixed(6):Number(s.price)} </Column>
                         <Column> {s.fallPrice} </Column>
                         <Column>{s.alertOnFall ? 'Y' : 'N'}</Column>
                         <Column> {s.risePrice} </Column>

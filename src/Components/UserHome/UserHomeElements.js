@@ -123,8 +123,9 @@ export const TitleHenry = styled.h1`
   }
 `
 export const InfoBanner = styled.p`
-margin-bottom:8%;
-font-size:22px;
+  margin-bottom:8%;
+  font-size:22px;
+  text-align:center;
 
 @media screen and (max-width:840px){
   font-size:18px;
