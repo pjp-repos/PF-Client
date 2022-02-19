@@ -18,6 +18,7 @@ export const Button = styled.button`
 
 export const ButtonE = styled(Button)`
     width: auto;
+    cursor:pointer;
 `;
 
 export const TableS = styled(TableC)`

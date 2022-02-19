@@ -246,7 +246,7 @@ const SubscriptionForm = () => {
                     Clear fields
                 </SubscriptionFormButton>
                 <SubscriptionFormButton onClick={handleCancel}>
-                    Cancel/Close
+                    Close
                 </SubscriptionFormButton> 
                 <SubscriptionFormButton onClick={handleSubmit}>
                     Submit

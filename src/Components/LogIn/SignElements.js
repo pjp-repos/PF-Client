@@ -23,7 +23,7 @@ export const ContainerSign = styled.div`
    font-family:'Montserrat', sans-serif;
    box-shadow: 4px 4px 8px black;
 
-   @media screen and (max-width:840px){
+   @media screen and (max-width:920px){
     width:70%
   }
  
@@ -76,6 +76,7 @@ export const Submit = styled.button`
   color:white;
   margin-top:25px;
   margin-bottom:5px;
+  cursor:pointer;
   background-color:#474D57;
   border:1px solid #474D57;
   font-family:'Montserrat', sans-serif;

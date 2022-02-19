@@ -39,7 +39,7 @@ export default function OrderTable(){
     },[]);
 
     const handlerDelete = (e) => {
-      if(window.confirm('Do you want delete this order?'))
+      if(window.confirm('Are you sure you want to delete….?'))
       {
           deleteOrder(dispatch, token, e.target.id);            
       }

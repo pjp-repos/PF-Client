@@ -198,7 +198,7 @@ export default function Order(){
                    {pairValid[1] === 2 ? <Info>{(pairValid[0].price*parseFloat(stateOrder.amount)).toFixed(8)} {stateOrder.typeOrder === "Sell" ? symbolsState.symbol2 : symbolsState.symbol1}</Info> :<Info>0 Cryptos</Info>}
                 </DivTotal>    
                 <Info error >{errorSubmit}</Info>
-                <SubmitOrder onClick = {handleSubmit}>Get {stateOrder.type}</SubmitOrder>
+                <SubmitOrder onClick = {handleSubmit}>Place {stateOrder.type}</SubmitOrder>
             </SubmitDiv>
         </OrderContainer>
 
