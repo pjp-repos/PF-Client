@@ -6,13 +6,14 @@ import { Container ,TableO,RowO,BannerOrder,DivBanner,BannerImg} from "./OrderTa
 import { Column } from "../../Home/Table/Column";
 import { Title } from "../../UserHome/UserHomeElements";
 import {selectOrdersAll,selectSessionToken,selectSessionIsAuthenticated} from "../../../Redux/Selectors/selectors"
-import { getOrders,deleteOrder,resetUpdateOrderStatus} from "../../../Redux/Actions/actionCreators";
+import { getOrders,deleteOrder,resetUpdateOrderStatus,resetAddOrderStatus} from "../../../Redux/Actions/actionCreators";
 import { useSelector,useDispatch} from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ButtonE } from "../../Subscriptions/SubscriptionTable/SubscriptionTableElements";
 import DateFilters from "../../Utils/DatesFilters";
 import { Banner,ContainBanner,InfoBanner,TitleHenry,ButtonWallet,ImgBannerr,Henry } from "../../UserHome/UserHomeElements";
 import img from "../../../Assets/Images/orderBanner.png"
+import Spinner from "../../AaaGenerics/Loaders/Spinner/Spinner";
 
 
 const ORDERFORPAGE = 10;
@@ -33,7 +34,7 @@ export default function OrderTable(){
       else{
         setTimeout(() => {
           getOrders(dispatch,token);
-        },2000)
+        }, 1000)
       }
     },[]);
 
@@ -48,6 +49,11 @@ export default function OrderTable(){
        resetUpdateOrderStatus(dispatch);
        navigate(`/order/form/${e.target.id}`)
     }
+
+    const addForm = (e) => {
+        resetAddOrderStatus(dispatch);
+        navigate("./form")
+    }
    
   return (
     
@@ -57,14 +63,14 @@ export default function OrderTable(){
          <ContainBanner>
            <TitleHenry><Henry>HenryCoin</Henry> Orders</TitleHenry>
            <InfoBanner>You got 1000000 usdt for orders</InfoBanner>
-           <ButtonWallet  onClick={(e) => navigate("./form")}>Go to Orders</ButtonWallet>
+           <ButtonWallet  onClick={addForm}>Go to Orders</ButtonWallet>
          </ContainBanner>
          <ImgBannerr src ={img} alt="banner"/>
         </Banner> 
        } 
        {orders[0].length > 0 &&
          <DivBanner>
-          <BannerOrder onClick={(e) => navigate("./form")}>
+          <BannerOrder onClick={addForm}>
             <Title>{"Make A Order" }</Title>
             <BannerImg className = "Img" src =  "https://images.unsplash.com/photo-1631603090989-93f9ef6f9d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80" alt = "banner" />
           </BannerOrder>
