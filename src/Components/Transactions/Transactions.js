@@ -43,7 +43,7 @@ export default function Transactions(){
     <div >
         <NavBar />
         <ContainerFiltersT>
-            <Wallet>Wallet</Wallet>
+            <Wallet onClick={(e) => navigate("../wallet")}>Wallet</Wallet>
             <SelectTransactions id = "symbol" onChange = {handlerSelects}> 
                 <option id = "symbol" value = "">All</option>
                 {
