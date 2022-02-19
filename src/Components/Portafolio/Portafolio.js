@@ -1,8 +1,7 @@
 
 import React from "react";
-import { Row } from ".//Table/Row";
-import { Container,TableC,Coin } from ".//Table/TableElements";
-import { Column } from ".//Table/Column";
+import { TableP,RowP,Coin,Container,ButtonOrder} from "./PortafolioElements";
+import { Column } from "../Home/Table/Column";
 import {useState,useEffect} from 'react';
 import {useDispatch,useSelector}from 'react-redux';
 import { getPortfolio,
@@ -108,34 +107,34 @@ export default function Portafolio(){
     return (
     <Container>
         <div className={style.text}>
-          <p><span>Saldo(BTC):  {ShowSum(data,1)} btc</span> </p> 
-          <p><span>Saldo(USD):  {ShowSum(data,0) } usdt</span></p>
-          <p><span>Rendimiento: {(((ShowSum(data,0)-1000000)/1000000)*100).toFixed(5)}%</span></p>
+          <p><span>Balance(BTC):  {ShowSum(data,1).toFixed(4)} </span> </p> 
+          <p><span>Balance(USDT):  {ShowSum(data,0).toFixed(4) } </span></p>
+          <p><span>Performance: {(((ShowSum(data,0)-1000000)/1000000)*100).toFixed(4)}%</span></p>
 
         </div>
-        <TableC>
-            <Row head>
+        <TableP>
+            <RowP head>
                 <Column>Icon</Column> 
-                <Column>Symbol <button onClick = {handleSymbol} > {toOrderSymbol ? <FaAngleUp/>:<FaAngleDown/>} </button></Column> 
-                <Column>Amount<button onClick = {handleAmount} > {toOrderAmount ? <FaAngleUp/>:<FaAngleDown/>} </button> </Column> 
-               <Column>Value in BTC  <button onClick = {handlpriceBtc} > {toOrderPriceBtc ? <FaAngleUp/>:<FaAngleDown/>} </button> </Column> 
-               <Column>Value in USDT <button onClick = {handlepriceUsdt} > {toOrderPriceU ? <FaAngleUp/>:<FaAngleDown/>} </button></Column> 
-            </Row>
+                <Column>Symbol <ButtonOrder onClick = {handleSymbol} > {toOrderSymbol ? <FaAngleUp/>:<FaAngleDown/>} </ButtonOrder></Column> 
+                <Column>Amount<ButtonOrder onClick = {handleAmount} > {toOrderAmount ? <FaAngleUp/>:<FaAngleDown/>} </ButtonOrder> </Column> 
+               <Column>Value in BTC  <ButtonOrder onClick = {handlpriceBtc} > {toOrderPriceBtc ? <FaAngleUp/>:<FaAngleDown/>} </ButtonOrder> </Column> 
+               <Column>Value in USDT <ButtonOrder onClick = {handlepriceUsdt} > {toOrderPriceU ? <FaAngleUp/>:<FaAngleDown/>} </ButtonOrder></Column> 
+            </RowP>
            
             {
 
               data.length > 0  && data.map(crypto =>
-              <Row key={crypto.symbol}>
+              <RowP key={crypto.symbol}>
                 <Column><Coin src ={crypto.image} alt="icon"/></Column>
                 <Column>{crypto.symbol}</Column>
-                <Column>{crypto.balance}</Column>
-                <Column>{crypto.inBtc}</Column>
-                <Column>{crypto.inUsdt}</Column>
-              </Row>) 
+                <Column>{crypto.balance % 1 !== 0 ? crypto.balance.toFixed(5) : crypto.balance}</Column>
+                <Column>{crypto.inBtc % 1 !== 0 ? crypto.inBtc.toFixed(5) : crypto.inBtc }</Column>
+                <Column>{crypto.inUsdt % 1 !== 0 ? crypto.inUsdt.toFixed(5) : crypto.inUsdt }</Column>
+              </RowP>) 
             }
             
 
-        </TableC>
+        </TableP>
     </Container>
   )
 }

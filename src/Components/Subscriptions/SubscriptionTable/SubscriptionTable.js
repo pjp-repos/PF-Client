@@ -135,10 +135,10 @@ const SubscriptionTable = () => {
                     <Column></Column>
                     <Column>Symbol2</Column>
                     <Column>Price</Column>
-                    <Column>fallPrice</Column>
-                    <Column>alertOnFall</Column>
-                    <Column>risePrice</Column>
-                    <Column>alertOnRise</Column>
+                    <Column>Fall Price</Column>
+                    <Column>AlertOnFall</Column>
+                    <Column>Rise Price</Column>
+                    <Column>AlertOnRise</Column>
                 </RowS>
                 {subsData.map(s => (
                     <RowS key={s.id} id={s.id}>

@@ -11,6 +11,7 @@ export const ContainerPagination = styled.div`
 export const ButtonPagination = styled.button`
    font-family:'Montserrat', sans-serif;
    font-size:18px;
+   cursor:pointer;
    margin-left:10px;
    color:white;
    outline:0;
