@@ -1,11 +1,18 @@
-// ==== PRICES
-const pricesBySymbol = (el,param) =>{
-    return el.symbol.toLowerCase().includes(param.toLowerCase()) || param==="";
+const includeTxtSensitive = (el,param, cb) =>{
+    let field = cb(el);
+    return field.toLowerCase().includes(param.toLowerCase()) || param==="";
 };
-// ==== TRANSACTIONS ==========================================================
-const transactionBySymbol = (el,param) =>{
-    return el.symbol.toLowerCase().includes(param.toLowerCase()) || param==="";
+
+const dateFrom = (el,param, cb) =>{
+    let field = cb(el);
+    return field >= param || param==="";
 };
+
+const dateTo = (el,param, cb) =>{
+    let field = cb(el);
+    return field <= param || param==="";
+};
+
 
 const transactionByDateFrom = (el,param) =>{
     return el.date >= param || param==="";
@@ -18,16 +25,20 @@ const transactionByDateTo = (el,param) =>{
 
 const filterCallbacks={
     prices:{
-        symbol:pricesBySymbol,
+        symbol:(el,param)=>includeTxtSensitive(el,param,el=>el.symbol),
     },
     transactions:{
-        symbol:transactionBySymbol,
-        dateFrom:transactionByDateFrom,
-        dateTo:transactionByDateTo,
+        symbol:(el,param)=>includeTxtSensitive(el,param,el=>el.symbol),
+        dateFrom:(el,param)=>dateFrom(el,param,el=>el.date),
+        dateTo:(el,param)=>dateTo(el,param,el=>el.date),
     },
-    portfolio:{
-
-    }
+    orders:{
+        symbol1:(el,param)=>includeTxtSensitive(el,param,el=>el.symbol1.symbol),
+        symbol2:(el,param)=>includeTxtSensitive(el,param,el=>el.symbol2.symbol),
+        dateFrom:(el,param)=>dateFrom(el,param,el=>el.date),
+        dateTo:(el,param)=>dateTo(el,param,el=>el.date),
+    },
+ 
 };
 
 export default filterCallbacks;

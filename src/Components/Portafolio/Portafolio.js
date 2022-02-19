@@ -9,9 +9,7 @@ import { getPortfolio,
   sortPortfolio,
   }from "../../../src/Redux/Actions/actionCreators";
 import {
-  selectPortfolio ,
-  selectPortfolioStatus ,
-  selectPortfolioError ,
+
   selectPortfolioAll,
   selectSessionAll
 } from  "../../Redux/Selectors/selectors";
