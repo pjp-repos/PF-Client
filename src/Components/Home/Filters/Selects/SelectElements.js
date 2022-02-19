@@ -23,6 +23,7 @@ export const Select = styled.select`
    height:40px;
    background-color:rgb(20, 21, 26);
    text-align: center;
+   cursor:pointer;
    font-family:'Montserrat', sans-serif;
    outline:0;
    font-size:18px;

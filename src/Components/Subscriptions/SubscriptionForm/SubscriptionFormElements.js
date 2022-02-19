@@ -42,7 +42,7 @@ export const SubscriptionFormInput = styled(InputSign)`
 export const SubscriptionFormButton = styled(Submit)`
 
    width:25%;
-
+   cursor:pointer;
 `;
 
 export const SubscriptionFormBlock = styled.div`

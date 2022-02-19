@@ -67,7 +67,7 @@ const SubscriptionTable = () => {
     };
 
     const handleDelete = (e) =>{
-        if(window.confirm('Seguro que desea eliminar la subscripcion?'))
+        if(window.confirm('Are you sure you want to delete?'))
         {
             deleteSubscription(dispatch, token, e.target.id);            
         }

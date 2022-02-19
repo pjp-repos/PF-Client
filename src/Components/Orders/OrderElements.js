@@ -122,6 +122,7 @@ export const SubmitOrder = styled(Submit)`
   position:relative;
   display:block;
   left:0%;
+  cursor:pointer;
   margin-top:34px;
   margin-bottom:20px;
   
