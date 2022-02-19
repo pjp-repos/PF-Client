@@ -6,7 +6,7 @@ import { Container ,TableO,RowO,BannerOrder,DivBanner,BannerImg} from "./OrderTa
 import { Column } from "../../Home/Table/Column";
 import { Title } from "../../UserHome/UserHomeElements";
 import {selectOrdersAll,selectSessionToken,selectSessionIsAuthenticated} from "../../../Redux/Selectors/selectors"
-import { getOrders,deleteOrder} from "../../../Redux/Actions/actionCreators";
+import { getOrders,deleteOrder,resetUpdateOrderStatus} from "../../../Redux/Actions/actionCreators";
 import { useSelector,useDispatch} from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { ButtonE } from "../../Subscriptions/SubscriptionTable/SubscriptionTableElements";
@@ -26,7 +26,6 @@ export default function OrderTable(){
     let orders = useSelector(selectOrdersAll);
     const token = useSelector(selectSessionToken);
     const navigate = useNavigate();
-    console.log(orders);
  
     React.useEffect(() => {
       if(!isAuthenticated)
@@ -34,7 +33,7 @@ export default function OrderTable(){
       else{
         setTimeout(() => {
           getOrders(dispatch,token);
-        },3000)
+        },2000)
       }
     },[]);
 
@@ -43,6 +42,11 @@ export default function OrderTable(){
       {
           deleteOrder(dispatch, token, e.target.id);            
       }
+    }
+
+    const editForm = (e) => {
+       resetUpdateOrderStatus(dispatch);
+       navigate(`/order/form/${e.target.id}`)
     }
    
   return (
@@ -95,7 +99,7 @@ export default function OrderTable(){
                 {
                   orderItem.sendOnPending === true && orderItem.marketOrder === false ?
                   <Column >
-                    <Link to={`/order/form/${orderItem.id}`}><ButtonE><img id = {orderItem.id} src = {Edit} height="20px" alt = "edit"/></ButtonE></Link>
+                    <ButtonE id = {orderItem.id} onClick = {editForm}><img id = {orderItem.id} src = {Edit} height="20px" alt = "edit"/></ButtonE>
                     <ButtonE id={orderItem.id} onClick={handlerDelete}><img id = {orderItem.id} src = {Delete} height="20px" alt = "delete"/></ButtonE>
                   </Column>
                   : <Column>Order Not Editable</Column>

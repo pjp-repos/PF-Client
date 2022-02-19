@@ -16,8 +16,8 @@ const TRANSACTIONSFORPAGE = 10;
 
 export default function Transactions(){
     const [actualPage, setActualPage] = React.useState(1);
-    let topTransactions = actualPage === 1 ? 11 : TRANSACTIONSFORPAGE * actualPage + 1 ;
-    let initialTransactions = actualPage === 1 ? 0 :topTransactions - TRANSACTIONSFORPAGE;
+    let topTransactions = TRANSACTIONSFORPAGE * actualPage ;
+    let initialTransactions = topTransactions - TRANSACTIONSFORPAGE;
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const transactions = useSelector(selectTransactions);
