@@ -29,7 +29,7 @@ export const validatePair = (symbolsState) => {
 
 export const validateSubmit = (stateOrder,symbolsState,statusPair) => {
     if(symbolsState.symbol1 === "Crypto" || symbolsState.symbol2 === "Crypto")
-      return "You need choice two cryptos for the order";
+      return "Please, choose symbols before placing the order";
     if(statusPair === 3)
       return "The pair is invalid"
     if(Math.sign(parseFloat(stateOrder.amount)) === -1 || Math.sign(parseFloat(stateOrder.amount)) === 0)

@@ -40,9 +40,7 @@ export default function OrderTable(){
       if(!isAuthenticated)
          navigate("/signin")
       else{
-        setTimeout(() => {
           getOrders(dispatch,token);
-        }, 1000)
       }
     },[]);
 
