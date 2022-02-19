@@ -23,7 +23,7 @@ import {
   ImgUser,
 } from "./NavbarElements.js";
 
-import { getSingOut } from "../../Redux/Actions/actionCreators.js";
+import { getSingOut, resetSignInStatus } from "../../Redux/Actions/actionCreators.js";
 
 // Assets
 import coin from "../../Assets/Images/Coin.png"
@@ -55,6 +55,7 @@ export default function NavBar(){
                <Option onClick={(e) => navigate("/order")}><p>Orders</p></Option>
                <Option onClick={(e) => navigate("/transactions")}><p>Historial</p></Option>
                <Option onClick={(e) =>{
+                 resetSignInStatus(dispatch);
                  getSingOut(dispatch,token);
                  navigate("/");
                } }><p>Logout</p></Option>

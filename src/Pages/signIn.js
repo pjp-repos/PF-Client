@@ -4,8 +4,7 @@ import { ButtonGoogle ,GoogleIcon,TextGoogle} from "../Components/LogIn/SignInEl
 import {useNavigate} from "react-router-dom";
 import { validateSignIn,validateSubmit } from "../Components/LogIn/ValidateLogin";
 import {
-  postSignIn,
-  resetSignInStatus
+  postSignIn
 } from '../Redux/Actions/actionCreators';
 import {selectSignInStatus} from '../Redux/Selectors/selectors';
 import { useSelector, useDispatch } from 'react-redux';
@@ -24,7 +23,6 @@ export default function SignIn(){
   const navigate = useNavigate();
 
   React.useEffect(() => {    
-    resetSignInStatus(dispatch); 
   }, [])
 
   React.useEffect(() => {    
