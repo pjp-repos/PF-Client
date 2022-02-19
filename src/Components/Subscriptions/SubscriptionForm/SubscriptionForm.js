@@ -10,6 +10,7 @@ import {
     formSubscriptionsValidate,
     addSubscription,
     updateSubscription,
+    getPair
 } from '../../../Redux/Actions/actionCreators';
 
 // Redux Selectors
@@ -18,7 +19,8 @@ import {
     selectUpdateSubscriptionAll,
     selectSymbolsAll,
     selectSessionAll,
-    selectSubscriptionFormAll
+    selectSubscriptionFormAll,
+    selectPairAll
 } from '../../../Redux/Selectors/selectors'
 
 // Styled components
@@ -31,13 +33,16 @@ import {
     SubscriptionFormLabel,
     InputBlock,
     Title,
-    SubTitle
+    SubTitle,
+    SubsGraphics,
+    DivInfoSubs,
+    TitleGraphicSubs
  } from './SubscriptionFormElements';
 
  // Generic styled components
 import Dropdown from '../../AaaGenerics/Dropdown/Dropdown';
-import { H3 } from '../../AaaGenerics/Texts/Hx';
 import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
+import Graphics from '../../Graphics/Graphics';
 
 const SubscriptionForm = () => {  
 
@@ -51,6 +56,7 @@ const SubscriptionForm = () => {
     const [form, edit, errors, error] = useSelector(selectSubscriptionFormAll);
     const [dataAdd, statusAdd, errorAdd] = useSelector(selectAddSubscriptionAll);
     const [dataUpdate, statusUpdate, errorUpdate] = useSelector(selectUpdateSubscriptionAll);
+    const pairValid = useSelector(selectPairAll);
 
     // Dropdows option list
     let symbols=[];
@@ -72,6 +78,11 @@ const SubscriptionForm = () => {
     const handleDropdown = (key,value)=>{
         formSubscriptionsHandleChange(dispatch, key, value)
         formSubscriptionsValidate(dispatch);
+
+        if(key === "symbol1Id" && form.symbol2Id !== "")
+          getPair(dispatch,token,value,form.symbol2Id);
+        else if(key === "symbol2Id" && form.symbol1Id !== "")
+          getPair(dispatch,token,form.symbol1Id,value);
     }
 
     const handleSubmit= ()=>{
@@ -160,7 +171,12 @@ const SubscriptionForm = () => {
     
     
     return (
-        <SubscriptionFormWrapper>
+        <SubsGraphics>
+            <DivInfoSubs>
+              {form.symbol1Id !== "" && form.symbol2Id && <TitleGraphicSubs>{symbols.find(el => el.key === parseInt(form.symbol1Id)).value} - {symbols.find(el => el.key === parseInt(form.symbol2Id)).value}</TitleGraphicSubs>}
+              { <Graphics data = {pairValid[1] === 2 && form.symbol1Id !== "" && form.symbol2Id !== "" ? pairValid[0].array : []} /> }
+            </DivInfoSubs>
+            <SubscriptionFormWrapper>
             <Title><SubTitle>Subscription</SubTitle> Form</Title>
             <SubscriptionFormBlock>
                 {/* Symbol 1 select dropdown */}                       
@@ -187,6 +203,9 @@ const SubscriptionForm = () => {
                     dropdownCb={handleDropdown}
                 />
             </SubscriptionFormBlock>
+               {
+                  form.symbol2Id !== "" &&  form.symbol2Id !== "" && pairValid[1] === 3 && <SubscriptionFormError> Error Pair Invalid</SubscriptionFormError>
+               }
             <InputBlock>
                 {/* Rise price field */}
                 <SubscriptionFormLabel>
@@ -217,6 +236,7 @@ const SubscriptionForm = () => {
                     onChange={handleChange}
                     required
                 />
+                
                 <SubscriptionFormError>
                     {errors.fallPrice && errors.fallPrice}
                 </SubscriptionFormError>
@@ -233,7 +253,8 @@ const SubscriptionForm = () => {
                 </SubscriptionFormButton>
             </SubscriptionFormBlock>
         </SubscriptionFormWrapper>
-
+  </SubsGraphics>
+        
     )   
 }
 

@@ -48,7 +48,7 @@ export const DropDownListContainer = styled.div`
     max-height:200px;
     padding: 1rem;
     border: 2px solid var(--first-color);
-
+    font-family: 'Montserrat', sans-serif;
     position: absolute;
     top:110%;
     left:0;

@@ -50,9 +50,7 @@ export default function Order(){
     const order = useSelector(selectOrderAll);
     let update = false;
     if(id) update = true;
-    console.log(pairValid);
-  
-  
+   
     React.useEffect( () => { 
       if(!isAuthenticated)
         navigate("/signin")
