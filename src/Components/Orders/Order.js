@@ -50,27 +50,22 @@ export default function Order(){
     const order = useSelector(selectOrderAll);
     let update = false;
     if(id) update = true;
-    console.log(pairValid);
-  
-  
+    let loadData = order[1] === 2 ? true : false;
+
     React.useEffect( () => { 
       if(!isAuthenticated)
         navigate("/signin")
       else{
-        if(update){
-          getOrder(dispatch,token,id);
-        }
-        getSymbols(dispatch,token);
         getPortfolio(dispatch,token);
-  
-        return () => {
-          resetUpdateOrderStatus(dispatch);
+        getSymbols(dispatch,token);
+        if(update){
+        getOrder(dispatch,token,id);
         }
       }
     }, []);
 
   React.useEffect(() => {
-      if(update){
+      if(loadData){
         setStateOrder({
           type:"Limit",
           amount:order[0].amount, 
@@ -82,12 +77,12 @@ export default function Order(){
           symbol1Id:order[0].idSymbol1,
           symbol1Img:order[0].symbol1.image,
           symbol1price: portfolio.find(el => el.symbol === order[0].symbol1.symbol).balance,
-          symbol2:order[0].symbol1.symbol,
+          symbol2:order[0].symbol2.symbol,
           symbol2Id:order[0].idSymbol2,
           symbol2Img: order[0].symbol2.image 
       })
       }
-    },[order[1] === 2])
+    },[loadData])
     
     React.useEffect(() => {
       if(validatePair(symbolsState)){

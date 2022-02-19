@@ -8,12 +8,12 @@ import {
     getSymbols,
     deleteSubscription,
     formSubscriptionsNewBtn,
-    formSubscriptionsEditBtn,
+    formSubscriptionsEditBtn
 } from '../../../Redux/Actions/actionCreators';
 import { 
     selectSubscriptionsAll,
     selectDeleteSubscriptionAll,
-    selectSessionAll,
+    selectSessionAll
 } from '../../../Redux/Selectors/selectors';
 
 //import Container from '../AaaGenerics/Sections/Container'
