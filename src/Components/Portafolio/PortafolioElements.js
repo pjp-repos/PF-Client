@@ -52,9 +52,9 @@ width: 30px;
 height: 30px;
 `
 export const ButtonOrder = styled.button`
-  border:0;
-  outline:0;
-  background-color:transparent;
-  color:white;
+ border:0;
+ color:white;
+ outline:0;
+ background-color:transparent;
 
 `
