@@ -78,13 +78,13 @@ export default function Order(){
           typeOrder:order[0].buyOrder === true ? "Buy" :"Sell"
         });
         setSymbolsState({
-          symbol1: order[0].SymbolSell.symbol,
-          symbol1Id:order[0].idSymbolToSell,
-          symbol1Img:order[0].SymbolSell.image,
-          symbol1price: portfolio.find(el => el.symbol === order[0].SymbolSell.symbol).balance,
-          symbol2:order[0].SymbolBuy.symbol,
-          symbol2Id:order[0].idSymbolToBuy,
-          symbol2Img: order[0].SymbolBuy.image 
+          symbol1: order[0].symbol1.symbol,
+          symbol1Id:order[0].idSymbol1,
+          symbol1Img:order[0].symbol1.image,
+          symbol1price: portfolio.find(el => el.symbol === order[0].symbol1.symbol).balance,
+          symbol2:order[0].symbol1.symbol,
+          symbol2Id:order[0].idSymbol2,
+          symbol2Img: order[0].symbol2.image 
       })
       }
     },[order[1] === 2])

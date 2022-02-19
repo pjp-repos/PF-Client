@@ -28,7 +28,8 @@ import {
     SubscriptionFormButton,
     SubscriptionFormBlock,
     SubscriptionFormError,
-    SubscriptionFormLabel
+    SubscriptionFormLabel,
+    InputBlock,
  } from './SubscriptionFormElements';
 
  // Generic styled components
@@ -183,7 +184,7 @@ const SubscriptionForm = () => {
                     dropdownCb={handleDropdown}
                 />
             </SubscriptionFormBlock>
-            <SubscriptionFormBlock>
+            <InputBlock>
                 {/* Rise price field */}
                 <SubscriptionFormLabel>
                     Price for rice alert
@@ -199,8 +200,8 @@ const SubscriptionForm = () => {
                 <SubscriptionFormError>
                     {errors.risePrice && errors.risePrice}
                 </SubscriptionFormError>
-            </SubscriptionFormBlock>
-            <SubscriptionFormBlock>
+            </InputBlock>
+            <InputBlock>
                 {/* Fall price field */}
                 <SubscriptionFormLabel>
                     Price for fall alert
@@ -216,7 +217,7 @@ const SubscriptionForm = () => {
                 <SubscriptionFormError>
                     {errors.fallPrice && errors.fallPrice}
                 </SubscriptionFormError>
-            </SubscriptionFormBlock>
+            </InputBlock>
             <SubscriptionFormBlock>
                 <SubscriptionFormButton onClick={handleReset}>
                     Clear fields
