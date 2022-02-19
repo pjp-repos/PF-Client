@@ -11,8 +11,8 @@ export default function UserHome(){
        <Banner>
          <ContainBanner>
            <TitleHenry>Welcome to <Henry>HenryCoin</Henry></TitleHenry>
-           <InfoBanner>Welcome to Henry Coin. The free and risk-free crypto trading practice app, that gives you access to real-time market data and great  tools at zero commission.</InfoBanner>
-           <ButtonWallet>Go to Wallet</ButtonWallet>
+           <InfoBanner>Algo informacion para rellenar lo vacio</InfoBanner>
+           <ButtonWallet onClick = {(e) => navigate("../wallet")}>Go to Wallet</ButtonWallet>
          </ContainBanner>
          <ImgBannerr src ={img} alt="banner"/>
        </Banner> 
