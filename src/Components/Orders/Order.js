@@ -50,6 +50,7 @@ export default function Order(){
     const pairValid = useSelector(selectPairAll);
     const order = useSelector(selectOrderAll);
 
+    
     let update = false;
     if(id) update = true;
     let loadData = order[1] === 2 && id ? true : false;
