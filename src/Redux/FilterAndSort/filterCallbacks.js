@@ -14,15 +14,6 @@ const dateTo = (el,param, cb) =>{
 };
 
 
-const transactionByDateFrom = (el,param) =>{
-    return el.date >= param || param==="";
-};
-
-const transactionByDateTo = (el,param) =>{
-    return el.date <= param || param==="";
-};
-
-
 const filterCallbacks={
     prices:{
         symbol:(el,param)=>includeTxtSensitive(el,param,el=>el.symbol),
