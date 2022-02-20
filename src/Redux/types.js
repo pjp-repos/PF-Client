@@ -16,8 +16,8 @@ export const GET_PRICES_STATUS="GET_PRICES_STATUS";
 export const GET_PRICES_ERROR="GET_PRICES_ERROR";
 
 // Filters and orders for market table
-export const SET_PRICES_FILTER="SET_PRICES_FILTER";
-export const SET_PRICES_ORDER="SET_PRICES_ORDER";
+export const FILTER_PRICES="FILTER_PRICES";
+export const SORT_PRICES="SORT_PRICES";
 export const SET_PRICES_CURRENCY="SET_PRICES_CURRENCY";
 
 // ==== Session issues ==============================

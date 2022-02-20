@@ -39,7 +39,7 @@ import { FaAngleDown,FaAngleUp } from "react-icons/fa";
 import Spinner from "../../AaaGenerics/Loaders/Spinner/Spinner";
 
 
-const ROWS_BY_PAGE = 10;
+const ROWS_PER_PAGE = 10;
 
 export default function OrderTable(){
   // React router
@@ -47,8 +47,8 @@ export default function OrderTable(){
   
   // states
   const [actualPage, setActualPage] = useState(1);
-  let topRows = ROWS_BY_PAGE * actualPage;
-  let initialRows = topRows - ROWS_BY_PAGE;
+  let topRows = ROWS_PER_PAGE * actualPage;
+  let initialRows = topRows - ROWS_PER_PAGE;
   const [currentSortKey, setCurrentSortKey] = useState("");
   const [filterForm, setFilterForm] = useState({
       symbol1:"",
@@ -200,7 +200,7 @@ export default function OrderTable(){
               </RowO>) 
             }
         </TableO>
-        <Pagination totalCryptos = {ordersData.length} cryptosForPage = {ROWS_BY_PAGE} actualPage = {actualPage} setActualPage = {setActualPage} />
+        <Pagination totalCryptos = {ordersData.length} cryptosForPage = {ROWS_PER_PAGE} actualPage = {actualPage} setActualPage = {setActualPage} />
     </Container>
   )
 };

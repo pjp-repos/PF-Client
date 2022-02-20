@@ -6,9 +6,7 @@ import Pagination from '../Components/Home/Pagination/Pagination';
 import Table from '../Components/Home/Table/Table';
 import {getGlobalPrices} from '../Redux/Actions/actionCreators';
 import {
-  selectGlobalPrices,
-  selectGlobalPricesStatus,
-  selectGlobalPricesError,
+  selectGlobalPricesAll,
   selectGlobalPricesCurrency
 } from '../Redux/Selectors/selectors';
 import Spinner from '../Components/AaaGenerics/Loaders/Spinner/Spinner';
@@ -20,9 +18,7 @@ function Home() {
   let topCryptos = CRYPTOS_PER_PAGE * actualPage;
   let initialCryptos = topCryptos - CRYPTOS_PER_PAGE;
   const dispatch = useDispatch();
-  const data = useSelector(selectGlobalPrices);
-  const status = useSelector(selectGlobalPricesStatus);
-  const error = useSelector(selectGlobalPricesError);
+  const [data, status,error] = useSelector(selectGlobalPricesAll);
   const currency = useSelector(selectGlobalPricesCurrency);
   
   useEffect(() => {    
