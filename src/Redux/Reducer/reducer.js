@@ -221,23 +221,28 @@ const initialState = {
         status:0,
         error:{},
         filter:{
+            symbol:"",
             dateFrom:"",
             dateTo:"",
-            symbol:""
         },
         order:"",
+        dataFAS:[],
     },
+
+    // --- Portfolio ----------------------------
     portfolio:{
         data:[],
         status:0,
         error:{},
         filter:{
+            symbol:"",
             dateFrom:"",
             dateTo:"",
-            symbols:""
         },
-        order:"",
+        order:"dateDesc",
+        dataFAS:[],
     },
+
     setting:{
         data:[],
         status:0,
@@ -477,11 +482,11 @@ const reducer = (state = initialState, action) => {
 
         // ============ SUBSCRIPTIONS ===============================
 
-        case GET_SUBSCRIPTIONS:
-            let subscriptions = [...action.payload];
-            let subscriptionsFAS = filterAndSort(
+        case GET_SUBSCRIPTIONS:{
+            let data = [...action.payload];
+            let dataFAS = filterAndSort(
                 'subscriptions',
-                subscriptions,
+                data,
                 state.subscriptions.filter,
                 state.subscriptions.order
             );
@@ -489,10 +494,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 subscriptions:{
                     ...state.subscriptions,
-                    data:subscriptions,
-                    dataFAS:subscriptionsFAS,
+                    data:data,
+                    dataFAS:dataFAS,
                 }
             }
+        }
 
         case GET_SUBSCRIPTIONS_STATUS:
             return {
@@ -697,11 +703,11 @@ const reducer = (state = initialState, action) => {
         };    
 
         // ============ ORDERS===============================
-        case GET_ORDERS:
-            let orders = [...action.payload];
-            let ordersFAS = filterAndSort(
+        case GET_ORDERS:{
+            let data = [...action.payload];
+            let dataFAS = filterAndSort(
                 'orders',
-                orders,
+                data,
                 state.orders.filter,
                 state.orders.order
             );
@@ -709,10 +715,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 orders:{
                     ...state.orders,
-                    data:orders,
-                    dataFAS:ordersFAS,
+                    data:data,
+                    dataFAS:dataFAS,
                 }
             }
+        }
 
         case GET_ORDERS_STATUS:
             return {
@@ -787,7 +794,6 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
-
         case UPDATE_ORDER:
             return {
                 ...state,
@@ -846,13 +852,13 @@ const reducer = (state = initialState, action) => {
             const data = [...state.orders.data];
             const filterForm = action.payload;
             const sortKey = state.orders.order;
-            const ordersFAS = filterAndSort('orders',data ,filterForm, sortKey);
+            const dataFAS = filterAndSort('orders',data ,filterForm, sortKey);
             return {
                 ...state,
                 orders:{
                     ...state.orders,
                     filter:filterForm,
-                    dataFAS:ordersFAS,
+                    dataFAS:dataFAS,
                 }
             }
         };
@@ -873,11 +879,11 @@ const reducer = (state = initialState, action) => {
         };
 
         // ====== TRANSACTIONS ========================
-        case GET_TRANSACTIONS:
-            let transactions = [...action.payload];
-            transactions = filterAndSort(
+        case GET_TRANSACTIONS:{
+            let data = [...action.payload];
+            let dataFAS = filterAndSort(
                 'transactions',
-                transactions,
+                data,
                 state.transactions.filter,
                 state.transactions.order
             );
@@ -885,10 +891,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 transactions:{
                     ...state.transactions,
-                    data:transactions
+                    data:data,
+                    dataFAS:dataFAS,
                 }
             }
-        
+        }
+      
         case GET_TRANSACTIONS_STATUS:
             return {
                 ...state,
@@ -907,29 +915,41 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
-        case FILTER_TRANSACTIONS:
+        case FILTER_TRANSACTIONS:{
+            const data = [...state.transactions.data];
+            const filterForm = action.payload;
+            const sortKey = state.transactions.order;
+            const dataFAS = filterAndSort('transactions',data ,filterForm, sortKey);
             return {
                 ...state,
                 transactions:{
                     ...state.transactions,
-                    filter:action.payload
+                    filter:filterForm,
+                    dataFAS:dataFAS,
                 }
             }
+        };
 
-        case SORT_TRANSACTIONS:
+        case SORT_TRANSACTIONS:{
+            const data = [...state.transactions.data];
+            const filterForm = state.transactions.filter;
+            const sortKey = action.payload;
+            const dataFAS = filterAndSort('transactions',data ,filterForm, sortKey);
             return {
                 ...state,
                 transactions:{
                     ...state.transactions,
-                    order:action.payload
+                    order:sortKey,
+                    dataFAS:dataFAS,
                 }
             }
+        }; 
 
-        case GET_PORTFOLIO:
-            let portfolio = [...action.payload];
-            portfolio = filterAndSort(
+        case GET_PORTFOLIO:{
+            let data = [...action.payload];
+            let dataFAS = filterAndSort(
                 'portfolio',
-                portfolio,
+                data,
                 state.portfolio.filter,
                 state.portfolio.order
             );
@@ -937,9 +957,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 portfolio:{
                     ...state.portfolio,
-                    data:portfolio
+                    data:data,
+                    dataFAS:dataFAS,
                 }
             }
+        }
         
         case GET_PORTFOLIO_STATUS:
             return {

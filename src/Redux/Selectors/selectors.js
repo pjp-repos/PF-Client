@@ -51,10 +51,7 @@ export const selectUpdateOrderAll = state=> [state.updateOrder.data,state.update
 export const selectDeleteOrderAll = state=> [state.deleteOrder.data,state.deleteOrder.status,state.deleteOrder.error];
 
 // ==== Transactions ===================================================================
-export const selectTransactions = state=> state.transactions.data;
-export const selectTransactionsStatus = state=> state.transactions.status;
-export const selectTransactionsError = state=> state.transactions.error;
-export const selectTransactionsAll = state=> [state.transactions.data,state.transactions.status,state.transactions.error];
+export const selectTransactionsAll = state=> [state.transactions.dataFAS,state.transactions.status,state.transactions.error];
 
 export const selectPortfolio = state=> state.portfolio.data;
 export const selectPortfolioStatus = state=> state.portfolio.status;
