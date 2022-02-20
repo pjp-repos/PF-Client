@@ -18,12 +18,11 @@ import Edit from "../../../Assets/edit.svg"
 import img from "../../../Assets/Images/orderBanner.png"
 // Components
 import Pagination from "../../Home/Pagination/Pagination";
-import { Container ,TableO,RowO,BannerOrder,DivBanner,BannerImg} from "./OrderTableElements";
+import { Container ,TableO,RowO,BannerOrder,DivBanner,BannerImg,DivButtons,ButtonOrder} from "./OrderTableElements";
 import { Column } from "../../Home/Table/Column";
 import { Title } from "../../UserHome/UserHomeElements";
 import { ButtonE } from "../../Subscriptions/SubscriptionTable/SubscriptionTableElements";
-import DateFilters from "../../Utils/DatesFilters";
-import { Banner,ContainBanner,InfoBanner,TitleHenry,ButtonWallet,ImgBannerr,Henry } from "../../UserHome/UserHomeElements";
+import { FaAngleDown,FaAngleUp } from "react-icons/fa";
 import Spinner from "../../AaaGenerics/Loaders/Spinner/Spinner";
 
 
@@ -36,31 +35,8 @@ export default function OrderTable(){
     const [actualPage, setActualPage] = useState(1);
     let topOrders = ORDERFORPAGE * actualPage;
     let initialOrders = topOrders - ORDERFORPAGE;
-    
-    const [orderForm, setOrderForm] = useState({
-      symbol1:{
-        asc:"symbol1Asc",
-        desc:"symbol1Desc",
-        value:false
-      },
-      symbol2:{
-        asc:"symbol2Asc",
-        desc:"symbol2Desc",
-        value:false
-      },
-      date:{
-        asc:"dateAsc",
-        desc:"dateDesc",
-        value:false
-      },
-      type:{
-        asc:"typeAsc",
-        desc:"typeDesc",
-        value:false
-      },
-    });
-
-
+    const [actualFilter, setActualFilter] = useState("");
+  
     // Redux
     const dispatch = useDispatch();
     const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
@@ -93,16 +69,9 @@ export default function OrderTable(){
   }
   
   //
-  const handleOrder = (orderKey)=>{
-    setOrderForm({
-      ...orderForm,
-      [orderKey]:{
-        ...orderForm[orderKey],
-        value:!orderForm[orderKey].value
-      }
-    })
-    let orderSelected = orderForm[orderKey].value?orderForm[orderKey].asc:orderForm[orderKey].desc
-    sortOrders(dispatch,orderSelected);
+  const handlerOrder = (keyForm)=>{
+    setActualFilter(keyForm);
+    sortOrders(dispatch,keyForm);
     getOrders(dispatch,token);
   }
   // === RENDERS ============================================
@@ -146,18 +115,36 @@ export default function OrderTable(){
             <BannerImg className = "Img" src =  "https://images.unsplash.com/photo-1631603090989-93f9ef6f9d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80" alt = "banner" />
           </BannerOrder>
          </DivBanner>
-       <DateFilters />
        <TableO>
             <RowO head>
                 <Column>Id</Column> 
-                <Column onClick={()=>handleOrder("symbol1")}>Symbol1</Column> 
-                <Column onClick={()=>handleOrder("symbol2")}>symbol2</Column> 
+                <Column>Symbol1 <DivButtons>
+                     <ButtonOrder onClick={() => handlerOrder("symbol1Asc")} actual = {actualFilter} id = "symbol1Asc" > { <FaAngleUp/>} </ButtonOrder>
+                     <ButtonOrder onClick={() => handlerOrder("symbol1Desc")} actual = {actualFilter} id = "symbol1Desc"> { <FaAngleDown/>} </ButtonOrder>
+                  </DivButtons>
+                </Column> 
+                <Column >symbol2 
+                  <DivButtons>
+                      <ButtonOrder onClick={() => handlerOrder("symbol2Asc")} actual = {actualFilter} id = "symbol2Asc" > { <FaAngleUp/>} </ButtonOrder>
+                      <ButtonOrder onClick={() => handlerOrder("symbol2Desc")} actual = {actualFilter} id = "symbol2Desc"> { <FaAngleDown/>} </ButtonOrder>
+                  </DivButtons>
+                </Column> 
                 <Column>Amount</Column> 
                 <Column>Price</Column>
                 <Column>PriceLimit</Column> 
-                <Column onClick={()=>handleOrder("type")}>Type Order</Column>  
+                <Column>Type Order
+                  <DivButtons>
+                      <ButtonOrder onClick={() => handlerOrder("typeAsc")} actual = {actualFilter} id = "typeAsc" > { <FaAngleUp/>} </ButtonOrder>
+                      <ButtonOrder onClick={() => handlerOrder("typeDesc")} actual = {actualFilter} id = "typeDesc"> { <FaAngleDown/>} </ButtonOrder>
+                  </DivButtons>
+                </Column>  
                 <Column>State Order</Column> 
-                <Column onClick={()=>handleOrder("date")}>Date</Column>  
+                <Column >Date 
+                  <DivButtons>
+                    <ButtonOrder  onClick={() => handlerOrder("dateAsc")} actual = {actualFilter} id = "dateAsc" > { <FaAngleUp/>} </ButtonOrder>
+                    <ButtonOrder  onClick={() => handlerOrder("dateDesc")} actual = {actualFilter} id = "dateDesc" > { <FaAngleDown/>} </ButtonOrder>
+                  </DivButtons>
+                </Column>  
                 <Column>Edit</Column>  
             </RowO>
            
