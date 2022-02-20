@@ -148,11 +148,13 @@ const initialState = {
         status:0,
         error:{},
         filter:{
-            dateFrom:"",
-            dateTo:"",
-            symbols:""
+            symbol1:"",
+            symbol2:"",
+            alertOnRise:"",
+            alertOnFall:"",
         },
-        order:false,
+        order:'idDesc',
+        dataFAS:[], // Data filtered and sorted
     },
     addSubscription:{
         data:{},
@@ -212,6 +214,8 @@ const initialState = {
         status:0,
         error:{},
     },
+
+    // --- Transactions ----------------------------
     transactions:{
         data:[],
         status:0,
@@ -310,6 +314,7 @@ const reducer = (state = initialState, action) => {
                     error:action.payload
                 }
             }
+
         case GET_PAIR:
             return {
                 ...state,
@@ -474,17 +479,18 @@ const reducer = (state = initialState, action) => {
 
         case GET_SUBSCRIPTIONS:
             let subscriptions = [...action.payload];
-            // subscriptions = filterAndSort(
-            //     'subscriptions',
-            //     subscriptions,
-            //     state.subscriptions.filter,
-            //     state.subscriptions.order
-            // );
+            let subscriptionsFAS = filterAndSort(
+                'subscriptions',
+                subscriptions,
+                state.subscriptions.filter,
+                state.subscriptions.order
+            );
             return {
                 ...state,
                 subscriptions:{
                     ...state.subscriptions,
-                    data:subscriptions
+                    data:subscriptions,
+                    dataFAS:subscriptionsFAS,
                 }
             }
 
@@ -561,7 +567,7 @@ const reducer = (state = initialState, action) => {
                         ...state.formSubscriptions.form,
                         [action.payload.key]:action.payload.value
                     },
-            }
+                }
             }   
 
         case FORM_SUBSCRIPTION_VALIDATE:
@@ -660,23 +666,35 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
-        case FILTER_SUBSCRIPTIONS:
+        case FILTER_SUBSCRIPTIONS:{
+            const data = [...state.subscriptions.data];
+            const filterForm = action.payload;
+            const sortKey = state.subscriptions.order;
+            const dataFAS = filterAndSort('subscriptions', data, filterForm, sortKey);
             return {
                 ...state,
                 subscriptions:{
                     ...state.subscriptions,
-                    filter:action.payload
+                    filter:filterForm,
+                    dataFAS:dataFAS,
                 }
             }
+        };           
 
-        case SORT_SUBSCRIPTIONS:
+        case SORT_SUBSCRIPTIONS:{
+            const data = [...state.subscriptions.data];
+            const filterForm = state.subscriptions.filter;
+            const sortKey = action.payload;
+            const dataFAS = filterAndSort('subscriptions', data, filterForm, sortKey);
             return {
                 ...state,
                 subscriptions:{
                     ...state.subscriptions,
-                    order:action.payload
+                    order:sortKey,
+                    dataFAS:dataFAS,
                 }
-            }    
+            }
+        };    
 
         // ============ ORDERS===============================
         case GET_ORDERS:
@@ -825,38 +843,30 @@ const reducer = (state = initialState, action) => {
             }
 
         case FILTER_ORDERS:{
-            const orders = [...state.orders.data];
-            const filterOrders = action.payload;
-            const ordersFAS = filterAndSort(
-                'orders',
-                orders,
-                filterOrders,
-                state.orders.order
-            );
+            const data = [...state.orders.data];
+            const filterForm = action.payload;
+            const sortKey = state.orders.order;
+            const ordersFAS = filterAndSort('orders',data ,filterForm, sortKey);
             return {
                 ...state,
                 orders:{
                     ...state.orders,
-                    filter:filterOrders,
+                    filter:filterForm,
                     dataFAS:ordersFAS,
                 }
             }
         };
 
         case SORT_ORDERS:{
-            const orders = [...state.orders.data];
-            const orderKey = action.payload;
-            const ordersFAS = filterAndSort(
-                'orders',
-                orders,
-                state.orders.filter,
-                orderKey,
-            );
+            const data = [...state.orders.data];
+            const filterForm = state.orders.filter;
+            const sortKey = action.payload;
+            const ordersFAS = filterAndSort('orders',data ,filterForm, sortKey);
             return {
                 ...state,
                 orders:{
                     ...state.orders,
-                    order:orderKey,
+                    order:sortKey,
                     dataFAS:ordersFAS,
                 }
             }

@@ -59,12 +59,23 @@ const sortCallbacks={
     },
 
     subscriptions:{
-        bySymbol:"",
+        symbol1Asc:(a,b)=>genericAsc(a,b,(el)=>el.symbol1[0]),
+        symbol1Desc:(a,b)=>genericDesc(a,b,(el)=>el.symbol1[0]),
+        symbol2Asc:(a,b)=>genericAsc(a,b,(el)=>el.symbol2[0]),
+        symbol2Desc:(a,b)=>genericDesc(a,b,(el)=>el.symbol2[0]),   
+        alertOnRiseAsc:(a,b)=>genericAsc(a,b,(el)=>el.alertOnRise),
+        alertOnRiseDesc:(a,b)=>genericDesc(a,b,(el)=>el.alertOnRise),
+        alertOnFallAsc:(a,b)=>genericAsc(a,b,(el)=>el.alertOnFall),
+        alertOnFallDesc:(a,b)=>genericDesc(a,b,(el)=>el.alertOnFall),
+        idAsc:(a,b)=>genericAsc(a,b,(el)=>el.id),
+        idDesc:(a,b)=>genericDesc(a,b,(el)=>el.id),
     },
+
     transactions:{
         symbolAsc:(a,b)=>genericAsc(a,b,(el)=>el.symbol),
         symbolDesc:(a,b)=>genericDesc(a,b,(el)=>el.symbol),
     },
+
     portfolio:{
         symbolAsc:(a,b)=>genericAsc(a,b,(el)=>el.symbol),
         symbolDesc:(a,b)=>genericDesc(a,b,(el)=>el.symbol),
