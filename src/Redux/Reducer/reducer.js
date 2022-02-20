@@ -185,11 +185,12 @@ const initialState = {
 
     // --- Orders ----------------------------
     orders:{
-        data:[],
+        data:[],        
         status:0,
         error:{},
         filter:{},
         order:"dateDesc",
+        dataFAS:[], // Data filtered and sorted
     },
     order:{
         data:{},
@@ -680,7 +681,7 @@ const reducer = (state = initialState, action) => {
         // ============ ORDERS===============================
         case GET_ORDERS:
             let orders = [...action.payload];
-            orders = filterAndSort(
+            let ordersFAS = filterAndSort(
                 'orders',
                 orders,
                 state.orders.filter,
@@ -690,7 +691,8 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 orders:{
                     ...state.orders,
-                    data:orders
+                    data:orders,
+                    dataFAS:ordersFAS,
                 }
             }
 
@@ -822,23 +824,43 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
-        case FILTER_ORDERS:
+        case FILTER_ORDERS:{
+            const orders = [...state.orders.data];
+            const filterOrders = action.payload;
+            const ordersFAS = filterAndSort(
+                'orders',
+                orders,
+                filterOrders,
+                state.orders.order
+            );
             return {
                 ...state,
                 orders:{
                     ...state.orders,
-                    filter:action.payload
+                    filter:filterOrders,
+                    dataFAS:ordersFAS,
                 }
             }
+        };
 
-        case SORT_ORDERS:
+        case SORT_ORDERS:{
+            const orders = [...state.orders.data];
+            const orderKey = action.payload;
+            const ordersFAS = filterAndSort(
+                'orders',
+                orders,
+                state.orders.filter,
+                orderKey,
+            );
             return {
                 ...state,
                 orders:{
                     ...state.orders,
-                    order:action.payload
+                    order:orderKey,
+                    dataFAS:ordersFAS,
                 }
             }
+        };
 
         // ====== TRANSACTIONS ========================
         case GET_TRANSACTIONS:
