@@ -4,6 +4,9 @@ import {
     GET_PRICES,
     GET_PRICES_STATUS,
     GET_PRICES_ERROR,
+    FILTER_PRICES,
+    SORT_PRICES,
+    SET_PRICES_CURRENCY,
 
     GET_SYMBOLS,
     GET_SYMBOLS_STATUS,
@@ -13,9 +16,6 @@ import {
     GET_PAIR_STATUS,
     GET_PAIR_ERROR,
 
-    SET_PRICES_FILTER,
-    SET_PRICES_ORDER,
-    SET_PRICES_CURRENCY,
 
     NEW_ACCOUNT,
     NEW_ACCOUNT_STATUS,
@@ -126,10 +126,10 @@ export const getPair = (dispatch, token,symbol1,symbol2) =>{
 };
 
 // filterGlobalPrices action
-export const filterGlobalPrices = (dispatch, filterForm)=>dispatch({type:SET_PRICES_FILTER,payload:filterForm});
+export const filterPrices = (dispatch, filterForm)=>dispatch({type:FILTER_PRICES,payload:filterForm});
 
 // filterGlobalPrices action
-export const orderGlobalPrices = (dispatch, order)=>dispatch({type:SET_PRICES_ORDER,payload:order});
+export const sortPrices = (dispatch, order)=>dispatch({type:SORT_PRICES,payload:order});
 
 // filterGlobalPrices action
 export const currencyGlobalPrices = (dispatch, currency)=>dispatch({type:SET_PRICES_CURRENCY,payload:currency});

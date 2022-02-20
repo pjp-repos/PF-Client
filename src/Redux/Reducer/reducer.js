@@ -2,6 +2,9 @@ import {
     GET_PRICES,
     GET_PRICES_STATUS,
     GET_PRICES_ERROR,
+    FILTER_PRICES,
+    SORT_PRICES,
+    SET_PRICES_CURRENCY,
 
     GET_SYMBOLS,
     GET_SYMBOLS_STATUS,
@@ -11,9 +14,6 @@ import {
     GET_PAIR_STATUS,
     GET_PAIR_ERROR,
 
-    SET_PRICES_FILTER,
-    SET_PRICES_ORDER,
-    SET_PRICES_CURRENCY,
 
     NEW_ACCOUNT,
     NEW_ACCOUNT_STATUS,
@@ -105,7 +105,8 @@ const initialState = {
         token:"",
         email:"",
         isAuthenticated : false,
-        roles:[]
+        roles:[],
+        theme:false
     },
     prices:{
         data:[],
@@ -115,7 +116,8 @@ const initialState = {
             symbol:""
         },
         order:"",
-        currency:"usd"
+        dataFAS:[],
+        currency:"usd",
     },
     symbols:{
         data:[],
@@ -259,11 +261,11 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
 
-        case GET_PRICES:
-            let prices = [...action.payload];
-            prices = filterAndSort(
+        case GET_PRICES:{
+            let data = [...action.payload];
+            let dataFAS = filterAndSort(
                 'prices',
-                prices,
+                data,
                 state.prices.filter,
                 state.prices.order
             );
@@ -271,9 +273,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 prices:{
                     ...state.prices,
-                    data:prices
+                    data:data,
+                    dataFAS:dataFAS,
                 }
             }
+        }
 
         case GET_PRICES_STATUS:
             return {
@@ -293,6 +297,45 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
+        case FILTER_PRICES:{
+            const data = [...state.prices.data];
+            const filterForm = action.payload;
+            const sortKey = state.prices.order;
+            const dataFAS = filterAndSort('prices',data ,filterForm, sortKey);
+            return {
+                ...state,
+                prices:{
+                    ...state.prices,
+                    filter:filterForm,
+                    dataFAS:dataFAS,
+                }
+            }
+        };
+
+        case SORT_PRICES:{
+            const data = [...state.prices.data];
+            const filterForm = state.prices.filter;
+            const sortKey = action.payload;
+            const dataFAS = filterAndSort('prices',data ,filterForm, sortKey);
+            return {
+                ...state,
+                prices:{
+                    ...state.prices,
+                    order:sortKey,
+                    dataFAS:dataFAS,
+                }
+            }
+        };
+
+        case SET_PRICES_CURRENCY:
+            return {
+                ...state,
+                prices:{
+                    ...state.prices,
+                    currency:action.payload
+                }
+            }
+    
         case GET_SYMBOLS:
             return {
                 ...state,
@@ -344,33 +387,6 @@ const reducer = (state = initialState, action) => {
                 pair:{
                     ...state.pair,
                     error:action.payload
-                }
-            }
-
-        case SET_PRICES_FILTER:
-            return {
-                ...state,
-                prices:{
-                    ...state.prices,
-                    filter:action.payload
-                }
-            }
-
-        case SET_PRICES_ORDER:
-            return {
-                ...state,
-                prices:{
-                    ...state.prices,
-                    order:action.payload
-                }
-            }
-
-        case SET_PRICES_CURRENCY:
-            return {
-                ...state,
-                prices:{
-                    ...state.prices,
-                    currency:action.payload
                 }
             }
 
@@ -867,13 +883,13 @@ const reducer = (state = initialState, action) => {
             const data = [...state.orders.data];
             const filterForm = state.orders.filter;
             const sortKey = action.payload;
-            const ordersFAS = filterAndSort('orders',data ,filterForm, sortKey);
+            const dataFAS = filterAndSort('orders',data ,filterForm, sortKey);
             return {
                 ...state,
                 orders:{
                     ...state.orders,
                     order:sortKey,
-                    dataFAS:ordersFAS,
+                    dataFAS:dataFAS,
                 }
             }
         };

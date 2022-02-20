@@ -1,13 +1,12 @@
-import React from "react";
+import React ,{useState,useEffect} from "react";
 import { useNavigate ,useParams} from "react-router-dom";
 import { OrderContainer,ContainerOptionsOrders,
     DivImages,Image,DivTrade,SubmitOrder,SubmitDiv,DivSellBuy,
     InputSellBuy,SelectSellBuy,Info,DivInfo,DivTotal,ButtonOption,OrderGraphics,DivInfoOrder, TitleGraphic} from "./OrderElements";
 import {
-    selectSymbols,
-    selectSessionIsAuthenticated,
-    selectSessionToken,
-    selectPortfolio,
+    selectSymbolsAll,
+    selectSessionAll,
+    selectPortfolioAll,
     selectPairAll,
     selectOrderAll,
     selectAddOrderAll,
@@ -40,16 +39,20 @@ const stateSymbolsInitial = {
 }
 
 export default function Order(){
+	// Params    
     const {id} = useParams();
-    const [errorSubmit, setErrorSubmit] = React.useState("");
-    const [stateOrder,setStateOrder] = React.useState(stateOrderInitial);
-    const symbols = useSelector(selectSymbols);
-    const [symbolsState, setSymbolsState] = React.useState(stateSymbolsInitial);
-    const dispatch = useDispatch();
+	// router
     const navigate = useNavigate();
-    const isAuthenticated = useSelector(selectSessionIsAuthenticated);
-    const portfolio = useSelector(selectPortfolio);
-    const token = useSelector(selectSessionToken);
+	// States
+    const [errorSubmit, setErrorSubmit] = useState("");
+    const [stateOrder,setStateOrder] = useState(stateOrderInitial);
+    const [symbolsState, setSymbolsState] = useState(stateSymbolsInitial);
+    
+	//Redux
+    const dispatch = useDispatch();
+    const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
+	const [symbols,symbolsStatus,symbolsErrors] = useSelector(selectSymbolsAll);
+    const [portfolio,portfolioStatus,portfolioErrors] = useSelector(selectPortfolioAll);
     const pairValid = useSelector(selectPairAll);
     const order = useSelector(selectOrderAll);
     const [dataAdd, statusAdd, errorAdd] = useSelector(selectAddOrderAll);
@@ -59,42 +62,42 @@ export default function Order(){
     if(id) update = true;
     let loadData = order[1] === 2 && id ? true : false;
 
-    React.useEffect( () => { 
-      if(!isAuthenticated)
-        navigate("/signin")
-      else{
-        getPortfolio(dispatch,token);
-        getSymbols(dispatch,token);
-        if(update){
-        getOrder(dispatch,token,id);
-        }
-      }
-    }, []);
+    useEffect( () => { 
+		if(!isAuthenticated)
+			navigate("/signin")
+		else{
+			getPortfolio(dispatch,token);
+			getSymbols(dispatch,token);
+			if(update){
+			getOrder(dispatch,token,id);
+			}
+		}
+    }, [isAuthenticated]);
 
-  React.useEffect(() => {
-      if(loadData){
-        setStateOrder({
-          type:"Limit",
-          amount:order[0].amount, 
-          limit:order[0].priceLimit,
-          typeOrder:order[0].buyOrder === true ? "Buy" :"Sell"
-        });
-        setSymbolsState({
-          symbol1: order[0].symbol1.symbol,
-          symbol1Id:order[0].idSymbol1,
-          symbol1Img:order[0].symbol1.image,
-          symbol1price: portfolio.find(el => el.symbol === order[0].symbol1.symbol).balance,
-          symbol2:order[0].symbol2.symbol,
-          symbol2Id:order[0].idSymbol2,
-          symbol2Img: order[0].symbol2.image 
-      })
-      }
+	useEffect(() => {
+		if(loadData){
+			setStateOrder({
+				type:"Limit",
+				amount:order[0].amount, 
+				limit:order[0].priceLimit,
+				typeOrder:order[0].buyOrder === true ? "Buy" :"Sell"
+				});
+				setSymbolsState({
+				symbol1: order[0].symbol1.symbol,
+				symbol1Id:order[0].idSymbol1,
+				symbol1Img:order[0].symbol1.image,
+				symbol1price: portfolio.find(el => el.symbol === order[0].symbol1.symbol).balance,
+				symbol2:order[0].symbol2.symbol,
+				symbol2Id:order[0].idSymbol2,
+				symbol2Img: order[0].symbol2.image 
+			})
+		}
     },[loadData])
     
-    React.useEffect(() => {
-      if(validatePair(symbolsState)){
-        stateOrder.typeOrder === "Sell" ? getPair(dispatch,token,symbolsState.symbol1Id,symbolsState.symbol2Id) : getPair(dispatch,token,symbolsState.symbol2Id,symbolsState.symbol1Id);
-      }
+    useEffect(() => {
+		if(validatePair(symbolsState)){
+			stateOrder.typeOrder === "Sell" ? getPair(dispatch,token,symbolsState.symbol1Id,symbolsState.symbol2Id) : getPair(dispatch,token,symbolsState.symbol2Id,symbolsState.symbol1Id);
+		}
     },[symbolsState,stateOrder.typeOrder]);
 
     

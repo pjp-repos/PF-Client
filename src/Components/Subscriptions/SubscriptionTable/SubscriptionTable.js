@@ -38,7 +38,7 @@ import { BannerImg,BannerOrder,DivBanner} from '../../Orders/OrderTable/OrderTab
 import { Title } from '../../UserHome/UserHomeElements';
 import { ContainBanner, InfoBanner,Banner,ButtonWallet,ImgBannerr,Henry,TitleHenry } from '../../UserHome/UserHomeElements';
 
-const ROWS_BY_PAGE=10;
+const ROWS_PER_PAGE=10;
 
 const SubscriptionTable = () => {
 
@@ -47,8 +47,8 @@ const SubscriptionTable = () => {
 
     // states
     const [actualPage, setActualPage] = useState(1);
-    let topRows = ROWS_BY_PAGE * actualPage;
-    let initialRows = topRows - ROWS_BY_PAGE;
+    let topRows = ROWS_PER_PAGE * actualPage;
+    let initialRows = topRows - ROWS_PER_PAGE;
     const [currentSortKey, setCurrentSortKey] = useState(""); // Keys:symbol1,symbol2, alertOnRise,alertOnFall,id
     const [filterForm, setFilterForm] = useState({
         symbol1:"",

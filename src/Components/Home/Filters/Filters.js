@@ -4,8 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {
   getGlobalPrices, 
   currencyGlobalPrices,
-  orderGlobalPrices,
-  filterGlobalPrices
+  sortPrices,
+  filterPrices
 } from '../../../Redux/Actions/actionCreators';
 
 import {
@@ -40,8 +40,8 @@ export default function Filters(){
   }
 
   const handlerFilter = (e) => {
-    filterGlobalPrices(dispatch,{symbol:e.target.value}); 
-    getGlobalPrices(dispatch,currency);   
+    filterPrices(dispatch,{symbol:e.target.value}); 
+    //getGlobalPrices(dispatch,currency);   
   }
 
   return (

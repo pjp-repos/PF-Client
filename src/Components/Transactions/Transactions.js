@@ -21,7 +21,7 @@ import NavBar from "../Navbar/NavBar";
 import { Wallet ,SelectTransactions,ContainerFiltersT } from "./TransactionsElements";
 import Spinner from "../AaaGenerics/Loaders/Spinner/Spinner";
 
-const ROWS_BY_PAGE = 10;
+const ROWS_PER_PAGE = 10;
 
 export default function Transactions(){
     // Router
@@ -29,8 +29,8 @@ export default function Transactions(){
 
     // States
     const [actualPage, setActualPage] = useState(1);
-    let topRows = ROWS_BY_PAGE * actualPage ;
-    let initialRows = topRows - ROWS_BY_PAGE;
+    let topRows = ROWS_PER_PAGE * actualPage ;
+    let initialRows = topRows - ROWS_PER_PAGE;
 	const [currentSortKey, setCurrentSortKey] = useState("");
 	const [filterForm, setFilterForm] = useState({
 		symbol:"",
@@ -116,7 +116,7 @@ export default function Transactions(){
 				</SelectTransactions>
 			</ContainerFiltersT>
 			{transactions.length > 0 && <TransactionsTable transactionsUser = {transactions.slice(initialRows,topRows)}/>}
-			{transactions.length > 0 && <Pagination totalCryptos = {transactions.length} cryptosForPage = {ROWS_BY_PAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
+			{transactions.length > 0 && <Pagination totalCryptos = {transactions.length} cryptosForPage = {ROWS_PER_PAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
 		</>
 	)
 }

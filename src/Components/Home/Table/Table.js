@@ -6,7 +6,7 @@ import { useDispatch,useSelector } from "react-redux";
 import { selectGlobalPricesCurrency,selectGlobalPricesOrder } from "../../../Redux/Selectors/selectors";
 import { FaAngleDown,FaAngleUp } from "react-icons/fa";
 import { DivButtons,ButtonOrder } from "../../Orders/OrderTable/OrderTableElements";
-import { orderGlobalPrices,getGlobalPrices } from "../../../Redux/Actions/actionCreators";
+import { sortPrices,filterPrices,getGlobalPrices } from "../../../Redux/Actions/actionCreators";
 
 export default function Table({cryptos}){
   const dispatch = useDispatch();
@@ -15,8 +15,8 @@ export default function Table({cryptos}){
 
   const handlerOrder = (keyValue) => {
     console.log(keyValue);
-    orderGlobalPrices(dispatch,keyValue); 
-    getGlobalPrices(dispatch,currency);   
+    sortPrices(dispatch,keyValue); 
+    //getGlobalPrices(dispatch,currency);   
   }
 
     return (
