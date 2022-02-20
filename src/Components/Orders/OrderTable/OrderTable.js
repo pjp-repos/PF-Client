@@ -1,5 +1,5 @@
 // Packages
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useSelector,useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
 // Redux
@@ -39,52 +39,53 @@ import { FaAngleDown,FaAngleUp } from "react-icons/fa";
 import Spinner from "../../AaaGenerics/Loaders/Spinner/Spinner";
 
 
-const ORDERFORPAGE = 10;
+const ROWS_BY_PAGE = 10;
 
 export default function OrderTable(){
-    // React router
-    const navigate = useNavigate();
-    
-    const [actualPage, setActualPage] = useState(1);
-    let topOrders = ORDERFORPAGE * actualPage;
-    let initialOrders = topOrders - ORDERFORPAGE;
-    const [currentSortKey, setCurrentSortKey] = useState("");
-    const [filterForm, setFilterForm] = useState({
-        symbol1:"",
-        symbol2:"",
-        dateFrom:"",
-        dateTo:"",
-    });
+  // React router
+  const navigate = useNavigate();
   
-    // Redux
-    const dispatch = useDispatch();
-    const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
-    const [ordersData, ordersStatus, ordersError ] = useSelector(selectOrdersAll);
-    const [deleteData, deleteStatus, deleteError ] = useSelector(selectDeleteOrderAll);
- 
-    React.useEffect(() => {
-      if(!isAuthenticated)
-         navigate("/signin")
-      else{
-          getOrders(dispatch,token);
-      }
-    },[]);
+  // states
+  const [actualPage, setActualPage] = useState(1);
+  let topRows = ROWS_BY_PAGE * actualPage;
+  let initialRows = topRows - ROWS_BY_PAGE;
+  const [currentSortKey, setCurrentSortKey] = useState("");
+  const [filterForm, setFilterForm] = useState({
+      symbol1:"",
+      symbol2:"",
+      dateFrom:"",
+      dateTo:"",
+  });
+
+  // Redux
+  const dispatch = useDispatch();
+  const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
+  const [ordersData, ordersStatus, ordersError ] = useSelector(selectOrdersAll);
+  const [deleteData, deleteStatus, deleteError ] = useSelector(selectDeleteOrderAll);
+
+  useEffect(() => {
+    if(!isAuthenticated)
+        navigate("/signin")
+    else{
+        getOrders(dispatch,token);
+    }
+  },[isAuthenticated]);
 
   const handlerDelete = (e) => {
-      if(window.confirm('Are you sure you want to delete….?'))
-      {
-          deleteOrder(dispatch, token, e.target.id);            
-      }
+    if(window.confirm('Are you sure you want to delete….?'))
+    {
+        deleteOrder(dispatch, token, e.target.id);            
+    }
   }
 
   const editForm = (e) => {
-      resetUpdateOrderStatus(dispatch);
-      navigate(`/order/form/${e.target.id}`)
+    resetUpdateOrderStatus(dispatch);
+    navigate(`/order/form/${e.target.id}`)
   }
 
   const addForm = (e) => {
-      resetAddOrderStatus(dispatch);
-      navigate("./form")
+    resetAddOrderStatus(dispatch);
+    navigate("./form")
   }
   
   
@@ -178,7 +179,7 @@ export default function OrderTable(){
             </RowO>
            
             {
-              ordersData.slice(initialOrders,topOrders).map(orderItem=><RowO key = {orderItem.id}>
+              ordersData.slice(initialRows,topRows).map(orderItem=><RowO key = {orderItem.id}>
               <Column>{orderItem.id}</Column>
               <Column><img src={orderItem.symbol1.image} height='20px'/>{orderItem.symbol1.symbol}</Column>
               <Column><img src={orderItem.symbol2.image} height='20px'/>{orderItem.symbol2.symbol}</Column>
@@ -199,7 +200,7 @@ export default function OrderTable(){
               </RowO>) 
             }
         </TableO>
-        <Pagination totalCryptos = {ordersData.length} cryptosForPage = {ORDERFORPAGE} actualPage = {actualPage} setActualPage = {setActualPage} />
+        <Pagination totalCryptos = {ordersData.length} cryptosForPage = {ROWS_BY_PAGE} actualPage = {actualPage} setActualPage = {setActualPage} />
     </Container>
   )
 };

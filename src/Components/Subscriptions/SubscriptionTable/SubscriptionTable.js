@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import {useNavigate, Link} from "react-router-dom";
 
 //Redux
@@ -8,7 +8,9 @@ import {
     getSymbols,
     deleteSubscription,
     formSubscriptionsNewBtn,
-    formSubscriptionsEditBtn
+    formSubscriptionsEditBtn,
+    filterSubscriptions,
+    sortSubscriptions,
 } from '../../../Redux/Actions/actionCreators';
 import { 
     selectSubscriptionsAll,
@@ -36,12 +38,25 @@ import { BannerImg,BannerOrder,DivBanner} from '../../Orders/OrderTable/OrderTab
 import { Title } from '../../UserHome/UserHomeElements';
 import { ContainBanner, InfoBanner,Banner,ButtonWallet,ImgBannerr,Henry,TitleHenry } from '../../UserHome/UserHomeElements';
 
+const ROWS_BY_PAGE=10;
 
 const SubscriptionTable = () => {
 
     // Router-dom hooks
     const navigate = useNavigate();
- 
+
+    // states
+    const [actualPage, setActualPage] = useState(1);
+    let topRows = ROWS_BY_PAGE * actualPage;
+    let initialRows = topRows - ROWS_BY_PAGE;
+    const [currentSortKey, setCurrentSortKey] = useState(""); // Keys:symbol1,symbol2, alertOnRise,alertOnFall,id
+    const [filterForm, setFilterForm] = useState({
+        symbol1:"",
+        symbol2:"",
+        alertOnRise:"",
+        alertOnFall:"",
+    });
+
     // Redux
     const dispatch = useDispatch();
     const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
@@ -49,11 +64,14 @@ const SubscriptionTable = () => {
     const [deleteData, deleteStatus, deleteError ] = useSelector(selectDeleteSubscriptionAll);
 
     // Load table data and any other data who is needed by the form
-    useEffect(()=>{
-        isAuthenticated && getSubscriptions(dispatch, token);
-        isAuthenticated && getSymbols(dispatch,token); 
-    }, [isAuthenticated]);
-    
+    useEffect(() => {
+        if(!isAuthenticated)
+            navigate("/signin")
+        else{
+            getSubscriptions(dispatch, token);
+            getSymbols(dispatch,token);
+        }
+    },[isAuthenticated]);
     
     // New - Edit - Delete events
     const handleNew = () =>{
@@ -73,6 +91,20 @@ const SubscriptionTable = () => {
         }
     };
 
+    const handlerFilter = (filterKey,filterValue)=>{
+        // Notice: For no filter, filterValue has to be "" (Empty string).
+        let newFilterForm={
+            ...filterForm,
+            [filterKey]:filterValue
+        };
+        setFilterForm(newFilterForm);
+        filterSubscriptions(dispatch,newFilterForm);
+    };
+    
+    const handlerSort = (sortKey)=>{
+        setCurrentSortKey(sortKey);
+        sortSubscriptions(dispatch,sortKey);
+    };
 
     // === RENDERS ============================================
 
@@ -83,8 +115,7 @@ const SubscriptionTable = () => {
         deleteStatus===1
 
     ) return (
-            <Spinner/>
-                 
+            <Spinner/>                 
     );
 
     // Errors
@@ -131,9 +162,9 @@ const SubscriptionTable = () => {
                 <RowS head='head'>
                     <Column>id</Column>
                     <Column>Pair</Column>
-                    <Column>Symbol1</Column>
+                    <Column onClick={()=>handlerSort("symbol1Asc")}>Symbol1</Column>
                     <Column></Column>
-                    <Column>Symbol2</Column>
+                    <Column onClick={()=>handlerSort("symbol1Desc")} >Symbol2</Column>
                     <Column>Price</Column>
                     <Column>Fall Price</Column>
                     <Column>AlertOnFall</Column>

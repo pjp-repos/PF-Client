@@ -37,7 +37,7 @@ export const selectSessionEmail = state=> state.session.email;
 export const selectSessionAll = state=> [state.session.userName,state.session.token,state.session.isAuthenticated, state.session.email];
 
 // ==== Subscriptions ===================================================================
-export const selectSubscriptionsAll = state=> [state.subscriptions.data, state.subscriptions.status,state.subscriptions.error];
+export const selectSubscriptionsAll = state=> [state.subscriptions.dataFAS, state.subscriptions.status,state.subscriptions.error];
 export const selectAddSubscriptionAll = state=> [state.addSubscription.data,state.addSubscription.status,state.addSubscription.error];
 export const selectUpdateSubscriptionAll = state=> [state.updateSubscription.data,state.updateSubscription.status,state.updateSubscription.error];
 export const selectDeleteSubscriptionAll = state=> [state.deleteSubscription.data,state.deleteSubscription.status,state.deleteSubscription.error];
