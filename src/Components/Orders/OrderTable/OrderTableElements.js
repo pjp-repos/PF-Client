@@ -4,7 +4,7 @@ import {TableC} from "../../Home/Table/TableElements"
 import { Card ,Img} from "../../UserHome/UserHomeElements"
 
 export const RowO = styled(Row)`
-  grid-template-columns: 0.08fr 0.15fr 0.15fr 0.15fr 0.16fr 0.15fr 0.15fr 0.15fr  0.15fr 0.22fr  ;
+  grid-template-columns: 0.08fr 0.15fr 0.15fr 0.15fr 0.16fr 0.15fr 0.17fr 0.15fr  0.15fr 0.22fr  ;
   margin-left:auto;
   margin-right:auto;
   width:100%;
@@ -49,7 +49,6 @@ export const TableO = styled(TableC)`
 `
 export const ContainerEdit = styled.div `
   width:100%;
-  background-color:blue;
   height:100%;
 `
 export const ImgEdit = styled.img`
@@ -84,4 +83,18 @@ export const BannerOrder = styled(Card)`
 export const BannerImg = styled(Img)`
     height:100%;
     opacity:0.6;
+`
+export const ButtonOrder = styled.button`
+  border:0;
+  color:white;
+  outline:0;
+  background-color:transparent;
+  height:13px;
+  ${props => props.id === props.actual && 'color:#efb810;'}
+`
+export const DivButtons = styled.div`
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
 `
