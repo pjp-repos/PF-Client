@@ -11,14 +11,27 @@ import {
   filterOrders,
   sortOrders
 } from "../../../Redux/Actions/actionCreators";
-import {selectOrdersAll,selectSessionAll, selectDeleteOrderAll} from "../../../Redux/Selectors/selectors"
+import {
+  selectOrdersAll,
+  selectSessionAll, 
+  selectDeleteOrderAll
+} from "../../../Redux/Selectors/selectors"
 // Assets
 import Delete from "../../../Assets/delete.svg"
 import Edit from "../../../Assets/edit.svg"
 import img from "../../../Assets/Images/orderBanner.png"
 // Components
+import { 
+  Container ,
+  TableO,
+  RowO,
+  BannerOrder,
+  DivBanner,
+  BannerImg,
+  DivButtons,
+  ButtonOrder
+} from "./OrderTableElements";
 import Pagination from "../../Home/Pagination/Pagination";
-import { Container ,TableO,RowO,BannerOrder,DivBanner,BannerImg,DivButtons,ButtonOrder} from "./OrderTableElements";
 import { Column } from "../../Home/Table/Column";
 import { Title } from "../../UserHome/UserHomeElements";
 import { ButtonE } from "../../Subscriptions/SubscriptionTable/SubscriptionTableElements";
@@ -35,7 +48,13 @@ export default function OrderTable(){
     const [actualPage, setActualPage] = useState(1);
     let topOrders = ORDERFORPAGE * actualPage;
     let initialOrders = topOrders - ORDERFORPAGE;
-    const [actualFilter, setActualFilter] = useState("");
+    const [currentSortKey, setCurrentSortKey] = useState("");
+    const [filterForm, setFilterForm] = useState({
+        symbol1:"",
+        symbol2:"",
+        dateFrom:"",
+        dateTo:"",
+    });
   
     // Redux
     const dispatch = useDispatch();
@@ -68,12 +87,21 @@ export default function OrderTable(){
       navigate("./form")
   }
   
-  //
-  const handlerOrder = (keyForm)=>{
-    setActualFilter(keyForm);
-    sortOrders(dispatch,keyForm);
-    //getOrders(dispatch,token);
-  }
+  
+  const handlerFilter = (filterKey,filterValue)=>{
+    // Notice: For no filter, filterValue has to be "" (Empty string).
+    let newFilterForm={
+      ...filterForm,
+      [filterKey]:filterValue
+    };
+    setFilterForm(newFilterForm);
+    filterOrders(dispatch,newFilterForm);
+  };
+
+  const handlerSort = (sortKey)=>{
+    setCurrentSortKey(sortKey);
+    sortOrders(dispatch,sortKey);
+  };
   
   // === RENDERS ============================================
 
@@ -120,14 +148,14 @@ export default function OrderTable(){
             <RowO head>
                 <Column>Id</Column> 
                 <Column>Symbol1 <DivButtons>
-                     <ButtonOrder onClick={() => handlerOrder("symbol1Asc")} actual = {actualFilter} id = "symbol1Asc" > { <FaAngleUp/>} </ButtonOrder>
-                     <ButtonOrder onClick={() => handlerOrder("symbol1Desc")} actual = {actualFilter} id = "symbol1Desc"> { <FaAngleDown/>} </ButtonOrder>
+                     <ButtonOrder onClick={() => handlerSort("symbol1Asc")} actual = {currentSortKey} id = "symbol1Asc" > { <FaAngleUp/>} </ButtonOrder>
+                     <ButtonOrder onClick={() => handlerSort("symbol1Desc")} actual = {currentSortKey} id = "symbol1Desc"> { <FaAngleDown/>} </ButtonOrder>
                   </DivButtons>
                 </Column> 
                 <Column >symbol2 
                   <DivButtons>
-                      <ButtonOrder onClick={() => handlerOrder("symbol2Asc")} actual = {actualFilter} id = "symbol2Asc" > { <FaAngleUp/>} </ButtonOrder>
-                      <ButtonOrder onClick={() => handlerOrder("symbol2Desc")} actual = {actualFilter} id = "symbol2Desc"> { <FaAngleDown/>} </ButtonOrder>
+                      <ButtonOrder onClick={() => handlerSort("symbol2Asc")} actual = {currentSortKey} id = "symbol2Asc" > { <FaAngleUp/>} </ButtonOrder>
+                      <ButtonOrder onClick={() => handlerSort("symbol2Desc")} actual = {currentSortKey} id = "symbol2Desc"> { <FaAngleDown/>} </ButtonOrder>
                   </DivButtons>
                 </Column> 
                 <Column>Amount</Column> 
@@ -135,15 +163,15 @@ export default function OrderTable(){
                 <Column>PriceLimit</Column> 
                 <Column>Type Order
                   <DivButtons>
-                      <ButtonOrder onClick={() => handlerOrder("typeAsc")} actual = {actualFilter} id = "typeAsc" > { <FaAngleUp/>} </ButtonOrder>
-                      <ButtonOrder onClick={() => handlerOrder("typeDesc")} actual = {actualFilter} id = "typeDesc"> { <FaAngleDown/>} </ButtonOrder>
+                      <ButtonOrder onClick={() => handlerSort("typeAsc")} actual = {currentSortKey} id = "typeAsc" > { <FaAngleUp/>} </ButtonOrder>
+                      <ButtonOrder onClick={() => handlerSort("typeDesc")} actual = {currentSortKey} id = "typeDesc"> { <FaAngleDown/>} </ButtonOrder>
                   </DivButtons>
                 </Column>  
                 <Column>State Order</Column> 
                 <Column >Date 
                   <DivButtons>
-                    <ButtonOrder  onClick={() => handlerOrder("dateAsc")} actual = {actualFilter} id = "dateAsc" > { <FaAngleUp/>} </ButtonOrder>
-                    <ButtonOrder  onClick={() => handlerOrder("dateDesc")} actual = {actualFilter} id = "dateDesc" > { <FaAngleDown/>} </ButtonOrder>
+                    <ButtonOrder  onClick={() => handlerSort("dateAsc")} actual = {currentSortKey} id = "dateAsc" > { <FaAngleUp/>} </ButtonOrder>
+                    <ButtonOrder  onClick={() => handlerSort("dateDesc")} actual = {currentSortKey} id = "dateDesc" > { <FaAngleDown/>} </ButtonOrder>
                   </DivButtons>
                 </Column>  
                 <Column>Edit</Column>  
@@ -165,8 +193,8 @@ export default function OrderTable(){
                   <Column >
                     <ButtonE id = {orderItem.id} onClick = {editForm}><img id = {orderItem.id} src = {Edit} height="20px" alt = "edit"/></ButtonE>
                     <ButtonE id={orderItem.id} onClick={handlerDelete}><img id = {orderItem.id} src = {Delete} height="20px" alt = "delete"/></ButtonE>
-                  </Column>
-                  : <Column>Order Not Editable</Column>
+                  </Column>: 
+                  <Column>Not Editable</Column>
                 }
               </RowO>) 
             }
