@@ -72,7 +72,7 @@ export default function OrderTable(){
   const handlerOrder = (keyForm)=>{
     setActualFilter(keyForm);
     sortOrders(dispatch,keyForm);
-    getOrders(dispatch,token);
+    //getOrders(dispatch,token);
   }
   
   // === RENDERS ============================================

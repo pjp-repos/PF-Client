@@ -44,31 +44,13 @@ export const selectDeleteSubscriptionAll = state=> [state.deleteSubscription.dat
 export const selectSubscriptionFormAll = state=>[state.formSubscriptions.form,state.formSubscriptions.edit ,state.formSubscriptions.errors,state.formSubscriptions.error]
 
 // ==== Orders ===================================================================
-export const selectOrders = state=> state.orders.data;
-export const selectOrdersStatus = state=> state.orders.status;
-export const selectOrdersError = state=> state.orders.error;
-export const selectOrdersAll = state=> [state.orders.data,state.orders.status,state.orders.error];
-
-export const selectOrder = state=> state.order.data;
-export const selectOrderStatus = state=> state.order.status;
-export const selectOrderError = state=> state.order.error;
+export const selectOrdersAll = state=> [state.orders.dataFAS,state.orders.status,state.orders.error];
 export const selectOrderAll = state=> [state.order.data,state.order.status,state.order.error];
-
-// export const selectAddOrder = state=> state.addOrder.data;
-// export const selectAddOrderStatus = state=> state.addOrder.status;
-// export const selectAddOrderError = state=> state.addOrder.error;
 export const selectAddOrderAll = state=> [state.addOrder.data,state.addOrder.status,state.addOrder.error];
-
-// export const selectUpdateOrder = state=> state.updateOrder.data;
-// export const selectUpdateOrderStatus = state=> state.updateOrder.status;
-// export const selectUpdateOrderError = state=> state.updateOrder.error;
 export const selectUpdateOrderAll = state=> [state.updateOrder.data,state.updateOrder.status,state.updateOrder.error];
-
-export const selectDeleteOrder = state=> state.deleteOrder.data;
-export const selectDeleteOrderStatus = state=> state.deleteOrder.status;
-export const selectDeleteOrderError = state=> state.deleteOrder.error;
 export const selectDeleteOrderAll = state=> [state.deleteOrder.data,state.deleteOrder.status,state.deleteOrder.error];
 
+// ==== Transactions ===================================================================
 export const selectTransactions = state=> state.transactions.data;
 export const selectTransactionsStatus = state=> state.transactions.status;
 export const selectTransactionsError = state=> state.transactions.error;
