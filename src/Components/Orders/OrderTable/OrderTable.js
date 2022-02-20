@@ -74,6 +74,7 @@ export default function OrderTable(){
     sortOrders(dispatch,keyForm);
     getOrders(dispatch,token);
   }
+  
   // === RENDERS ============================================
 
   if(!isAuthenticated)return(<p>Forbbiden</p>)
