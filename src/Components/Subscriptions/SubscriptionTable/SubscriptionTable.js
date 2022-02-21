@@ -177,31 +177,31 @@ const SubscriptionTable = () => {
             <SubscriptionFilters />            
            <TableS>                               
                 <RowS head='head'>
-                    <Column>id</Column>
-                    <Column>Pair</Column>
-                    <Column>Symbol1
+                    {/* <Column>id</Column>
+                    <Column>Pair</Column> */}
+                    <Column>Symbol 1
                        <DivButtons>
                          <ButtonOrder onClick={() => handlerSort("symbol1Asc")} actual = {currentSortKey} id = "symbol1Asc" > { <FaAngleUp/>} </ButtonOrder>
                          <ButtonOrder onClick={() => handlerSort("symbol1Desc")} actual = {currentSortKey} id = "symbol1Desc"> { <FaAngleDown/>} </ButtonOrder>
                       </DivButtons>         
                     </Column>
                     <Column></Column>
-                    <Column>Symbol2
+                    <Column>Symbol 2
                         <DivButtons>
                            <ButtonOrder onClick={() => handlerSort("symbol2Asc")} actual = {currentSortKey} id = "symbol2Asc" > { <FaAngleUp/>} </ButtonOrder>
                            <ButtonOrder onClick={() => handlerSort("symbol2Desc")} actual = {currentSortKey} id = "symbol2Desc"> { <FaAngleDown/>} </ButtonOrder>
                         </DivButtons>  
                     </Column>
                     <Column>Price</Column>
-                    <Column>Fall Price</Column>
-                    <Column>AlertOnFall</Column>
-                    <Column>Rise Price</Column>
-                    <Column>AlertOnRise</Column>
+                    <Column>Fall price</Column>
+                    <Column>Fall alert</Column>
+                    <Column>Rise price</Column>
+                    <Column>Rise alert</Column>
                 </RowS>
                 {subsData.slice(initialRows,topRows).map(s => (
                     <RowS key={s.id} id={s.id}>
-                        <Column>{s.id}</Column>
-                        <Column>{s.pair}</Column>
+                        {/* <Column>{s.id}</Column>
+                        <Column>{s.pair}</Column> */}
                         <Column><img src={s.symbol1[1]} height='20px'/>{s.symbol1[0]}</Column>
                         <Column><img src={arrow} width='20px'/></Column>
                          <Column><img src={s.symbol2[1]} height='20px'/>{s.symbol2[0]}</Column>
