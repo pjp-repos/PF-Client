@@ -4,13 +4,17 @@ const includeTxtSensitive = (el,param, cb) =>{
 };
 
 const dateFrom = (el,param, cb) =>{
-    let field = cb(el);
-    return field >= param || param==="";
+    let field = cb(el).split('/').join('');
+    let dateParam = param.split('-').join('');
+    let result = field >= dateParam
+    return result || param==="";
 };
 
 const dateTo = (el,param, cb) =>{
-    let field = cb(el);
-    return field <= param || param==="";
+    let field = cb(el).split('/').join('');
+    let dateParam = param.split('-').join('');
+    let result = field <= dateParam
+    return result || param==="";
 };
 
 const booleanCkeck = (el,param, cb) =>{
