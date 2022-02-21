@@ -20,6 +20,7 @@ import Pagination from "../Home/Pagination/Pagination";
 import NavBar from "../Navbar/NavBar";
 import { Wallet ,SelectTransactions,ContainerFiltersT } from "./TransactionsElements";
 import Spinner from "../AaaGenerics/Loaders/Spinner/Spinner";
+import Swal from 'sweetalert2'
 
 const ROWS_PER_PAGE = 10;
 
