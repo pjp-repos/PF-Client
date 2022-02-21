@@ -37,6 +37,7 @@ import { Title } from "../../UserHome/UserHomeElements";
 import { ButtonE } from "../../Subscriptions/SubscriptionTable/SubscriptionTableElements";
 import { FaAngleDown,FaAngleUp } from "react-icons/fa";
 import Spinner from "../../AaaGenerics/Loaders/Spinner/Spinner";
+import OrderFilters from "./OrderFilters/OrderFiltersElements";
 
 
 const ROWS_PER_PAGE = 10;
@@ -50,12 +51,7 @@ export default function OrderTable(){
   let topRows = ROWS_PER_PAGE * actualPage;
   let initialRows = topRows - ROWS_PER_PAGE;
   const [currentSortKey, setCurrentSortKey] = useState("");
-  const [filterForm, setFilterForm] = useState({
-      symbol1:"",
-      symbol2:"",
-      dateFrom:"",
-      dateTo:"",
-  });
+  
 
   // Redux
   const dispatch = useDispatch();
@@ -88,17 +84,6 @@ export default function OrderTable(){
     navigate("./form")
   }
   
-  
-  const handlerFilter = (filterKey,filterValue)=>{
-    // Notice: For no filter, filterValue has to be "" (Empty string).
-    let newFilterForm={
-      ...filterForm,
-      [filterKey]:filterValue
-    };
-    setFilterForm(newFilterForm);
-    filterOrders(dispatch,newFilterForm);
-  };
-
   const handlerSort = (sortKey)=>{
     setCurrentSortKey(sortKey);
     sortOrders(dispatch,sortKey);
@@ -145,6 +130,7 @@ export default function OrderTable(){
             <BannerImg className = "Img" src =  "https://images.unsplash.com/photo-1631603090989-93f9ef6f9d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80" alt = "banner" />
           </BannerOrder>
          </DivBanner>
+         <OrderFilters orders = {ordersData} />
        <TableO>
             <RowO head>
                 <Column>Id</Column> 
