@@ -19,7 +19,8 @@ const dateTo = (el,param, cb) =>{
 
 const booleanCkeck = (el,param, cb) =>{
     let field = cb(el);
-    return field === param || param==="";
+    let paramBool = param === true || param === 'true'? true : false;
+    return field === paramBool || param==="";
 };
 
 
