@@ -38,8 +38,8 @@ import { BannerImg,BannerOrder,DivBanner} from '../../Orders/OrderTable/OrderTab
 import { FaAngleDown,FaAngleUp } from "react-icons/fa";
 import { Title } from '../../UserHome/UserHomeElements';
 import { DivButtons,ButtonOrder } from '../../Orders/OrderTable/OrderTableElements';
-import { ContainBanner, InfoBanner,Banner,ButtonWallet,ImgBannerr,Henry,TitleHenry } from '../../UserHome/UserHomeElements';
 import SubscriptionFilters from './SubscriptionFilters';
+import Pagination from '../../Home/Pagination/Pagination';
 
 const ROWS_PER_PAGE=10;
 
@@ -157,7 +157,7 @@ const SubscriptionTable = () => {
                     <Column>Rise Price</Column>
                     <Column>AlertOnRise</Column>
                 </RowS>
-                {subsData.map(s => (
+                {subsData.slice(initialRows,topRows).map(s => (
                     <RowS key={s.id} id={s.id}>
                         <Column>{s.id}</Column>
                         <Column>{s.pair}</Column>
@@ -182,6 +182,7 @@ const SubscriptionTable = () => {
                     <Link to='/addsubscription'><Button>New Subscription</Button></Link>
                 </>} */}
             </TableS>            
+            {<Pagination totalCryptos = {subsData.length} cryptosForPage = {ROWS_PER_PAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
         </TableWrapper>
     )
 }
