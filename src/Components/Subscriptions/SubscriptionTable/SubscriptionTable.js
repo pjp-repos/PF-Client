@@ -39,7 +39,10 @@ import { FaAngleDown,FaAngleUp } from "react-icons/fa";
 import { Title } from '../../UserHome/UserHomeElements';
 import { DivButtons,ButtonOrder } from '../../Orders/OrderTable/OrderTableElements';
 import SubscriptionFilters from './SubscriptionFilters';
+
+import Swal from 'sweetalert2';
 import Pagination from '../../Home/Pagination/Pagination';
+
 
 const ROWS_PER_PAGE=10;
 
@@ -82,10 +85,29 @@ const SubscriptionTable = () => {
     };
 
     const handleDelete = (e) =>{
-        if(window.confirm('Are you sure you want to delete?'))
-        {
-            deleteSubscription(dispatch, token, e.target.id);            
-        }
+        Swal.fire({
+           title: 'Are you sure you want to delete it?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            background:'#14151a',
+            color:'white',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!' 
+        }).then(result => {
+            if(result.isConfirmed){
+                deleteSubscription(dispatch,token,e.target.id)
+                Swal.fire({
+                    background: '#14151a',
+                    title:'Subscription deleted succesfuly',
+                    icon:'success',
+                    timer:2500,
+                    color:'white',
+                    showConfirmButton: false, 
+                })
+            }
+        })
     };
     
     const handlerSort = (sortKey)=>{
@@ -107,22 +129,41 @@ const SubscriptionTable = () => {
 
     // Errors
     if(deleteStatus===3){
-        return(<p>{
-                `Oops. Something was wrong. 
-                ErrorCode:${deleteError.errorCode} 
-                ErrorType:${deleteError.errorType} 
-                ErrorMessage:${deleteError.errorMessage}
-                `
-        }</p>)
+        return(
+            Swal.fire({
+                icon:'error',
+                background:'#14151a',
+                color:'white',
+                title:`Oops. <p>Something was wrong.`,
+                html:`
+                <p>ErrorCode:${deleteError.errorCode}</p> 
+                <p>ErrorType:${deleteError.errorType}</p> 
+                <p>ErrorMessage:${deleteError.errorMessage}</p>
+`,
+            })
+        )
     }
     if(subsStatus===3){
-        return(<p>{
-                `Oops. Something was wrong. 
-                ErrorCode:${subsError.errorCode} 
-                ErrorType:${subsError.errorType} 
-                ErrorMessage:${subsError.errorMessage}
-                `
-        }</p>)
+        //return(<p>{
+        //`Oops.</p> Something was wrong. 
+                //ErrorCode:${subsError.errorCode} 
+                //ErrorType:${subsError.errorType} 
+                //ErrorMessage:${subsError.errorMessage}
+                //`
+        //}</p>)
+         return(
+            Swal.fire({
+                icon:'error',
+                background:'#14151a',
+                color:'white',
+                title:`Oops. Something was wrong.`,
+                html:`
+                <p>ErrorCode:${subsError.errorCode}</p> 
+                <p>ErrorType:${subsError.errorType}</p> 
+                <p>ErrorMessage:${subsError.errorMessage}</p>
+`,
+            })
+        )
     }
     return (
         <TableWrapper>

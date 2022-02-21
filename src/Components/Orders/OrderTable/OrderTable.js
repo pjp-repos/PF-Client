@@ -38,7 +38,7 @@ import { ButtonE } from "../../Subscriptions/SubscriptionTable/SubscriptionTable
 import { FaAngleDown,FaAngleUp } from "react-icons/fa";
 import Spinner from "../../AaaGenerics/Loaders/Spinner/Spinner";
 import OrderFilters from "./OrderFilters/OrderFiltersElements";
-
+import Swal from 'sweetalert2'
 
 const ROWS_PER_PAGE = 10;
 
@@ -68,10 +68,34 @@ export default function OrderTable(){
   },[isAuthenticated]);
 
   const handlerDelete = (e) => {
-    if(window.confirm('Are you sure you want to delete….?'))
-    {
-        deleteOrder(dispatch, token, e.target.id);            
-    }
+    //if(window.confirm('Are you sure you want to delete….?'))
+    //{
+        //deleteOrder(dispatch, token, e.target.id);            
+    //}
+    Swal.fire({
+           title: 'Are you sure you want to delete it?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            background:'#14151a',
+            color:'white',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!' 
+        }).then(result => {
+            if(result.isConfirmed ){
+                deleteOrder(dispatch,token,e.target.id)
+                Swal.fire({
+                    background: '#14151a',
+                    title:'Order deleted succesfuly',
+                    icon:'success',
+                    timer:2500,
+                    color:'white',
+                    showConfirmButton: false, 
+  })
+            }
+        })
+
   }
 
   const editForm = (e) => {
@@ -104,22 +128,48 @@ export default function OrderTable(){
 
   // Errors
   if(deleteStatus===3){
-      return(<p>{
-        `Oops. Something was wrong. 
-        ErrorCode:${deleteError.errorCode} 
-        ErrorType:${deleteError.errorType} 
-        ErrorMessage:${deleteError.errorMessage}
-        `
-      }</p>)
+      //return(<p>{
+        //`Oops. Something was wrong. 
+        //ErrorCode:${deleteError.errorCode} 
+        //ErrorType:${deleteError.errorType} 
+        //ErrorMessage:${deleteError.errorMessage}
+        //`
+      //}</p>)
+    return(
+      Swal.fire({
+        icon:'error',
+        background:'#14151a',
+        color:'white',
+        title:`Oops. Something was wrong.`,
+        html:`
+          <p>ErrorCode:${deleteError.errorCode}</p> 
+          <p>ErrorType:${deleteError.errorType}</p> 
+          <p>ErrorMessage:${deleteError.errorMessage}</p>`,
+            })
+        )
+
   }
   if(ordersStatus===3){
-      return(<p>{
-        `Oops. Something was wrong. 
-        ErrorCode:${ordersError.errorCode} 
-        ErrorType:${ordersError.errorType} 
-        ErrorMessage:${ordersError.errorMessage}
-        `
-      }</p>)
+      //return(<p>{
+        //`Oops. Something was wrong. 
+        //ErrorCode:${ordersError.errorCode} 
+        //ErrorType:${ordersError.errorType} 
+        //ErrorMessage:${ordersError.errorMessage}
+        //`
+      //}</p>)
+    return(
+      Swal.fire({
+        icon:'error',
+        background:'#14151a',
+        color:'white',
+        title:`Oops. Something was wrong.`,
+        html:`
+          <p>ErrorCode:${ordersError.errorCode}</p> 
+          <p>ErrorType:${ordersError.errorType}</p> 
+          <p>ErrorMessage:${ordersError.errorMessage}</p>`,
+            })
+        )
+
   }
   
   return (    

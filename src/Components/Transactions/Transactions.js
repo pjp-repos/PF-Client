@@ -21,6 +21,8 @@ import NavBar from "../Navbar/NavBar";
 import { Wallet ,SelectTransactions,ContainerFiltersT } from "./TransactionsElements";
 import Spinner from "../AaaGenerics/Loaders/Spinner/Spinner";
 import { DivInputFilters,Label,InputDate } from "../Orders/OrderTable/OrderFilters";
+import Swal from 'sweetalert2'
+
 
 const ROWS_PER_PAGE = 10;
 const initialState = 
@@ -89,23 +91,45 @@ export default function Transactions(){
 
     // Errors
     if(transactionsStatus===3){
-        return(<p>{
-                `Oops. Something was wrong. 
-                ErrorCode:${transactionsErrors.errorCode} 
-                ErrorType:${transactionsErrors.errorType} 
-                ErrorMessage:${transactionsErrors.errorMessage}
-                `
-        }</p>)
-    }
+        //return(<p>{
+                //`Oops. Something was wrong. 
+                //ErrorCode:${transactionsErrors.errorCode} 
+                //ErrorType:${transactionsErrors.errorType} 
+                //ErrorMessage:${transactionsErrors.errorMessage}
+                //`
+        //}</p>)
+		return (
+		 	Swal.fire({
+                    background: '#14151a',
+                    icon:'error',
+                    color: 'white',
+                    title: `Opps. An error ocurred.`,
+                    html: `<p>Type: ${transactionsErrors.errorType}.</p> 
+                        <p>Code: ${transactionsErrors.errorCode}.</p> 
+                        <p>Message: ${transactionsErrors.errorMessage}.</p>`,
+                })
+		)
+	}
 
     if(portfolioStatus===3){
-        return(<p>{
-                `Oops. Something was wrong. 
-                ErrorCode:${portfolioErrors.errorCode} 
-                ErrorType:${portfolioErrors.errorType} 
-                ErrorMessage:${portfolioErrors.errorMessage}
-                `
-        }</p>)
+        //return(<p>{
+                //`Oops. Something was wrong. 
+                //ErrorCode:${portfolioErrors.errorCode} 
+                //ErrorType:${portfolioErrors.errorType} 
+                //ErrorMessage:${portfolioErrors.errorMessage}
+                //`
+        //}</p>)
+		return (
+			Swal.fire({
+                    background: '#14151a',
+                    icon:'error',
+                    color: 'white',
+                    title: `Opps. An error ocurred.`,
+                    html: `<p>Type: ${portfolioErrors.errorType}.</p> 
+                        <p>Code: ${portfolioErrors.errorCode}.</p> 
+                        <p>Message: ${portfolioErrors.errorMessage}.</p>`,
+                })
+		)
     }
     
 	return (
