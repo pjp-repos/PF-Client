@@ -65,7 +65,7 @@ export const Label = styled.label`
 export const DivBtnFilter = styled.div`
   display:flex;
   justify-content:flex-end;
-  aling-items:flex-end;
+  align-items:flex-end;
   width:98%;
 `
 export const DivPair = styled.div`
