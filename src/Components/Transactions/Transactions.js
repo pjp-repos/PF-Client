@@ -20,9 +20,18 @@ import Pagination from "../Home/Pagination/Pagination";
 import NavBar from "../Navbar/NavBar";
 import { Wallet ,SelectTransactions,ContainerFiltersT } from "./TransactionsElements";
 import Spinner from "../AaaGenerics/Loaders/Spinner/Spinner";
+import { DivInputFilters,Label,InputDate } from "../Orders/OrderTable/OrderFilters";
 import Swal from 'sweetalert2'
 
+
 const ROWS_PER_PAGE = 10;
+const initialState = 
+	{
+		symbol:"",
+		dateFrom:"",
+		dateTo:"",
+	}
+
 
 export default function Transactions(){
     // Router
@@ -33,11 +42,7 @@ export default function Transactions(){
     let topRows = ROWS_PER_PAGE * actualPage ;
     let initialRows = topRows - ROWS_PER_PAGE;
 	const [currentSortKey, setCurrentSortKey] = useState("");
-	const [filterForm, setFilterForm] = useState({
-		symbol:"",
-		dateFrom:"",
-		dateTo:"",
-	});
+	const [filterForm, setFilterForm] = useState(initialState);
 
     // Redux
     const dispatch = useDispatch();
@@ -50,8 +55,9 @@ export default function Transactions(){
 		if(!isAuthenticated)
 			navigate("/signin")
 		else{
-			getTransactions(dispatch,token);    
+        	getTransactions(dispatch,token);    
 			getPortfolio(dispatch,token);
+			filterTransactions(dispatch,initialState);
 		}
     }, [isAuthenticated]);
 
@@ -131,10 +137,16 @@ export default function Transactions(){
 			<NavBar />
 			<ContainerFiltersT>
 				<Wallet onClick={(e) => navigate("../wallet")}>Wallet</Wallet>
-				<SelectTransactions id = "symbol" onChange = {(e)=>handlerFilter(e.target.name,e.target.value)}> 
-					<option id = "symbol" value = "">All</option>
+                <DivInputFilters>
+                  <Label>Date From</Label>
+                  <InputDate type="date" id="dateFrom"  min="2022-01-01" max="2030-12-31"  onChange={(e) => handlerFilter(e.target.id,e.target.value)} />
+                  <Label>Date to</Label>
+                  <InputDate type="date" id="dateTo"   min="2022-01-01" max="2030-12-31" onChange={(e) => handlerFilter(e.target.id,e.target.value)} /> 
+                </DivInputFilters>
+				<SelectTransactions id = "symbol" onChange = {(e)=>handlerFilter(e.target.id,e.target.value)}> 
+					<option id = "symbol" value = "">All Symbols</option>
 					{
-					portfolio.length > 0 &&  portfolio.map(type => <option key = {type.symbol} id = "symbol" value = {type.symbol}>{type.symbol}</option>)
+					   portfolio.length > 0 &&  portfolio.map(type => <option key = {type.symbol} id = "symbol" value = {type.symbol}>{type.symbol}</option>)
 					}
 				</SelectTransactions>
 			</ContainerFiltersT>

@@ -29,7 +29,7 @@ export const ContainerFiltersT = styled(ContainerFilters)`
 `
 export const Wallet = styled.button`
   width:130px;
-  height:40px;
+  height:45px;
   cursor:pointer;
   background-color:#efb810;
   color:white;
@@ -43,6 +43,7 @@ export const Wallet = styled.button`
 ` 
 export const SelectTransactions = styled(Select)`
   margin-right:50px;
+  height:45px;
 
 `
 export const TableT = styled(TableC)`
