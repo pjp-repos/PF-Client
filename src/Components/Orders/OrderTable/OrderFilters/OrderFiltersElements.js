@@ -9,11 +9,16 @@ const initialState = {
     dateFrom:"",
     dateTo:"",
 };
-export default function OrderFilters({orders}){
+export default function OrderFilters(){
     const dispatch = useDispatch();
     const [btnFilter,setBtnFilter] = React.useState(false);
 
     const [filterForm, setFilterForm] = React.useState(initialState);
+
+    React.useEffect(() => {
+        filterOrders(dispatch,initialState);
+   },[]);
+
 
     const setFilter = (filterKey,filterValue)=>{
         // Notice: For no filter, filterValue has to be "" (Empty string).
