@@ -41,10 +41,10 @@ export default function SubscriptionFilters(){
                 <InputSymbolsSubs id = "symbol1" onChange= {e => handlerFilter(e.target.id,e.target.value)} placeholder="Symbol1"/>
                 <InputSymbolsSubs id = "symbol2" onChange= {e => handlerFilter(e.target.id,e.target.value)} placeholder="Symbol2"/>  
                 <ContainerSelects>
-                <SelectSubs>
-                    <option>AlertOnFall</option>
-                    <option>Yes</option>
-                    <option>Not</option>
+                <SelectSubs id = "alertOnFall" onChange = {(e) => handlerFilter(e.target.id,e.target.value) }>
+                    <option id = "alerOnFall" value = "" >AlertOnFall</option>
+                    <option id = "alertOnFall" value = {true} >Yes</option>
+                    <option id = "alertOnFall" value = {false} >Not</option>
                 </SelectSubs>
                 <SelectSubs id = "alertOnRise" onChange = {(e) => handlerFilter(e.target.id,e.target.value)}>
                     <option id = "alertOnRise" value = "">AlertOnRise</option>

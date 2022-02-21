@@ -55,7 +55,7 @@ export const RowS= styled(Row)`
 `;
 
 export const TableWrapper = styled.div`
-    min-width: 100%;
+    min-width: 300px;
     width: 100%;
     margin-top:20px;
     display: flex;
