@@ -49,6 +49,12 @@ const filterCallbacks={
         dateFrom:(el,param)=>dateFrom(el,param,el=>el.date),
         dateTo:(el,param)=>dateTo(el,param,el=>el.date),
     },
+
+    portfolio:{
+        symbol:(el,param)=>includeTxtSensitive(el,param,el=>el.symbol),
+        dateFrom:(el,param)=>dateFrom(el,param,el=>el.date),
+        dateTo:(el,param)=>dateTo(el,param,el=>el.date),
+    },
  
 };
 
