@@ -28,6 +28,7 @@ export const selectSessionUsername = state=> state.session.userName;
 export const selectSessionToken = state=> state.session.token;
 export const selectSessionIsAuthenticated = state=> state.session.isAuthenticated;
 export const selectSessionEmail = state=> state.session.email;
+export const selectSessionTheme = state=> state.session.theme;
 export const selectSessionAll = state=> [state.session.userName,state.session.token,state.session.isAuthenticated, state.session.email];
 
 // ==== Subscriptions ===================================================================

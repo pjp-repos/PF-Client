@@ -35,6 +35,7 @@ export const SIGN_OUT_ERROR="SIGN_OUT_ERROR";
 
 // Setting session info after perform a loguin or logout
 export const SET_SESSION_INFO="SET_SESSION_INFO";
+export const SET_SESSION_THEME="SET_SESSION_THEME";
 
 // ==== SUBSCRIPTIONS CRUD =====================================
 // Envía solicitud del listado de suscripciones

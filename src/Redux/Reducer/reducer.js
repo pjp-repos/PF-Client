@@ -26,6 +26,7 @@ import {
     SIGN_OUT_STATUS,
     SIGN_OUT_ERROR,
     SET_SESSION_INFO,
+    SET_SESSION_THEME,
 
     // Fetch to get subscriptions
     GET_SUBSCRIPTIONS,
@@ -493,6 +494,15 @@ const reducer = (state = initialState, action) => {
                     token:token,
                     email:email,
                     isAuthenticated:isAuthenticated,
+                }
+            }
+
+        case SET_SESSION_THEME:
+            return {
+                ...state,
+                session:{
+                    ...state.session,
+                    theme:!state.session.theme,
                 }
             }
 

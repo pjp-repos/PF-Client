@@ -28,6 +28,7 @@ import {
     SIGN_OUT_STATUS,
     SIGN_OUT_ERROR,
     SET_SESSION_INFO,
+    SET_SESSION_THEME,
 
     GET_SUBSCRIPTIONS,
     GET_SUBSCRIPTIONS_STATUS,
@@ -183,6 +184,7 @@ export const getSingOut = (dispatch, token) =>{
     ]);
     
 };
+export const toggleTheme = (dispatch)=>dispatch({type:SET_SESSION_THEME,payload:0});
 
 // ==== SUBSCRIPTIONS ==============================================================================
 
