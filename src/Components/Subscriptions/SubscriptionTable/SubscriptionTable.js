@@ -39,6 +39,7 @@ import { FaAngleDown,FaAngleUp } from "react-icons/fa";
 import { Title } from '../../UserHome/UserHomeElements';
 import { DivButtons,ButtonOrder } from '../../Orders/OrderTable/OrderTableElements';
 import { ContainBanner, InfoBanner,Banner,ButtonWallet,ImgBannerr,Henry,TitleHenry } from '../../UserHome/UserHomeElements';
+import SubscriptionFilters from './SubscriptionFilters';
 
 const ROWS_PER_PAGE=10;
 
@@ -52,13 +53,7 @@ const SubscriptionTable = () => {
     let topRows = ROWS_PER_PAGE * actualPage;
     let initialRows = topRows - ROWS_PER_PAGE;
     const [currentSortKey, setCurrentSortKey] = useState(""); // Keys:symbol1,symbol2, alertOnRise,alertOnFall,id
-    const [filterForm, setFilterForm] = useState({
-        symbol1:"",
-        symbol2:"",
-        alertOnRise:"",
-        alertOnFall:"",
-    });
-
+   
     // Redux
     const dispatch = useDispatch();
     const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
@@ -91,16 +86,6 @@ const SubscriptionTable = () => {
         {
             deleteSubscription(dispatch, token, e.target.id);            
         }
-    };
-
-    const handlerFilter = (filterKey,filterValue)=>{
-        // Notice: For no filter, filterValue has to be "" (Empty string).
-        let newFilterForm={
-            ...filterForm,
-            [filterKey]:filterValue
-        };
-        setFilterForm(newFilterForm);
-        filterSubscriptions(dispatch,newFilterForm);
     };
     
     const handlerSort = (sortKey)=>{
@@ -157,6 +142,9 @@ const SubscriptionTable = () => {
                   <BannerImg className = "Img" src =  "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt = "banner" />
                 </BannerOrder>
              </DivBanner>
+            }
+            {
+                subsData.length > 0 && <SubscriptionFilters />
             }
            {  subsData.length > 0 && <TableS>
                 {/* {subs.length ?<> */}
