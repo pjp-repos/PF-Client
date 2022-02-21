@@ -22,6 +22,7 @@ export const ButtonE = styled(Button)`
 `;
 
 export const TableS = styled(TableC)`
+  margin-top:50px;
   @media screen and (max-width:920px){
     overflow-x:scroll;
     overflow-y:hidden;

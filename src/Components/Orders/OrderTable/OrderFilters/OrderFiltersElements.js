@@ -1,5 +1,5 @@
 import React from "react";
-import { ContainerFilters,InputDate,FilterBtn,SelectOrder,Container,BtnFilter,Label,DivBtnFilter, DivPair,DivDate} from "../OrderFilters";
+import { ContainerFilters,InputDate,InputSymbols,Container,BtnFilter,Label,DivBtnFilter, DivInputFilters} from "../OrderFilters";
 import { useDispatch } from "react-redux";
 import { filterOrders } from "../../../../Redux/Actions/actionCreators";
 
@@ -22,26 +22,8 @@ export default function OrderFilters({orders}){
           [filterKey]:filterValue
         };
         setFilterForm(newFilterForm);
+        filterOrders(dispatch,newFilterForm);
       };
-    
-    const filter = () => {
-        filterOrders(dispatch,filterForm);
-    }
-
-    const reset = () => {
-        setFilterForm(initialState);
-        filterOrders(dispatch,initialState);
-    }
-   
-    const arrayAvaliable = (condition) => {
-       let newArray = orders.map(el => el[condition].symbol);
-       let finalArray = [];
-       newArray.forEach(el => {
-          if(!finalArray.includes(el))
-            finalArray.push(el);
-       });
-       return finalArray;
-    }
     
     return (
         <Container>
@@ -51,30 +33,14 @@ export default function OrderFilters({orders}){
                </BtnFilter> 
             </DivBtnFilter>
             <ContainerFilters status = {btnFilter}>
-                <DivDate>
+                <DivInputFilters>
                   <Label>Date From</Label>
                   <InputDate type="date" id="dateFrom"  min="2022-01-01" max="2030-12-31"  onChange={(e) => setFilter(e.target.id,e.target.value)} />
                   <Label>Date to</Label>
-                  <InputDate type="date" id="dateTo"   min="2022-01-01" max="2030-12-31" onChange={(e) => setFilter(e.target.id,e.target.value)} />   
-                </DivDate>
-                <DivPair>
-                   <SelectOrder id = "symbol1" value = {filterForm.symbol1} onChange = {(e) => setFilter(e.target.id,e.target.value)}>
-                      <option id = "symbol1" value = "">All symbol 1</option>
-                      {
-                      orders.length > 0 && arrayAvaliable("symbol1").map(symbol1 => <option key = {symbol1} id ="symbol1" value = {symbol1}>{symbol1}</option>)
-                      }
-                   </SelectOrder>
-                   <SelectOrder id = "symbol2" value = {filterForm.symbol2} onChange = {(e) => setFilter(e.target.id,e.target.value)}>
-                      <option id = "symbol2" value = "">All symbol 2</option>
-                      {
-                       orders.length > 0 && arrayAvaliable("symbol2").map(symbol2 => <option key = {symbol2} id ="symbol2" value = {symbol2}>{symbol2}</option>)
-                      }
-                    </SelectOrder>
-                </DivPair>
-                <DivPair>
-                   <FilterBtn onClick={filter}>Filter</FilterBtn>
-                   <FilterBtn onClick={reset}>Reset</FilterBtn>
-                </DivPair>
+                  <InputDate type="date" id="dateTo"   min="2022-01-01" max="2030-12-31" onChange={(e) => setFilter(e.target.id,e.target.value)} /> 
+                  <InputSymbols id = "symbol1" onChange= {e => setFilter(e.target.id,e.target.value)} placeholder="Symbol1"/>
+                  <InputSymbols id = "symbol2" onChange= {e => setFilter(e.target.id,e.target.value)} placeholder="Symbol2"/>       
+                </DivInputFilters>
             </ContainerFilters>
         </Container>
     )
