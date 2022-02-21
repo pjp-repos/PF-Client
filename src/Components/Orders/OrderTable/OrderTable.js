@@ -92,7 +92,7 @@ export default function OrderTable(){
                     timer:2500,
                     color:'white',
                     showConfirmButton: false, 
-                })
+  })
             }
         })
 

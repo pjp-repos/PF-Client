@@ -21,6 +21,7 @@ import nomoney from "../../Assets/Images/nomoney.png"
 import {setSymbol1,setSymbol2,validatePair,validateSubmit} from "./OrderFunctions"
 import Graphics from "../Graphics/Graphics";
 import Spinner from '../AaaGenerics/Loaders/Spinner/Spinner'
+import Swal from 'sweetalert2'
 
 const stateOrderInitial = {
     type:"Market",
@@ -159,6 +160,14 @@ export default function Order(){
             )
         )        
     ){
+        Swal.fire({
+            icon:'success',
+            title: 'Order done successfully',
+            background: '#14151a',
+            color:'white',
+            timer:2000,
+            showConfirmButton:false,
+        })
         // return<p>Success!</p>
         navigate("/order");
         //
@@ -168,32 +177,59 @@ export default function Order(){
     
     // Add new subscription
     if(!update && statusAdd===3){
-        return(
-            <>
-                <p>
-                    {`Oops. An error ocurred. 
-                        Type: ${errorAdd.errorType} 
-                        Code: ${errorAdd.errorCode} 
-                        Message: ${errorAdd.errorMessage} 
-                    `}
-                </p>
-                <button onClick={()=>resetAddOrderStatus(dispatch)}>Ok</button>
-            </>)
+        //return(
+            //<>
+                //<p>
+                    //{`Oops. An error ocurred. 
+                        //Type: ${errorAdd.errorType} 
+                        //Code: ${errorAdd.errorCode} 
+                        //Message: ${errorAdd.errorMessage} 
+                    //`}
+                //</p>
+                //<button onClick={()=>resetAddOrderStatus(dispatch)}>Ok</button>
+            //</>)
+        Swal.fire({
+            background: '#14151a',
+            icon: 'error',
+            color: 'white',
+            title: `Opps. An error ocurred.`,
+            html: `<p>Type: ${errorAdd.errorType}.</p> 
+                   <p>Code: ${errorAdd.errorCode}.</p> 
+                   <p>Message: ${errorAdd.errorMessage}.</p>`,
+        }).then(result => {
+            if(result.isConfirmed){
+            resetAddOrderStatus(dispatch)
+            }        
+        })
     } 
 
     // Update subscription
     if(update && statusUpdate===3){
-        return(
-        <>
-            <p>
-                {`Oops. An error ocurred. 
-                    Type: ${errorUpdate.errorType} 
-                    Code: ${errorUpdate.errorCode} 
-                    Message: ${errorUpdate.errorMessage} 
-                `}
-            </p>
-            <button onClick={()=>resetUpdateOrderStatus(dispatch)}>Ok</button>
-        </>)
+        //return(
+        //<>
+            //<p>
+                //{`Oops. An error ocurred. 
+                    //Type: ${errorUpdate.errorType} 
+                    //Code: ${errorUpdate.errorCode} 
+                    //Message: ${errorUpdate.errorMessage} 
+                //`}
+            //</p>
+            //<button onClick={()=>resetUpdateOrderStatus(dispatch)}>Ok</button>
+        //</>)
+        Swal.fire({
+            background: '#14151a',
+            icon: 'error',
+            color: 'white',
+            title: `Opps. An error ocurred.`,
+            html: `<p>Type: ${errorUpdate.errorType}.</p> 
+                   <p>Code: ${errorUpdate.errorCode}.</p> 
+                   <p>Message: ${errorUpdate.errorMessage}.</p>`,
+        }).then(result => {
+            if(result.isConfirmed){
+            resetUpdateOrderStatus(dispatch)
+            }        
+        })
+
     } 
 
   return (

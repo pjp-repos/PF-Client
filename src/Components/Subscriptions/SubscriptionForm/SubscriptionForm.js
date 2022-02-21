@@ -132,8 +132,6 @@ const SubscriptionForm = () => {
         )        
     ){
         Swal.fire({
-            toast:true,
-            position: 'top-end',
             icon:'success',
             title: 'Subscription done successfully',
             background: '#14151a',
