@@ -16,6 +16,10 @@ export default function SubscriptionFilters(){
 
     const [filterForm, setFilterForm] = React.useState(initialState);
 
+    React.useEffect(() => {
+        filterSubscriptions(dispatch,initialState);
+    },[]);
+
     const handlerFilter = (filterKey,filterValue)=>{
         // Notice: For no filter, filterValue has to be "" (Empty string).
         let newFilterForm={
@@ -37,15 +41,15 @@ export default function SubscriptionFilters(){
                 <InputSymbolsSubs id = "symbol1" onChange= {e => handlerFilter(e.target.id,e.target.value)} placeholder="Symbol1"/>
                 <InputSymbolsSubs id = "symbol2" onChange= {e => handlerFilter(e.target.id,e.target.value)} placeholder="Symbol2"/>  
                 <ContainerSelects>
-                <SelectSubs>
-                    <option>AlertOnFall</option>
-                    <option>Yes</option>
-                    <option>Not</option>
+                <SelectSubs id = "alertOnFall" onChange = {(e) => handlerFilter(e.target.id,e.target.value) }>
+                    <option id = "alerOnFall" value = "" >AlertOnFall</option>
+                    <option id = "alertOnFall" value = {true} >Yes</option>
+                    <option id = "alertOnFall" value = {false} >Not</option>
                 </SelectSubs>
                 <SelectSubs id = "alertOnRise" onChange = {(e) => handlerFilter(e.target.id,e.target.value)}>
                     <option id = "alertOnRise" value = "">AlertOnRise</option>
-                    <option id = "alertOnRise" value = "Y">Yes</option>
-                    <option id = "alertOnRise" value = "N">Not</option>
+                    <option id = "alertOnRise" value = {true}>Yes</option>
+                    <option id = "alertOnRise" value = {false}>Not</option>
                 </SelectSubs>
             </ContainerSelects>     
             </ContainerFilters>  

@@ -28,6 +28,7 @@ export const selectSessionUsername = state=> state.session.userName;
 export const selectSessionToken = state=> state.session.token;
 export const selectSessionIsAuthenticated = state=> state.session.isAuthenticated;
 export const selectSessionEmail = state=> state.session.email;
+export const selectSessionTheme = state=> state.session.theme;
 export const selectSessionAll = state=> [state.session.userName,state.session.token,state.session.isAuthenticated, state.session.email];
 
 // ==== Subscriptions ===================================================================
@@ -47,10 +48,10 @@ export const selectDeleteOrderAll = state=> [state.deleteOrder.data,state.delete
 // ==== Transactions ===================================================================
 export const selectTransactionsAll = state=> [state.transactions.dataFAS,state.transactions.status,state.transactions.error];
 
-export const selectPortfolio = state=> state.portfolio.data;
+export const selectPortfolio = state=> state.portfolio.dataFAS;
 export const selectPortfolioStatus = state=> state.portfolio.status;
 export const selectPortfolioError = state=> state.portfolio.error;
-export const selectPortfolioAll = state=> [state.portfolio.data,state.portfolio.status,state.portfolio.error];
+export const selectPortfolioAll = state=> [state.portfolio.dataFAS,state.portfolio.status,state.portfolio.error];
 
 export const selectSettings = state=> state.settings.data;
 export const selectSettingsStatus = state=> state.settings.status;

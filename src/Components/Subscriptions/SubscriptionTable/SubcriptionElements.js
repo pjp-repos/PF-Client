@@ -18,6 +18,12 @@ export const InputSymbolsSubs = styled(InputSymbols)`
     width:80%;
     margin-top:10px;
  }
+ &::placeholder{
+    color:white;
+    font-family:'Montserrat', sans-serif;
+    font-size:18px;
+    text-align:center;
+}
   
 `
 export const ContainerFilters = styled.div`

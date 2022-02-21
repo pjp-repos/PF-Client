@@ -19,7 +19,8 @@ const dateTo = (el,param, cb) =>{
 
 const booleanCkeck = (el,param, cb) =>{
     let field = cb(el);
-    return field === param || param==="";
+    let paramBool = param === true || param === 'true'? true : false;
+    return field === paramBool || param==="";
 };
 
 
@@ -44,6 +45,12 @@ const filterCallbacks={
     },
     
     transactions:{
+        symbol:(el,param)=>includeTxtSensitive(el,param,el=>el.symbol),
+        dateFrom:(el,param)=>dateFrom(el,param,el=>el.date),
+        dateTo:(el,param)=>dateTo(el,param,el=>el.date),
+    },
+
+    portfolio:{
         symbol:(el,param)=>includeTxtSensitive(el,param,el=>el.symbol),
         dateFrom:(el,param)=>dateFrom(el,param,el=>el.date),
         dateTo:(el,param)=>dateTo(el,param,el=>el.date),

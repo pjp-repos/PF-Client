@@ -23,7 +23,7 @@ export default function Portafolio(){
 
     const dispatch=useDispatch();
     const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
-    const [data, subsStatus, subsError ] = useSelector(selectPortfolioAll);
+    const [data, status, errors ] = useSelector(selectPortfolioAll);
     const [deleteData, deleteStatus, deleteError ] = useSelector(selectPortfolioAll);
     const [toOrderSymbol,setToOrderSymbol] = useState(true);
     const [toOrderAmount, setOrderAmount] = useState(true);
@@ -36,7 +36,7 @@ export default function Portafolio(){
   if(!isAuthenticated)return(<p>Forbbiden</p>)
   // Loadings
   if(
-      subsStatus===1 ||
+      status===1 ||
       deleteStatus===1
 
   ) return (
@@ -57,12 +57,12 @@ export default function Portafolio(){
               `
       }</p>)
   }
-  if(subsStatus===3){
+  if(status===3){
       return(<p>{
               `Oops. Something was wrong. 
-              ErrorCode:${subsError.errorCode} 
-              ErrorType:${subsError.errorType} 
-              ErrorMessage:${subsError.errorMessage}
+              ErrorCode:${errors.errorCode} 
+              ErrorType:${errors.errorType} 
+              ErrorMessage:${errors.errorMessage}
               `
               }</p>)
     }

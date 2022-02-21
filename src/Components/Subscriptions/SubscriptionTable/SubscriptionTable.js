@@ -38,9 +38,11 @@ import { BannerImg,BannerOrder,DivBanner} from '../../Orders/OrderTable/OrderTab
 import { FaAngleDown,FaAngleUp } from "react-icons/fa";
 import { Title } from '../../UserHome/UserHomeElements';
 import { DivButtons,ButtonOrder } from '../../Orders/OrderTable/OrderTableElements';
-import { ContainBanner, InfoBanner,Banner,ButtonWallet,ImgBannerr,Henry,TitleHenry } from '../../UserHome/UserHomeElements';
 import SubscriptionFilters from './SubscriptionFilters';
-import Swal from 'sweetalert2'
+
+import Swal from 'sweetalert2';
+import Pagination from '../../Home/Pagination/Pagination';
+
 
 const ROWS_PER_PAGE=10;
 
@@ -165,29 +167,15 @@ const SubscriptionTable = () => {
     }
     return (
         <TableWrapper>
-            { subsData.length === 0 && 
-                <Banner>
-                 <ContainBanner>
-                    <TitleHenry><Henry>HenryCoin</Henry> Subscriptions</TitleHenry>
-                    <InfoBanner>Receive alerts from your favorite crypto pairs</InfoBanner>
-                    <ButtonWallet  onClick={handleNew}>Go to Subs</ButtonWallet>
-                 </ContainBanner>
-                 <ImgBannerr src ={subs} alt="banner"/>
-               </Banner> 
-       } 
-            { subsData.length > 0 &&  <DivBanner>
+
+            <DivBanner>
                 <BannerOrder onClick={handleNew}>
                   <Title>Make A Subscription</Title>
                   <BannerImg className = "Img" src =  "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt = "banner" />
                 </BannerOrder>
-             </DivBanner>
-            }
-            {
-                subsData.length > 0 && <SubscriptionFilters />
-            }
-           {  subsData.length > 0 && <TableS>
-                {/* {subs.length ?<> */}
-                
+            </DivBanner>
+            <SubscriptionFilters />            
+           <TableS>                               
                 <RowS head='head'>
                     <Column>id</Column>
                     <Column>Pair</Column>
@@ -210,7 +198,7 @@ const SubscriptionTable = () => {
                     <Column>Rise Price</Column>
                     <Column>AlertOnRise</Column>
                 </RowS>
-                {subsData.map(s => (
+                {subsData.slice(initialRows,topRows).map(s => (
                     <RowS key={s.id} id={s.id}>
                         <Column>{s.id}</Column>
                         <Column>{s.pair}</Column>
@@ -234,8 +222,8 @@ const SubscriptionTable = () => {
                     <div>Usuario sin subscripciones</div>
                     <Link to='/addsubscription'><Button>New Subscription</Button></Link>
                 </>} */}
-            </TableS>
-            }
+            </TableS>            
+            {<Pagination totalCryptos = {subsData.length} cryptosForPage = {ROWS_PER_PAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
         </TableWrapper>
     )
 }
