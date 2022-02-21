@@ -15,7 +15,7 @@ export const RowO = styled(Row)`
   }
   
   @media screen and (max-width:540px){
-    width:270%;
+    width:340%;
   }
 
 `
@@ -60,7 +60,6 @@ export const DivBanner = styled.div`
   width:100%;
   display:flex;
   margin-top:40px;
-  margin-bottom:40px;
   justify-content:center;
   height:120px;
 

@@ -35,7 +35,9 @@ import {
 import { Column } from '../../Home/Table/Column';
 import Spinner from '../../AaaGenerics/Loaders/Spinner/Spinner'
 import { BannerImg,BannerOrder,DivBanner} from '../../Orders/OrderTable/OrderTableElements';
+import { FaAngleDown,FaAngleUp } from "react-icons/fa";
 import { Title } from '../../UserHome/UserHomeElements';
+import { DivButtons,ButtonOrder } from '../../Orders/OrderTable/OrderTableElements';
 import { ContainBanner, InfoBanner,Banner,ButtonWallet,ImgBannerr,Henry,TitleHenry } from '../../UserHome/UserHomeElements';
 
 const ROWS_BY_PAGE=10;
@@ -162,9 +164,19 @@ const SubscriptionTable = () => {
                 <RowS head='head'>
                     <Column>id</Column>
                     <Column>Pair</Column>
-                    <Column onClick={()=>handlerSort("symbol1Asc")}>Symbol1</Column>
+                    <Column>Symbol1
+                       <DivButtons>
+                         <ButtonOrder onClick={() => handlerSort("symbol1Asc")} actual = {currentSortKey} id = "symbol1Asc" > { <FaAngleUp/>} </ButtonOrder>
+                         <ButtonOrder onClick={() => handlerSort("symbol1Desc")} actual = {currentSortKey} id = "symbol1Desc"> { <FaAngleDown/>} </ButtonOrder>
+                      </DivButtons>         
+                    </Column>
                     <Column></Column>
-                    <Column onClick={()=>handlerSort("symbol1Desc")} >Symbol2</Column>
+                    <Column>Symbol2
+                        <DivButtons>
+                           <ButtonOrder onClick={() => handlerSort("symbol2Asc")} actual = {currentSortKey} id = "symbol2Asc" > { <FaAngleUp/>} </ButtonOrder>
+                           <ButtonOrder onClick={() => handlerSort("symbol2Desc")} actual = {currentSortKey} id = "symbol2Desc"> { <FaAngleDown/>} </ButtonOrder>
+                        </DivButtons>  
+                    </Column>
                     <Column>Price</Column>
                     <Column>Fall Price</Column>
                     <Column>AlertOnFall</Column>
