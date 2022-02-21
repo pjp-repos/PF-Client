@@ -41,14 +41,14 @@ export const TableS = styled(TableC)`
 `;
 
 export const RowS= styled(Row)`
-    grid-template-columns: 0.2fr 0.5fr 0.4fr 0.2fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.9fr ;
+    grid-template-columns:  0.4fr 0.2fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.9fr ;
 
     @media screen and (max-width:920px){
         width:180%;
 }
 
     @media screen and (max-width:540px){
-        width:280%;
+        width:380%;
     }
        
     
@@ -56,7 +56,9 @@ export const RowS= styled(Row)`
 
 export const TableWrapper = styled.div`
     min-width: 300px;
-    width: 100%;
+    width: 90%;
+    margin-left:auto;
+    margin-right:auto;
     margin-top:20px;
     display: flex;
     flex-direction: column;
