@@ -1,14 +1,15 @@
+// ==== Markets ===================================================================
 export const selectGlobalPricesAll = state=> [state.prices.dataFAS,state.prices.status,state.prices.error];
 
 export const selectGlobalPricesCurrency = state=> state.prices.currency;
 export const selectGlobalPricesOrder = state=> state.prices.order;
 export const selectGlobalPricesFilter = state=> state.prices.filter;
 
-
+// ==== Auxiliaries ===================================================================
 export const selectSymbolsAll = state=> [state.symbols.data,state.symbols.status,state.symbols.error];
-
 export const selectPairAll = state=> [state.pair.data,state.pair.status,state.pair.error];
 
+// ==== User ===================================================================
 export const selectNewAccount = state=> state.newAccount.data;
 export const selectNewAccountStatus = state=> state.newAccount.status;
 export const selectNewAccountError = state=> state.newAccount.error;
@@ -32,6 +33,11 @@ export const selectSessionTheme = state=> state.session.theme;
 export const selectSessionImage = state=> state.session.image;
 export const selectSessionAll = state=> [state.session.userName,state.session.token,state.session.isAuthenticated, state.session.email];
 
+export const selectSettings = state=> state.settings.data;
+export const selectSettingsStatus = state=> state.settings.status;
+export const selectSettingsError = state=> state.settings.error;
+export const selectSettingsAll = state=> [state.settings.data,state.settings.status,state.settings.error];
+
 // ==== Subscriptions ===================================================================
 export const selectSubscriptionsAll = state=> [state.subscriptions.dataFAS, state.subscriptions.status,state.subscriptions.error];
 export const selectAddSubscriptionAll = state=> [state.addSubscription.data,state.addSubscription.status,state.addSubscription.error];
@@ -50,19 +56,15 @@ export const selectOrderFormAll = state=>[state.formOrders.form,state.formOrders
 // ==== Transactions ===================================================================
 export const selectTransactionsAll = state=> [state.transactions.dataFAS,state.transactions.status,state.transactions.error];
 
+// ==== Portfolio ===================================================================
 export const selectPortfolio = state=> state.portfolio.dataFAS;
 export const selectPortfolioStatus = state=> state.portfolio.status;
 export const selectPortfolioError = state=> state.portfolio.error;
 export const selectPortfolioAll = state=> [state.portfolio.dataFAS,state.portfolio.status,state.portfolio.error];
 
-export const selectSettings = state=> state.settings.data;
-export const selectSettingsStatus = state=> state.settings.status;
-export const selectSettingsError = state=> state.settings.error;
-export const selectSettingsAll = state=> [state.settings.data,state.settings.status,state.settings.error];
-
-export const selectUpdateSettings = state=> state.updateSettings.data;
-export const selectUpdateSettingsStatus = state=> state.updateSettings.status;
-export const selectUpdateSettingsError = state=> state.updateSettings.error;
-export const selectUpdateSettingsAll = state=> [state.updateSettings.data,state.updateSettings.status,state.updateSettings.error];
+// export const selectUpdateSettings = state=> state.updateSettings.data;
+// export const selectUpdateSettingsStatus = state=> state.updateSettings.status;
+// export const selectUpdateSettingsError = state=> state.updateSettings.error;
+// export const selectUpdateSettingsAll = state=> [state.updateSettings.data,state.updateSettings.status,state.updateSettings.error];
 //
 

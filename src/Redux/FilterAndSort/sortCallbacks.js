@@ -44,7 +44,7 @@ const sortCallbacks={
         symbolAsc:(a,b)=>genericAsc(a,b,(el)=>el.symbol),
         symbolDesc:(a,b)=>genericDesc(a,b,(el)=>el.symbol),
         priceAsc:(a,b)=>genericAsc(a,b,(el)=>el.price,true),
-        pricelDesc:(a,b)=>genericDesc(a,b,(el)=>el.price,true),
+        priceDesc:(a,b)=>genericDesc(a,b,(el)=>el.price,true),
     },
 
     orders:{

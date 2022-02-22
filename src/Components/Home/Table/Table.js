@@ -1,12 +1,12 @@
 import React from "react";
-import { Row } from "./Row";
-import { Container,TableC,Coin } from "./TableElements";
-import { Column } from "./Column";
 import { useDispatch,useSelector } from "react-redux";
-import { selectGlobalPricesCurrency,selectGlobalPricesOrder } from "../../../Redux/Selectors/selectors";
-import { FaAngleDown,FaAngleUp } from "react-icons/fa";
-import { DivButtons,ButtonOrder } from "../../Orders/OrderTable/OrderTableElements";
+
 import { sortPrices,filterPrices,getGlobalPrices } from "../../../Redux/Actions/actionCreators";
+import { selectGlobalPricesCurrency,selectGlobalPricesOrder } from "../../../Redux/Selectors/selectors";
+
+import { FaAngleDown,FaAngleUp } from "react-icons/fa";
+import { Container,TableC,Coin, Column, Row } from "./TableElements";
+import { DivButtons,ButtonOrder } from "../../Orders/OrderTable/OrderTableElements";
 
 export default function Table({cryptos}){
   const dispatch = useDispatch();
