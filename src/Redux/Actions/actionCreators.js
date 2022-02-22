@@ -170,7 +170,7 @@ export const postSignIn = async (dispatch, form,token) =>{
 };
 
 // postSettings action (thunk function)
-export const postSettings = async (dispatch, form,token) =>{
+export const postSettings = async (dispatch,token, form) =>{
     const dataCb = (data)=>dispatch({type:SET_SETTINGS,payload:data});
     const statusCb = (value)=>dispatch({type:SET_SETTINGS_STATUS,payload:value});
     const errorCb = (errorObj)=>dispatch({type:SET_SETTINGS_ERROR,payload:errorObj});
