@@ -13,7 +13,7 @@ export const ButtonSearch = styled.button`
 
 export const ContainerSearch = styled.div`
   position: relative;
-  background-color:#474D57;
+  background-color: var(--third-color);
   width:220px;
   height:40px;
   margin-top:20px;
@@ -39,13 +39,13 @@ height:20px;
 width:150px;
 background-color:transparent;
 font-family:'Montserrat', sans-serif;
-color:white;
+color: var(--text-color);
 border:0;
 font-size:15px;
 outline:0;
 
 &::placeholder{
-    color:white;
+    color: var(--text-color);
     font-family:'Montserrat', sans-serif;
 }
 `

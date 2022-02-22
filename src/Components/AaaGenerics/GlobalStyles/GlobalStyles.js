@@ -17,18 +17,24 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         margin: 0;
-        padding:0;
-        overflow-x: hidden;
+        background-color: var(--first-color);
+        color:var(--text-color);
+        font-family: 'Montserrat', sans-serif;
+        overflow-y: visible; 
     }
     :root{
         /* ==================== Custom Props ==================== */
-        --first-color: #01bf71;
         --text-color-dark: #ffffff;
         --title-color-dark: yellow;
         --error-color-dark: red;
         --bg-color-dark: #424242;
         --gb-color-content-dark:#212121;
         --bg-color-button-dark: #121212;
+        --first-color:rgb(20, 21, 26);
+        --second-color:#181A20;
+        --third-color:#474D57;
+        --gold-color:#efb810;
+        --text-color:white;
 
         /* ==================== Fluid font-size ==================== */
         

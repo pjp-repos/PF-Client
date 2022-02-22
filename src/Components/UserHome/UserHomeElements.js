@@ -27,7 +27,7 @@ export const Card = styled.button`
   border:0;
   outline:0;
   cursor:pointer;
-  color:white;
+  color:var(--text-color);
   font-family: 'Montserrat', sans-serif;
   &:hover .Img{
     opacity:0.8;
@@ -52,7 +52,7 @@ export const Banner = styled.div`
   height:450px;
   margin-top:10px;
   width:100%;
-  background-image:linear-gradient(to bottom left,#474D57,#181A20,rgb(20, 21, 26));
+  background-image:linear-gradient(to bottom left,#474D57,var(--text-color),rgb(20, 21, 26));
   @media screen and (max-width:840px){
     flex-direction:column;
     justify-content:center;
@@ -106,7 +106,7 @@ export const ImgBannerr = styled.img`
  
 `
 export const Henry = styled.a`
-  color:#efb810;
+  color:var(--gold-color);
 `
 export const TitleHenry = styled.h1`
  font-size:50px;
@@ -136,10 +136,10 @@ export const InfoBanner = styled.p`
 
 export const ButtonWallet = styled.button`
   color:white;
-  background-color:#efb810;
+  background-color:var(--gold-color);
   padding:10px;
   font-family: 'Montserrat', sans-serif;
-  border:1px solid #efb810;
+  border:1px solid var(--gold-color);
   border-radius:10px;
   cursor:pointer;
 `

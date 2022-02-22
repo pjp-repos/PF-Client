@@ -31,12 +31,12 @@ export const Wallet = styled.button`
   width:130px;
   height:45px;
   cursor:pointer;
-  background-color:#efb810;
+  background-color:var(--gold-color);
   color:white;
   text-align: center;
   font-family:'Montserrat', sans-serif;
   outline:0;
-  border:1px solid #efb810;
+  border:1px solid var(--gold-color);
   border-radius:5px;
   margin-left:50px;
   font-size:18px;
@@ -61,11 +61,11 @@ export const TableT = styled(TableC)`
       -webkit-appearance: none;
       width:5px;
       height:6px;
-      background-color: #181A20;
+      background-color: var(--second-color);
     }
     
     &::-webkit-scrollbar-thumb {
-      background-color: white;
+      background-color: var(--text-color);
       height: 1px;
     }
    }

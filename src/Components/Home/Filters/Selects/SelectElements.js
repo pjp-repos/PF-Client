@@ -14,14 +14,14 @@ export const ContainerSelectTooltip= styled.div`
   z-index: 2;
  }
  &:hover .Select{
-    border-color: #efb810;
+    border-color:  var(--gold-color);
  }
 `
 export const Select = styled.select`
-   color:white;
+   color: var(--text-color);
    width:130px;
    height:40px;
-   background-color:rgb(20, 21, 26);
+   background-color: var(--first-color);
    text-align: center;
    cursor:pointer;
    font-family:'Montserrat', sans-serif;
@@ -29,7 +29,7 @@ export const Select = styled.select`
    font-size:18px;
    -webkit-appearance: none;
    transition:0.2s;
-   border:1px solid #474D57;
+   border:1px solid var(--third-color);
    margin-left:8px;
    border-radius:5px;
 

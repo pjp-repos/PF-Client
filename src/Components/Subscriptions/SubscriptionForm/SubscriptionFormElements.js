@@ -9,7 +9,7 @@ export const SubscriptionFormWrapper = styled.div`
     flex-direction:column;
     justify-items: center;
     align-items: center;
-    background-color:#181A20  ;
+    background-color:var(--second-color);
 
     @media screen and (max-width:920px){
         width:50%;
@@ -29,7 +29,7 @@ export const SubscriptionFormLabel = styled.p`
 export const SubscriptionFormError = styled.p`
     color:white;
     margin-top:-30px;
-    color:#efb810;
+    color:var(--gold-color);
     font-size:14px;
 `;
 
@@ -70,10 +70,10 @@ align-items:center;
 `
 export const Title = styled.h4`
   font-size:30px;
-  color:white;
+  color:var(--text-color);
 `
 export const SubTitle = styled.span`
-     color:#efb810;
+     color:var(--gold-color);
 `
 export const SubsGraphics= styled(OrderGraphics)`
   min-height:450px;
