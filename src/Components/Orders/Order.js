@@ -61,7 +61,7 @@ export default function Order(){
     
     let update = false;
     if(id) update = true;
-    let loadData = order[1] === 2 && id ? true : false;
+    let loadData = order[1] === 2 && portfolioStatus === 2 && id ? true : false;
 
     useEffect( () => { 
 		if(!isAuthenticated)
