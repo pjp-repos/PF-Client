@@ -74,6 +74,8 @@ const sortCallbacks={
     transactions:{
         symbolAsc:(a,b)=>genericAsc(a,b,(el)=>el.symbol),
         symbolDesc:(a,b)=>genericDesc(a,b,(el)=>el.symbol),
+        dateAsc:(a,b)=>genericAsc(a,b,(el)=>el.date),
+        dateDesc:(a,b)=>genericDesc(a,b,(el)=>el.date),
     },
 
     portfolio:{
