@@ -64,6 +64,7 @@ export default function OrderTable(){
         navigate("/signin")
     else{
         getOrders(dispatch,token);
+        sortOrders(dispatch,"");
     }
   },[isAuthenticated]);
 

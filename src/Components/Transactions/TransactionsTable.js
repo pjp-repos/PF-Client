@@ -11,6 +11,10 @@ import { sortTransactions } from "../../Redux/Actions/actionCreators";
 export default function TransactionsTable({transactionsUser}){
   const dispatch = useDispatch();
   const [currentSortKey, setCurrentSortKey] = React.useState("");
+
+  React.useEffect(() => {
+    sortTransactions(dispatch,"");
+  },[]);
   
   const handlerSort = (sortKey)=>{
 		setCurrentSortKey(sortKey);

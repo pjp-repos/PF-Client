@@ -70,7 +70,9 @@ const SubscriptionTable = () => {
         else{
             getSubscriptions(dispatch, token);
             getSymbols(dispatch,token);
+            sortSubscriptions(dispatch,"");
         }
+
     },[isAuthenticated]);
     
     // New - Edit - Delete events
