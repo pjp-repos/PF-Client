@@ -44,6 +44,7 @@ export const selectOrderAll = state=> [state.order.data,state.order.status,state
 export const selectAddOrderAll = state=> [state.addOrder.data,state.addOrder.status,state.addOrder.error];
 export const selectUpdateOrderAll = state=> [state.updateOrder.data,state.updateOrder.status,state.updateOrder.error];
 export const selectDeleteOrderAll = state=> [state.deleteOrder.data,state.deleteOrder.status,state.deleteOrder.error];
+export const selectOrderFormAll = state=>[state.formOrders.form,state.formOrders.edit ,state.formOrders.errors,state.formOrders.error]
 
 // ==== Transactions ===================================================================
 export const selectTransactionsAll = state=> [state.transactions.dataFAS,state.transactions.status,state.transactions.error];

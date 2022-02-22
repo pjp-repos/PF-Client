@@ -52,7 +52,7 @@ import {
     FORM_SUBSCRIPTIONS_EDIT_BTN,
     FORM_SUBSCRIPTIONS_RESET_BTN,
     FORM_SUBSCRIPTIONS_HANDLE_CHANGE,
-    FORM_SUBSCRIPTION_VALIDATE,
+    FORM_SUBSCRIPTIONS_VALIDATE,
 
     GET_ORDERS,
     GET_ORDERS_STATUS,
@@ -71,6 +71,12 @@ import {
     DELETE_ORDER_ERROR,
     FILTER_ORDERS,
     SORT_ORDERS,
+    // Form events
+    FORM_ORDERS_NEW_BTN,
+    FORM_ORDERS_EDIT_BTN,
+    FORM_ORDERS_RESET_BTN,
+    FORM_ORDERS_HANDLE_CHANGE,
+    FORM_ORDERS_VALIDATE,
 
     GET_TRANSACTIONS,
     GET_TRANSACTIONS_STATUS,
@@ -216,6 +222,21 @@ const initialState = {
         data:{},
         status:0,
         error:{},
+    },
+    formOrders:{
+        initialForm:{
+            id:null,
+            symbol1Id:"",
+            symbol2Id:"",
+            buyOrder:false,
+            amount:0,
+            marketOrder:true,
+            priceLimit:0
+        },
+        form:null,
+        edit:false,
+        errors:{},
+        error:true
     },
 
     // --- Transactions ----------------------------
@@ -602,7 +623,7 @@ const reducer = (state = initialState, action) => {
                 }
             }   
 
-        case FORM_SUBSCRIPTION_VALIDATE:
+        case FORM_SUBSCRIPTIONS_VALIDATE:
             const [subscripcionValidateError, subscripcionValidateErrors] = validateForm(
                 'subscriptions',
                 state.formSubscriptions.form
@@ -765,6 +786,81 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
+        case FORM_ORDERS_NEW_BTN:
+            return {
+                ...state,
+                // Reset Fetch status for 
+                addOrder:{
+                    ...state.addOrder,
+                    status:0
+                },
+                formOrders:{
+                    ...state.formOrders,
+                    form:state.formOrders.initialForm,
+                    edit:false,
+                    error:true
+                }
+            }
+
+        case FORM_ORDERS_EDIT_BTN:
+            return {
+                ...state,
+                updateOrder:{
+                    ...state.updateOrder,
+                    status:0
+                },
+                formOrders:{
+                    ...state.formOrders,
+                    form:{
+                        id:action.payload.id,
+                        symbol1Id:action.payload.symbol1Id,
+                        symbol2Id:action.payload.symbol2Id,
+                        buyOrder:action.payload.buyOrder,
+                        amount:action.payload.amount,
+                        marketOrder:action.payload.marketOrder,
+                        priceLimit:action.payload.priceLimit,
+                    },
+                    edit:true,
+                    error:true
+                }
+            }
+            
+        case FORM_ORDERS_RESET_BTN:
+            return {
+                ...state,
+                formOrders:{
+                    ...state.formOrders,
+                    form:state.formOrders.initialForm,
+                }
+            }
+            
+        case FORM_ORDERS_HANDLE_CHANGE:
+            return {
+                ...state,
+                formOrders:{
+                    ...state.formOrders,
+                    form:{
+                        ...state.formOrders.form,
+                        [action.payload.key]:action.payload.value
+                    },
+                }
+            }   
+
+        case FORM_ORDERS_VALIDATE:{
+            const [error, errors] = validateForm(
+                'subscriptions',
+                state.formOrders.form
+            )
+            return {
+                ...state,
+                formOrders:{
+                    ...state.formOrders,
+                    error:error,
+                    errors:errors
+                }
+            }
+        }
+    
         case GET_ORDER:
             return {
                 ...state,
