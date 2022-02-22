@@ -88,7 +88,7 @@ const SubscriptionTable = () => {
 
     const handleDelete = (e) =>{
         Swal.fire({
-           title: 'Are you sure you want to delete it?',
+            title: 'Are you sure you want to delete it?',
             text: "You won't be able to revert this!",
             icon: 'warning',
             background:'#14151a',
