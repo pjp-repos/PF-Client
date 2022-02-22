@@ -8,6 +8,7 @@ import {
     resetUpdateSubscriptionStatus,
     formSubscriptionsHandleChange,
     formSubscriptionsValidate,
+    formSubscriptionsResetBtn,
     addSubscription,
     updateSubscription,
     getPair
@@ -107,6 +108,7 @@ const SubscriptionForm = () => {
     };
 
     const handleReset = ()=>{
+        formSubscriptionsResetBtn(dispatch);
     };
 
 

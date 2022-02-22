@@ -48,7 +48,7 @@ import {
     FORM_SUBSCRIPTIONS_EDIT_BTN,
     FORM_SUBSCRIPTIONS_RESET_BTN,
     FORM_SUBSCRIPTIONS_HANDLE_CHANGE,
-    FORM_SUBSCRIPTION_VALIDATE,
+    FORM_SUBSCRIPTIONS_VALIDATE,
 
     GET_ORDERS,
     GET_ORDERS_STATUS,
@@ -67,12 +67,18 @@ import {
     DELETE_ORDER_ERROR,
     FILTER_ORDERS,
     SORT_ORDERS,
+    FORM_ORDERS_NEW_BTN,
+    FORM_ORDERS_EDIT_BTN,
+    FORM_ORDERS_RESET_BTN,
+    FORM_ORDERS_HANDLE_CHANGE,
+    FORM_ORDERS_VALIDATE,
 
     GET_TRANSACTIONS,
     GET_TRANSACTIONS_STATUS,
     GET_TRANSACTIONS_ERROR,
     FILTER_TRANSACTIONS,
     SORT_TRANSACTIONS,
+    
 
     GET_PORTFOLIO,
     GET_PORTFOLIO_STATUS,
@@ -214,7 +220,7 @@ export const formSubscriptionsResetBtn = (dispatch)=>dispatch({type:FORM_SUBSCRI
 export const formSubscriptionsHandleChange = (dispatch,key,value)=>dispatch({type:FORM_SUBSCRIPTIONS_HANDLE_CHANGE,payload:{key,value}});
 
 // Validate form callback
-export const formSubscriptionsValidate = (dispatch)=>dispatch({type:FORM_SUBSCRIPTION_VALIDATE,payload:null});
+export const formSubscriptionsValidate = (dispatch)=>dispatch({type:FORM_SUBSCRIPTIONS_VALIDATE,payload:null});
 
 
 // addSubscription action (thunk function)
@@ -276,19 +282,6 @@ export const filterSubscriptions = (dispatch, filterForm)=>dispatch({type:FILTER
 // order subscriptions payload='orderCriteria' 
 export const sortSubscriptions = (dispatch, order)=>dispatch({type:SORT_SUBSCRIPTIONS,payload:order});
 
-// getSubscription action (thunk function)
-// export const getSubscription = async (dispatch, token, id) =>{
-//     const dataCbSubscription = (data)=>dispatch({type:GET_SUBSCRIPTION,payload:data});
-//     const statusCbSubscription = (value)=>dispatch({type:GET_SUBSCRIPTION_STATUS,payload:value});
-//     const errorCbSubscription = (errorObj)=>dispatch({type:GET_SUBSCRIPTION_ERROR,payload:errorObj});
-//     await helpFetch(`${API_URL}/subs/${id}`,  dataCbSubscription, statusCbSubscription, errorCbSubscription,{
-//         headers:{          
-//             "Authorization": `Bearer ${token}`,
-//         },
-//     })  
-    
-// };
-
 
 // ==== ORDERS ==============================================================================
 // getOrders action (thunk function)
@@ -318,6 +311,22 @@ export const getOrders = (dispatch, token, status=false,dateFrom=false, dateTo=f
         },
     });
 };
+
+// New button callback
+export const formOrdersNewBtn = (dispatch)=>dispatch({type:FORM_ORDERS_NEW_BTN,payload:null});
+
+// Edit button callback
+export const formOrdersEditBtn = (dispatch,dataToEdit)=>dispatch({type:FORM_ORDERS_EDIT_BTN,payload:dataToEdit});
+
+// REset fields button callback
+export const formOrdersResetBtn = (dispatch)=>dispatch({type:FORM_ORDERS_RESET_BTN,payload:null});
+
+// Handle change callback
+export const formOrdersHandleChange = (dispatch,key,value)=>dispatch({type:FORM_ORDERS_HANDLE_CHANGE,payload:{key,value}});
+
+// Validate form callback
+export const formOrdersValidate = (dispatch)=>dispatch({type:FORM_ORDERS_VALIDATE,payload:null});
+
 
 // getOrder action (thunk function)
 export const getOrder = (dispatch, token, id) =>{
