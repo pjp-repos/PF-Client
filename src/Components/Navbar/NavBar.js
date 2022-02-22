@@ -1,6 +1,7 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import Modal from "../AaaGenerics/Modal/Modal.js";
+import Settings from "../Settings/Settings"
 
 // Redux issues
 import { useSelector,useDispatch } from "react-redux";
@@ -35,6 +36,7 @@ export default function NavBar(){
   const token = useSelector(selectSessionToken);
   // Statess
   const isAuthenticated = useSelector(selectSessionIsAuthenticated);
+  const [isOpen,setIsOpen]=React.useState(false);
 
 
   return (
@@ -42,6 +44,11 @@ export default function NavBar(){
         <DivTitle>
           <Title onClick = {(e) => navigate("/home")}> <ImgTitle visibilitySm src = {coin} alt = "coin" /> HenryCoin</Title>
         </DivTitle>
+        <Modal show={isOpen} >
+         
+         <Settings setIsOpen={setIsOpen}/>
+         
+       </Modal>
         {!isAuthenticated && <ContainerButtons>
           <ButtonNavbar onClick={(e) => navigate("/signin")}>Sign In</ButtonNavbar> 
           <ButtonNavbar onClick={(e) => navigate("/signup")} signup>Sign Up</ButtonNavbar>
@@ -54,6 +61,7 @@ export default function NavBar(){
                <Option onClick={(e) => navigate("/subscriptions")}><p>Subscribe</p></Option>
                <Option onClick={(e) => navigate("/order")}><p>Orders</p></Option>
                <Option onClick={(e) => navigate("/transactions")}><p>Historial</p></Option>
+               <Option onClick={(e) => setIsOpen(true)}><p>Settings</p></Option>
                <Option onClick={(e) =>{
                  resetSignInStatus(dispatch);
                  getSingOut(dispatch,token);

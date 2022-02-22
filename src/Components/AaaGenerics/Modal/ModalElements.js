@@ -22,18 +22,22 @@ export const ModalBg = styled.div`
 `;
     
 export const ModalWrapper = styled.div`
-    width: 100%;
-    height: 80vh;
+    width: 40%;
+    min-height: 400px;
     border: var(--modal-border);
     border-radius: var(--modal-border-radius);
-    background-color: #000;
-    color:#000;
+    background-color: rgb(20, 21, 26);
+    text-align:center;
+    color:white;
     position:relative;
     z-index:998;
   
+    @media screen and (max-width: 920px){
+        width: 80vw;
+    }
 
-    @media screen and (min-width: 768px){
-        max-width: 80vw;
+    @media screen and (max-width: 540px){
+        width: 100vw;
     }
     
     @media screen and (min-width: 1024px){
