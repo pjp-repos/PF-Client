@@ -17,10 +17,10 @@ export const ContainerFilters= styled.div`
  `
 
 export const InputDate = styled.input`
- color:white;
+ color:var(--text-color);
  background-color:transparent;
  font-family: 'Montserrat', sans-serif;
- border:0.5px solid #474D57;
+ border:0.5px solid var(--third-color);
  width:15%;
  padding:5px;
  margin-right:10px;
@@ -57,7 +57,7 @@ export const Container = styled.div`
 `
 export const BtnFilter = styled(Submit)`
   width:60px;
-  ${props => (props.status === true  && `background-color:#efb810`)};
+  ${props => (props.status === true  && `background-color:var(--gold-color)`)};
 `
 export const Label = styled.label`
   margin-left:10px;

@@ -8,9 +8,9 @@ export const ButtonGoogle = styled.a`
     width:70%;
     height:45px;
     text-align:center;
-    color:white;
+    color:var(--text-color);
     background-color:transparent;
-    border: 1px solid #474D57;
+    border: 1px solid var(--third-color);
     border-radius:4px;
     text-decoration:none;
     &:hover{

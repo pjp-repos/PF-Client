@@ -13,11 +13,11 @@ export const ButtonPagination = styled.button`
    font-size:18px;
    cursor:pointer;
    margin-left:10px;
-   color:white;
+   color:var(--text-color);
    outline:0;
    border:0;
    background-color:transparent;
-   ${props => props.id === props.actualPage && 'border: 1px solid #efb810;'}
+   ${props => props.id === props.actualPage && 'border: 1px solid var(--gold-color);'}
 
 
 `

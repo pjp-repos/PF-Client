@@ -28,7 +28,7 @@ export const Title = styled.button`
    outline:0;
    border:0;
    background-color:transparent;
-   color:#efb810;  
+   color:var(--gold-color);  
    margin-right:12px;
    @media screen and (max-width:540px){
      margin-right:30px;
@@ -60,14 +60,14 @@ margin-right:10px;
 display:block;
 cursor:pointer;
 font-size:18px;
-color:white;
+color:var(--text-color);
 background-color:transparent;
 border:0;
 outline:0;
 height:40px;
 
 &:hover{
-${props => props.signup ? 'border: 1px solid #efb810; color:#efb810 ': 'border: 1px solid #474D57;'};
+${props => props.signup ? 'border: 1px solid var(--gold-color); color:var(--gold-color) ': 'border: 1px solid var(--third-color);'};
  border-radius:5px;
 }
 @media screen and (max-width:540px){
@@ -94,7 +94,7 @@ export const OptionsContainer = styled.div`
   align-items:flex-start
   justify-content:center;
   text-align:center;
-  background-color:#181A20;
+  background-color:var(--second-color);
   z-index:3;
   top:95%;
   width:150px;
@@ -106,10 +106,10 @@ export const Option =styled.button`
   font-size:15px; 
   background-color:transparent;
   border:0;
-  color:white;
+  color:var(--text-color);
   font-family:'Montserrat', sans-serif;
   &:hover{
-    background-color:#474D57;
+    background-color:var(--third-color);
     cursor: pointer;
   }
 `;

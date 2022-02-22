@@ -26,9 +26,9 @@ export const ModalWrapper = styled.div`
     min-height: 400px;
     border: var(--modal-border);
     border-radius: var(--modal-border-radius);
-    background-color: rgb(20, 21, 26);
+    background-color:var(--first-color);
     text-align:center;
-    color:white;
+    color:var(--text-color);
     position:relative;
     z-index:998;
   

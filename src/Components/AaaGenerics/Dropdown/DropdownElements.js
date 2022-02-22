@@ -30,14 +30,14 @@ export const DropDownButton = styled(Button)`
 `;
 
 export const DropDownLabel = styled.p`
-    color:white;
+    color:var(--text-color);
 `;
 
 export const DropDownError = styled.p`
     display: ${
         ({show})=>(show ? 'block' : 'none' )
     };
-    color:#efb810;
+    color:var(--gold-color);
     font-size:14px;
 `;
 
@@ -97,7 +97,7 @@ export const DropDownListItem = styled.div`
 
     border-radius: 5px;
     cursor: pointer;
-    color: white;
+    color: var(--text-color);
     /* white-space: nowrap; */
     background-color: ${
             ({isSelected})=>(isSelected ? 'var(--first-color)' : 'transparent' )

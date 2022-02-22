@@ -37,11 +37,11 @@ export const TableO = styled(TableC)`
       -webkit-appearance: none;
       width:5px;
       height:6px;
-      background-color: #181A20;
+      background-color: var(--second-color);
     }
     
     &::-webkit-scrollbar-thumb {
-      background-color: white;
+      background-color: var(--text-color);
       height: 1px;
     }
    }
@@ -85,11 +85,11 @@ export const BannerImg = styled(Img)`
 `
 export const ButtonOrder = styled.button`
   border:0;
-  color:white;
+  color:var(--text-color);
   outline:0;
   background-color:transparent;
   height:13px;
-  ${props => props.id === props.actual && 'color:#efb810;'}
+  ${props => props.id === props.actual && 'color:var(--gold-color);'}
 `
 export const DivButtons = styled.div`
   display:flex;

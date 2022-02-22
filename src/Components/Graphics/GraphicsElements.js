@@ -18,7 +18,7 @@ export const TooltipDiv = styled.div`
   width:140px;
   height:60px;
   font-size:15px;
-  color:white;
+  color:var(--text-color);
   font-family: 'Montserrat', sans-serif;
   text-align:center;
 `

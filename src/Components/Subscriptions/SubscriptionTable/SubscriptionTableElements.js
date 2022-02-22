@@ -5,8 +5,8 @@ import { TableC } from '../../Home/Table/TableElements';
 export const Button = styled.button`
     margin: 25px;
     height: 25px;
-    background-color:  #efb810;
-    color: white;
+    background-color:  var(--gold-color);
+    color: var(--text-color);
     border-radius: 5px;
     border: none;
     width: auto;
@@ -30,11 +30,11 @@ export const TableS = styled(TableC)`
         -webkit-appearance: none;
         width:5px;
         height:6px;
-        background-color: #181A20;
+        background-color: var(--second-color);
       }
       
       &::-webkit-scrollbar-thumb {
-        background-color: white;
+        background-color: var(--text-color);
         height: 1px;
       }
    }

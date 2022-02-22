@@ -19,7 +19,7 @@ export const InputSymbolsSubs = styled(InputSymbols)`
     margin-top:10px;
  }
  &::placeholder{
-    color:white;
+    color:var(--text-color);
     font-family:'Montserrat', sans-serif;
     font-size:18px;
     text-align:center;

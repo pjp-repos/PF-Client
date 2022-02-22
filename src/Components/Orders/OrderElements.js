@@ -40,7 +40,7 @@ export const DivInfoOrder = styled(flex)`
 export const OrderContainer = styled(flex)`
 width:35%;
 margin-left: auto;
-background-color:#181A20;
+background-color:var(--second-color);
 margin-right:auto;
 min-height:500px;
 flex-direction:column;
@@ -86,11 +86,11 @@ export const SelectSellBuy = styled(Select)`
  &::-webkit-scrollbar {
   -webkit-appearance: none;
   width:5px;
-  background-color: #181A20;
+  background-color: var(--second-color);
 }
 
 &::-webkit-scrollbar-thumb {
-  background-color: white;
+  background-color: var(--text-color);
   height: 1px;
 }
 `
@@ -139,7 +139,7 @@ export const DivTotal= styled(flex)`
   justify-content:space-between;
 `
 export const Info = styled.span`
-${props => props.error && `color:#efb810;margin-bottom:-12px;`};
+${props => props.error && `color:var(--gold-color);margin-bottom:-12px;`};
 ${props => props.right && `margin-right:${props.right}%`};
 `
 export const ButtonOption = styled.button`
@@ -148,15 +148,15 @@ export const ButtonOption = styled.button`
    background-color:transparent;
    cursor:pointer;
    font-size:20px;
-   color:white;
+   color:var(--text-color);
    font-weight:bold;
    font-family: 'Montserrat', sans-serif;
    width:50%;
    height:40px;
    padding:8px;
-   ${props => props.actual === props.id && `color:#efb810`};
-   ${props => props.border && props.actual === props.id && `border:1px solid #efb810;width:30%;`};
-   ${props => props.border && props.actual !== props.id && `border:1px solid #474D57; color:#474D57;width:30%`};
+   ${props => props.actual === props.id && `color:var(--gold-color)`};
+   ${props => props.border && props.actual === props.id && `border:1px solid var(--gold-color);width:30%;`};
+   ${props => props.border && props.actual !== props.id && `border:1px solid var(--third-color); color:var(--third-color);width:30%`};
 `
 export const TitleGraphic = styled.h1`
   margin-top:70px;

@@ -15,11 +15,11 @@ export const ContainerSign = styled.div`
    justifiy-content:center;
    align-items:center;
    margin-top:2%;
-   color:white;
+   color: var(--text-color);
    margin-right:auto;
    position:relative;
    min-height:600px;
-   background-color:#181A20;
+   background-color: var(--second-color);
    font-family:'Montserrat', sans-serif;
    box-shadow: 4px 4px 8px black;
 
@@ -44,9 +44,9 @@ export const ContainerSign = styled.div`
 
 `
 export const InputSign= styled.input`
-  border: 1px solid #474D57;
+  border: 1px solid  var(--third-color);
   border-radius:4px;
-  color:white;
+  color: var(--text-color);
   background-color:transparent;
   font-family:'Montserrat', sans-serif;
   outline:0;
@@ -55,10 +55,10 @@ export const InputSign= styled.input`
   height:40px;
 
   &:hover{
-    border:1.5px solid white;
+    border:1.5px solid var(--text-color);
  }
  &::placeholder{
-    color:white;
+    color:var(--text-color);
     font-family:'Montserrat', sans-serif;
 }
 
@@ -77,8 +77,8 @@ export const Submit = styled.button`
   margin-top:25px;
   margin-bottom:5px;
   cursor:pointer;
-  background-color:#474D57;
-  border:1px solid #474D57;
+  background-color:var(--third-color);
+  border:1px solid var(--third-color);
   font-family:'Montserrat', sans-serif;
   width:70%;
   height:45px;
@@ -94,11 +94,11 @@ export const ContainerLogo = styled.div `
 `
 
 export const White = styled.a`
- color:white;
+ color:var(--text-color);
 
 `
 export const Link = styled.button`
-  color: #efb810;
+  color: var(--gold-color);
   background-color:transparent;
   font-weight:bold;
   margin-bottom:30px;
@@ -110,7 +110,7 @@ export const Link = styled.button`
 `
 export const Error = styled.label`
   position:absolute;
-  color: #efb810;
+  color: var(--gold-color);
   font-family:'Montserrat', sans-serif;
   font-size:12px;
   left:15%;
