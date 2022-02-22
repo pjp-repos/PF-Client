@@ -52,7 +52,7 @@ export const Banner = styled.div`
   height:450px;
   margin-top:10px;
   width:100%;
-  background-image:linear-gradient(to bottom left,#474D57,var(--text-color),rgb(20, 21, 26));
+  background-image:linear-gradient(to bottom left,var(--third-color),var(--second-color),var(--first-color));
   @media screen and (max-width:840px){
     flex-direction:column;
     justify-content:center;

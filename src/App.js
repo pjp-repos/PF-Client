@@ -13,12 +13,10 @@ import OrderPage from './Pages/OrderPage';
 import OrderTablePage from './Pages/OrderTablePage';
 import Wallet from './Pages/Wallet';
 
-
-
 function App() {
-   
+
     return (
-        <Routes>
+            <Routes>
             <Route exact path="/" element={ <Home/>} />           
             <Route exact path="/signup" element={ <SignUp/>} />           
             <Route exact path="/signin" element={ <SignIn/>} />   
@@ -34,6 +32,7 @@ function App() {
             <Route exact path="/wallet" element={ <Wallet/>} />  
 
         </Routes>
+        
     );
 }
 

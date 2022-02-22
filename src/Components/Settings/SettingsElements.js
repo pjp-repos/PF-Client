@@ -90,3 +90,7 @@ export const Label = styled.label`
   margin-top:6px;
   display:block;
 `
+export const LabelError = styled.label`
+  font-size:12px;
+  color: var(--gold-color);
+`

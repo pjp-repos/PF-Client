@@ -1,10 +1,10 @@
-const validateUsernameOrPassword = (value) => {
+export const validateUsernameOrPassword = (value) => {
     if(!/^[a-zA-Z0-9]+$/.test(value) || value.length > 18)
     return "Spaces are not allowed, max 18 characters"
     return "";
 }
 
-const samePassword = (repeatPassword,password) => {
+export const samePassword = (repeatPassword,password) => {
   if(repeatPassword !== password)
    return "Error password are diferent"
    return "";
