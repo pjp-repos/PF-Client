@@ -177,9 +177,8 @@ const SubscriptionTable = () => {
             <SubscriptionFilters />            
            <TableS>                               
                 <RowS head='head'>
-                    {/* <Column>id</Column>
-                    <Column>Pair</Column> */}
-                    <Column>Symbol 1
+
+                    <Column>Symbol1
                        <DivButtons>
                          <ButtonOrder onClick={() => handlerSort("symbol1Asc")} actual = {currentSortKey} id = "symbol1Asc" > { <FaAngleUp/>} </ButtonOrder>
                          <ButtonOrder onClick={() => handlerSort("symbol1Desc")} actual = {currentSortKey} id = "symbol1Desc"> { <FaAngleDown/>} </ButtonOrder>
@@ -200,8 +199,6 @@ const SubscriptionTable = () => {
                 </RowS>
                 {subsData.slice(initialRows,topRows).map(s => (
                     <RowS key={s.id} id={s.id}>
-                        {/* <Column>{s.id}</Column>
-                        <Column>{s.pair}</Column> */}
                         <Column><img src={s.symbol1[1]} height='20px'/>{s.symbol1[0]}</Column>
                         <Column><img src={arrow} width='20px'/></Column>
                          <Column><img src={s.symbol2[1]} height='20px'/>{s.symbol2[0]}</Column>

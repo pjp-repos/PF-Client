@@ -1,4 +1,3 @@
-// Packages
 import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector,useDispatch} from "react-redux";
@@ -71,12 +70,6 @@ export default function Transactions(){
 		setFilterForm(newFilterForm);
 		filterTransactions(dispatch,newFilterForm);
 	};
-
-    const handlerSort = (sortKey)=>{
-		setCurrentSortKey(sortKey);
-		sortTransactions(dispatch,sortKey);
-	};
-	 
 	  
     // === RENDERS ============================================
 
@@ -131,7 +124,6 @@ export default function Transactions(){
                 })
 		)
     }
-    
 	return (
 		<>
 			<NavBar />
