@@ -177,6 +177,7 @@ export const postSettings = async (dispatch, form,token) =>{
     await helpFetch(`${API_URL}/settings`,  dataCb, statusCb, errorCb,{
         headers:{
             "Content-Type": "application/json",
+            "Authorization":`Bearer ${token}`
         },
         method:'POST',
         body:form
