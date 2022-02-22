@@ -36,6 +36,11 @@ export const SIGN_OUT_ERROR="SIGN_OUT_ERROR";
 // Setting session info after perform a loguin or logout
 export const SET_SESSION_INFO="SET_SESSION_INFO";
 export const SET_SESSION_THEME="SET_SESSION_THEME";
+export const UPDATE_SESSION_INFO="UPDATE_SESSION_INFO";
+export const SET_SETTINGS="SET_SETTINGS";
+export const SET_SETTINGS_STATUS="SET_SETTINGS_STATUS";
+export const SET_SETTINGS_ERROR="SET_SETTINGS_ERROR";
+
 
 // ==== SUBSCRIPTIONS CRUD =====================================
 // Envía solicitud del listado de suscripciones
@@ -126,16 +131,6 @@ export const GET_PORTFOLIO_ERROR="GET_PORTFOLIO_ERROR";
 export const FILTER_PORTFOLIO="FILTER_PORTFOLIO";
 export const SORT_PORTFOLIO="SORT_PORTFOLIO";
 
-// ==== Settings form
-// User settings data
-export const GET_SETTINGS="GET_SETTINGS";
-export const GET_SETTINGS_STATUS="GET_SETTINGS_STATUS";
-export const GET_SETTINGS_ERROR="GET_SETTINGS_ERROR";
-
-// User settings form
-export const UPDATE_SETTINGS="UPDATE_SETTINGS";
-export const UPDATE_SETTINGS_STATUS="UPDATE_SETTINGS_STATUS";
-export const UPDATE_SETTINGS_ERROR="UPDATE_SETTINGS_ERROR";
 //
 
 

@@ -26,7 +26,11 @@ import {
     SIGN_OUT_STATUS,
     SIGN_OUT_ERROR,
     SET_SESSION_INFO,
+    UPDATE_SESSION_INFO,
     SET_SESSION_THEME,
+    SET_SETTINGS,
+    SET_SETTINGS_STATUS,
+    SET_SETTINGS_ERROR,
 
     // Fetch to get subscriptions
     GET_SUBSCRIPTIONS,
@@ -90,16 +94,6 @@ import {
     FILTER_PORTFOLIO,
     SORT_PORTFOLIO,
 
-    GET_SETTINGS,
-    GET_SETTINGS_STATUS,
-    GET_SETTINGS_ERROR,
-    UPDATE_SETTINGS,
-    UPDATE_SETTINGS_STATUS,
-    UPDATE_SETTINGS_ERROR,
-
-    
-  
-
 } from "../types";
 
 import filterAndSort from "../FilterAndSort/filterAndSort";
@@ -113,7 +107,8 @@ const initialState = {
         email:"",
         isAuthenticated : false,
         roles:[],
-        theme:false
+        theme:false,
+        image:""
     },
     prices:{
         data:[],
@@ -147,6 +142,11 @@ const initialState = {
         error:{},
     },
     signOut:{
+        data:{},
+        status:0,
+        error:{},
+    },
+    settings:{
         data:{},
         status:0,
         error:{},
@@ -268,11 +268,6 @@ const initialState = {
     },
 
     setting:{
-        data:[],
-        status:0,
-        error:{},
-    },
-    updateSetting:{
         data:[],
         status:0,
         error:{},
@@ -466,6 +461,33 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
+        case SET_SETTINGS:
+            return {
+                ...state,
+                settings:{
+                    ...state.settings,
+                    data:action.payload
+                }
+            }
+
+        case SET_SETTINGS_STATUS:
+            return {
+                ...state,
+                settings:{
+                    ...state.settings,
+                    status:action.payload
+                }
+            }
+
+        case SET_SETTINGS_ERROR:
+            return {
+                ...state,
+                settings:{
+                    ...state.settings,
+                    error:action.payload
+                }
+            }
+
         case SIGN_OUT:
             return {
                 ...state,
@@ -498,12 +520,16 @@ const reducer = (state = initialState, action) => {
             let token="";
             let email="";
             let isAuthenticated= false;
+            let theme= false;
+            let image= false;
             //Sign in or sign out?
             if(action.payload){
                 if(state.signIn.status===2){
                     userName=state.signIn.data.username;
                     token=state.signIn.data.tokenUser;
                     email=state.signIn.data.email;
+                    theme=theme;
+                    image=image;
                     isAuthenticated=true;
                 };
             }
@@ -515,6 +541,18 @@ const reducer = (state = initialState, action) => {
                     token:token,
                     email:email,
                     isAuthenticated:isAuthenticated,
+                }
+            }
+
+        case UPDATE_SESSION_INFO:
+            return {
+                ...state,
+                session:{
+                    ...state.session,
+                    userName:state.settings.data.username,
+                    email:state.settings.data.email,
+                    theme:state.settings.data.theme,
+                    image:state.settings.data.image,
                 }
             }
 
@@ -1120,64 +1158,6 @@ const reducer = (state = initialState, action) => {
                     order:action.payload
                 }
             }
-
-        case GET_SETTINGS:
-            let settings = [...action.payload];
-
-            return {
-                ...state,
-                settings:{
-                    ...state.settings,
-                    data:settings
-                }
-            }
-        
-        case GET_SETTINGS_STATUS:
-            return {
-                ...state,
-                settings:{
-                    ...state.settings,
-                    status:action.payload
-                }
-            }
-
-        case GET_SETTINGS_ERROR:
-            return {
-                ...state,
-                settings:{
-                    ...state.settings,
-                    error:action.payload
-                }
-            } 
-            
-        case UPDATE_SETTINGS:
-            return {
-                ...state,
-                updateSettings:{
-                    ...state.updateSettings,
-                    data:action.payload
-                }
-            }
-
-        case UPDATE_SETTINGS_STATUS:
-            return {
-                ...state,
-                updateSettings:{
-                    ...state.updateSettings,
-                    status:action.payload
-                }
-            }
-
-        case UPDATE_SETTINGS_ERROR:
-            return {
-                ...state,
-                updateSettings:{
-                    ...state.updateSettings,
-                    error:action.payload
-                }
-            }
-
-
             
         default:
             return {...state}

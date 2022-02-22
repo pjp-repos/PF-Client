@@ -28,7 +28,11 @@ import {
     SIGN_OUT_STATUS,
     SIGN_OUT_ERROR,
     SET_SESSION_INFO,
+    UPDATE_SESSION_INFO,
     SET_SESSION_THEME,
+    SET_SETTINGS,
+    SET_SETTINGS_STATUS,
+    SET_SETTINGS_ERROR,
 
     GET_SUBSCRIPTIONS,
     GET_SUBSCRIPTIONS_STATUS,
@@ -86,14 +90,6 @@ import {
     FILTER_PORTFOLIO,
     SORT_PORTFOLIO,
 
-    GET_SETTINGS,
-    GET_SETTINGS_STATUS,
-    GET_SETTINGS_ERROR,
-    UPDATE_SETTINGS,
-    UPDATE_SETTINGS_STATUS,
-    UPDATE_SETTINGS_ERROR,
-
-
 } from "../types";
 
 
@@ -105,26 +101,26 @@ const API_URL = 'https://pfapi2.herokuapp.com';
 
 // getGlobalPrices action (thunk function)
 export const getGlobalPrices = (dispatch, currency) =>{
-    const dataCbPrices = (data)=>dispatch({type:GET_PRICES,payload:data});
-    const statusCbPrices = (value)=>dispatch({type:GET_PRICES_STATUS,payload:value});
-    const errorCbPrices = (errorObj)=>dispatch({type:GET_PRICES_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/cryptos/${currency}`,  dataCbPrices, statusCbPrices, errorCbPrices);
+    const dataCb = (data)=>dispatch({type:GET_PRICES,payload:data});
+    const statusCb = (value)=>dispatch({type:GET_PRICES_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:GET_PRICES_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/cryptos/${currency}`,  dataCb, statusCb, errorCb);
 };
 
 // getSymbols action (thunk function)
 export const getSymbols = (dispatch) =>{
-    const dataCbSymbols = (data)=>dispatch({type:GET_SYMBOLS,payload:data});
-    const statusCbSymbols = (value)=>dispatch({type:GET_SYMBOLS_STATUS,payload:value});
-    const errorCbSymbols = (errorObj)=>dispatch({type:GET_SYMBOLS_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/cryptos/symbols`,  dataCbSymbols, statusCbSymbols, errorCbSymbols);
+    const dataCb = (data)=>dispatch({type:GET_SYMBOLS,payload:data});
+    const statusCb = (value)=>dispatch({type:GET_SYMBOLS_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:GET_SYMBOLS_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/cryptos/symbols`,  dataCb, statusCb, errorCb);
 };
 
 // getPair action (thunk function)
 export const getPair = (dispatch, token,symbol1,symbol2) =>{
-    const dataCbPair = (data)=>dispatch({type:GET_PAIR,payload:data});
-    const statusCbPair = (value)=>dispatch({type:GET_PAIR_STATUS,payload:value});
-    const errorCbPair = (errorObj)=>dispatch({type:GET_PAIR_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/pair/valid?symbol1Id=${symbol1}&symbol2Id=${symbol2}`,  dataCbPair, statusCbPair, errorCbPair,{
+    const dataCb = (data)=>dispatch({type:GET_PAIR,payload:data});
+    const statusCb = (value)=>dispatch({type:GET_PAIR_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:GET_PAIR_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/pair/valid?symbol1Id=${symbol1}&symbol2Id=${symbol2}`,  dataCb, statusCb, errorCb,{
         headers:{
             "Content-Type": "application/json",
             "Authorization":`Bearer ${token}`
@@ -143,10 +139,10 @@ export const currencyGlobalPrices = (dispatch, currency)=>dispatch({type:SET_PRI
 
 // postNewAccount action (thunk function)
 export const postNewAccount = (dispatch, form) =>{
-    const dataCbNewAccount = (data)=>dispatch({type:NEW_ACCOUNT,payload:data});
-    const statusCbNewAccount = (value)=>dispatch({type:NEW_ACCOUNT_STATUS,payload:value});
-    const errorCbNewAccount = (errorObj)=>dispatch({type:NEW_ACCOUNT_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/signup/`,  dataCbNewAccount, statusCbNewAccount, errorCbNewAccount,{
+    const dataCb = (data)=>dispatch({type:NEW_ACCOUNT,payload:data});
+    const statusCb = (value)=>dispatch({type:NEW_ACCOUNT_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:NEW_ACCOUNT_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/signup/`,  dataCb, statusCb, errorCb,{
         headers:{
             "Content-Type": "application/json"
         },
@@ -160,10 +156,10 @@ export const resetNewAccountStatus = (dispatch)=>dispatch({type:NEW_ACCOUNT_STAT
 
 // postSignIn action (thunk function)
 export const postSignIn = async (dispatch, form,token) =>{
-    const dataCbSignIn = (data)=>dispatch({type:SIGN_IN,payload:data});
-    const statusCbSignIn = (value)=>dispatch({type:SIGN_IN_STATUS,payload:value});
-    const errorCbSignIn = (errorObj)=>dispatch({type:SIGN_IN_ERROR,payload:errorObj});
-    await helpFetch(`${API_URL}/login`,  dataCbSignIn, statusCbSignIn, errorCbSignIn,{
+    const dataCb = (data)=>dispatch({type:SIGN_IN,payload:data});
+    const statusCb = (value)=>dispatch({type:SIGN_IN_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:SIGN_IN_ERROR,payload:errorObj});
+    await helpFetch(`${API_URL}/login`,  dataCb, statusCb, errorCb,{
         headers:{
             "Content-Type": "application/json",
         },
@@ -173,15 +169,30 @@ export const postSignIn = async (dispatch, form,token) =>{
     dispatch({type:SET_SESSION_INFO,payload:true});    
 };
 
+// postSettings action (thunk function)
+export const postSettings = async (dispatch, form,token) =>{
+    const dataCb = (data)=>dispatch({type:SET_SETTINGS,payload:data});
+    const statusCb = (value)=>dispatch({type:SET_SETTINGS_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:SET_SETTINGS_ERROR,payload:errorObj});
+    await helpFetch(`${API_URL}/settings`,  dataCb, statusCb, errorCb,{
+        headers:{
+            "Content-Type": "application/json",
+        },
+        method:'POST',
+        body:form
+    });
+    dispatch({type:UPDATE_SESSION_INFO,payload:true});    
+};
+
 // resetNewAccountStatus
 export const resetSignInStatus = (dispatch)=>dispatch({type:SIGN_IN_STATUS,payload:0});
 
 // getSingOut action (thunk function)
 export const getSingOut = (dispatch, token) =>{
-    const dataCbSingOut = (data)=>dispatch({type:SIGN_OUT,payload:data});
-    const statusCbSingOut = (value)=>dispatch({type:SIGN_OUT_STATUS,payload:value});
-    const errorCbSingOut = (errorObj)=>dispatch({type:SIGN_OUT_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/logout/`,  dataCbSingOut, statusCbSingOut, errorCbSingOut,{
+    const dataCb = (data)=>dispatch({type:SIGN_OUT,payload:data});
+    const statusCb = (value)=>dispatch({type:SIGN_OUT_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:SIGN_OUT_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/logout/`,  dataCb, statusCb, errorCb,{
         headers:{          
             "Authorization": `Bearer ${token}`,
         },
@@ -196,10 +207,10 @@ export const toggleTheme = (dispatch)=>dispatch({type:SET_SESSION_THEME,payload:
 
 // Table info
 export const getSubscriptions = (dispatch, token) =>{
-    const dataCbSubscriptions = (data)=>dispatch({type:GET_SUBSCRIPTIONS,payload:data});
-    const statusCbSubscriptions = (value)=>dispatch({type:GET_SUBSCRIPTIONS_STATUS,payload:value});
-    const errorCbSubscriptions = (errorObj)=>dispatch({type:GET_SUBSCRIPTIONS_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/subs/`,  dataCbSubscriptions, statusCbSubscriptions, errorCbSubscriptions,{
+    const dataCb = (data)=>dispatch({type:GET_SUBSCRIPTIONS,payload:data});
+    const statusCb = (value)=>dispatch({type:GET_SUBSCRIPTIONS_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:GET_SUBSCRIPTIONS_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/subs/`,  dataCb, statusCb, errorCb,{
         headers:{
             "Content-Type": "application/json",
             "Authorization":`Bearer ${token}`
@@ -225,10 +236,10 @@ export const formSubscriptionsValidate = (dispatch)=>dispatch({type:FORM_SUBSCRI
 
 // addSubscription action (thunk function)
 export const addSubscription = (dispatch, token, form) =>{
-    const dataCbAddSubscription = (data)=>dispatch({type:ADD_SUBSCRIPTION,payload:data});
-    const statusCbAddSubscription = (value)=>dispatch({type:ADD_SUBSCRIPTION_STATUS,payload:value});
-    const errorCbAddSubscription = (errorObj)=>dispatch({type:ADD_SUBSCRIPTION_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/subs/`,  dataCbAddSubscription, statusCbAddSubscription, errorCbAddSubscription,{
+    const dataCb = (data)=>dispatch({type:ADD_SUBSCRIPTION,payload:data});
+    const statusCb = (value)=>dispatch({type:ADD_SUBSCRIPTION_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:ADD_SUBSCRIPTION_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/subs/`,  dataCb, statusCb, errorCb,{
         headers:{
             "Content-Type": "application/json",            
             "Authorization": `Bearer ${token}`,
@@ -243,10 +254,10 @@ export const resetAddSubscriptionStatus = (dispatch)=>dispatch({type:ADD_SUBSCRI
 
 // updateSubscription action (thunk function)
 export const updateSubscription = (dispatch, token, form, id) =>{
-    const dataCbupdateSubscription = (data)=>dispatch({type:UPDATE_SUBSCRIPTION,payload:data});
-    const statusCbupdateSubscription = (value)=>dispatch({type:UPDATE_SUBSCRIPTION_STATUS,payload:value});
-    const errorCbupdateSubscription = (errorObj)=>dispatch({type:UPDATE_SUBSCRIPTION_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/subs/${id}`,  dataCbupdateSubscription, statusCbupdateSubscription, errorCbupdateSubscription,{
+    const dataCb = (data)=>dispatch({type:UPDATE_SUBSCRIPTION,payload:data});
+    const statusCb = (value)=>dispatch({type:UPDATE_SUBSCRIPTION_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:UPDATE_SUBSCRIPTION_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/subs/${id}`,  dataCb, statusCb, errorCb,{
         headers:{
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
@@ -262,10 +273,10 @@ export const resetUpdateSubscriptionStatus = (dispatch)=>dispatch({type:UPDATE_S
 
 // deleteSubscription action (thunk function)
 export const deleteSubscription = (dispatch,token, id) =>{
-    const dataCbdeleteSubscription = (data)=>dispatch({type:DELETE_SUBSCRIPTION,payload:data});
-    const statusCbdeleteSubscription = (value)=>dispatch({type:DELETE_SUBSCRIPTION_STATUS,payload:value});
-    const errorCbdeleteSubscription = (errorObj)=>dispatch({type:DELETE_SUBSCRIPTION_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/subs/${id}`,  dataCbdeleteSubscription, statusCbdeleteSubscription, errorCbdeleteSubscription,{
+    const dataCb = (data)=>dispatch({type:DELETE_SUBSCRIPTION,payload:data});
+    const statusCb = (value)=>dispatch({type:DELETE_SUBSCRIPTION_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:DELETE_SUBSCRIPTION_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/subs/${id}`,  dataCb, statusCb, errorCb,{
         headers:{
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
@@ -286,9 +297,9 @@ export const sortSubscriptions = (dispatch, order)=>dispatch({type:SORT_SUBSCRIP
 // ==== ORDERS ==============================================================================
 // getOrders action (thunk function)
 export const getOrders = (dispatch, token, status=false,dateFrom=false, dateTo=false) =>{
-    const dataCbOrders = (data)=>dispatch({type:GET_ORDERS,payload:data});
-    const statusCbOrders = (value)=>dispatch({type:GET_ORDERS_STATUS,payload:value});
-    const errorCbOrders = (errorObj)=>dispatch({type:GET_ORDERS_ERROR,payload:errorObj});
+    const dataCb = (data)=>dispatch({type:GET_ORDERS,payload:data});
+    const statusCb = (value)=>dispatch({type:GET_ORDERS_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:GET_ORDERS_ERROR,payload:errorObj});
     let queryArray = [
         {key:'status',value:status},
         {key:'dateFrom',value:dateFrom},
@@ -304,7 +315,7 @@ export const getOrders = (dispatch, token, status=false,dateFrom=false, dateTo=f
             }
         }
     })
-    helpFetch(`${API_URL}/orders/${queryString}`,  dataCbOrders, statusCbOrders, errorCbOrders,{
+    helpFetch(`${API_URL}/orders/${queryString}`,  dataCb, statusCb, errorCb,{
         headers:{
             "Content-Type": "application/json",
             "Authorization":`Bearer ${token}`
@@ -331,10 +342,10 @@ export const formOrdersValidate = (dispatch)=>dispatch({type:FORM_ORDERS_VALIDAT
 // getOrder action (thunk function)
 export const getOrder = (dispatch, token, id) =>{
 
-    const dataCbOrder = (data)=>dispatch({type:GET_ORDER,payload:data});
-    const statusCbOrder = (value)=>dispatch({type:GET_ORDER_STATUS,payload:value});
-    const errorCbOrder = (errorObj)=>dispatch({type:GET_ORDER_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/orders/${id}`,  dataCbOrder, statusCbOrder, errorCbOrder,{
+    const dataCb = (data)=>dispatch({type:GET_ORDER,payload:data});
+    const statusCb = (value)=>dispatch({type:GET_ORDER_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:GET_ORDER_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/orders/${id}`,  dataCb, statusCb, errorCb,{
         headers:{          
             "Authorization": `Bearer ${token}`,
         },
@@ -343,10 +354,10 @@ export const getOrder = (dispatch, token, id) =>{
 
 // addOrder action (thunk function)
 export const addOrder = (dispatch, token, form) =>{
-    const dataCbAddOrder = (data)=>dispatch({type:ADD_ORDER,payload:data});
-    const statusCbAddOrder = (value)=>dispatch({type:ADD_ORDER_STATUS,payload:value});
-    const errorCbAddOrder = (errorObj)=>dispatch({type:ADD_ORDER_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/orders/`,  dataCbAddOrder, statusCbAddOrder, errorCbAddOrder,{
+    const dataCb = (data)=>dispatch({type:ADD_ORDER,payload:data});
+    const statusCb = (value)=>dispatch({type:ADD_ORDER_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:ADD_ORDER_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/orders/`,  dataCb, statusCb, errorCb,{
         headers:{
             "Content-Type": "application/json",            
             "Authorization": `Bearer ${token}`,
@@ -361,10 +372,10 @@ export const resetAddOrderStatus = (dispatch)=>dispatch({type:ADD_ORDER_STATUS,p
 
 // updateOrder action (thunk function)
 export const updateOrder = (dispatch, token, form, id) =>{
-    const dataCbupdateOrder = (data)=>dispatch({type:UPDATE_ORDER,payload:data});
-    const statusCbupdateOrder = (value)=>dispatch({type:UPDATE_ORDER_STATUS,payload:value});
-    const errorCbupdateOrder = (errorObj)=>dispatch({type:UPDATE_ORDER_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/orders/${id}`,  dataCbupdateOrder, statusCbupdateOrder, errorCbupdateOrder,{
+    const dataCb = (data)=>dispatch({type:UPDATE_ORDER,payload:data});
+    const statusCb = (value)=>dispatch({type:UPDATE_ORDER_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:UPDATE_ORDER_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/orders/${id}`,  dataCb, statusCb, errorCb,{
         headers:{
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
@@ -379,10 +390,10 @@ export const resetUpdateOrderStatus = (dispatch)=>dispatch({type:UPDATE_ORDER_ST
 
 // deleteOrder action (thunk function)
 export const deleteOrder = (dispatch,token, id) =>{
-    const dataCbdeleteOrder = (data)=>dispatch({type:DELETE_ORDER,payload:data});
-    const statusCbdeleteOrder = (value)=>dispatch({type:DELETE_ORDER_STATUS,payload:value});
-    const errorCbdeleteOrder = (errorObj)=>dispatch({type:DELETE_ORDER_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/orders/${id}`,  dataCbdeleteOrder, statusCbdeleteOrder, errorCbdeleteOrder,{
+    const dataCb = (data)=>dispatch({type:DELETE_ORDER,payload:data});
+    const statusCb = (value)=>dispatch({type:DELETE_ORDER_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:DELETE_ORDER_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/orders/${id}`,  dataCb, statusCb, errorCb,{
         headers:{
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`,
@@ -402,10 +413,10 @@ export const sortOrders = (dispatch, order)=>dispatch({type:SORT_ORDERS,payload:
 // ==== TRANSACTIONS ==============================================================================
 // getTransactions action (thunk function)
 export const getTransactions = (dispatch, token,dateFrom='2000-01-01',dateTo='2100-12-31') =>{
-    const dataCbTransactions = (data)=>dispatch({type:GET_TRANSACTIONS,payload:data});
-    const statusCbTransactions = (value)=>dispatch({type:GET_TRANSACTIONS_STATUS,payload:value});
-    const errorCbTransactions = (errorObj)=>dispatch({type:GET_TRANSACTIONS_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/transactions?dateFrom=${dateFrom}&dateTo=${dateTo}`,  dataCbTransactions, statusCbTransactions, errorCbTransactions,{
+    const dataCb = (data)=>dispatch({type:GET_TRANSACTIONS,payload:data});
+    const statusCb = (value)=>dispatch({type:GET_TRANSACTIONS_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:GET_TRANSACTIONS_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/transactions?dateFrom=${dateFrom}&dateTo=${dateTo}`,  dataCb, statusCb, errorCb,{
         headers:{
             "Content-Type": "application/json",
             "Authorization":`Bearer ${token}`
@@ -422,10 +433,10 @@ export const sortTransactions = (dispatch, order)=>dispatch({type:SORT_TRANSACTI
 // ==== PORTFOLIO ==============================================================================
 // getPortfolio action (thunk function)
 export const getPortfolio = (dispatch, token) =>{
-    const dataCbPortfolio = (data)=>dispatch({type:GET_PORTFOLIO,payload:data});
-    const statusCbPortfolio = (value)=>dispatch({type:GET_PORTFOLIO_STATUS,payload:value});
-    const errorCbPortfolio = (errorObj)=>dispatch({type:GET_PORTFOLIO_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/portfolio/`,  dataCbPortfolio, statusCbPortfolio, errorCbPortfolio,{
+    const dataCb = (data)=>dispatch({type:GET_PORTFOLIO,payload:data});
+    const statusCb = (value)=>dispatch({type:GET_PORTFOLIO_STATUS,payload:value});
+    const errorCb = (errorObj)=>dispatch({type:GET_PORTFOLIO_ERROR,payload:errorObj});
+    helpFetch(`${API_URL}/portfolio/`,  dataCb, statusCb, errorCb,{
         headers:{
             "Content-Type": "application/json",
             "Authorization":`Bearer ${token}`
@@ -440,37 +451,4 @@ export const filterPortfolio = (dispatch, filterForm)=>dispatch({type:FILTER_POR
 // order portfolio payload='orderCriteria' 
 export const sortPortfolio = (dispatch, order)=>dispatch({type:SORT_PORTFOLIO,payload:order});
 
-// getSettings action (thunk function)
-export const getSettings = (dispatch, token) =>{
-    const dataCbSettings = (data)=>dispatch({type:GET_SETTINGS,payload:data});
-    const statusCbSettings = (value)=>dispatch({type:GET_SETTINGS_STATUS,payload:value});
-    const errorCbSettings = (errorObj)=>dispatch({type:GET_SETTINGS_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/settings/`,  dataCbSettings, statusCbSettings, errorCbSettings,{
-        headers:{
-            "Content-Type": "application/json",
-            "Authorization":`Bearer ${token}`
-        },
-    });
-};
-
-// updateSettings action (thunk function)
-export const updateSettings = (dispatch, token, form, id) =>{
-    const dataCbupdateSettings = (data)=>dispatch({type:UPDATE_SETTINGS,payload:data});
-    const statusCbupdateSettings = (value)=>dispatch({type:UPDATE_SETTINGS_STATUS,payload:value});
-    const errorCbupdateSettings = (errorObj)=>dispatch({type:UPDATE_SETTINGS_ERROR,payload:errorObj});
-    helpFetch(`${API_URL}/orders/${id}`,  dataCbupdateSettings, statusCbupdateSettings, errorCbupdateSettings,{
-        headers:{
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-        },
-        method:'PUT',
-        body:form
-    });
-};
-
-// ==================================================================
-// =========================   CRUDS  ===============================
-// ==================================================================
-
-// === Subscriptions =================================================
 
