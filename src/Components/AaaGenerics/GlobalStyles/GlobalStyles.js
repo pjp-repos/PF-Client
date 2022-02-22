@@ -43,7 +43,7 @@ export const GlobalStyle = createGlobalStyle`
         --step-5: clamp(2.80rem, 2.35rem + 2.22vw, 4.58rem);        
 
         /* ==================== Modal windows ==================== */
-        --modal-border: 10px double var(--first-color);
+        --modal-border: 10px double #474D57;
         --modal-border-radius: 20px;
 
         /* =================== Hx tags =============================*/

@@ -83,7 +83,7 @@ export const UserContainer = styled(ContainerButtons) `
   margin-right:0.5%;
   align-items:center;
   &:hover .OptionsContainer{
-    height:205px;
+    height:245px;
   };
 `
 export const OptionsContainer = styled.div`
