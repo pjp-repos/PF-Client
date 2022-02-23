@@ -30,11 +30,12 @@ const errorPasswordFormInitial = {
 }
 const initialStateForm = {
   theme:"dark",
-  img:`${imgDefault}`,
+  image:"",
+  imageDef:`${imgDefault}`,
   ...errorPasswordFormInitial
 }
 
-export default function Settings({setIsOpen}) {
+export default function Settings({setIsOpen,isOpen}) {
 
   const [optionState,setOptionState] = React.useState(initialState);
   const [stateForm,setStateForm] = React.useState(initialStateForm);
@@ -44,34 +45,36 @@ export default function Settings({setIsOpen}) {
   const settingsImg = useSelector(selectSessionImage);
   const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
   const theme = useSelector(selectSessionTheme);
-
   const dispatch = useDispatch();
+  console.log(stateForm);
+
     useEffect(()=>{
-      resetSettingsStatus(dispatch)
-      setErrorPasswordForm(errorPasswordFormInitial);
-      if(settingsImg !== "")
+         setErrorSubmit("");
+         setErrorPasswordForm(errorPasswordFormInitial);
+         setOptionState(initialState);
          setStateForm({
-            ...stateForm,
+            ...initialStateForm,
             image:settingsImg,
             theme:theme === true ? "light" : "dark"
-         })
-      else{
-        setStateForm(initialStateForm);
-      }
-      setOptionState(initialState);
-        
-    },[ dispatch])
+         })        
+    },[isOpen === true])
 
     useEffect(() => {
       setIsOpen(false);
+      resetSettingsStatus(dispatch);
     },[settings[1] === 2])
+
+    useEffect(() => {
+      setErrorSubmit(settings[2].errorMessage)
+      resetSettingsStatus(dispatch);
+    },[settings[1] === 3])
 
     const onChangePicture = e => {
       let file = e.target.files[0];
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        handlerStateForm("img",reader.result);
+        handlerStateForm("image",reader.result);
       }
          
     };
@@ -140,14 +143,14 @@ export default function Settings({setIsOpen}) {
                 </HeadDiv>
                 <DivImgBtn actual = {optionState.image}>
                   <ImageDiv >
-                    <Img src={stateForm.img} />
+                    <Img src={stateForm.image !== "" ? stateForm.image : stateForm.imageDef} />
                   </ImageDiv>
                   <DivEditDelete>
                     <Label htmlFor="img"> 
                     <img height = "38px" src = {stateForm.theme === "dark" ? editWhite : editDark} alt = "delete"/>
                     </Label>
                     <InputPic id="img" type="file" accept="image/png, image/jpeg"   onChange={onChangePicture} />  
-                    <ButtonOption onClick={(e) => handlerStateForm("img",imgDefault)} type = "button" > <img src = {stateForm.theme === "dark" ? deleteWhite : deleteDark} alt = "delete"/></ButtonOption> 
+                    <ButtonOption onClick={(e) => handlerStateForm("image","")} type = "button" > <img src = {stateForm.theme === "dark" ? deleteWhite : deleteDark} alt = "delete"/></ButtonOption> 
                   </DivEditDelete>
                 </DivImgBtn>
             
@@ -157,15 +160,15 @@ export default function Settings({setIsOpen}) {
                 </HeadDiv>                  
                 <DivInputs actual = {optionState.password}>
                   <span>Enter previous password:</span>
-                    <InputPassword id = "password" type='password' onChange = {(e) => handlerStateForm(e.target.id,e.target.value)}/>
+                    <InputPassword id = "password" type='password' value = {stateForm.password} onChange = {(e) => handlerStateForm(e.target.id,e.target.value)}/>
                     {errorPasswordForm.password !== "" && <LabelError>{errorPasswordForm.password}</LabelError>}
                     <p/>
                     <span>Enter new password:</span>
-                    <InputPassword  id = "newPassword" type='password'onChange = {(e) => handlerStateForm(e.target.id,e.target.value)}  />
+                    <InputPassword  id = "newPassword" type='password' value = {stateForm.newPassword} onChange = {(e) => handlerStateForm(e.target.id,e.target.value)}  />
                     {errorPasswordForm.newPassword !== "" && <LabelError>{errorPasswordForm.newPassword}</LabelError>}
                     <p/>
                     <span>Enter re-enter new password:</span>
-                    <InputPassword  id = "newPasswordConfirmation" type='password' onChange = {(e) => handlerStateForm(e.target.id,e.target.value)}  />
+                    <InputPassword  id = "newPasswordConfirmation" type='password'  value = {stateForm.newPasswordConfirmation}  onChange = {(e) => handlerStateForm(e.target.id,e.target.value)}  />
                     {errorPasswordForm.newPasswordConfirmation!== "" && <LabelError>{errorPasswordForm.newPasswordConfirmation}</LabelError>}
                     <p/>
                  </DivInputs>
@@ -184,7 +187,7 @@ export default function Settings({setIsOpen}) {
                   </ButtonTheme>
                 </DivTheme>
 
-                {settings[1] === 3 &&  <LabelError>{settings[2].errorMessage}</LabelError>}
+                <LabelError>{errorSubmit}</LabelError>
                 <DivSubmits>
                    <BtnSubmit type = "button" onClick = {(e) => setIsOpen(false)}>Close</BtnSubmit>
                    <BtnSubmit type = "button" onClick = {submit}>Save</BtnSubmit>

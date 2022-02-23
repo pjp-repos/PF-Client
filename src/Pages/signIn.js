@@ -4,7 +4,8 @@ import { ButtonGoogle ,GoogleIcon,TextGoogle} from "../Components/LogIn/SignInEl
 import {useNavigate} from "react-router-dom";
 import { validateSignIn,validateSubmit } from "../Components/LogIn/ValidateLogin";
 import {
-  postSignIn
+  postSignIn,
+  resetSignInStatus
 } from '../Redux/Actions/actionCreators';
 import {selectSignInStatus} from '../Redux/Selectors/selectors';
 import { useSelector, useDispatch } from 'react-redux';
@@ -24,13 +25,17 @@ export default function SignIn(){
   const navigate = useNavigate();
 
   React.useEffect(() => {    
-  }, [])
+    seterrorSignInState(initialState);
+    setSignInState(initialState);
+    setErrorSubmit("");
+  }, [status === 0])
 
   React.useEffect(() => {    
     if (status === 2)
      navigate("../home")
     if (status === 3){
       setErrorSubmit("Error name or password incorrect")
+      resetSignInStatus(dispatch);
     }
   }, [status])
 
