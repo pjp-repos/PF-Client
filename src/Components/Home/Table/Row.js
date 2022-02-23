@@ -12,6 +12,11 @@ ${props => props.head && 'font-weight:bold; background-color: var(--third-color)
     background-color: var(--first-color);
 }
 
+
+}
+@media screen and (max-width:920px){
+    width:115%;
+}
 @media screen and (max-width:540px){
     width:250%;
 }
