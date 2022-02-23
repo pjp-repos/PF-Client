@@ -31,11 +31,12 @@ export default function SignIn(){
   }, [status === 0])
 
   React.useEffect(() => {    
-    if (status === 2)
-     navigate("../home")
+    if (status === 2){
+      navigate("../home")
+      resetSignInStatus(dispatch);
+    }
     if (status === 3){
       setErrorSubmit("Error name or password incorrect")
-      resetSignInStatus(dispatch);
     }
   }, [status])
 
@@ -76,7 +77,9 @@ export default function SignIn(){
           <Error top = {67} >{errorSigninState.password}</Error>
           {errorSubmit !== ""  && <Error top = {74} >{errorSubmit}</Error>}
           <Submit type = "submit" top = {78} onClick = {handlerSubmit}>Sign In</Submit>
-          <Link top = {90} left = {24} size = {12}  onClick = {(e) => navigate("../signup")} > <White>Don't have an account ?</White> /SignUp</Link>
+          <Link top = {90} left = {24} size = {12}  onClick = {(e) => {
+            resetSignInStatus(dispatch);
+            navigate("../signup")}} > <White>Don't have an account ?</White> /SignUp</Link>
        </ContainerSign>
       </ContainerSignP>
 

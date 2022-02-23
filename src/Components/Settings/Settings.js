@@ -46,7 +46,7 @@ export default function Settings({setIsOpen,isOpen}) {
   const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
   const theme = useSelector(selectSessionTheme);
   const dispatch = useDispatch();
-  console.log(settingsImg);
+
 
     useEffect(()=>{
          setErrorSubmit("");
@@ -111,7 +111,7 @@ export default function Settings({setIsOpen,isOpen}) {
 
     const submit = (e) => {
       let object = {
-        image:stateForm.img,
+        image:stateForm.image,
         theme:stateForm.theme === "dark" ? false : true,
         lastPassword:stateForm.password,
         newPassword:stateForm.newPassword
