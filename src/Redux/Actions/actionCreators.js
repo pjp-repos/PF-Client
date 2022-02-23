@@ -187,6 +187,7 @@ export const postSettings = async (dispatch,token, form) =>{
 
 // resetNewAccountStatus
 export const resetSignInStatus = (dispatch)=>dispatch({type:SIGN_IN_STATUS,payload:0});
+export const resetSettingsStatus = (dispatch)=>dispatch({type:SET_SETTINGS_STATUS,payload:0});
 
 // getSingOut action (thunk function)
 export const getSingOut = (dispatch, token) =>{
