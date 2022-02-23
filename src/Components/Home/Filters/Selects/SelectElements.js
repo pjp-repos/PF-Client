@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 
 export const ContainerSelects = styled.div`
-  margin-left:10px;
+ 
 `
 export const ContainerSelectTooltip= styled.div`
  display:inline-block;
@@ -14,27 +14,27 @@ export const ContainerSelectTooltip= styled.div`
   z-index: 2;
  }
  &:hover .Select{
-    border-color: #efb810;
+    border-color:  var(--gold-color);
  }
 `
 export const Select = styled.select`
-   color:white;
+   color: ${props => props.theme.textColor};
    width:130px;
    height:40px;
-   background-color:rgb(20, 21, 26);
+   background-color: ${props => props.theme.firstColor};
    text-align: center;
+   cursor:pointer;
    font-family:'Montserrat', sans-serif;
    outline:0;
    font-size:18px;
    -webkit-appearance: none;
    transition:0.2s;
-   border:1px solid #474D57;
-   margin-left:8px;
+   border:1px solid ${props => props.theme.thirdColor};
+
    border-radius:5px;
 
    @media screen and (max-width:540px){
       margin-left:0px;
-      margin-right:10px;
       margin-top:20px;
   }
 `

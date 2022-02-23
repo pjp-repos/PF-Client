@@ -4,7 +4,7 @@ import {TableC} from "../../Home/Table/TableElements"
 import { Card ,Img} from "../../UserHome/UserHomeElements"
 
 export const RowO = styled(Row)`
-  grid-template-columns: 0.08fr 0.15fr 0.15fr 0.15fr 0.16fr 0.15fr 0.15fr 0.15fr  0.15fr 0.22fr  ;
+  grid-template-columns: 0.08fr 0.15fr 0.15fr 0.15fr 0.16fr 0.15fr 0.17fr 0.15fr  0.15fr 0.22fr  ;
   margin-left:auto;
   margin-right:auto;
   width:100%;
@@ -15,7 +15,7 @@ export const RowO = styled(Row)`
   }
   
   @media screen and (max-width:540px){
-    width:270%;
+    width:340%;
   }
 
 `
@@ -37,11 +37,11 @@ export const TableO = styled(TableC)`
       -webkit-appearance: none;
       width:5px;
       height:6px;
-      background-color: #181A20;
+      background-color: ${props => props.theme.secondColor};
     }
     
     &::-webkit-scrollbar-thumb {
-      background-color: white;
+      background-color: ${props => props.theme.textColor};
       height: 1px;
     }
    }
@@ -49,7 +49,6 @@ export const TableO = styled(TableC)`
 `
 export const ContainerEdit = styled.div `
   width:100%;
-  background-color:blue;
   height:100%;
 `
 export const ImgEdit = styled.img`
@@ -61,7 +60,6 @@ export const DivBanner = styled.div`
   width:100%;
   display:flex;
   margin-top:40px;
-  margin-bottom:40px;
   justify-content:center;
   height:120px;
 
@@ -84,4 +82,18 @@ export const BannerOrder = styled(Card)`
 export const BannerImg = styled(Img)`
     height:100%;
     opacity:0.6;
+`
+export const ButtonOrder = styled.button`
+  border:0;
+  color:${props => props.theme.textColor};
+  outline:0;
+  background-color:transparent;
+  height:13px;
+  ${props => props.id === props.actual && `color:${props.theme.orderColor};`}
+`
+export const DivButtons = styled.div`
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
 `

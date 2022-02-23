@@ -6,11 +6,11 @@ import Pagination from '../Components/Home/Pagination/Pagination';
 import Table from '../Components/Home/Table/Table';
 import {getGlobalPrices} from '../Redux/Actions/actionCreators';
 import {
-  selectGlobalPrices,
-  selectGlobalPricesStatus,
-  selectGlobalPricesError,
+  selectGlobalPricesAll,
   selectGlobalPricesCurrency
 } from '../Redux/Selectors/selectors';
+import Spinner from '../Components/AaaGenerics/Loaders/Spinner/Spinner';
+import { Div } from '../Components/AaaGenerics/PrincipalDiv';
 
 const CRYPTOS_PER_PAGE = 20;
 
@@ -19,9 +19,7 @@ function Home() {
   let topCryptos = CRYPTOS_PER_PAGE * actualPage;
   let initialCryptos = topCryptos - CRYPTOS_PER_PAGE;
   const dispatch = useDispatch();
-  const data = useSelector(selectGlobalPrices);
-  const status = useSelector(selectGlobalPricesStatus);
-  const error = useSelector(selectGlobalPricesError);
+  const [data, status,error] = useSelector(selectGlobalPricesAll);
   const currency = useSelector(selectGlobalPricesCurrency);
   
   useEffect(() => {    
@@ -36,19 +34,23 @@ function Home() {
   // // Refresh prices
   // const intervalID = setInterval(refresh, 5000);
 
+  const reset = () => {
+    getGlobalPrices(dispatch,currency);
+  }
+
   return (
     
-    <div >
+    <Div >
       <NavBar />
-      <Filters />
       {status===1
-      ?<p>Loading...</p>
+      ?<Spinner />
       :<>
+        <Filters reset = {reset} />
         <Table cryptos = {data.slice(initialCryptos,topCryptos)}/>
         {data.length > 0 && <Pagination totalCryptos = {data.length} cryptosForPage = {CRYPTOS_PER_PAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
       </>
       }      
-    </div>
+    </Div>
   );
 }
 

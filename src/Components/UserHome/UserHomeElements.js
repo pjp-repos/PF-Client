@@ -27,14 +27,14 @@ export const Card = styled.button`
   border:0;
   outline:0;
   cursor:pointer;
-  color:white;
   font-family: 'Montserrat', sans-serif;
   &:hover .Img{
-    opacity:0.8;
+    opacity:0.6;
   }
 `
 export const Title = styled.h4`
   position:relative;
+  color:${props => props.theme.whiteColor};
   z-index:2;
 `
 export const Img = styled.img`
@@ -43,7 +43,7 @@ export const Img = styled.img`
   top: 0;
   width: 100%;
   height: 160px;
-  opacity: 0.6;
+  opacity:0.8;
   object-fit:cover;
   border-radius:5px;
 `
@@ -52,8 +52,9 @@ export const Banner = styled.div`
   height:450px;
   margin-top:10px;
   width:100%;
-  background-image:linear-gradient(to bottom left,#474D57,#181A20,rgb(20, 21, 26));
+  background-image:linear-gradient(to bottom left,${props => props.theme.thirdColor},${props => props.theme.secondColor},${props => props.theme.firstColor});
   @media screen and (max-width:840px){
+    height:480px;
     flex-direction:column;
     justify-content:center;
     align-items:center;
@@ -106,7 +107,7 @@ export const ImgBannerr = styled.img`
  
 `
 export const Henry = styled.a`
-  color:#efb810;
+  color:var(--gold-color);
 `
 export const TitleHenry = styled.h1`
  font-size:50px;
@@ -123,8 +124,9 @@ export const TitleHenry = styled.h1`
   }
 `
 export const InfoBanner = styled.p`
-margin-bottom:8%;
-font-size:22px;
+  margin-bottom:8%;
+  font-size:22px;
+  text-align:center;
 
 @media screen and (max-width:840px){
   font-size:18px;
@@ -135,10 +137,10 @@ font-size:22px;
 
 export const ButtonWallet = styled.button`
   color:white;
-  background-color:#efb810;
+  background-color:var(--gold-color);
   padding:10px;
   font-family: 'Montserrat', sans-serif;
-  border:1px solid #efb810;
+  border:1px solid var(--gold-color);
   border-radius:10px;
   cursor:pointer;
 `

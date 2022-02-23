@@ -22,27 +22,35 @@ export const ContainerFiltersT = styled(ContainerFilters)`
   margin-top:40px;
   margin-bottom:40px;
   @media screen and (max-width:540px){
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `
 export const Wallet = styled.button`
   width:130px;
-  height:40px;
+  height:45px;
   cursor:pointer;
-  background-color:#efb810;
+  background-color:var(--gold-color);
   color:white;
   text-align: center;
   font-family:'Montserrat', sans-serif;
   outline:0;
-  border:1px solid #efb810;
+  border:1px solid var(--gold-color);
   border-radius:5px;
   margin-left:50px;
   font-size:18px;
+  @media screen and (max-width:540px){
+  margin-left:0px;
+  }
 ` 
 export const SelectTransactions = styled(Select)`
   margin-right:50px;
+  background-color: ${props => props.theme.firstColor};
+  height:45px;
+  @media screen and (max-width:540px){
+    margin-right:0;
+  }
 
 `
 export const TableT = styled(TableC)`
@@ -54,11 +62,11 @@ export const TableT = styled(TableC)`
       -webkit-appearance: none;
       width:5px;
       height:6px;
-      background-color: #181A20;
+      background-color: var(--second-color);
     }
     
     &::-webkit-scrollbar-thumb {
-      background-color: white;
+      background-color: var(--text-color);
       height: 1px;
     }
    }

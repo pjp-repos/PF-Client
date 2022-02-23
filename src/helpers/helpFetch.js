@@ -27,7 +27,11 @@ export const helpFetch = async (url, dataCb, statusCb,  errorCb, options={},fina
     try {
         const res = await fetch(url, options);
         const json = await res.json();
+
+        console.log('Response:---------------------');
         console.log(res);
+        console.log('Body content:-----------------');        
+        console.log(json);
 
         if(!res.ok){
             dataCb([]);

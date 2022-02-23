@@ -15,15 +15,15 @@ export const ContainerSign = styled.div`
    justifiy-content:center;
    align-items:center;
    margin-top:2%;
-   color:white;
+   color: ${props => props.theme.textColor};
    margin-right:auto;
    position:relative;
    min-height:600px;
-   background-color:#181A20;
+   background-color:${props => props.theme.secondColor};
    font-family:'Montserrat', sans-serif;
    box-shadow: 4px 4px 8px black;
 
-   @media screen and (max-width:840px){
+   @media screen and (max-width:920px){
     width:70%
   }
  
@@ -44,9 +44,9 @@ export const ContainerSign = styled.div`
 
 `
 export const InputSign= styled.input`
-  border: 1px solid #474D57;
+  border: 1px solid  ${props => props.theme.thirdColor};
   border-radius:4px;
-  color:white;
+  color: ${props => props.theme.textColor};
   background-color:transparent;
   font-family:'Montserrat', sans-serif;
   outline:0;
@@ -55,10 +55,10 @@ export const InputSign= styled.input`
   height:40px;
 
   &:hover{
-    border:1.5px solid white;
+    border:1.5px solid ${props => props.theme.textColor};
  }
  &::placeholder{
-    color:white;
+    color:${props => props.theme.textColor};
     font-family:'Montserrat', sans-serif;
 }
 
@@ -73,11 +73,12 @@ export const LabelSign = styled.label`
 `
 
 export const Submit = styled.button`
-  color:white;
+  color:${props => props.theme.textColor};
   margin-top:25px;
   margin-bottom:5px;
-  background-color:#474D57;
-  border:1px solid #474D57;
+  cursor:pointer;
+  background-color:${props => props.theme.thirdColor};
+  border:1px solid ${props => props.theme.thirdColor};
   font-family:'Montserrat', sans-serif;
   width:70%;
   height:45px;
@@ -93,22 +94,23 @@ export const ContainerLogo = styled.div `
 `
 
 export const White = styled.a`
- color:white;
+ color:${props => props.theme.textColor};
 
 `
 export const Link = styled.button`
-  color: #efb810;
+  color: var(--gold-color);
   background-color:transparent;
   font-weight:bold;
   margin-bottom:30px;
   border: 0;
+  cursor:pointer;
   outline:0;
   font-family:'Montserrat', sans-serif;
   ${props => (props.size   && ` font-size:${props.size}px;`)};
 `
 export const Error = styled.label`
   position:absolute;
-  color: #efb810;
+  color: var(--gold-color);
   font-family:'Montserrat', sans-serif;
   font-size:12px;
   left:15%;

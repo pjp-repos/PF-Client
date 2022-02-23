@@ -10,6 +10,7 @@ const flex = styled.div`
 export const ContainerNavbar = styled(flex)`
   height:70px;
   width:100%;
+  background-color:${props => props.theme.firstColor};
   box-shadow: 2px 2px 4px black;   
 `;
 
@@ -28,7 +29,7 @@ export const Title = styled.button`
    outline:0;
    border:0;
    background-color:transparent;
-   color:#efb810;  
+   color:var(--gold-color);  
    margin-right:12px;
    @media screen and (max-width:540px){
      margin-right:30px;
@@ -60,14 +61,14 @@ margin-right:10px;
 display:block;
 cursor:pointer;
 font-size:18px;
-color:white;
+color:${props => props.theme.textColor};
 background-color:transparent;
 border:0;
 outline:0;
 height:40px;
 
 &:hover{
-${props => props.signup ? 'border: 1px solid #efb810; color:#efb810 ': 'border: 1px solid #474D57;'};
+${props => props.signup ? 'border: 1px solid var(--gold-color); color:var(--gold-color) ': `border: 1px solid ${props.theme.thirdColor};`};
  border-radius:5px;
 }
 @media screen and (max-width:540px){
@@ -83,7 +84,7 @@ export const UserContainer = styled(ContainerButtons) `
   margin-right:0.5%;
   align-items:center;
   &:hover .OptionsContainer{
-    height:205px;
+    height:245px;
   };
 `
 export const OptionsContainer = styled.div`
@@ -94,7 +95,7 @@ export const OptionsContainer = styled.div`
   align-items:flex-start
   justify-content:center;
   text-align:center;
-  background-color:#181A20;
+  background-color:${props => props.theme.secondColor};
   z-index:3;
   top:95%;
   width:150px;
@@ -106,14 +107,18 @@ export const Option =styled.button`
   font-size:15px; 
   background-color:transparent;
   border:0;
-  color:white;
+  color:${props => props.theme.textColor};
   font-family:'Montserrat', sans-serif;
   &:hover{
-    background-color:#474D57;
+    background-color:${props => props.theme.thirdColor};
     cursor: pointer;
   }
 `;
 export const ImgUser = styled.img`
+height:35px;
+width:35px;
+object-fit:cover;
+border-radius:30px;
 @media screen and (max-width:540px){
   margin-left:50px;
  }

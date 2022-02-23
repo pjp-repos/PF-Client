@@ -16,8 +16,8 @@ export const GET_PRICES_STATUS="GET_PRICES_STATUS";
 export const GET_PRICES_ERROR="GET_PRICES_ERROR";
 
 // Filters and orders for market table
-export const SET_PRICES_FILTER="SET_PRICES_FILTER";
-export const SET_PRICES_ORDER="SET_PRICES_ORDER";
+export const FILTER_PRICES="FILTER_PRICES";
+export const SORT_PRICES="SORT_PRICES";
 export const SET_PRICES_CURRENCY="SET_PRICES_CURRENCY";
 
 // ==== Session issues ==============================
@@ -35,6 +35,12 @@ export const SIGN_OUT_ERROR="SIGN_OUT_ERROR";
 
 // Setting session info after perform a loguin or logout
 export const SET_SESSION_INFO="SET_SESSION_INFO";
+export const SET_SESSION_THEME="SET_SESSION_THEME";
+export const UPDATE_SESSION_INFO="UPDATE_SESSION_INFO";
+export const SET_SETTINGS="SET_SETTINGS";
+export const SET_SETTINGS_STATUS="SET_SETTINGS_STATUS";
+export const SET_SETTINGS_ERROR="SET_SETTINGS_ERROR";
+
 
 // ==== SUBSCRIPTIONS CRUD =====================================
 // Envía solicitud del listado de suscripciones
@@ -50,7 +56,7 @@ export const SORT_SUBSCRIPTIONS="SORT_SUBSCRIPTIONS";
 export const FORM_SUBSCRIPTIONS_NEW_BTN = "FORM_SUBSCRIPTIONS_NEW_BTN";
 export const FORM_SUBSCRIPTIONS_EDIT_BTN = "FORM_SUBSCRIPTIONS_EDIT_BTN";
 export const FORM_SUBSCRIPTIONS_HANDLE_CHANGE = "FORM_SUBSCRIPTIONS_HANDLE_CHANGE";
-export const FORM_SUBSCRIPTION_VALIDATE = "FORM_SUBSCRIPTION_VALIDATE";
+export const FORM_SUBSCRIPTIONS_VALIDATE = "FORM_SUBSCRIPTIONS_VALIDATE";
 export const FORM_SUBSCRIPTIONS_RESET_BTN = "FORM_SUBSCRIPTIONS_RESET_BTN";
 
 // Envía el formulario de alta de nueva suscripción de alertas
@@ -98,6 +104,13 @@ export const DELETE_ORDER="DELETE_ORDER";
 export const DELETE_ORDER_STATUS="DELETE_ORDER_STATUS";
 export const DELETE_ORDER_ERROR="DELETE_ORDER_ERROR";
 
+// Form events
+export const FORM_ORDERS_NEW_BTN = "FORM_ORDERS_NEW_BTN";
+export const FORM_ORDERS_EDIT_BTN = "FORM_ORDERS_EDIT_BTN";
+export const FORM_ORDERS_RESET_BTN = "FORM_ORDERS_RESET_BTN";
+export const FORM_ORDERS_HANDLE_CHANGE = "FORM_ORDERS_HANDLE_CHANGE";
+export const FORM_ORDERS_VALIDATE = "FORM_ORDERS_VALIDATE";
+
 // ==== Transactions table ==============================
 // Transactions list
 export const GET_TRANSACTIONS="GET_TRANSACTIONS";
@@ -118,16 +131,6 @@ export const GET_PORTFOLIO_ERROR="GET_PORTFOLIO_ERROR";
 export const FILTER_PORTFOLIO="FILTER_PORTFOLIO";
 export const SORT_PORTFOLIO="SORT_PORTFOLIO";
 
-// ==== Settings form
-// User settings data
-export const GET_SETTINGS="GET_SETTINGS";
-export const GET_SETTINGS_STATUS="GET_SETTINGS_STATUS";
-export const GET_SETTINGS_ERROR="GET_SETTINGS_ERROR";
-
-// User settings form
-export const UPDATE_SETTINGS="UPDATE_SETTINGS";
-export const UPDATE_SETTINGS_STATUS="UPDATE_SETTINGS_STATUS";
-export const UPDATE_SETTINGS_ERROR="UPDATE_SETTINGS_ERROR";
 //
 
 

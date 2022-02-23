@@ -13,12 +13,12 @@ export const ButtonSearch = styled.button`
 
 export const ContainerSearch = styled.div`
   position: relative;
-  background-color:#474D57;
+  background-color: ${props => props.theme.thirdColor};
   width:220px;
   height:40px;
   margin-top:20px;
   border-radius:20px;
-  margin-right:30px;
+  margin-right:70px;
 
   &:hover{
     border:1.5px solid rgba(236, 238, 247, 0.8);
@@ -26,6 +26,7 @@ export const ContainerSearch = styled.div`
  @media screen and (max-width:540px){
    margin-right:auto;
    margin-left:auto;
+   margin-bottom:20px;
 }
 
 `
@@ -39,13 +40,13 @@ height:20px;
 width:150px;
 background-color:transparent;
 font-family:'Montserrat', sans-serif;
-color:white;
+color: ${props => props.theme.textColor};
 border:0;
 font-size:15px;
 outline:0;
 
 &::placeholder{
-    color:white;
+    color: ${props => props.theme.textColor};
     font-family:'Montserrat', sans-serif;
 }
 `

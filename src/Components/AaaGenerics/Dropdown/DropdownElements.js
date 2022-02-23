@@ -17,6 +17,7 @@ export const DropDownContainer = styled("div")`
 
 export const DropDownButton = styled(Button)`
     width: 100%;
+    background-color:${props => props.theme.thirdColor};
     border-bottom-left-radius: ${
         ({show})=>(show ? '0' : '50px' )
     };
@@ -24,19 +25,20 @@ export const DropDownButton = styled(Button)`
         ({show})=>(show ? '0' : '50px' )
     };
     &:hover{
-        background-color: var(--first-color);
+        background-color: #8a919e;
     }
 `;
 
 export const DropDownLabel = styled.p`
-    color:var(--first-color);
+    color:var(--text-color);
 `;
 
 export const DropDownError = styled.p`
     display: ${
         ({show})=>(show ? 'block' : 'none' )
     };
-    color:var(--error-color);
+    color:var(--gold-color);
+    font-size:14px;
 `;
 
 export const DropDownListContainer = styled.div`
@@ -46,7 +48,7 @@ export const DropDownListContainer = styled.div`
     max-height:200px;
     padding: 1rem;
     border: 2px solid var(--first-color);
-
+    font-family: 'Montserrat', sans-serif;
     position: absolute;
     top:110%;
     left:0;
@@ -95,7 +97,7 @@ export const DropDownListItem = styled.div`
 
     border-radius: 5px;
     cursor: pointer;
-    color: white;
+    color: var(--text-color);
     /* white-space: nowrap; */
     background-color: ${
             ({isSelected})=>(isSelected ? 'var(--first-color)' : 'transparent' )

@@ -44,15 +44,40 @@ const sortCallbacks={
         symbolAsc:(a,b)=>genericAsc(a,b,(el)=>el.symbol),
         symbolDesc:(a,b)=>genericDesc(a,b,(el)=>el.symbol),
         priceAsc:(a,b)=>genericAsc(a,b,(el)=>el.price,true),
-        pricelDesc:(a,b)=>genericDesc(a,b,(el)=>el.price,true),
+        priceDesc:(a,b)=>genericDesc(a,b,(el)=>el.price,true),
     },
+
+    orders:{
+        symbol1Asc:(a,b)=>genericAsc(a,b,(el)=>el.symbol1.symbol),
+        symbol1Desc:(a,b)=>genericDesc(a,b,(el)=>el.symbol1.symbol),
+        symbol2Asc:(a,b)=>genericAsc(a,b,(el)=>el.symbol2.symbol),
+        symbol2Desc:(a,b)=>genericDesc(a,b,(el)=>el.symbol2.symbol),   
+        dateAsc:(a,b)=>genericAsc(a,b,(el)=>el.date),
+        dateDesc:(a,b)=>genericDesc(a,b,(el)=>el.date),
+        typeAsc:(a,b)=>genericAsc(a,b,(el)=>el.buyOrder),
+        typeDesc:(a,b)=>genericDesc(a,b,(el)=>el.buyOrder),
+    },
+
     subscriptions:{
-        bySymbol:"",
+        symbol1Asc:(a,b)=>genericAsc(a,b,(el)=>el.symbol1[0]),
+        symbol1Desc:(a,b)=>genericDesc(a,b,(el)=>el.symbol1[0]),
+        symbol2Asc:(a,b)=>genericAsc(a,b,(el)=>el.symbol2[0]),
+        symbol2Desc:(a,b)=>genericDesc(a,b,(el)=>el.symbol2[0]),   
+        alertOnRiseAsc:(a,b)=>genericAsc(a,b,(el)=>el.alertOnRise),
+        alertOnRiseDesc:(a,b)=>genericDesc(a,b,(el)=>el.alertOnRise),
+        alertOnFallAsc:(a,b)=>genericAsc(a,b,(el)=>el.alertOnFall),
+        alertOnFallDesc:(a,b)=>genericDesc(a,b,(el)=>el.alertOnFall),
+        idAsc:(a,b)=>genericAsc(a,b,(el)=>el.id),
+        idDesc:(a,b)=>genericDesc(a,b,(el)=>el.id),
     },
+
     transactions:{
         symbolAsc:(a,b)=>genericAsc(a,b,(el)=>el.symbol),
         symbolDesc:(a,b)=>genericDesc(a,b,(el)=>el.symbol),
+        dateAsc:(a,b)=>genericAsc(a,b,(el)=>el.date),
+        dateDesc:(a,b)=>genericDesc(a,b,(el)=>el.date),
     },
+
     portfolio:{
         symbolAsc:(a,b)=>genericAsc(a,b,(el)=>el.symbol),
         symbolDesc:(a,b)=>genericDesc(a,b,(el)=>el.symbol),

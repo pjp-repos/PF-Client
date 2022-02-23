@@ -5,8 +5,8 @@ import { TableC } from '../../Home/Table/TableElements';
 export const Button = styled.button`
     margin: 25px;
     height: 25px;
-    background-color:  #efb810;
-    color: white;
+    background-color:  var(--gold-color);
+    color: ${props => props.theme.textColor};
     border-radius: 5px;
     border: none;
     width: auto;
@@ -18,9 +18,11 @@ export const Button = styled.button`
 
 export const ButtonE = styled(Button)`
     width: auto;
+    cursor:pointer;
 `;
 
 export const TableS = styled(TableC)`
+  margin-top:50px;
   @media screen and (max-width:920px){
     overflow-x:scroll;
     overflow-y:hidden;
@@ -28,34 +30,37 @@ export const TableS = styled(TableC)`
         -webkit-appearance: none;
         width:5px;
         height:6px;
-        background-color: #181A20;
+        background-color: ${props => props.theme.secondColor};
       }
       
       &::-webkit-scrollbar-thumb {
-        background-color: white;
+        background-color: ${props => props.theme.textColor};
         height: 1px;
       }
    }
 `;
 
 export const RowS= styled(Row)`
-    grid-template-columns: 0.2fr 0.5fr 0.4fr 0.2fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.9fr ;
+
+    grid-template-columns:  0.4fr 0.2fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.9fr ;
 
     @media screen and (max-width:920px){
         width:180%;
 }
 
     @media screen and (max-width:540px){
-        width:280%;
+        width:380%;
     }
        
     
 `;
 
 export const TableWrapper = styled.div`
-    min-width: 100%;
-    width: 100%;
-    margin-top:40px;
+    min-width: 300px;
+    width: 90%;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:20px;
     display: flex;
     flex-direction: column;
     align-items: center;

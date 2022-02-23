@@ -17,18 +17,25 @@ export const GlobalStyle = createGlobalStyle`
 
     body {
         margin: 0;
-        padding:0;
-        overflow-x: hidden;
+        position:relative;
+        background-color:rgb(20, 21, 26);
+        color:white;
+        font-family: 'Montserrat', sans-serif;
+        overflow-y: visible; 
     }
     :root{
         /* ==================== Custom Props ==================== */
-        --first-color: #01bf71;
         --text-color-dark: #ffffff;
         --title-color-dark: yellow;
         --error-color-dark: red;
         --bg-color-dark: #424242;
         --gb-color-content-dark:#212121;
         --bg-color-button-dark: #121212;
+        --first-color:rgb(20, 21, 26);
+        --second-color:#181A20;
+        --third-color:#474D57;
+        --gold-color:#efb810;
+        --text-color:white;
 
         /* ==================== Fluid font-size ==================== */
         
@@ -43,7 +50,7 @@ export const GlobalStyle = createGlobalStyle`
         --step-5: clamp(2.80rem, 2.35rem + 2.22vw, 4.58rem);        
 
         /* ==================== Modal windows ==================== */
-        --modal-border: 10px double var(--first-color);
+        --modal-border: 10px double #474D57;
         --modal-border-radius: 20px;
 
         /* =================== Hx tags =============================*/

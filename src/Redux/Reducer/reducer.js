@@ -2,6 +2,9 @@ import {
     GET_PRICES,
     GET_PRICES_STATUS,
     GET_PRICES_ERROR,
+    FILTER_PRICES,
+    SORT_PRICES,
+    SET_PRICES_CURRENCY,
 
     GET_SYMBOLS,
     GET_SYMBOLS_STATUS,
@@ -11,9 +14,6 @@ import {
     GET_PAIR_STATUS,
     GET_PAIR_ERROR,
 
-    SET_PRICES_FILTER,
-    SET_PRICES_ORDER,
-    SET_PRICES_CURRENCY,
 
     NEW_ACCOUNT,
     NEW_ACCOUNT_STATUS,
@@ -26,6 +26,11 @@ import {
     SIGN_OUT_STATUS,
     SIGN_OUT_ERROR,
     SET_SESSION_INFO,
+    UPDATE_SESSION_INFO,
+    SET_SESSION_THEME,
+    SET_SETTINGS,
+    SET_SETTINGS_STATUS,
+    SET_SETTINGS_ERROR,
 
     // Fetch to get subscriptions
     GET_SUBSCRIPTIONS,
@@ -51,7 +56,7 @@ import {
     FORM_SUBSCRIPTIONS_EDIT_BTN,
     FORM_SUBSCRIPTIONS_RESET_BTN,
     FORM_SUBSCRIPTIONS_HANDLE_CHANGE,
-    FORM_SUBSCRIPTION_VALIDATE,
+    FORM_SUBSCRIPTIONS_VALIDATE,
 
     GET_ORDERS,
     GET_ORDERS_STATUS,
@@ -70,6 +75,12 @@ import {
     DELETE_ORDER_ERROR,
     FILTER_ORDERS,
     SORT_ORDERS,
+    // Form events
+    FORM_ORDERS_NEW_BTN,
+    FORM_ORDERS_EDIT_BTN,
+    FORM_ORDERS_RESET_BTN,
+    FORM_ORDERS_HANDLE_CHANGE,
+    FORM_ORDERS_VALIDATE,
 
     GET_TRANSACTIONS,
     GET_TRANSACTIONS_STATUS,
@@ -83,16 +94,6 @@ import {
     FILTER_PORTFOLIO,
     SORT_PORTFOLIO,
 
-    GET_SETTINGS,
-    GET_SETTINGS_STATUS,
-    GET_SETTINGS_ERROR,
-    UPDATE_SETTINGS,
-    UPDATE_SETTINGS_STATUS,
-    UPDATE_SETTINGS_ERROR,
-
-    
-  
-
 } from "../types";
 
 import filterAndSort from "../FilterAndSort/filterAndSort";
@@ -105,7 +106,9 @@ const initialState = {
         token:"",
         email:"",
         isAuthenticated : false,
-        roles:[]
+        roles:[],
+        theme:false,
+        image:""
     },
     prices:{
         data:[],
@@ -115,7 +118,8 @@ const initialState = {
             symbol:""
         },
         order:"",
-        currency:"usd"
+        dataFAS:[],
+        currency:"usd",
     },
     symbols:{
         data:[],
@@ -142,17 +146,24 @@ const initialState = {
         status:0,
         error:{},
     },
+    settings:{
+        data:{},
+        status:0,
+        error:{},
+    },
     // --- Subscriptions--------------------
     subscriptions:{
         data:[],
         status:0,
         error:{},
         filter:{
-            dateFrom:"",
-            dateTo:"",
-            symbols:""
+            symbol1:"",
+            symbol2:"",
+            alertOnRise:"",
+            alertOnFall:"",
         },
-        order:false,
+        order:'idDesc',
+        dataFAS:[], // Data filtered and sorted
     },
     addSubscription:{
         data:{},
@@ -185,11 +196,12 @@ const initialState = {
 
     // --- Orders ----------------------------
     orders:{
-        data:[],
+        data:[],        
         status:0,
         error:{},
-        filter:"",
-        order:false,
+        filter:{},
+        order:"dateDesc",
+        dataFAS:[], // Data filtered and sorted
     },
     order:{
         data:{},
@@ -211,34 +223,51 @@ const initialState = {
         status:0,
         error:{},
     },
+    formOrders:{
+        initialForm:{
+            id:null,
+            symbol1Id:"",
+            symbol2Id:"",
+            buyOrder:false,
+            amount:0,
+            marketOrder:true,
+            priceLimit:0
+        },
+        form:null,
+        edit:false,
+        errors:{},
+        error:true
+    },
+
+    // --- Transactions ----------------------------
     transactions:{
         data:[],
         status:0,
         error:{},
         filter:{
+            symbol:"",
             dateFrom:"",
             dateTo:"",
-            symbol:""
         },
         order:"",
+        dataFAS:[],
     },
+
+    // --- Portfolio ----------------------------
     portfolio:{
         data:[],
         status:0,
         error:{},
         filter:{
+            symbol:"",
             dateFrom:"",
             dateTo:"",
-            symbols:""
         },
-        order:"",
+        order:"dateDesc",
+        dataFAS:[],
     },
+
     setting:{
-        data:[],
-        status:0,
-        error:{},
-    },
-    updateSetting:{
         data:[],
         status:0,
         error:{},
@@ -249,11 +278,11 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
 
-        case GET_PRICES:
-            let prices = [...action.payload];
-            prices = filterAndSort(
+        case GET_PRICES:{
+            let data = [...action.payload];
+            let dataFAS = filterAndSort(
                 'prices',
-                prices,
+                data,
                 state.prices.filter,
                 state.prices.order
             );
@@ -261,9 +290,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 prices:{
                     ...state.prices,
-                    data:prices
+                    data:data,
+                    dataFAS:dataFAS,
                 }
             }
+        }
 
         case GET_PRICES_STATUS:
             return {
@@ -283,6 +314,45 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
+        case FILTER_PRICES:{
+            const data = [...state.prices.data];
+            const filterForm = action.payload;
+            const sortKey = state.prices.order;
+            const dataFAS = filterAndSort('prices',data ,filterForm, sortKey);
+            return {
+                ...state,
+                prices:{
+                    ...state.prices,
+                    filter:filterForm,
+                    dataFAS:dataFAS,
+                }
+            }
+        };
+
+        case SORT_PRICES:{
+            const data = [...state.prices.data];
+            const filterForm = state.prices.filter;
+            const sortKey = action.payload;
+            const dataFAS = filterAndSort('prices',data ,filterForm, sortKey);
+            return {
+                ...state,
+                prices:{
+                    ...state.prices,
+                    order:sortKey,
+                    dataFAS:dataFAS,
+                }
+            }
+        };
+
+        case SET_PRICES_CURRENCY:
+            return {
+                ...state,
+                prices:{
+                    ...state.prices,
+                    currency:action.payload
+                }
+            }
+    
         case GET_SYMBOLS:
             return {
                 ...state,
@@ -309,6 +379,7 @@ const reducer = (state = initialState, action) => {
                     error:action.payload
                 }
             }
+
         case GET_PAIR:
             return {
                 ...state,
@@ -333,33 +404,6 @@ const reducer = (state = initialState, action) => {
                 pair:{
                     ...state.pair,
                     error:action.payload
-                }
-            }
-
-        case SET_PRICES_FILTER:
-            return {
-                ...state,
-                prices:{
-                    ...state.prices,
-                    filter:action.payload
-                }
-            }
-
-        case SET_PRICES_ORDER:
-            return {
-                ...state,
-                prices:{
-                    ...state.prices,
-                    order:action.payload
-                }
-            }
-
-        case SET_PRICES_CURRENCY:
-            return {
-                ...state,
-                prices:{
-                    ...state.prices,
-                    currency:action.payload
                 }
             }
 
@@ -417,6 +461,33 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
+        case SET_SETTINGS:
+            return {
+                ...state,
+                settings:{
+                    ...state.settings,
+                    data:action.payload
+                }
+            }
+
+        case SET_SETTINGS_STATUS:
+            return {
+                ...state,
+                settings:{
+                    ...state.settings,
+                    status:action.payload
+                }
+            }
+
+        case SET_SETTINGS_ERROR:
+            return {
+                ...state,
+                settings:{
+                    ...state.settings,
+                    error:action.payload
+                }
+            }
+
         case SIGN_OUT:
             return {
                 ...state,
@@ -449,12 +520,16 @@ const reducer = (state = initialState, action) => {
             let token="";
             let email="";
             let isAuthenticated= false;
+            let theme= false;
+            let image= false;
             //Sign in or sign out?
             if(action.payload){
                 if(state.signIn.status===2){
                     userName=state.signIn.data.username;
                     token=state.signIn.data.tokenUser;
                     email=state.signIn.data.email;
+                    theme=theme;
+                    image=image;
                     isAuthenticated=true;
                 };
             }
@@ -469,23 +544,46 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
+        case UPDATE_SESSION_INFO:
+            return {
+                ...state,
+                session:{
+                    ...state.session,
+                    userName:state.settings.data.username,
+                    email:state.settings.data.email,
+                    theme:state.settings.data.theme,
+                    image:state.settings.data.image,
+                }
+            }
+
+        case SET_SESSION_THEME:
+            return {
+                ...state,
+                session:{
+                    ...state.session,
+                    theme:!state.session.theme,
+                }
+            }
+
         // ============ SUBSCRIPTIONS ===============================
 
-        case GET_SUBSCRIPTIONS:
-            let subscriptions = [...action.payload];
-            // subscriptions = filterAndSort(
-            //     'subscriptions',
-            //     subscriptions,
-            //     state.subscriptions.filter,
-            //     state.subscriptions.order
-            // );
+        case GET_SUBSCRIPTIONS:{
+            let data = [...action.payload];
+            let dataFAS = filterAndSort(
+                'subscriptions',
+                data,
+                state.subscriptions.filter,
+                state.subscriptions.order
+            );
             return {
                 ...state,
                 subscriptions:{
                     ...state.subscriptions,
-                    data:subscriptions
+                    data:data,
+                    dataFAS:dataFAS,
                 }
             }
+        }
 
         case GET_SUBSCRIPTIONS_STATUS:
             return {
@@ -521,49 +619,49 @@ const reducer = (state = initialState, action) => {
                 }
             }
             
-            case FORM_SUBSCRIPTIONS_EDIT_BTN:
-                return {
-                    ...state,
-                    updateSubscription:{
-                        ...state.updateSubscription,
-                        status:0
+        case FORM_SUBSCRIPTIONS_EDIT_BTN:
+            return {
+                ...state,
+                updateSubscription:{
+                    ...state.updateSubscription,
+                    status:0
+                },
+                formSubscriptions:{
+                    ...state.formSubscriptions,
+                    form:{
+                        id:action.payload.id,
+                        symbol1Id:action.payload.symbol1Id,
+                        symbol2Id:action.payload.symbol2Id,
+                        risePrice:action.payload.risePrice,
+                        fallPrice:action.payload.fallPrice,   
                     },
-                    formSubscriptions:{
-                        ...state.formSubscriptions,
-                        form:{
-                            id:action.payload.id,
-                            symbol1Id:action.payload.symbol1Id,
-                            symbol2Id:action.payload.symbol2Id,
-                            risePrice:action.payload.risePrice,
-                            fallPrice:action.payload.fallPrice,   
-                        },
-                        edit:true,
-                        error:true
-                    }
+                    edit:true,
+                    error:true
                 }
-                
-            case FORM_SUBSCRIPTIONS_RESET_BTN:
-                return {
-                    ...state,
-                    formSubscriptions:{
-                        ...state.formSubscriptions,
-                        form:state.formSubscriptions.initialForm,
-                    }
+            }
+            
+        case FORM_SUBSCRIPTIONS_RESET_BTN:
+            return {
+                ...state,
+                formSubscriptions:{
+                    ...state.formSubscriptions,
+                    form:state.formSubscriptions.initialForm,
                 }
-                
-            case FORM_SUBSCRIPTIONS_HANDLE_CHANGE:
-                return {
-                    ...state,
-                    formSubscriptions:{
-                        ...state.formSubscriptions,
-                        form:{
-                            ...state.formSubscriptions.form,
-                            [action.payload.key]:action.payload.value
-                        },
+            }
+            
+        case FORM_SUBSCRIPTIONS_HANDLE_CHANGE:
+            return {
+                ...state,
+                formSubscriptions:{
+                    ...state.formSubscriptions,
+                    form:{
+                        ...state.formSubscriptions.form,
+                        [action.payload.key]:action.payload.value
+                    },
                 }
             }   
 
-        case FORM_SUBSCRIPTION_VALIDATE:
+        case FORM_SUBSCRIPTIONS_VALIDATE:
             const [subscripcionValidateError, subscripcionValidateErrors] = validateForm(
                 'subscriptions',
                 state.formSubscriptions.form
@@ -659,39 +757,54 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
-        case FILTER_SUBSCRIPTIONS:
+        case FILTER_SUBSCRIPTIONS:{
+            const data = [...state.subscriptions.data];
+            const filterForm = action.payload;
+            const sortKey = state.subscriptions.order;
+            const dataFAS = filterAndSort('subscriptions', data, filterForm, sortKey);
             return {
                 ...state,
                 subscriptions:{
                     ...state.subscriptions,
-                    filter:action.payload
+                    filter:filterForm,
+                    dataFAS:dataFAS,
                 }
             }
+        };           
 
-        case SORT_SUBSCRIPTIONS:
+        case SORT_SUBSCRIPTIONS:{
+            const data = [...state.subscriptions.data];
+            const filterForm = state.subscriptions.filter;
+            const sortKey = action.payload;
+            const dataFAS = filterAndSort('subscriptions', data, filterForm, sortKey);
             return {
                 ...state,
                 subscriptions:{
                     ...state.subscriptions,
-                    order:action.payload
+                    order:sortKey,
+                    dataFAS:dataFAS,
                 }
-            }    
+            }
+        };    
 
-        case GET_ORDERS:
-            let orders = [...action.payload];
-            // orders = filterAndSort(
-            //     'orders',
-            //     orders,
-            //     state.orders.filter,
-            //     state.orders.order
-            // );
+        // ============ ORDERS===============================
+        case GET_ORDERS:{
+            let data = [...action.payload];
+            let dataFAS = filterAndSort(
+                'orders',
+                data,
+                state.orders.filter,
+                state.orders.order
+            );
             return {
                 ...state,
                 orders:{
                     ...state.orders,
-                    data:orders
+                    data:data,
+                    dataFAS:dataFAS,
                 }
             }
+        }
 
         case GET_ORDERS_STATUS:
             return {
@@ -711,6 +824,81 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
+        case FORM_ORDERS_NEW_BTN:
+            return {
+                ...state,
+                // Reset Fetch status for 
+                addOrder:{
+                    ...state.addOrder,
+                    status:0
+                },
+                formOrders:{
+                    ...state.formOrders,
+                    form:state.formOrders.initialForm,
+                    edit:false,
+                    error:true
+                }
+            }
+
+        case FORM_ORDERS_EDIT_BTN:
+            return {
+                ...state,
+                updateOrder:{
+                    ...state.updateOrder,
+                    status:0
+                },
+                formOrders:{
+                    ...state.formOrders,
+                    form:{
+                        id:action.payload.id,
+                        symbol1Id:action.payload.symbol1Id,
+                        symbol2Id:action.payload.symbol2Id,
+                        buyOrder:action.payload.buyOrder,
+                        amount:action.payload.amount,
+                        marketOrder:action.payload.marketOrder,
+                        priceLimit:action.payload.priceLimit,
+                    },
+                    edit:true,
+                    error:true
+                }
+            }
+            
+        case FORM_ORDERS_RESET_BTN:
+            return {
+                ...state,
+                formOrders:{
+                    ...state.formOrders,
+                    form:state.formOrders.initialForm,
+                }
+            }
+            
+        case FORM_ORDERS_HANDLE_CHANGE:
+            return {
+                ...state,
+                formOrders:{
+                    ...state.formOrders,
+                    form:{
+                        ...state.formOrders.form,
+                        [action.payload.key]:action.payload.value
+                    },
+                }
+            }   
+
+        case FORM_ORDERS_VALIDATE:{
+            const [error, errors] = validateForm(
+                'subscriptions',
+                state.formOrders.form
+            )
+            return {
+                ...state,
+                formOrders:{
+                    ...state.formOrders,
+                    error:error,
+                    errors:errors
+                }
+            }
+        }
+    
         case GET_ORDER:
             return {
                 ...state,
@@ -741,8 +929,8 @@ const reducer = (state = initialState, action) => {
         case ADD_ORDER:
             return {
                 ...state,
-                addSubscription:{
-                    ...state.addSubscription,
+                addOrder:{
+                    ...state.addOrder,
                     data:action.payload
                 }
             }
@@ -750,27 +938,27 @@ const reducer = (state = initialState, action) => {
         case ADD_ORDER_STATUS:
             return {
                 ...state,
-                addSubscription:{
-                    ...state.addSubscription,
+                addOrder:{
+                    ...state.addOrder,
                     status:action.payload
                 }
             }
 
         case ADD_ORDER_ERROR:
+            //
             return {
                 ...state,
-                addSubscription:{
-                    ...state.addSubscription,
+                addOrder:{
+                    ...state.addOrder,
                     error:action.payload
                 }
             }
 
-
         case UPDATE_ORDER:
             return {
                 ...state,
-                updateSubscription:{
-                    ...state.updateSubscription,
+                updateOrder:{
+                    ...state.updateOrder,
                     data:action.payload
                 }
             }
@@ -778,8 +966,8 @@ const reducer = (state = initialState, action) => {
         case UPDATE_ORDER_STATUS:
             return {
                 ...state,
-                updateSubscription:{
-                    ...state.updateSubscription,
+                updateOrder:{
+                    ...state.updateOrder,
                     status:action.payload
                 }
             }
@@ -787,8 +975,8 @@ const reducer = (state = initialState, action) => {
         case UPDATE_ORDER_ERROR:
             return {
                 ...state,
-                updateSubscription:{
-                    ...state.updateSubscription,
+                updateOrder:{
+                    ...state.updateOrder,
                     error:action.payload
                 }
             }
@@ -796,8 +984,8 @@ const reducer = (state = initialState, action) => {
         case DELETE_ORDER:
             return {
                 ...state,
-                deleteSubscription:{
-                    ...state.deleteSubscription,
+                deleteOrder:{
+                    ...state.deleteOrder,
                     data:action.payload
                 }
             }
@@ -805,8 +993,8 @@ const reducer = (state = initialState, action) => {
         case DELETE_ORDER_STATUS:
             return {
                 ...state,
-                deleteSubscription:{
-                    ...state.deleteSubscription,
+                deleteOrder:{
+                    ...state.deleteOrder,
                     status:action.payload
                 }
             }
@@ -814,35 +1002,48 @@ const reducer = (state = initialState, action) => {
         case DELETE_ORDER_ERROR:
             return {
                 ...state,
-                deleteSubscription:{
-                    ...state.deleteSubscription,
+                deleteOrder:{
+                    ...state.deleteOrder,
                     error:action.payload
                 }
             }
 
-        case FILTER_ORDERS:
+        case FILTER_ORDERS:{
+            const data = [...state.orders.data];
+            const filterForm = action.payload;
+            const sortKey = state.orders.order;
+            const dataFAS = filterAndSort('orders',data ,filterForm, sortKey);
             return {
                 ...state,
                 orders:{
                     ...state.orders,
-                    filter:action.payload
+                    filter:filterForm,
+                    dataFAS:dataFAS,
                 }
             }
+        };
 
-        case SORT_ORDERS:
+        case SORT_ORDERS:{
+            const data = [...state.orders.data];
+            const filterForm = state.orders.filter;
+            const sortKey = action.payload;
+            const dataFAS = filterAndSort('orders',data ,filterForm, sortKey);
             return {
                 ...state,
                 orders:{
                     ...state.orders,
-                    order:action.payload
+                    order:sortKey,
+                    dataFAS:dataFAS,
                 }
             }
+        };
 
-        case GET_TRANSACTIONS:
-            let transactions = [...action.payload];
-            transactions = filterAndSort(
+        // ====== TRANSACTIONS ========================
+        case GET_TRANSACTIONS:{
+            let data = [...action.payload];
+            let dataFAS = filterAndSort(
                 'transactions',
-                transactions,
+                data,
                 state.transactions.filter,
                 state.transactions.order
             );
@@ -850,10 +1051,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 transactions:{
                     ...state.transactions,
-                    data:transactions
+                    data:data,
+                    dataFAS:dataFAS,
                 }
             }
-        
+        }
+      
         case GET_TRANSACTIONS_STATUS:
             return {
                 ...state,
@@ -872,29 +1075,41 @@ const reducer = (state = initialState, action) => {
                 }
             }
 
-        case FILTER_TRANSACTIONS:
+        case FILTER_TRANSACTIONS:{
+            const data = [...state.transactions.data];
+            const filterForm = action.payload;
+            const sortKey = state.transactions.order;
+            const dataFAS = filterAndSort('transactions',data ,filterForm, sortKey);
             return {
                 ...state,
                 transactions:{
                     ...state.transactions,
-                    filter:action.payload
+                    filter:filterForm,
+                    dataFAS:dataFAS,
                 }
             }
+        };
 
-        case SORT_TRANSACTIONS:
+        case SORT_TRANSACTIONS:{
+            const data = [...state.transactions.data];
+            const filterForm = state.transactions.filter;
+            const sortKey = action.payload;
+            const dataFAS = filterAndSort('transactions',data ,filterForm, sortKey);
             return {
                 ...state,
                 transactions:{
                     ...state.transactions,
-                    order:action.payload
+                    order:sortKey,
+                    dataFAS:dataFAS,
                 }
             }
+        }; 
 
-        case GET_PORTFOLIO:
-            let portfolio = [...action.payload];
-            portfolio = filterAndSort(
+        case GET_PORTFOLIO:{
+            let data = [...action.payload];
+            let dataFAS = filterAndSort(
                 'portfolio',
-                portfolio,
+                data,
                 state.portfolio.filter,
                 state.portfolio.order
             );
@@ -902,9 +1117,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 portfolio:{
                     ...state.portfolio,
-                    data:portfolio
+                    data:data,
+                    dataFAS:dataFAS,
                 }
             }
+        }
         
         case GET_PORTFOLIO_STATUS:
             return {
@@ -941,64 +1158,6 @@ const reducer = (state = initialState, action) => {
                     order:action.payload
                 }
             }
-
-        case GET_SETTINGS:
-            let settings = [...action.payload];
-
-            return {
-                ...state,
-                settings:{
-                    ...state.settings,
-                    data:settings
-                }
-            }
-        
-        case GET_SETTINGS_STATUS:
-            return {
-                ...state,
-                settings:{
-                    ...state.settings,
-                    status:action.payload
-                }
-            }
-
-        case GET_SETTINGS_ERROR:
-            return {
-                ...state,
-                settings:{
-                    ...state.settings,
-                    error:action.payload
-                }
-            } 
-            
-        case UPDATE_SETTINGS:
-            return {
-                ...state,
-                updateSettings:{
-                    ...state.updateSettings,
-                    data:action.payload
-                }
-            }
-
-        case UPDATE_SETTINGS_STATUS:
-            return {
-                ...state,
-                updateSettings:{
-                    ...state.updateSettings,
-                    status:action.payload
-                }
-            }
-
-        case UPDATE_SETTINGS_ERROR:
-            return {
-                ...state,
-                updateSettings:{
-                    ...state.updateSettings,
-                    error:action.payload
-                }
-            }
-
-
             
         default:
             return {...state}

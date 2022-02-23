@@ -9,7 +9,7 @@ export const validateForm = (name, form)=>{
     keys.forEach(key=>{
         let cb = callbacks[key];
         let param = form[key];
-        errors[key]=cb(param);
+        errors[key]=cb(param,form);
         if(errors[key]!=="") error=true;
     })
     return [error,errors];

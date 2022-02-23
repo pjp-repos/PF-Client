@@ -1,69 +1,104 @@
 import styled from "styled-components";
-
-import { Button } from "../../AaaGenerics/Button/Button";
-import { Input } from "../../AaaGenerics/Input/Input"
+import { Submit,InputSign } from "../../LogIn/SignElements";
+import { OrderGraphics, DivInfoOrder,TitleGraphic} from "../../Orders/OrderElements";
 
 export const SubscriptionFormWrapper = styled.div`
-    margin-left:auto;
-    margin-right:auto;
     width: 40%;
-    height: 100vh;
-    padding: 8px;
-
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 10vh 25vh 15vh 15vh 20vh; 
-    /* justify-content: center; */
+    min-height: 450px;
+    display: flex;
+    flex-direction:column;
     justify-items: center;
     align-items: center;
+    background-color:${props => props.theme.secondColor};
 
-    background-color: var(--gb-color-content-dark);
-    
-    @media screen and (min-width: 768px){
-        height: 75vh;
-        grid-template-rows: 10vh repeat(4,15vh); 
+    @media screen and (max-width:920px){
+        width:50%;
     }
+    @media screen and (max-width:540px){
+        width:95%;
+    }
+       
 `;
 
 export const SubscriptionFormLabel = styled.p`
-    margin: 0;
-    color:var(--first-color);
-    @media screen and (min-width: 768px){
-        width: 15%;      
-    }
+    color:${props => props.theme.textColor};
+    margin-bottom:1px;
+    margin-right:34%;
 `;
 
 export const SubscriptionFormError = styled.p`
-    margin: 0;
-    color:red;
-    @media screen and (min-width: 768px){
-        width: 35%;      
-    }
+    color:${props => props.theme.textColor};
+    margin-top:-30px;
+    color:var(--gold-color);
+    font-size:14px;
 `;
 
 
-export const SubscriptionFormInput = styled(Input)`
-    margin: 0 3px;
-    @media screen and (min-width: 768px){
-        width: 50%;
-    }
+export const SubscriptionFormInput = styled(InputSign)`
+  width:70%;
+  height:50px;
+ 
 `;
-export const SubscriptionFormButton = styled(Button)`
-
+export const SubscriptionFormButton = styled(Submit)`
+   color:${props => props.theme.textColor};
+   width:25%;
+   cursor:pointer;
 `;
 
 export const SubscriptionFormBlock = styled.div`
     width: 100%;
     height: 100%;
-    padding: 10px 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-evenly;
     align-items:center;
     border-radius: 5px;
-    
-    @media screen and (min-width: 768px){
-        flex-direction: row;
-        height: auto;
+    margin-bottom:25px;
+
+    @media screen and (max-width:540px){
+       justify-content:space-around;
     }
+    
 `;
+
+export const InputBlock = styled.div`
+width:100%;
+min-width:100px;
+display:flex;
+flex-direction:column;
+align-items:center;
+`
+export const Title = styled.h4`
+  font-size:30px;
+  color:${props => props.theme.textColor};
+`
+export const SubTitle = styled.span`
+     color:var(--gold-color);
+`
+export const SubsGraphics= styled(OrderGraphics)`
+  min-height:450px;
+  width:80%;
+  @media screen and (max-width:940px){
+    width:100%;
+   }
+   
+
+`
+export const DivInfoSubs= styled(DivInfoOrder)`
+  height:450px;
+  width:60%;
+  @media screen and (max-width:920px){
+    width:50%;
+   }
+   @media screen and (max-width:540px){
+    width:100%;
+    height:300px;
+    margin-top:40px;
+   }
+`
+export const TitleGraphicSubs = styled(TitleGraphic)`
+
+ margin-top:-15px;
+
+
+`

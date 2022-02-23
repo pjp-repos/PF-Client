@@ -40,7 +40,7 @@ export const DivInfoOrder = styled(flex)`
 export const OrderContainer = styled(flex)`
 width:35%;
 margin-left: auto;
-background-color:#181A20;
+background-color:${props => props.theme.secondColor};
 margin-right:auto;
 min-height:500px;
 flex-direction:column;
@@ -86,11 +86,11 @@ export const SelectSellBuy = styled(Select)`
  &::-webkit-scrollbar {
   -webkit-appearance: none;
   width:5px;
-  background-color: #181A20;
+  background-color: ${props => props.theme.secondColor};
 }
 
 &::-webkit-scrollbar-thumb {
-  background-color: white;
+  background-color: ${props => props.theme.textColor};
   height: 1px;
 }
 `
@@ -114,15 +114,23 @@ height:280px;
 margin-bottom:10px;
 text-align:center;
 flex-direction:column;
-background-color:rgb(20, 21, 26);
+background-color:${props => props.theme.firstColor};
 border-radius:10px;
 ${props => props.type === "Limit" && `height:340px`};
+`
+export const DivBtn = styled.div`
+ display:flex;
+ width:90%;
+ justify-content:space-evenly
 `
 export const SubmitOrder = styled(Submit)`
   position:relative;
   display:block;
   left:0%;
+  cursor:pointer;
+  width:40%;
   margin-top:34px;
+  color:${props => props.theme.textColor};
   margin-bottom:20px;
   
  `
@@ -138,7 +146,7 @@ export const DivTotal= styled(flex)`
   justify-content:space-between;
 `
 export const Info = styled.span`
-${props => props.error && `color:#efb810;margin-bottom:-12px;`};
+${props => props.error && `color:var(--gold-color);margin-bottom:-12px;`};
 ${props => props.right && `margin-right:${props.right}%`};
 `
 export const ButtonOption = styled.button`
@@ -147,15 +155,15 @@ export const ButtonOption = styled.button`
    background-color:transparent;
    cursor:pointer;
    font-size:20px;
-   color:white;
+   color:${props => props.theme.textColor};
    font-weight:bold;
    font-family: 'Montserrat', sans-serif;
    width:50%;
    height:40px;
    padding:8px;
-   ${props => props.actual === props.id && `color:#efb810`};
-   ${props => props.border && props.actual === props.id && `border:1px solid #efb810;width:30%;`};
-   ${props => props.border && props.actual !== props.id && `border:1px solid #474D57; color:#474D57;width:30%`};
+   ${props => props.actual === props.id && `color:var(--gold-color)`};
+   ${props => props.border && props.actual === props.id && `border:1px solid var(--gold-color);width:30%;`};
+   ${props => props.border && props.actual !== props.id && `border:1px solid ${props => props.theme.thirdColor}; color:${props => props.theme.thirdColor};width:30%`};
 `
 export const TitleGraphic = styled.h1`
   margin-top:70px;
