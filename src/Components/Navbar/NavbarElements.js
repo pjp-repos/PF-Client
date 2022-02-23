@@ -114,6 +114,10 @@ export const Option =styled.button`
   }
 `;
 export const ImgUser = styled.img`
+height:40px;
+width:40px;
+object-fit:cover;
+border-radius:30px;
 @media screen and (max-width:540px){
   margin-left:50px;
  }

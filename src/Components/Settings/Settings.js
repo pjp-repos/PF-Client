@@ -33,7 +33,7 @@ export default function Settings({setIsOpen}) {
   const settings = useSelector(selectSettingsAll);
   const settingsImg = useSelector(selectSessionImage);
   const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
-  console.log(stateForm);
+
   const dispatch = useDispatch();
     useEffect(()=>{
       resetSettingsStatus(dispatch)
@@ -46,8 +46,13 @@ export default function Settings({setIsOpen}) {
       else{
         setStateForm(initialStateForm);
       }
+      setOptionState(initialState);
         
     },[ dispatch])
+
+    useEffect(() => {
+      setIsOpen(false);
+    },[settings[1] === 2])
 
     const onChangePicture = e => {
       let file = e.target.files[0];
@@ -68,7 +73,6 @@ export default function Settings({setIsOpen}) {
     }
 
     const handlerStateForm = (key,value) => {
-      
       if(errorSubmit !== "" && setErrorSubmit(""));
       if(key !== "img" && key !== "theme"){
         setErrorPasswordForm(
