@@ -181,8 +181,10 @@ export const postSettings = async (dispatch,token, form) =>{
         },
         method:'POST',
         body:form
-    });
-    dispatch({type:UPDATE_SESSION_INFO,payload:true});    
+    },[
+        ()=>dispatch({type:UPDATE_SESSION_INFO,payload:true})
+    ]);
+        
 };
 
 // resetNewAccountStatus

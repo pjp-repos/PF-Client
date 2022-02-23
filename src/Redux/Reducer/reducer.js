@@ -545,7 +545,7 @@ const reducer = (state = initialState, action) => {
             }
 
         case UPDATE_SESSION_INFO:
-            if(state.setting.status===2){
+            if(state.settings.status===2){
                 return {
                     ...state,
                     session:{
