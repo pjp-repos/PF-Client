@@ -545,15 +545,19 @@ const reducer = (state = initialState, action) => {
             }
 
         case UPDATE_SESSION_INFO:
-            return {
-                ...state,
-                session:{
-                    ...state.session,
-                    userName:state.settings.data.username,
-                    email:state.settings.data.email,
-                    theme:state.settings.data.theme,
-                    image:state.settings.data.image,
+            if(state.setting.status===2){
+                return {
+                    ...state,
+                    session:{
+                        ...state.session,
+                        userName:state.settings.data.username,
+                        email:state.settings.data.email,
+                        theme:state.settings.data.theme,
+                        image:state.settings.data.image,
+                    }
                 }
+            }else{
+                return {...state}
             }
 
         case SET_SESSION_THEME:
