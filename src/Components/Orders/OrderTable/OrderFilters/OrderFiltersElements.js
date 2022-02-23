@@ -1,7 +1,8 @@
 import React from "react";
-import { ContainerFilters,InputDate,InputSymbols,Container,BtnFilter,Label,DivBtnFilter, DivInputFilters} from "../OrderFilters";
+import { ContainerFilters,InputDate,BtnRefresh,InputSymbols,Container,BtnFilter,Label,DivBtnFilter, DivInputFilters} from "../OrderFilters";
 import { useDispatch } from "react-redux";
 import { filterOrders } from "../../../../Redux/Actions/actionCreators";
+import refresh from "../../../../Assets/refresh.png"
 
 const initialState = {
     symbol1:"",
@@ -16,10 +17,16 @@ export default function OrderFilters(){
     const [filterForm, setFilterForm] = React.useState(initialState);
 
     React.useEffect(() => {
-        filterOrders(dispatch,initialState);
+        reset();
+        
    },[]);
 
+   const reset = () => {
+    setFilterForm(initialState);
+    filterOrders(dispatch,initialState);
+   }
 
+   
     const setFilter = (filterKey,filterValue)=>{
         // Notice: For no filter, filterValue has to be "" (Empty string).
        let newFilterForm={
@@ -36,6 +43,9 @@ export default function OrderFilters(){
                <BtnFilter status = {btnFilter} onClick = {(e) => setBtnFilter(!btnFilter)}>
                <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
                </BtnFilter> 
+               <BtnRefresh onClick = {e => reset()}>
+                   <img height = "45px" src = {refresh} alt = "refresh" />
+               </BtnRefresh>
             </DivBtnFilter>
             <ContainerFilters status = {btnFilter}>
                 <DivInputFilters>

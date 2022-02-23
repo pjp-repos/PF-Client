@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Label,LabelError,InputPassword,DivInputs,HeadDiv,ButtonTheme,Container,DivTheme,ButtonOption,DivEditDelete,DivImgBtn,InputPic,Img,BtnSubmit,DivSubmits,ImageDiv} from "./SettingsElements";
 import { postSettings ,resetSettingsStatus,toggleTheme} from "../../Redux/Actions/actionCreators";
-import { selectSettingsAll,selectSessionImage,selectSessionAll} from "../../Redux/Selectors/selectors";
+import { selectSettingsAll,selectSessionImage,selectSessionAll,selectSessionTheme} from "../../Redux/Selectors/selectors";
 
 //import Container from '../theme/components/container';
 import { useSelector, useDispatch } from 'react-redux';
@@ -38,6 +38,7 @@ export default function Settings({setIsOpen}) {
   const settings = useSelector(selectSettingsAll);
   const settingsImg = useSelector(selectSessionImage);
   const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
+  const theme = useSelector(selectSessionTheme);
 
   const dispatch = useDispatch();
     useEffect(()=>{
@@ -46,7 +47,8 @@ export default function Settings({setIsOpen}) {
       if(settingsImg !== "")
          setStateForm({
             ...stateForm,
-            image:settingsImg
+            image:settingsImg,
+            theme:theme === true ? "light" : "dark"
          })
       else{
         setStateForm(initialStateForm);

@@ -2,7 +2,7 @@ import React ,{useState,useEffect} from "react";
 import { useNavigate ,useParams} from "react-router-dom";
 import { OrderContainer,ContainerOptionsOrders,
     DivImages,Image,DivTrade,SubmitOrder,SubmitDiv,DivSellBuy,
-    InputSellBuy,SelectSellBuy,Info,DivInfo,DivTotal,ButtonOption,OrderGraphics,DivInfoOrder, TitleGraphic} from "./OrderElements";
+    InputSellBuy,SelectSellBuy,Info,DivInfo,DivTotal,ButtonOption,OrderGraphics,DivInfoOrder, TitleGraphic,DivBtn} from "./OrderElements";
 import {
     selectSymbolsAll,
     selectSessionAll,
@@ -22,6 +22,7 @@ import {setSymbol1,setSymbol2,validatePair,validateSubmit} from "./OrderFunction
 import Graphics from "../Graphics/Graphics";
 import Spinner from '../AaaGenerics/Loaders/Spinner/Spinner'
 import Swal from 'sweetalert2'
+
 
 const stateOrderInitial = {
     type:"Market",
@@ -298,7 +299,11 @@ export default function Order(){
                    {pairValid[1] === 2 ? <Info>{(pairValid[0].price*parseFloat(stateOrder.amount)).toFixed(8)} {stateOrder.typeOrder === "Sell" ? symbolsState.symbol2 : symbolsState.symbol1}</Info> :<Info>0 Cryptos</Info>}
                 </DivTotal>    
                 <Info error >{errorSubmit}</Info>
-                <SubmitOrder onClick = {handleSubmit}>Place {stateOrder.type}</SubmitOrder>
+                <DivBtn>
+                <SubmitOrder onClick = {(e) => navigate("../order")}>Close</SubmitOrder>
+                 <SubmitOrder onClick = {handleSubmit}>Place {stateOrder.type}</SubmitOrder>
+                </DivBtn>
+               
             </SubmitDiv>
         </OrderContainer>
 

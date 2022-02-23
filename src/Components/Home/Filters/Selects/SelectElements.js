@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 
 export const ContainerSelects = styled.div`
-  margin-left:10px;
+ 
 `
 export const ContainerSelectTooltip= styled.div`
  display:inline-block;
@@ -30,12 +30,11 @@ export const Select = styled.select`
    -webkit-appearance: none;
    transition:0.2s;
    border:1px solid ${props => props.theme.thirdColor};
-   margin-left:8px;
+
    border-radius:5px;
 
    @media screen and (max-width:540px){
       margin-left:0px;
-      margin-right:10px;
       margin-top:20px;
   }
 `
