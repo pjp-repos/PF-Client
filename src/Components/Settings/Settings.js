@@ -46,7 +46,7 @@ export default function Settings({setIsOpen,isOpen}) {
   const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
   const theme = useSelector(selectSessionTheme);
   const dispatch = useDispatch();
-  console.log(stateForm);
+  console.log(settingsImg);
 
     useEffect(()=>{
          setErrorSubmit("");
