@@ -20,7 +20,7 @@ import { ContainerFilters } from "./ContainerFilters";
 import { Tooltip } from "../../AaaGenerics/Tooltip/Tooltip";
 import { BtnRefresh } from "../../Orders/OrderTable/OrderFilters";
 
-export default function Filters(){
+export default function Filters({reset}){
 
   const currencies = [
     {key:'usd',value:'US Dollar'},
@@ -46,6 +46,7 @@ export default function Filters(){
     //getGlobalPrices(dispatch,currency);   
   }
 
+  
   return (
     <ContainerFilters>
           <ContainerSelectTooltip>
@@ -60,7 +61,7 @@ export default function Filters(){
           <InputSearch placeholder="Search for symbol" value = {filter.symbol} onChange = {handlerFilter}/>
           <ButtonSearch><span className="material-icons-outlined">search</span></ButtonSearch>
        </ContainerSearch>
-       <BtnRefresh onClick = { (e) => getGlobalPrices(dispatch,currency)}>
+       <BtnRefresh onClick = { (e) => reset()}>
          <img alt = "refresh" height = "35px" src = {refresh}/>
        </BtnRefresh>
     </ContainerFilters>

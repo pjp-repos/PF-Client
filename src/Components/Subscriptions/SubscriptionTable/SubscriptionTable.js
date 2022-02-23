@@ -69,11 +69,17 @@ const SubscriptionTable = () => {
             navigate("/signin")
         else{
             getSubscriptions(dispatch, token);
+            setCurrentSortKey("");
             getSymbols(dispatch,token);
             sortSubscriptions(dispatch,"");
         }
 
     },[isAuthenticated]);
+
+    const resetTable = () => {
+        setCurrentSortKey("");
+        getSubscriptions(dispatch, token);
+    }
     
     // New - Edit - Delete events
     const handleNew = () =>{
@@ -176,7 +182,7 @@ const SubscriptionTable = () => {
                   <BannerImg className = "Img" src =  "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt = "banner" />
                 </BannerOrder>
             </DivBanner>
-            <SubscriptionFilters />            
+            <SubscriptionFilters resetTable={resetTable}/>            
            <TableS>                               
                 <RowS head='head'>
 

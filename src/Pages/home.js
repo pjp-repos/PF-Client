@@ -34,6 +34,10 @@ function Home() {
   // // Refresh prices
   // const intervalID = setInterval(refresh, 5000);
 
+  const reset = () => {
+    getGlobalPrices(dispatch,currency);
+  }
+
   return (
     
     <Div >
@@ -41,7 +45,7 @@ function Home() {
       {status===1
       ?<Spinner />
       :<>
-        <Filters />
+        <Filters reset = {reset} />
         <Table cryptos = {data.slice(initialCryptos,topCryptos)}/>
         {data.length > 0 && <Pagination totalCryptos = {data.length} cryptosForPage = {CRYPTOS_PER_PAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
       </>
