@@ -4,7 +4,8 @@ import { ButtonGoogle ,GoogleIcon,TextGoogle} from "../Components/LogIn/SignInEl
 import {useNavigate} from "react-router-dom";
 import { validateSignIn,validateSubmit } from "../Components/LogIn/ValidateLogin";
 import {
-  postSignIn
+  postSignIn,
+  resetSignInStatus
 } from '../Redux/Actions/actionCreators';
 import {selectSignInStatus} from '../Redux/Selectors/selectors';
 import { useSelector, useDispatch } from 'react-redux';
@@ -24,11 +25,16 @@ export default function SignIn(){
   const navigate = useNavigate();
 
   React.useEffect(() => {    
-  }, [])
+    seterrorSignInState(initialState);
+    setSignInState(initialState);
+    setErrorSubmit("");
+  }, [status === 0])
 
   React.useEffect(() => {    
-    if (status === 2)
-     navigate("../home")
+    if (status === 2){
+      navigate("../home")
+      resetSignInStatus(dispatch);
+    }
     if (status === 3){
       setErrorSubmit("Error name or password incorrect")
     }
@@ -71,7 +77,9 @@ export default function SignIn(){
           <Error top = {67} >{errorSigninState.password}</Error>
           {errorSubmit !== ""  && <Error top = {74} >{errorSubmit}</Error>}
           <Submit type = "submit" top = {78} onClick = {handlerSubmit}>Sign In</Submit>
-          <Link top = {90} left = {24} size = {12}  onClick = {(e) => navigate("../signup")} > <White>Don't have an account ?</White> /SignUp</Link>
+          <Link top = {90} left = {24} size = {12}  onClick = {(e) => {
+            resetSignInStatus(dispatch);
+            navigate("../signup")}} > <White>Don't have an account ?</White> /SignUp</Link>
        </ContainerSign>
       </ContainerSignP>
 

@@ -41,17 +41,14 @@ export default function NavBar(){
   const isAuthenticated = useSelector(selectSessionIsAuthenticated);
   const [isOpen,setIsOpen]=React.useState(false);
 
-
-
-
-  return (
+ return (
     <ContainerNavbar>
         <DivTitle>
           <Title onClick = {(e) => navigate("/home")}> <ImgTitle visibilitySm src = {coin} alt = "coin" /> HenryCoin</Title>
         </DivTitle>
         <Modal show={isOpen} >
          
-         <Settings setIsOpen={setIsOpen}/>
+         <Settings setIsOpen={setIsOpen} isOpen = {isOpen} />
          
        </Modal>
         {!isAuthenticated && <ContainerButtons>

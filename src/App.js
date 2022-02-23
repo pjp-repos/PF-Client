@@ -17,12 +17,14 @@ import Wallet from './Pages/Wallet';
 
 // Redux
 import {
+    selectSessionAll,
     selectSessionTheme
 } from './Redux/Selectors/selectors'
 
 
 function App() {
     const theme = useSelector(selectSessionTheme);
+    const [isAuthenticated] = useSelector(selectSessionAll);
 
     const themeDark = {
         firstColor:"rgb(20, 21, 26)",
@@ -41,7 +43,7 @@ function App() {
         orderColor:"white"
     };
 
-    let currentTheme = theme?themelight:themeDark;
+    let currentTheme = !isAuthenticated ? themeDark : theme?themelight:themeDark;
 
     return (
         <ThemeProvider theme={currentTheme}>        

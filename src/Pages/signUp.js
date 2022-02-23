@@ -32,13 +32,15 @@ export default function SignIn(){
 
   React.useEffect(() => {    
     resetNewAccountStatus(dispatch); 
-  }, [])
+    seterror(initialState);
+    setSignUpState(initialState);
+    setErrorSubmit("");
+  }, []);
+
   React.useEffect(() => {
    if(status === 2)
     navigate("../signin");
    if(status === 3){
-     console.log(status)
-     console.log(errorFetch);
      setErrorSubmit("Username or email already exist");
    }
   },[status])

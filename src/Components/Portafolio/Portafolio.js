@@ -18,6 +18,7 @@ import SectionRelative from '../../Components/AaaGenerics/Sections/SectionRelati
 import Spinner from '../../Components/AaaGenerics/Loaders/Spinner/Spinner'
 import { FaAngleDown,FaAngleUp } from "react-icons/fa";
 import style from "../Portafolio/Portafolio.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Portafolio(){
 
@@ -29,11 +30,12 @@ export default function Portafolio(){
     const [toOrderAmount, setOrderAmount] = useState(true);
     const [toOrderPriceBtc,setOrderPriceBtc] = useState(true);
     const [toOrderPriceU,setOrderPriceU] = useState(true);
+    const navigate = useNavigate();
     
     useEffect(()=>{
       isAuthenticated && getPortfolio(dispatch, token);
   }, [isAuthenticated])
-  if(!isAuthenticated)return(<p>Forbbiden</p>)
+  if(!isAuthenticated) navigate("/signin")
   // Loadings
   if(
       status===1 ||
