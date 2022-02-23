@@ -29,14 +29,16 @@ function App() {
         secondColor:"#181A20",
         thirdColor:"#474D57",
         textColor:"white",
-        whiteColor:"white"
+        whiteColor:"white",
+        orderColor:"#efb810"
     };
     const themelight = {
-        firstColor:"#F5F5F1",
-        secondColor:"#DEDEDE",
+        secondColor:"#FEF1F2",
+        firstColor:"#DEDEDE",
         thirdColor:"#efb810",
         textColor:"black",
-        whiteColor:"white"
+        whiteColor:"white",
+        orderColor:"white"
     };
 
     let currentTheme = theme?themelight:themeDark;

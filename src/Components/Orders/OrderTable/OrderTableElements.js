@@ -89,7 +89,7 @@ export const ButtonOrder = styled.button`
   outline:0;
   background-color:transparent;
   height:13px;
-  ${props => props.id === props.actual && 'color:var(--gold-color);'}
+  ${props => props.id === props.actual && `color:${props.theme.orderColor};`}
 `
 export const DivButtons = styled.div`
   display:flex;
