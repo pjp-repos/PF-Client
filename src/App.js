@@ -34,7 +34,7 @@ function App() {
     const themelight = {
         firstColor:"#F5F5F1",
         secondColor:"#DEDEDE",
-        thirdColor:"#999999",
+        thirdColor:"#efb810",
         textColor:"black",
         whiteColor:"white"
     };
