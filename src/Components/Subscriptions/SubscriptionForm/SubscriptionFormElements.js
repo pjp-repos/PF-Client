@@ -9,7 +9,7 @@ export const SubscriptionFormWrapper = styled.div`
     flex-direction:column;
     justify-items: center;
     align-items: center;
-    background-color:var(--second-color);
+    background-color:${props => props.theme.secondColor};
 
     @media screen and (max-width:920px){
         width:50%;
@@ -21,13 +21,13 @@ export const SubscriptionFormWrapper = styled.div`
 `;
 
 export const SubscriptionFormLabel = styled.p`
-    color:white;
+    color:${props => props.theme.textColor};
     margin-bottom:1px;
     margin-right:34%;
 `;
 
 export const SubscriptionFormError = styled.p`
-    color:white;
+    color:${props => props.theme.textColor};
     margin-top:-30px;
     color:var(--gold-color);
     font-size:14px;
@@ -40,7 +40,7 @@ export const SubscriptionFormInput = styled(InputSign)`
  
 `;
 export const SubscriptionFormButton = styled(Submit)`
-
+   color:${props => props.theme.textColor};
    width:25%;
    cursor:pointer;
 `;
@@ -70,7 +70,7 @@ align-items:center;
 `
 export const Title = styled.h4`
   font-size:30px;
-  color:var(--text-color);
+  color:${props => props.theme.textColor};
 `
 export const SubTitle = styled.span`
      color:var(--gold-color);

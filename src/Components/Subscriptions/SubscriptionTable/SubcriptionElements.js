@@ -19,7 +19,7 @@ export const InputSymbolsSubs = styled(InputSymbols)`
     margin-top:10px;
  }
  &::placeholder{
-    color:var(--text-color);
+    color:${props => props.theme.textColor};
     font-family:'Montserrat', sans-serif;
     font-size:18px;
     text-align:center;

@@ -18,10 +18,10 @@ export const ContainerSelectTooltip= styled.div`
  }
 `
 export const Select = styled.select`
-   color: var(--text-color);
+   color: ${props => props.theme.textColor};
    width:130px;
    height:40px;
-   background-color: var(--first-color);
+   background-color: ${props => props.theme.firstColor};
    text-align: center;
    cursor:pointer;
    font-family:'Montserrat', sans-serif;
@@ -29,7 +29,7 @@ export const Select = styled.select`
    font-size:18px;
    -webkit-appearance: none;
    transition:0.2s;
-   border:1px solid var(--third-color);
+   border:1px solid ${props => props.theme.thirdColor};
    margin-left:8px;
    border-radius:5px;
 

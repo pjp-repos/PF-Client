@@ -1,13 +1,14 @@
 import React from "react";
 import NavBar from "../Components/Navbar/NavBar";
 import OrderTable from "../Components/Orders/OrderTable/OrderTable"
+import { Div } from "../Components/AaaGenerics/PrincipalDiv";
 
 const OrderTablePage = () => {
     return(
-        <div>
+        <Div>
             <NavBar/>
             <OrderTable />
-        </div>
+        </Div>
     )
  };
  export default OrderTablePage;

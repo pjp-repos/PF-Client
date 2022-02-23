@@ -10,6 +10,7 @@ const flex = styled.div`
 export const ContainerNavbar = styled(flex)`
   height:70px;
   width:100%;
+  background-color:${props => props.theme.firstColor};
   box-shadow: 2px 2px 4px black;   
 `;
 
@@ -60,14 +61,14 @@ margin-right:10px;
 display:block;
 cursor:pointer;
 font-size:18px;
-color:var(--text-color);
+color:${props => props.theme.textColor};
 background-color:transparent;
 border:0;
 outline:0;
 height:40px;
 
 &:hover{
-${props => props.signup ? 'border: 1px solid var(--gold-color); color:var(--gold-color) ': 'border: 1px solid var(--third-color);'};
+${props => props.signup ? 'border: 1px solid var(--gold-color); color:var(--gold-color) ': `border: 1px solid ${props.theme.thirdColor};`};
  border-radius:5px;
 }
 @media screen and (max-width:540px){
@@ -94,7 +95,7 @@ export const OptionsContainer = styled.div`
   align-items:flex-start
   justify-content:center;
   text-align:center;
-  background-color:var(--second-color);
+  background-color:${props => props.theme.secondColor};
   z-index:3;
   top:95%;
   width:150px;
@@ -106,16 +107,16 @@ export const Option =styled.button`
   font-size:15px; 
   background-color:transparent;
   border:0;
-  color:var(--text-color);
+  color:${props => props.theme.textColor};
   font-family:'Montserrat', sans-serif;
   &:hover{
-    background-color:var(--third-color);
+    background-color:${props => props.theme.thirdColor};
     cursor: pointer;
   }
 `;
 export const ImgUser = styled.img`
-height:40px;
-width:40px;
+height:35px;
+width:35px;
 object-fit:cover;
 border-radius:30px;
 @media screen and (max-width:540px){

@@ -17,10 +17,10 @@ export const ContainerFilters= styled.div`
  `
 
 export const InputDate = styled.input`
- color:var(--text-color);
+ color:${props => props.theme.textColor};
  background-color:transparent;
  font-family: 'Montserrat', sans-serif;
- border:0.5px solid var(--third-color);
+ border:0.5px solid ${props => props.theme.thirdColor};
  width:15%;
  padding:5px;
  margin-right:10px;

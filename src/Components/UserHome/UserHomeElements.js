@@ -27,14 +27,14 @@ export const Card = styled.button`
   border:0;
   outline:0;
   cursor:pointer;
-  color:var(--text-color);
   font-family: 'Montserrat', sans-serif;
   &:hover .Img{
-    opacity:0.8;
+    opacity:0.6;
   }
 `
 export const Title = styled.h4`
   position:relative;
+  color:${props => props.theme.whiteColor};
   z-index:2;
 `
 export const Img = styled.img`
@@ -43,7 +43,7 @@ export const Img = styled.img`
   top: 0;
   width: 100%;
   height: 160px;
-  opacity: 0.6;
+  opacity:0.8;
   object-fit:cover;
   border-radius:5px;
 `
@@ -52,8 +52,9 @@ export const Banner = styled.div`
   height:450px;
   margin-top:10px;
   width:100%;
-  background-image:linear-gradient(to bottom left,var(--third-color),var(--second-color),var(--first-color));
+  background-image:linear-gradient(to bottom left,${props => props.theme.thirdColor},${props => props.theme.secondColor},${props => props.theme.firstColor});
   @media screen and (max-width:840px){
+    height:480px;
     flex-direction:column;
     justify-content:center;
     align-items:center;

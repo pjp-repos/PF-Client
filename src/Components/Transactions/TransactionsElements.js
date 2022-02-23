@@ -46,6 +46,7 @@ export const Wallet = styled.button`
 ` 
 export const SelectTransactions = styled(Select)`
   margin-right:50px;
+  background-color: ${props => props.theme.firstColor};
   height:45px;
   @media screen and (max-width:540px){
     margin-right:0;

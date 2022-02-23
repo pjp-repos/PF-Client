@@ -10,6 +10,7 @@ import {
   selectGlobalPricesCurrency
 } from '../Redux/Selectors/selectors';
 import Spinner from '../Components/AaaGenerics/Loaders/Spinner/Spinner';
+import { Div } from '../Components/AaaGenerics/PrincipalDiv';
 
 const CRYPTOS_PER_PAGE = 20;
 
@@ -35,7 +36,7 @@ function Home() {
 
   return (
     
-    <div >
+    <Div >
       <NavBar />
       {status===1
       ?<Spinner />
@@ -45,7 +46,7 @@ function Home() {
         {data.length > 0 && <Pagination totalCryptos = {data.length} cryptosForPage = {CRYPTOS_PER_PAGE} actualPage = {actualPage} setActualPage = {setActualPage} />}
       </>
       }      
-    </div>
+    </Div>
   );
 }
 

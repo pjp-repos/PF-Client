@@ -40,7 +40,7 @@ export const DivInfoOrder = styled(flex)`
 export const OrderContainer = styled(flex)`
 width:35%;
 margin-left: auto;
-background-color:var(--second-color);
+background-color:${props => props.theme.secondColor};
 margin-right:auto;
 min-height:500px;
 flex-direction:column;
@@ -86,11 +86,11 @@ export const SelectSellBuy = styled(Select)`
  &::-webkit-scrollbar {
   -webkit-appearance: none;
   width:5px;
-  background-color: var(--second-color);
+  background-color: ${props => props.theme.secondColor};
 }
 
 &::-webkit-scrollbar-thumb {
-  background-color: var(--text-color);
+  background-color: ${props => props.theme.textColor};
   height: 1px;
 }
 `
@@ -114,7 +114,7 @@ height:280px;
 margin-bottom:10px;
 text-align:center;
 flex-direction:column;
-background-color:rgb(20, 21, 26);
+background-color:${props => props.theme.firstColor};
 border-radius:10px;
 ${props => props.type === "Limit" && `height:340px`};
 `
@@ -124,6 +124,7 @@ export const SubmitOrder = styled(Submit)`
   left:0%;
   cursor:pointer;
   margin-top:34px;
+  color:${props => props.theme.textColor};
   margin-bottom:20px;
   
  `
@@ -148,7 +149,7 @@ export const ButtonOption = styled.button`
    background-color:transparent;
    cursor:pointer;
    font-size:20px;
-   color:var(--text-color);
+   color:${props => props.theme.textColor};
    font-weight:bold;
    font-family: 'Montserrat', sans-serif;
    width:50%;
@@ -156,7 +157,7 @@ export const ButtonOption = styled.button`
    padding:8px;
    ${props => props.actual === props.id && `color:var(--gold-color)`};
    ${props => props.border && props.actual === props.id && `border:1px solid var(--gold-color);width:30%;`};
-   ${props => props.border && props.actual !== props.id && `border:1px solid var(--third-color); color:var(--third-color);width:30%`};
+   ${props => props.border && props.actual !== props.id && `border:1px solid ${props => props.theme.thirdColor}; color:${props => props.theme.thirdColor};width:30%`};
 `
 export const TitleGraphic = styled.h1`
   margin-top:70px;

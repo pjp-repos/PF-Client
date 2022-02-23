@@ -15,11 +15,11 @@ export const ContainerSign = styled.div`
    justifiy-content:center;
    align-items:center;
    margin-top:2%;
-   color: var(--text-color);
+   color: ${props => props.theme.textColor};
    margin-right:auto;
    position:relative;
    min-height:600px;
-   background-color: var(--second-color);
+   background-color:${props => props.theme.secondColor};
    font-family:'Montserrat', sans-serif;
    box-shadow: 4px 4px 8px black;
 
@@ -44,9 +44,9 @@ export const ContainerSign = styled.div`
 
 `
 export const InputSign= styled.input`
-  border: 1px solid  var(--third-color);
+  border: 1px solid  ${props => props.theme.thirdColor};
   border-radius:4px;
-  color: var(--text-color);
+  color: ${props => props.theme.textColor};
   background-color:transparent;
   font-family:'Montserrat', sans-serif;
   outline:0;
@@ -55,10 +55,10 @@ export const InputSign= styled.input`
   height:40px;
 
   &:hover{
-    border:1.5px solid var(--text-color);
+    border:1.5px solid ${props => props.theme.textColor};
  }
  &::placeholder{
-    color:var(--text-color);
+    color:${props => props.theme.textColor};
     font-family:'Montserrat', sans-serif;
 }
 
@@ -73,12 +73,12 @@ export const LabelSign = styled.label`
 `
 
 export const Submit = styled.button`
-  color:white;
+  color:${props => props.theme.textColor};
   margin-top:25px;
   margin-bottom:5px;
   cursor:pointer;
-  background-color:var(--third-color);
-  border:1px solid var(--third-color);
+  background-color:${props => props.theme.thirdColor};
+  border:1px solid ${props => props.theme.thirdColor};
   font-family:'Montserrat', sans-serif;
   width:70%;
   height:45px;
@@ -94,7 +94,7 @@ export const ContainerLogo = styled.div `
 `
 
 export const White = styled.a`
- color:var(--text-color);
+ color:${props => props.theme.textColor};
 
 `
 export const Link = styled.button`

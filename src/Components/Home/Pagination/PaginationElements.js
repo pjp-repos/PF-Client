@@ -13,7 +13,7 @@ export const ButtonPagination = styled.button`
    font-size:18px;
    cursor:pointer;
    margin-left:10px;
-   color:var(--text-color);
+   color:${props => props.theme.textColor};
    outline:0;
    border:0;
    background-color:transparent;
