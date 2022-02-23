@@ -21,7 +21,7 @@ export const OrderGraphics = styled(flex)`
     width:100%;
    }
    
-   @media screen and (max-width:540px){
+   @media screen and (max-width:640px){
     width:100%;
     flex-direction:column; 
    }
