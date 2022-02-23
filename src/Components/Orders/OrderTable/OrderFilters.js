@@ -56,8 +56,10 @@ export const Container = styled.div`
   width:100%;
 `
 export const BtnFilter = styled(Submit)`
+  background-color: var(--third-color);
+  border:1px solid var(--third-color);
   width:60px;
-  ${props => (props.status === true  && `background-color:var(--gold-color)`)};
+  ${props => (props.status === true  && `background-color:var(--gold-color); border 1px solid var(--gold-color)`)};
 `
 export const Label = styled.label`
   margin-left:10px;
