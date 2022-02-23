@@ -15,7 +15,7 @@ export const Rowt = styled(Row)`
   }
 
   @media screen and (max-width:540px){
-    width:190%;
+    width:210%;
   }
 `
 export const ContainerFiltersT = styled(ContainerFilters)`

@@ -4,7 +4,7 @@ export const ContainerSignP = styled.div`
    position:relative;
    width:100%;
    justify-content:center;
-   min-height:100vh;
+   min-height:60vh;
 `
 export const ContainerSign = styled.div`
    width:30%;
@@ -18,7 +18,7 @@ export const ContainerSign = styled.div`
    color: ${props => props.theme.textColor};
    margin-right:auto;
    position:relative;
-   min-height:600px;
+   min-height:400px;
    background-color:${props => props.theme.secondColor};
    font-family:'Montserrat', sans-serif;
    box-shadow: 4px 4px 8px black;

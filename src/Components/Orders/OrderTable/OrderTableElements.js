@@ -11,11 +11,11 @@ export const RowO = styled(Row)`
   grid-gap:0.1%;
 
   @media screen and (max-width:920px){
-    width:170%;
+    width:180%;
   }
   
   @media screen and (max-width:540px){
-    width:340%;
+    width:380%;
   }
 
 `

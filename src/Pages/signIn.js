@@ -67,15 +67,13 @@ export default function SignIn(){
       <ContainerSignP>
        <ContainerSign>
           <Link  size = {25} onClick = {(e) => navigate("../")}><White>Sign In </White>HenryCoin</Link>
-          <ButtonGoogle href = "https://pfapi2.herokuapp.com/login/google"><TextGoogle>Sign In With Google</TextGoogle> <GoogleIcon src="https://img.icons8.com/color/48/000000/google-logo.png" alt = "icon"/></ButtonGoogle>
-          <LabelSign mtop = {7} mb = {7}>Or</LabelSign>
           <LabelSign  right = {40} htmlFor = "username" >Username or email</LabelSign>
           <InputSign  value = {signinState.username} id = "username" onChange={handlerState}/>
-          <Error top = {50} >{errorSigninState.username}</Error>
+          <Error top = {40} >{errorSigninState.username}</Error>
           <LabelSign  right = {54}  htmlFor = "password" top = {58}>Password</LabelSign>
           <InputSign type = "password" autoComplete="on" id = "password" top = {63} value = {signinState.password}  onChange={handlerState} />
-          <Error top = {67} >{errorSigninState.password}</Error>
-          {errorSubmit !== ""  && <Error top = {74} >{errorSubmit}</Error>}
+          <Error top = {65} >{errorSigninState.password}</Error>
+          {errorSubmit !== ""  && <Error top = {72} >{errorSubmit}</Error>}
           <Submit type = "submit" top = {78} onClick = {handlerSubmit}>Sign In</Submit>
           <Link top = {90} left = {24} size = {12}  onClick = {(e) => {
             resetSignInStatus(dispatch);
