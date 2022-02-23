@@ -37,11 +37,11 @@ export const TableP = styled(TableC)`
       -webkit-appearance: none;
       width:5px;
       height:6px;
-      background-color: var(--second-color);
+      background-color: ${props => props.theme.secondColor};
     }
     
     &::-webkit-scrollbar-thumb {
-      background-color: var(--text-color);
+      background-color: ${props => props.theme.textColor};
       height: 1px;
     }
    }
@@ -55,6 +55,6 @@ export const ButtonOrder = styled.button`
   border:0;
   outline:0;
   background-color:transparent;
-  color:var(--text-color);
+  color:${props => props.theme.textColor};
 
 `

@@ -55,7 +55,7 @@ export const DivSubmits= styled.div`
    justify-content:space-evenly;
 ` 
 export const ButtonOption = styled.button`
-   color:white;
+   color:${props => props.theme.textColor};
    cursor:pointer;
    font-size:22px;
    padding:5px;
@@ -93,4 +93,15 @@ export const Label = styled.label`
 export const LabelError = styled.label`
   font-size:12px;
   color: var(--gold-color);
+`
+export const DivTheme = styled.div`
+  display:flex;
+  flex-direction:row;
+  justify-content:space-evenly;
+  align-items:center;
+  ${props => props.actual === false && 'display:none;'}
+`
+export const ButtonTheme = styled(ButtonOption)`
+  height:50px;
+  ${props => props.actual === props.name && ' border: 1px solid var(--gold-color)'}
 `

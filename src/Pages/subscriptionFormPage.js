@@ -1,12 +1,13 @@
 import SubscriptionForm from "../Components/Subscriptions/SubscriptionForm/SubscriptionForm";
 import NavBar from "../Components/Navbar/NavBar";
+import { Div } from "../Components/AaaGenerics/PrincipalDiv";
 
 const SubscriptionFormPage = () => {
     return(
-        <div>
+        <Div>
             <NavBar />
             <SubscriptionForm update={false}/>
-        </div>
+        </Div>
     )
  };
  export default SubscriptionFormPage;

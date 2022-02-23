@@ -17,7 +17,7 @@ export const DropDownContainer = styled("div")`
 
 export const DropDownButton = styled(Button)`
     width: 100%;
-    background-color:#474D57;
+    background-color:${props => props.theme.thirdColor};
     border-bottom-left-radius: ${
         ({show})=>(show ? '0' : '50px' )
     };

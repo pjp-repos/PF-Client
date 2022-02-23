@@ -6,7 +6,7 @@ export const Button = styled.button`
     margin: 25px;
     height: 25px;
     background-color:  var(--gold-color);
-    color: var(--text-color);
+    color: ${props => props.theme.textColor};
     border-radius: 5px;
     border: none;
     width: auto;
@@ -30,11 +30,11 @@ export const TableS = styled(TableC)`
         -webkit-appearance: none;
         width:5px;
         height:6px;
-        background-color: var(--second-color);
+        background-color: ${props => props.theme.secondColor};
       }
       
       &::-webkit-scrollbar-thumb {
-        background-color: var(--text-color);
+        background-color: ${props => props.theme.textColor};
         height: 1px;
       }
    }

@@ -1,13 +1,14 @@
 import React from "react";
 import UserHome from "../Components/UserHome/UserHome";
 import NavBar from "../Components/Navbar/NavBar";
+import { Div } from "../Components/AaaGenerics/PrincipalDiv";
 
 const AuthHome = () => {
     return(
-        <div>
+        <Div>
             <NavBar / >
             <UserHome/>
-        </div>
+        </Div>
     )
  };
  export default AuthHome;

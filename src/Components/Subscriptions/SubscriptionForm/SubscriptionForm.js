@@ -298,9 +298,6 @@ const SubscriptionForm = () => {
                 </SubscriptionFormError>
             </InputBlock>
             <SubscriptionFormBlock>
-                <SubscriptionFormButton onClick={handleReset}>
-                    Clear fields
-                </SubscriptionFormButton>
                 <SubscriptionFormButton onClick={handleCancel}>
                     Close
                 </SubscriptionFormButton> 

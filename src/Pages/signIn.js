@@ -8,6 +8,7 @@ import {
 } from '../Redux/Actions/actionCreators';
 import {selectSignInStatus} from '../Redux/Selectors/selectors';
 import { useSelector, useDispatch } from 'react-redux';
+import { Div } from "../Components/AaaGenerics/PrincipalDiv";
 
 const initialState = {
   username: "",
@@ -56,7 +57,8 @@ export default function SignIn(){
   }
   
   return (
-    <ContainerSignP>
+    <Div>
+      <ContainerSignP>
        <ContainerSign>
           <Link  size = {25} onClick = {(e) => navigate("../")}><White>Sign In </White>HenryCoin</Link>
           <ButtonGoogle href = "https://pfapi2.herokuapp.com/login/google"><TextGoogle>Sign In With Google</TextGoogle> <GoogleIcon src="https://img.icons8.com/color/48/000000/google-logo.png" alt = "icon"/></ButtonGoogle>
@@ -70,7 +72,10 @@ export default function SignIn(){
           {errorSubmit !== ""  && <Error top = {74} >{errorSubmit}</Error>}
           <Submit type = "submit" top = {78} onClick = {handlerSubmit}>Sign In</Submit>
           <Link top = {90} left = {24} size = {12}  onClick = {(e) => navigate("../signup")} > <White>Don't have an account ?</White> /SignUp</Link>
-      </ContainerSign>
-    </ContainerSignP>
+       </ContainerSign>
+      </ContainerSignP>
+
+    </Div>
+    
   )
 }

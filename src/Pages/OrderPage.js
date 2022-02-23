@@ -1,14 +1,15 @@
 import React from "react";
 import Order from "../Components/Orders/Order"
 import NavBar from "../Components/Navbar/NavBar";
+import { Div } from "../Components/AaaGenerics/PrincipalDiv";
 
 
 const OrderPage = () => {
     return(
-        <div>
+        <Div>
             <NavBar />
             <Order />
-        </div>
+        </Div>
     )
  };
  export default OrderPage;

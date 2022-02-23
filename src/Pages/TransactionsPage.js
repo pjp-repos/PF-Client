@@ -1,11 +1,12 @@
 import React from "react";
 import Transactions from "../Components/Transactions/Transactions";
+import { Div } from "../Components/AaaGenerics/PrincipalDiv";
 
 const TransactionsPage = () => {
     return(
-        <div>
+        <Div>
             <Transactions/>
-        </div>
+        </Div>
     )
  };
  export default TransactionsPage;

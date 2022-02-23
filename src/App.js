@@ -25,12 +25,18 @@ function App() {
     const theme = useSelector(selectSessionTheme);
 
     const themeDark = {
-        fc: "white",
-        bg: "black"
+        firstColor:"rgb(20, 21, 26)",
+        secondColor:"#181A20",
+        thirdColor:"#474D57",
+        textColor:"white",
+        whiteColor:"white"
     };
     const themelight = {
-        fc: "black",
-        bg: "white",
+        firstColor:"#F5F5F1",
+        secondColor:"#DEDEDE",
+        thirdColor:"#efb810",
+        textColor:"black",
+        whiteColor:"white"
     };
 
     let currentTheme = theme?themelight:themeDark;

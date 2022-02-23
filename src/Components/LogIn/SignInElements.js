@@ -8,9 +8,9 @@ export const ButtonGoogle = styled.a`
     width:70%;
     height:45px;
     text-align:center;
-    color:var(--text-color);
+    color:${props => props.theme.textColor};
     background-color:transparent;
-    border: 1px solid var(--third-color);
+    border: 1px solid ${props => props.theme.thirdColor};
     border-radius:4px;
     text-decoration:none;
     &:hover{
