@@ -118,11 +118,17 @@ background-color:${props => props.theme.firstColor};
 border-radius:10px;
 ${props => props.type === "Limit" && `height:340px`};
 `
+export const DivBtn = styled.div`
+ display:flex;
+ width:90%;
+ justify-content:space-evenly
+`
 export const SubmitOrder = styled(Submit)`
   position:relative;
   display:block;
   left:0%;
   cursor:pointer;
+  width:40%;
   margin-top:34px;
   color:${props => props.theme.textColor};
   margin-bottom:20px;

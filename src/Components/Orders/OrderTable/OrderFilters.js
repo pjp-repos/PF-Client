@@ -68,9 +68,12 @@ export const Label = styled.label`
 `
 export const DivBtnFilter = styled.div`
   display:flex;
-  justify-content:flex-end;
+  margin-left:auto;
+  margin-right:auto;
+  flex-direction:row;
+  justify-content:space-between;
   align-items:flex-end;
-  width:98%;
+  width:92%;
 `
 
 export const DivInputFilters = styled.div`
@@ -86,4 +89,10 @@ export const DivInputFilters = styled.div`
      flex-direction:column;
   }
 
+`
+export const BtnRefresh = styled.div`
+ border:0;
+ outline:0;
+ background-color:transparent;
+ cursor:pointer; 
 `

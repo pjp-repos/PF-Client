@@ -10,7 +10,7 @@ export const TableC = styled.div`
   margin-left: auto;
   min-height: 60vh;
 
-  @media screen and (max-width:540px){
+  @media screen and (max-width:920px){
     overflow-x:scroll;
     overflow-y:hidden;
     &::-webkit-scrollbar {

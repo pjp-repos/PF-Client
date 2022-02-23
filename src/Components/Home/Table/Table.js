@@ -14,7 +14,6 @@ export default function Table({cryptos}){
   const order = useSelector(selectGlobalPricesOrder);
 
   const handlerOrder = (keyValue) => {
-    console.log(keyValue);
     sortPrices(dispatch,keyValue); 
     //getGlobalPrices(dispatch,currency);   
   }

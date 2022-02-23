@@ -18,7 +18,7 @@ export const ContainerSearch = styled.div`
   height:40px;
   margin-top:20px;
   border-radius:20px;
-  margin-right:30px;
+  margin-right:70px;
 
   &:hover{
     border:1.5px solid rgba(236, 238, 247, 0.8);
@@ -26,6 +26,7 @@ export const ContainerSearch = styled.div`
  @media screen and (max-width:540px){
    margin-right:auto;
    margin-left:auto;
+   margin-bottom:20px;
 }
 
 `

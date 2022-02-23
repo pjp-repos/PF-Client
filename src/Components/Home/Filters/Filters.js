@@ -1,5 +1,6 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
+import refresh from "../../../Assets/refresh.png"
 
 import {
   getGlobalPrices, 
@@ -17,6 +18,7 @@ import { ButtonSearch,ContainerSearch,InputSearch } from "./SearchBar/SearchBarE
 import { Select,ContainerSelectTooltip } from "./Selects/SelectElements";
 import { ContainerFilters } from "./ContainerFilters";
 import { Tooltip } from "../../AaaGenerics/Tooltip/Tooltip";
+import { BtnRefresh } from "../../Orders/OrderTable/OrderFilters";
 
 export default function Filters(){
 
@@ -58,6 +60,9 @@ export default function Filters(){
           <InputSearch placeholder="Search for symbol" value = {filter.symbol} onChange = {handlerFilter}/>
           <ButtonSearch><span className="material-icons-outlined">search</span></ButtonSearch>
        </ContainerSearch>
+       <BtnRefresh onClick = { (e) => getGlobalPrices(dispatch,currency)}>
+         <img alt = "refresh" height = "35px" src = {refresh}/>
+       </BtnRefresh>
     </ContainerFilters>
   )
 }
