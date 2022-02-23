@@ -76,8 +76,7 @@ const SubscriptionTable = () => {
 
     },[isAuthenticated]);
 
-    const resetTable = () => {
-        setCurrentSortKey("");
+    const refreshTable = () => {
         getSubscriptions(dispatch, token);
     }
     
@@ -182,7 +181,7 @@ const SubscriptionTable = () => {
                   <BannerImg className = "Img" src =  "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt = "banner" />
                 </BannerOrder>
             </DivBanner>
-            <SubscriptionFilters resetTable={resetTable}/>            
+            <SubscriptionFilters refreshTable={refreshTable}/>            
            <TableS>                               
                 <RowS head='head'>
 

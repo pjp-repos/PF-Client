@@ -69,9 +69,8 @@ export default function OrderTable(){
     }
   },[isAuthenticated]);
 
-  const resetTable = () => {
-        setCurrentSortKey("");
-        getOrders(dispatch,token);
+  const refreshTable = () => {
+      getOrders(dispatch,token);
   }
 
   const handlerDelete = (e) => {
@@ -187,7 +186,7 @@ export default function OrderTable(){
             <BannerImg className = "Img" src =  "https://images.unsplash.com/photo-1631603090989-93f9ef6f9d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80" alt = "banner" />
           </BannerOrder>
          </DivBanner>
-         <OrderFilters resetTable={resetTable}  />
+         <OrderFilters refreshTable={refreshTable}  />
        <TableO>
             <RowO head>
                 <Column>Id</Column> 

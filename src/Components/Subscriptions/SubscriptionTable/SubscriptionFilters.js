@@ -12,7 +12,7 @@ const initialState = {
     alertOnRise:"",
     alertOnFall:"",
 }
-export default function SubscriptionFilters({resetTable}){
+export default function SubscriptionFilters({refreshTable}){
     const dispatch = useDispatch();
     const [btnFilter,setBtnFilter] = React.useState(false);
 
@@ -33,10 +33,8 @@ export default function SubscriptionFilters({resetTable}){
         filterSubscriptions(dispatch,newFilterForm);
     };
 
-    const reset = () => {
-        filterForm(initialState);
-        filterSubscriptions(dispatch,initialState);
-        resetTable();
+    const refresh = () => {
+        refreshTable();
     }
        
     return (
@@ -45,7 +43,7 @@ export default function SubscriptionFilters({resetTable}){
                <BtnFilter status = {btnFilter} onClick = {(e) => setBtnFilter(!btnFilter)}>
                <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 0 24 24" width="36px" fill="#FFFFFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/></svg>
                </BtnFilter> 
-               <BtnRefresh onClick={reset}>
+               <BtnRefresh onClick={refresh}>
                    <img height = "45px" src = {refresh} alt = "refresh" />
                </BtnRefresh>
             </DivBtnFilter>

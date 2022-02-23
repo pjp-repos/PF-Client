@@ -10,7 +10,7 @@ const initialState = {
     dateFrom:"",
     dateTo:"",
 };
-export default function OrderFilters({resetTable}){
+export default function OrderFilters({refreshTable}){
     const dispatch = useDispatch();
     const [btnFilter,setBtnFilter] = React.useState(false);
 
@@ -27,8 +27,7 @@ export default function OrderFilters({resetTable}){
    }
 
    const resetAll = () => {
-       reset();
-       resetTable();
+       refreshTable();
    }
 
    
