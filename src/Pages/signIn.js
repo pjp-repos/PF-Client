@@ -1,6 +1,6 @@
 import React from "react";
 import { ContainerSignP, ContainerSign,InputSign,LabelSign,Submit,White,Link,Error} from "../Components/LogIn/SignElements";
-import { ButtonGoogle ,GoogleIcon,TextGoogle} from "../Components/LogIn/SignInElements";
+import Spinner from "../Components/AaaGenerics/Loaders/Spinner/Spinner";
 import {useNavigate} from "react-router-dom";
 import { validateSignIn,validateSubmit } from "../Components/LogIn/ValidateLogin";
 import {
@@ -40,6 +40,10 @@ export default function SignIn(){
     }
   }, [status])
 
+  if(
+    status === 1
+) return <Spinner/> 
+
   const handlerState = (e) => {
 
        setSignInState({
@@ -67,10 +71,10 @@ export default function SignIn(){
       <ContainerSignP>
        <ContainerSign>
           <Link  size = {25} onClick = {(e) => navigate("../")}><White>Sign In </White>HenryCoin</Link>
-          <LabelSign  right = {40} htmlFor = "username" >Username or email</LabelSign>
+          <LabelSign   htmlFor = "username" >Username or email</LabelSign>
           <InputSign  value = {signinState.username} id = "username" onChange={handlerState}/>
           <Error top = {40} >{errorSigninState.username}</Error>
-          <LabelSign  right = {54}  htmlFor = "password" top = {58}>Password</LabelSign>
+          <LabelSign  htmlFor = "password" top = {58}>Password</LabelSign>
           <InputSign type = "password" autoComplete="on" id = "password" top = {63} value = {signinState.password}  onChange={handlerState} />
           <Error top = {65} >{errorSigninState.password}</Error>
           {errorSubmit !== ""  && <Error top = {72} >{errorSubmit}</Error>}

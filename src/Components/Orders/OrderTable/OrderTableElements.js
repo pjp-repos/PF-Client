@@ -15,7 +15,7 @@ export const RowO = styled(Row)`
   }
   
   @media screen and (max-width:540px){
-    width:380%;
+    width:600%;
   }
 
 `

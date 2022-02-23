@@ -68,7 +68,6 @@ export const LabelSign = styled.label`
   display:block;
   margin-bottom:3px;
   font-size:15px;
-  ${props => (props.right && `margin-right:${props.right}%`)};
   ${props => (props.mtop && props.mb && `margin-top:${props.mtop}%;margin-bottom:${props.mb}%;`)};
 `
 

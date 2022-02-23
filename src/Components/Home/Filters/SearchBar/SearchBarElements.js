@@ -27,7 +27,7 @@ export const ContainerSearch = styled.div`
    margin-right:auto;
    margin-left:auto;
    margin-bottom:20px;
-}
+   width:220px;
 
 `
 
