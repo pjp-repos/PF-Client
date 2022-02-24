@@ -45,7 +45,7 @@ export default function TransactionsTable({transactionsUser}){
             </Rowt>
            
             {
-              transactionsUser.length > 0  && transactionsUser.map(transaction=><Rowt >
+              transactionsUser.length > 0  && transactionsUser.map(transaction=><Rowt key = {transaction.id}>
               <Column>{transaction.id}</Column>
               <Column>{transaction.orderId}</Column>
               <Column><img src={transaction.image} height='20px'/>{transaction.symbol}</Column>

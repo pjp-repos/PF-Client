@@ -4,4 +4,12 @@
     flex-wrap: nowrap;
     justify-content: space-around;
     align-items: center;
+
 }
+
+@media screen and (max-width:540px){
+    .text{
+        flex-direction: column;
+    }
+   }
+

@@ -40,7 +40,6 @@ export default function Transactions(){
     const [actualPage, setActualPage] = useState(1);
     let topRows = ROWS_PER_PAGE * actualPage ;
     let initialRows = topRows - ROWS_PER_PAGE;
-	const [currentSortKey, setCurrentSortKey] = useState("");
 	const [filterForm, setFilterForm] = useState(initialState);
 
     // Redux
