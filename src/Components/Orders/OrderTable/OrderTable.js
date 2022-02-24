@@ -229,7 +229,7 @@ export default function OrderTable(){
               <Column>{orderItem.price % 1 !== 0 ? orderItem.price.toFixed(6) : orderItem.price}</Column>
               <Column >{orderItem.priceLimit % 1 !== 0 ? orderItem.priceLimit.toFixed(5) : orderItem.priceLimit}</Column>
               <Column >{orderItem.buyOrder === true ? "Buy" : "Sell"}</Column>
-              <Column >{orderItem.sendOnPending === true ? "Pending" : orderItem.sendOnFullfiled === true ? "Fullfilled" : "Pending"}</Column>
+              <Column >{orderItem.sendOnPending === true ? "Pending" : orderItem.sendOnFullfiled === true ? "Fullfilled" : "Rejected"}</Column>
               <Column >{orderItem.date}</Column>
                 {
                   orderItem.sendOnPending === true && orderItem.marketOrder === false ?
