@@ -44,7 +44,7 @@ export default function Settings({setIsOpen,isOpen}) {
   const [errorPasswordForm,setErrorPasswordForm] = React.useState(errorPasswordFormInitial);
   const settings = useSelector(selectSettingsAll);
   const settingsImg = useSelector(selectSessionImage);
-  const [userName, token, isAuthenticated, email] = useSelector(selectSessionAll);
+  const [ token] = useSelector(selectSessionAll);
   const theme = useSelector(selectSessionTheme);
   const dispatch = useDispatch();
 

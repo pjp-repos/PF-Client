@@ -144,7 +144,6 @@ export default function Order(){
     // === RENDERS ============================================
 
     // === Authenticated ===
-    if(!isAuthenticated)return<p>Forbbiden</p>
 
     // === Loadings ===
     if(
