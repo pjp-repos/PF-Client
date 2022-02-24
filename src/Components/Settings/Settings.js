@@ -44,7 +44,7 @@ export default function Settings({setIsOpen,isOpen}) {
   const [errorPasswordForm,setErrorPasswordForm] = React.useState(errorPasswordFormInitial);
   const settings = useSelector(selectSettingsAll);
   const settingsImg = useSelector(selectSessionImage);
-  const [ token] = useSelector(selectSessionAll);
+  const [userName, token, isAuthenticated, email]  = useSelector(selectSessionAll);
   const theme = useSelector(selectSessionTheme);
   const dispatch = useDispatch();
 
@@ -110,7 +110,7 @@ export default function Settings({setIsOpen,isOpen}) {
     }
 
     const handlerTheme = (key, value) => {
-         toggleTheme(dispatch);
+         toggleTheme(dispatch,value === "dark" ? false : true);
          handlerStateForm(key,value);
     }
 
