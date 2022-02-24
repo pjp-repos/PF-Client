@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Label,LabelError,InputPassword,DivInputs,HeadDiv,ButtonTheme,Container,DivTheme,ButtonOption,DivEditDelete,DivImgBtn,InputPic,Img,BtnSubmit,DivSubmits,ImageDiv} from "./SettingsElements";
 import { postSettings ,resetSettingsStatus,toggleTheme} from "../../Redux/Actions/actionCreators";
 import { selectSettingsAll,selectSessionImage,selectSessionAll,selectSessionTheme} from "../../Redux/Selectors/selectors";
+import Spinner from "../AaaGenerics/Loaders/Spinner/Spinner";
 
 //import Container from '../theme/components/container';
 import { useSelector, useDispatch } from 'react-redux';
@@ -68,6 +69,10 @@ export default function Settings({setIsOpen,isOpen}) {
       setErrorSubmit(settings[2].errorMessage)
       resetSettingsStatus(dispatch);
     },[settings[1] === 3])
+
+    if(
+      settings[1] === 1
+  ) return <Spinner/> 
 
     const onChangePicture = e => {
       let file = e.target.files[0];

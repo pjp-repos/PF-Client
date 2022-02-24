@@ -7,7 +7,7 @@ export const DivGraphic= styled.div`
   margin-top:80px;
   height:350px;
   @media screen and (max-width:540px){
-    width:95%; 
+    width:100%; 
     margin-top:0px;
     height:200px;
    }
