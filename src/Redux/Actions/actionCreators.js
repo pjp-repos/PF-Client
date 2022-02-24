@@ -205,7 +205,7 @@ export const getSingOut = (dispatch, token) =>{
     ]);
     
 };
-export const toggleTheme = (dispatch)=>dispatch({type:SET_SESSION_THEME,payload:0});
+export const toggleTheme = (dispatch,value)=>dispatch({type:SET_SESSION_THEME,payload:value});
 
 // ==== SUBSCRIPTIONS ==============================================================================
 

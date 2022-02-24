@@ -565,7 +565,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 session:{
                     ...state.session,
-                    theme:!state.session.theme,
+                    theme:action.payload,
                 }
             }
 
